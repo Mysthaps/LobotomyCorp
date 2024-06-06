@@ -10,10 +10,10 @@ local joker = {
     loc_txt = {
         name = "The Queen of Hatred",
         text = {
-            "{X:red,C:white} X#1# {} Mult",
-            "{C:attention}(#2#/3){} If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+            "{C:attention}(#2#/2){} {X:red,C:white} X#1# {} Mult",
+            "{C:attention}(#3#/3){} If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
             "this Abnormality enters {C:attention}Hysteria{}",
-            "{C:attention}(#3#/7){} At {X:red,C:white} X1 {} Mult, destroys itself",
+            "{C:attention}(#4#/7){} At {X:red,C:white} X1 {} Mult, destroys itself",
             "and permanent {X:red,C:white} X2 {} Blind Size"
         }
     },
@@ -32,18 +32,26 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_1", {
         name = "O-01-04",
         text = {
-            "{X:red,C:white} X#1# {} Mult",
-            "{C:attention}(#2#/3){} ...",
-            "{C:attention}(#3#/7){} ...",
+            "{C:attention}(#2#/2){} ...",
+            "{C:attention}(#3#/3){} ...",
+            "{C:attention}(#4#/7){} ...",
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_2", {
         name = "O-01-04",
         text = {
-            "{X:red,C:white} X#1# {} Mult",
-            "{C:attention}(#2#/3){} If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+            "{C:attention}(#2#/2){} {X:red,C:white} X#1# {} Mult",
+            "{C:attention}(#3#/3){} ...",
+            "{C:attention}(#4#/7){} ...",
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_3", {
+        name = "O-01-04",
+        text = {
+            "{C:attention}(#2#/2){} {X:red,C:white} X#1# {} Mult",
+            "{C:attention}(#3#/3){} If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
             "this Abnormality enters {C:attention}Hysteria{}",
-            "{C:attention}(#3#/7){} ...",
+            "{C:attention}(#4#/7){} ...",
         }
     })
 end
@@ -96,14 +104,16 @@ joker.calculate = function(self, card, context)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.x_mult, card:check_rounds(3), card:check_rounds(7) }
+    local vars = { card.ability.extra.x_mult, card:check_rounds(2), card:check_rounds(3), card:check_rounds(7) }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
+    if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
+    elseif card:check_rounds(3) < 3 then
+        desc_key = 'dis_'..desc_key..'_2'
     else
         info_queue[#info_queue+1] = {key = 'lobc_hysteria', set = 'Other'}
         if card:check_rounds(7) < 7 then
-            desc_key = 'dis_'..desc_key..'_2'
+            desc_key = 'dis_'..desc_key..'_3'
         end
     end
     

@@ -10,11 +10,11 @@ local joker = {
     loc_txt = {
         name = "Red Shoes",
         text = {
-            "Played cards permanently gain",
+            "{C:attention}(#2#/2){} Played cards permanently gain",
             "{C:chips}+#1#{} Chips when scored",
-            "{C:attention}(#2#/3){} When {C:attention}Blind{} is selected, forces",
+            "{C:attention}(#3#/3){} When {C:attention}Blind{} is selected, forces",
             "{C:attention}3{} cards to always be selected",
-            "{C:attention}(#3#/7){} Destroys scored cards with",
+            "{C:attention}(#4#/7){} Destroys scored cards with",
             "{C:chips}50{} or more bonus Chips"
         }
     },
@@ -32,20 +32,28 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_1", {
         name = "O-04-08",
         text = {
-            "Played cards permanently gain",
-            "{C:chips}+#1#{} Chips when scored",
-            "{C:attention}(#2#/3){} ...",
-            "{C:attention}(#3#/7){} ..."
+            "{C:attention}(#2#/2){} ...",
+            "{C:attention}(#3#/3){} ...",
+            "{C:attention}(#4#/7){} ..."
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_2", {
         name = "O-04-08",
         text = {
-            "Played cards permanently gain",
+            "{C:attention}(#2#/2){} Played cards permanently gain",
             "{C:chips}+#1#{} Chips when scored",
-            "{C:attention}(#2#/3){} When {C:attention}Blind{} is selected, forces",
+            "{C:attention}(#3#/3){} ...",
+            "{C:attention}(#4#/7){} ..."
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_3", {
+        name = "O-04-08",
+        text = {
+            "{C:attention}(#2#/2){} Played cards permanently gain",
+            "{C:chips}+#1#{} Chips when scored",
+            "{C:attention}(#3#/3){} When {C:attention}Blind{} is selected, forces",
             "{C:attention}3{} cards to always be selected",
-            "{C:attention}(#3#/7){} ..."
+            "{C:attention}(#4#/7){} ..."
         }
     })
 end
@@ -101,12 +109,14 @@ joker.calculate = function(self, card, context)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.gain, card:check_rounds(3), card:check_rounds(7) }
+    local vars = { card.ability.extra.gain, card:check_rounds(2), card:check_rounds(3), card:check_rounds(7) }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
+    if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(7) < 7 then
+    elseif card:check_rounds(3) < 3 then
         desc_key = 'dis_'..desc_key..'_2'
+    elseif card:check_rounds(7) < 7 then
+        desc_key = 'dis_'..desc_key..'_3'
     end
 
     if not card.config.center.discovered then

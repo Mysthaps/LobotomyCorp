@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face The Fear, Build The Future. Most art is from Lobotomy Corporation by Project Moon.
 --- DISPLAY_NAME: Lobotomy Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.1.0
+--- VERSION: 0.1.1
 
 -- To disable a Joker, comment it out by adding -- at the start of the line.
 local joker_list = {
@@ -154,7 +154,7 @@ end
 -- Remove Queen of Hatred's sell button
 local can_sell_cardref = Card.can_sell_card
 function Card.can_sell_card(self, context)
-    if self.ability and self.ability.extra and self.ability.extra.hysteria then
+    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
         return false
     end
     return can_sell_cardref(self, context)

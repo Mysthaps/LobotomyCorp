@@ -6,13 +6,13 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
-    discover_rounds = 3,
+    discover_rounds = 4,
     loc_txt = {
         name = "Theresia",
         text = {
-            "This Abnormality gains",
+            "{C:attention}(#3#/2){} This Abnormality gains",
             "{C:chips}+#2#{} Chips each hand",
-            "{C:attention}(#3#/3){} After the third hand played,",
+            "{C:attention}(#4#/4){} After the third hand played,",
             "debuffs all {C:attention}playing cards{}",
             "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
         }
@@ -30,12 +30,19 @@ joker.process_loc_text = function(self)
             "were sleepy. Happy birthday.\""
         }
     })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_theresia", {
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_theresia_1", {
         name = "F-01-02",
         text = {
-            "This Abnormality gains",
+            "{C:attention}(#3#/2){} ...",
+            "{C:attention}(#4#/4){} ...",
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_theresia_2", {
+        name = "F-01-02",
+        text = {
+            "{C:attention}(#3#/2){} This Abnormality gains",
             "{C:chips}+#2#{} Chips each hand",
-            "{C:attention}(#3#/3){} ...",
+            "{C:attention}(#4#/4){} ...",
             "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
         }
     })
@@ -79,10 +86,12 @@ joker.calculate = function(self, card, context)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.chips, card.ability.extra.gain, card:check_rounds(3) }
+    local vars = { card.ability.extra.chips, card.ability.extra.gain, card:check_rounds(2), card:check_rounds(4) }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key
+    if card:check_rounds(2) < 2 then
+        desc_key = 'dis_'..desc_key..'_1'
+    elseif card:check_rounds(4) < 4 then
+        desc_key = 'dis_'..desc_key..'_2'
     end
 
     if not card.config.center.discovered then

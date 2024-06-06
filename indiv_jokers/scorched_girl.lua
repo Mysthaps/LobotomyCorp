@@ -1,17 +1,17 @@
 local joker = {
     name = "Scorched Girl",
-    config = {extra = 20}, rarity = 2, cost = 5,
+    config = {extra = 30}, rarity = 2, cost = 5,
     pos = {x = 1, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
-    discover_rounds = 3,
+    discover_rounds = 4,
     loc_txt = {
         name = "Scorched Girl",
         text = {
-            "{C:attention}-#1#%{} Blind Size",
-            "{C:attention}(#2#/3){} Debuffs first hand drawn"
+            "{C:attention}(#2#/2){} {C:attention}-#1#%{} Blind Size",
+            "{C:attention}(#3#/4){} Debuffs first hand drawn"
         }
     },
 }
@@ -26,11 +26,18 @@ joker.process_loc_text = function(self)
             "to ashes like me."
         }
     })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_scorched_girl", {
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_scorched_girl_1", {
         name = "F-01-02",
         text = {
-            "{C:attention}-#1#%{} Blind Size",
-            "{C:attention}(#2#/3){} ..."
+            "{C:attention}(#2#/2){} ...",
+            "{C:attention}(#3#/4){} ..."
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_scorched_girl_2", {
+        name = "F-01-02",
+        text = {
+            "{C:attention}(#2#/2){} {C:attention}-#1#%{} Blind Size",
+            "{C:attention}(#3#/4){} ..."
         }
     })
 end
@@ -67,10 +74,12 @@ joker.calculate = function(self, card, context)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra, card:check_rounds(3) }
+    local vars = { card.ability.extra, card:check_rounds(2), card:check_rounds(4) }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key
+    if card:check_rounds(2) < 2 then
+        desc_key = 'dis_'..desc_key..'_1'
+    elseif card:check_rounds(4) < 4 then
+        desc_key = 'dis_'..desc_key..'_2'
     end
 
     if not card.config.center.discovered then

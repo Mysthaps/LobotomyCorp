@@ -10,10 +10,10 @@ local joker = {
     loc_txt = {
         name = "Punishing Bird",
         text = {
-            "{C:mult}+#1#{} Mult",
-            "{C:attention}(#3#/3){} This Abnormality gains",
+            "{C:attention}(#3#/2){} {C:mult}+#1#{} Mult",
+            "{C:attention}(#4#/4){} This Abnormality gains",
             "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-            "{C:attention}(#4#/8){} If this Abnormality is {C:attention}sold{},",
+            "{C:attention}(#5#/8){} If this Abnormality is {C:attention}sold{},",
             "immediately {C:attention}lose{} the game",
             "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
         }
@@ -34,18 +34,26 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_1", {
         name = "F-01-02",
         text = {
-            "{C:mult}+#1#{} Mult",
-            "{C:attention}(#3#/3){} ...",
-            "{C:attention}(#4#/8){} ...",
+            "{C:attention}(#3#/2){} ...",
+            "{C:attention}(#4#/4){} ...",
+            "{C:attention}(#5#/8){} ...",
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_2", {
         name = "F-01-02",
         text = {
-            "{C:chips}+#1#{} Mult",
-            "{C:attention}(#3#/3){} This Abnormality gains",
+            "{C:attention}(#3#/2){} {C:mult}+#1#{} Mult",
+            "{C:attention}(#4#/4){} ...",
+            "{C:attention}(#5#/8){} ...",
+        }
+    })
+    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_3", {
+        name = "F-01-02",
+        text = {
+            "{C:attention}(#3#/2){} {C:mult}+#1#{} Mult",
+            "{C:attention}(#4#/4){} This Abnormality gains",
             "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-            "{C:attention}(#4#/8){} ...",
+            "{C:attention}(#5#/8){} ...",
             "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
         }
     })
@@ -78,12 +86,14 @@ joker.calculate = function(self, card, context)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card.ability.extra.rounds_played, card:check_rounds(3), card:check_rounds(8) }
+    local vars = { card.ability.extra.mult, card.ability.extra.rounds_played, card:check_rounds(2), card:check_rounds(4), card:check_rounds(8) }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
+    if card:check_rounds(3) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(8) < 8 then
+    elseif card:check_rounds(4) < 4 then
         desc_key = 'dis_'..desc_key..'_2'
+    elseif card:check_rounds(8) < 8 then
+        desc_key = 'dis_'..desc_key..'_3'
     end
 
     if not card.config.center.discovered then
