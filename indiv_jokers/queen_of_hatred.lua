@@ -12,7 +12,7 @@ local joker = {
         text = {
             "{X:red,C:white} X#1# {} Mult",
             "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
-            "this Abnormality enters {C:attention}Hysteria{}",
+            "{C:attention}O-01-04{} enters {C:attention}Hysteria{}",
             "At {X:red,C:white} X1 {} Mult, destroys itself",
             "and permanent {X:red,C:white} X2 {} Blind Size"
         }
@@ -50,7 +50,7 @@ joker.process_loc_text = function(self)
         text = {
             "{X:red,C:white} X#1# {} Mult",
             "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
-            "this Abnormality enters {C:attention}Hysteria{}",
+            "{C:attention}O-01-04{} enters {C:attention}Hysteria{}",
             "{C:attention}(#4#/7){} ...",
         }
     })

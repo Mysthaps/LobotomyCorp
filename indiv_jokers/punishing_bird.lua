@@ -11,9 +11,9 @@ local joker = {
         name = "Punishing Bird",
         text = {
             "{C:mult}+#1#{} Mult",
-            "This Abnormality gains",
+            "{C:attention}O-02-56{} gains",
             "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-            "If this Abnormality is {C:attention}sold{},",
+            "If {C:attention}O-02-56{} is {C:attention}sold{},",
             "immediately {C:attention}lose{} the game",
             "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
         }
@@ -32,7 +32,7 @@ joker.process_loc_text = function(self)
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_1", {
-        name = "F-01-02",
+        name = "O-02-56",
         text = {
             "{C:attention}(#3#/2){} ...",
             "{C:attention}(#4#/4){} ...",
@@ -40,7 +40,7 @@ joker.process_loc_text = function(self)
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_2", {
-        name = "F-01-02",
+        name = "O-02-56",
         text = {
             "{C:mult}+#1#{} Mult",
             "{C:attention}(#4#/4){} ...",
@@ -48,10 +48,10 @@ joker.process_loc_text = function(self)
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_3", {
-        name = "F-01-02",
+        name = "O-02-56",
         text = {
             "{C:mult}+#1#{} Mult",
-            "This Abnormality gains",
+            "{C:attention}O-02-56{} gains",
             "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
             "{C:attention}(#5#/8){} ...",
             "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
