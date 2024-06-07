@@ -70,7 +70,9 @@ joker.calculate = function(self, card, context)
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
         card.ability.extra.rounds_played = card.ability.extra.rounds_played + 1
         if card.ability.extra.rounds_played == 6 then
-            card:set_edition({negative = true})
+            if not card.edition or (card.edition and not card.edition.negative) then
+                card:set_edition({negative = true})
+            end
         end
     end
 
