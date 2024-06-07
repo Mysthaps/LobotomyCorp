@@ -10,11 +10,11 @@ local joker = {
     loc_txt = {
         name = "Red Shoes",
         text = {
-            "{C:attention}(#2#/2){} Played cards permanently gain",
+            "Played cards permanently gain",
             "{C:chips}+#1#{} Chips when scored",
-            "{C:attention}(#3#/3){} When {C:attention}Blind{} is selected, forces",
+            "When {C:attention}Blind{} is selected, forces",
             "{C:attention}3{} cards to always be selected",
-            "{C:attention}(#4#/7){} Destroys scored cards with",
+            "Destroys scored cards with",
             "{C:chips}50{} or more bonus Chips"
         }
     },
@@ -40,7 +40,7 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_2", {
         name = "O-04-08",
         text = {
-            "{C:attention}(#2#/2){} Played cards permanently gain",
+            "Played cards permanently gain",
             "{C:chips}+#1#{} Chips when scored",
             "{C:attention}(#3#/3){} ...",
             "{C:attention}(#4#/7){} ..."
@@ -49,9 +49,9 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_3", {
         name = "O-04-08",
         text = {
-            "{C:attention}(#2#/2){} Played cards permanently gain",
+            "Played cards permanently gain",
             "{C:chips}+#1#{} Chips when scored",
-            "{C:attention}(#3#/3){} When {C:attention}Blind{} is selected, forces",
+            "When {C:attention}Blind{} is selected, forces",
             "{C:attention}3{} cards to always be selected",
             "{C:attention}(#4#/7){} ..."
         }

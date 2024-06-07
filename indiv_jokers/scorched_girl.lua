@@ -10,8 +10,8 @@ local joker = {
     loc_txt = {
         name = "Scorched Girl",
         text = {
-            "{C:attention}(#2#/2){} {C:attention}-#1#%{} Blind Size",
-            "{C:attention}(#3#/4){} Debuffs first hand drawn"
+            "{C:attention}-#1#%{} Blind Size",
+            "Debuffs first hand drawn"
         }
     },
 }
@@ -36,7 +36,7 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_scorched_girl_2", {
         name = "F-01-02",
         text = {
-            "{C:attention}(#2#/2){} {C:attention}-#1#%{} Blind Size",
+            "{C:attention}-#1#%{} Blind Size",
             "{C:attention}(#3#/4){} ..."
         }
     })

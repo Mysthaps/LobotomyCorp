@@ -10,10 +10,10 @@ local joker = {
     loc_txt = {
         name = "The Queen of Hatred",
         text = {
-            "{C:attention}(#2#/2){} {X:red,C:white} X#1# {} Mult",
-            "{C:attention}(#3#/3){} If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+            "{X:red,C:white} X#1# {} Mult",
+            "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
             "this Abnormality enters {C:attention}Hysteria{}",
-            "{C:attention}(#4#/7){} At {X:red,C:white} X1 {} Mult, destroys itself",
+            "At {X:red,C:white} X1 {} Mult, destroys itself",
             "and permanent {X:red,C:white} X2 {} Blind Size"
         }
     },
@@ -40,7 +40,7 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_2", {
         name = "O-01-04",
         text = {
-            "{C:attention}(#2#/2){} {X:red,C:white} X#1# {} Mult",
+            "{X:red,C:white} X#1# {} Mult",
             "{C:attention}(#3#/3){} ...",
             "{C:attention}(#4#/7){} ...",
         }
@@ -48,8 +48,8 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_3", {
         name = "O-01-04",
         text = {
-            "{C:attention}(#2#/2){} {X:red,C:white} X#1# {} Mult",
-            "{C:attention}(#3#/3){} If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+            "{X:red,C:white} X#1# {} Mult",
+            "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
             "this Abnormality enters {C:attention}Hysteria{}",
             "{C:attention}(#4#/7){} ...",
         }
