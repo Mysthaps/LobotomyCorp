@@ -10,7 +10,7 @@ local joker = {
     loc_txt = {
         name = "Theresia",
         text = {
-            "{C:attention}T-09-09{} gains",
+            "This Abnormality gains",
             "{C:chips}+#2#{} Chips each hand",
             "After the third hand played,",
             "debuffs all {C:attention}playing cards{}",
@@ -40,7 +40,7 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_theresia_2", {
         name = "F-01-02",
         text = {
-            "{C:attention}T-09-09{} gains",
+            "This Abnormality gains",
             "{C:chips}+#2#{} Chips each hand",
             "{C:attention}(#4#/4){} ...",
             "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"

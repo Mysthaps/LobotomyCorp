@@ -11,9 +11,9 @@ local joker = {
         name = "Punishing Bird",
         text = {
             "{C:mult}+#1#{} Mult",
-            "{C:attention}O-02-56{} gains",
+            "This Abnormality gains",
             "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-            "If {C:attention}O-02-56{} is {C:attention}sold{},",
+            "If this Abnormality is {C:attention}sold{},",
             "immediately {C:attention}lose{} the game",
             "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
         }
@@ -51,7 +51,7 @@ joker.process_loc_text = function(self)
         name = "O-02-56",
         text = {
             "{C:mult}+#1#{} Mult",
-            "{C:attention}O-02-56{} gains",
+            "This Abnormality gains",
             "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
             "{C:attention}(#5#/8){} ...",
             "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
