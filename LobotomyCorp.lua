@@ -18,6 +18,7 @@ local joker_list = {
     --- Uncommon
     "scorched_girl",
     "red_shoes",
+    "laetitia",
 
     --- Rare
     "queen_of_hatred",
@@ -51,8 +52,23 @@ function SMODS.current_mod.process_loc_text()
             "and cannot be sold",
         }
     })
+    SMODS.process_loc_text(G.localization.descriptions.Other, "lobc_gift", {
+        name = "Gift",
+        text = {
+            "This card",
+            "was created from",
+            "{C:attention}O-01-67{}",
+        }
+    })
+    SMODS.process_loc_text(G.localization.misc.labels, "lobc_gift", "A Wee Witch's Gift")
     SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_breached", "Breached!")
     SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_downgrade", "Downgrade...")
+end
+
+local get_badge_colourref = get_badge_colour
+function get_badge_colour(key)
+    if key == 'lobc_gift' then return HEX("A0243A") end
+    return get_badge_colourref(key)
 end
 
 for _, v in ipairs(joker_list) do

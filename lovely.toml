@@ -5,6 +5,28 @@ priority = 0
 
 [[patches]]
 [patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.rental then badges[#badges + 1] = 'rental' end"
+position = "after"
+payload = '''
+if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
+'''
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v == 'rental' then info_queue[#info_queue+1] = {key = 'rental', set = 'Other', vars = {G.GAME.rental_rate or 1}} end"
+position = "after"
+payload = '''
+if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
+'''
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
 target = "functions/common_events.lua"
 pattern = "localize{type = 'other', key = 'undiscovered_'..(string.lower(_c.set)), set = _c.set, nodes = desc_nodes}"
 position = "at"
@@ -12,7 +34,7 @@ payload = '''
 if _c.set == "Joker" and _c.abno then
     localize{type = 'other', key = 'und_'.._c.key, set = _c.set, nodes = desc_nodes}
 else
-    localize{type = 'other', key = 'undiscovered_'..(string.lower(_c.set)), set = _c.set, nodes = desc_nodes}
+        localize{type = 'other', key = 'undiscovered_'..(string.lower(_c.set)), set = _c.set, nodes = desc_nodes}
 end
 '''
 match_indent = true
