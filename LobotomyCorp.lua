@@ -20,6 +20,7 @@ local joker_list = {
 
     --- Rare
     "queen_of_hatred",
+    "mosb",
 
     --- ???
 }
