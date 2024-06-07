@@ -89,6 +89,7 @@ joker.calculate = function(self, card, context)
                         return true
                     end
                 })) 
+                G.GAME.pool_flags["queen_of_hatred_breach"] = true
                 return {
                     message = localize('k_lobc_breached'),
                     colour = G.C.FILTER

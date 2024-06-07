@@ -107,7 +107,7 @@ for _, v in ipairs(joker_list) do
         --joker.discovered = true
         joker.key = v
         joker.atlas = "LobotomyCorp_Jokers"
-        --joker.yes_pool_flag = "allow_abnormalities_in_shop"
+        joker.yes_pool_flag = "allow_abnormalities_in_shop"
         --joker.config.discover_rounds = 0
         
         if not joker.pos then
