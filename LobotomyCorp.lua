@@ -3,7 +3,7 @@
 --- MOD_ID: LobotomyCorp
 --- PREFIX: lobc
 --- MOD_AUTHOR: [Mysthaps]
---- MOD_DESCRIPTION: Face The Fear, Build The Future. Most art is from Lobotomy Corporation by Project Moon.
+--- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
 --- DISPLAY_NAME: Lobotomy Corp.
 --- BADGE_COLOR: FC3A3A
 --- VERSION: 0.1.1
@@ -12,17 +12,16 @@
 local joker_list = {
     --- Common
     "theresia",
+    "old_lady",
     "punishing_bird",
 
     --- Uncommon
     "scorched_girl",
-    "red_shoes", -- this shit is fucking broken lmaooo
+    "red_shoes",
 
     --- Rare
     "queen_of_hatred",
     "mosb",
-
-    --- ???
 }
 
 local mod_path = SMODS.current_mod.path
@@ -53,6 +52,7 @@ function SMODS.current_mod.process_loc_text()
         }
     })
     SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_breached", "Breached!")
+    SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_downgrade", "Downgrade...")
 end
 
 for _, v in ipairs(joker_list) do
@@ -159,4 +159,18 @@ function Card.can_sell_card(self, context)
         return false
     end
     return can_sell_cardref(self, context)
+end
+
+-- Check for Old Lady's bullshit
+local add_to_deckref = Card.add_to_deck
+function Card.add_to_deck(self, from_debuff)
+    if not self.added_to_deck then
+        for _, v in ipairs(find_joker_with_key("j_lobc_old_lady")) do
+            if self ~= v then
+                v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
+                card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
+            end
+        end
+    end
+    add_to_deckref(self, from_debuff)
 end

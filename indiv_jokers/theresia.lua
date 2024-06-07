@@ -31,14 +31,14 @@ joker.process_loc_text = function(self)
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_theresia_1", {
-        name = "F-01-02",
+        name = "T-09-09",
         text = {
             "{C:attention}(#3#/2){} ...",
             "{C:attention}(#4#/4){} ...",
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_theresia_2", {
-        name = "F-01-02",
+        name = "T-09-09",
         text = {
             "This Abnormality gains",
             "{C:chips}+#2#{} Chips each hand",
