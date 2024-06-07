@@ -5,6 +5,52 @@ priority = 0
 
 [[patches]]
 [patches.pattern]
+target = "game.lua"
+pattern = "if self.STATE == self.STATES.BUFFOON_PACK then"
+position = "before"
+payload = '''
+if self.STATE == self.STATES.EXTRACTION_PACK then
+    self:update_extraction_pack(dt)
+end
+'''
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "(self.config.type == 'deck' and self ~= G.deck) or"
+position = "before"
+payload = '''
+(self.config.type == 'hand' and state == G.STATES.EXTRACTION_PACK) or
+'''
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "(G.STATE == G.STATES.BUFFOON_PACK and G.STATES.BUFFOON_PACK) or"
+position = "before"
+payload = '''
+(G.STATE == G.STATES.EXTRACTION_PACK and G.STATES.EXTRACTION_PACK) or
+'''
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "prev_state == G.STATES.SPECTRAL_PACK or prev_state == G.STATES.STANDARD_PACK or"
+position = "after"
+payload = '''
+prev_state == G.STATES.EXTRACTION_PACK or
+'''
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
 target = "card.lua"
 pattern = "if self.ability.rental then badges[#badges + 1] = 'rental' end"
 position = "after"

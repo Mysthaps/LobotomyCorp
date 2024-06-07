@@ -7,6 +7,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     discover_rounds = 7,
+    no_pool_flag = "queen_of_hatred_breach",
     loc_txt = {
         name = "The Queen of Hatred",
         text = {
