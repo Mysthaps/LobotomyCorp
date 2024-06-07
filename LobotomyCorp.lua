@@ -36,6 +36,14 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({ 
+    key = "LobotomyCorp_Undiscovered", 
+    atlas_table = "ASSET_ATLAS", 
+    path = "LobotomyCorp_undiscovered.png", 
+    px = 71, 
+    py = 95 
+})
+
+SMODS.Atlas({ 
     key = "LobotomyCorp_Booster", 
     atlas_table = "ASSET_ATLAS", 
     path = "LobotomyCorp_booster.png", 
@@ -118,10 +126,9 @@ for _, v in ipairs(joker_list) do
             card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
             local count = G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key].count or 0
             if count < card.config.center.discover_rounds then
-                card.children.center:set_sprite_pos({x = 0, y = 0})
-            else
-                card.children.center:set_sprite_pos(card.config.center.pos)
+                card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
             end
+            card.children.center:set_sprite_pos(card.config.center.pos)
         end
     end
 end
