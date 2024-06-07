@@ -107,7 +107,7 @@ for _, v in ipairs(joker_list) do
         --joker.discovered = true
         joker.key = v
         joker.atlas = "LobotomyCorp_Jokers"
-        joker.yes_pool_flag = "allow_abnormalities_in_shop"
+        --joker.yes_pool_flag = "allow_abnormalities_in_shop"
         --joker.config.discover_rounds = 0
         
         if not joker.pos then
@@ -139,7 +139,7 @@ SMODS.Center({
     prefix = 'p',
     key = 'extraction_normal',
     name = "Extraction Pack",
-    weight = 5, -- Slightly more weight than a Buffoon Pack!!
+    weight = 5, -- Slightly more weight than all Buffoon Packs combined!! because there is only one Extraction Pack
     kind = "Abnormality",
     cost = 5,
     discovered = false,
