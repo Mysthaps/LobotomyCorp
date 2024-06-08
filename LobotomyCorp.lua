@@ -422,8 +422,8 @@ local set_joker_usageref = set_joker_usage
 function set_joker_usage()
     set_joker_usageref()
     for k, v in pairs(G.jokers.cards) do
-        if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno and 
-          G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count == v.config.center.discover_rounds then
+        if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno and not v.config.center.discovered and 
+          G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count >= v.config.center.discover_rounds then
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
                 play_sound('card1')
                 v:flip()
