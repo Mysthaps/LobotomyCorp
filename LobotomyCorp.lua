@@ -17,6 +17,7 @@ local joker_list = {
 
     --- Uncommon
     "scorched_girl",
+    "happy_teddy_bear",
     "red_shoes",
 
     --- Rare
