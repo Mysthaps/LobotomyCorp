@@ -1,6 +1,6 @@
 local joker = {
     name = "Laetitia",
-    config = {extra = {first = false, not_hearts = true, all_hearts = false}}, rarity = 3, cost = 7,
+    config = {extra = {first = false, not_hearts = true, all_hearts = true}}, rarity = 3, cost = 7,
     pos = {x = 9, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = false,
