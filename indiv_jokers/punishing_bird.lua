@@ -40,7 +40,7 @@ joker.process_loc_text = function(self)
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_2", {
-        name = "O-02-56",
+        name = "Small Bird",
         text = {
             "{C:mult}+#1#{} Mult",
             "{C:attention}(#4#/4){} ...",
@@ -48,7 +48,7 @@ joker.process_loc_text = function(self)
         }
     })
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_3", {
-        name = "O-02-56",
+        name = "Small Bird",
         text = {
             "{C:mult}+#1#{} Mult",
             "This Abnormality gains",
@@ -98,11 +98,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         desc_key = 'dis_'..desc_key..'_3'
     end
 
-    if not card.config.center.discovered then
-        full_UI_table.name = localize{type = 'name', key = 'und_'..self.key, set = "Other", name_nodes = {}, vars = specific_vars or {}}
-    else
-        full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    end
+    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
 end
 
