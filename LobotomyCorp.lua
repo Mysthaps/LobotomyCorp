@@ -18,10 +18,10 @@ local joker_list = {
     --- Uncommon
     "scorched_girl",
     "red_shoes",
-    "laetitia",
 
     --- Rare
     "queen_of_hatred",
+    "laetitia",
     "mosb",
 }
 

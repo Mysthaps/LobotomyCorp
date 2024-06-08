@@ -1,6 +1,6 @@
 local joker = {
     name = "Laetitia",
-    config = {extra = {first = false, not_hearts = false}}, rarity = 2, cost = 5,
+    config = {extra = {first = false, not_hearts = true, all_hearts = false}}, rarity = 3, cost = 7,
     pos = {x = 9, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -10,10 +10,10 @@ local joker = {
     loc_txt = {
         name = "Laetitia",
         text = {
-            "Creates a {C:attention}copy{} of scored, non-{C:attention}marked{}",
-            "{C:hearts}Hearts{} cards and {C:attention}mark{} them",
-            "If a non-{C:hearts}Hearts{} is scored,",
-            "destroys all scored cards instead",
+            "If only {C:hearts}Hearts{} cards score, copy",
+            "non-{C:attention}marked{}, scoring cards to hand",
+            "If no {C:hearts}Hearts{} are scored,",
+            "destroys all scored cards",
             "When this Abnormality is removed,",
             "{C:attention}permanently{} debuffs all {C:attention}marked{} cards"
         }
@@ -43,8 +43,8 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_laetitia_2", {
         name = "A Wee Witch",
         text = {
-            "Creates a {C:attention}copy{} of scored, non-{C:attention}marked{}",
-            "{C:hearts}Hearts{} cards and {C:attention}mark{} them",
+            "If only {C:hearts}Hearts{} cards score, copy",
+            "non-{C:attention}marked{}, scoring cards to hand",
             "{C:attention}(#2#/4){} ...",
             "{C:attention}(#3#/8){} ..."
         }
@@ -52,10 +52,10 @@ joker.process_loc_text = function(self)
     SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_laetitia_3", {
         name = "A Wee Witch",
         text = {
-            "Creates a {C:attention}copy{} of all scored, non-{C:attention}marked{}",
-            "{C:hearts}Hearts{} cards and {C:attention}mark{} them",
-            "If a non-{C:hearts}Hearts{} is scored,",
-            "destroys all {C:attention}scored{} cards instead",
+            "If only {C:hearts}Hearts{} cards score, copy",
+            "non-{C:attention}marked{}, scoring cards to hand",
+            "If no {C:hearts}Hearts{} are scored,",
+            "destroys all scored cards",
             "{C:attention}(#3#/8){} ..."
         }
     })
@@ -63,7 +63,7 @@ end
 
 joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and 
-       context.other_card:is_suit("Hearts") and not card.ability.extra.not_hearts and 
+       context.other_card:is_suit("Hearts") and card.ability.extra.all_hearts and 
        not context.other_card.ability.laetitia_gift then
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -89,14 +89,15 @@ joker.calculate = function(self, card, context)
     if context.cardarea == G.jokers and not context.blueprint then
         if context.before then
             for _, v in ipairs(context.scoring_hand) do
-                -- Debuffed Hearts cards *will* trigger this effect. This is intentional.
-                if not v:is_suit("Hearts") then
-                    card.ability.extra.not_hearts = true
-                    break
+                if v:is_suit("Hearts") then
+                    card.ability.extra.not_hearts = false
+                else
+                    card.ability.extra.all_hearts = false
                 end
             end
         elseif context.after then
-            card.ability.extra.not_hearts = false
+            card.ability.extra.not_hearts = true
+            card.ability.extra.all_hearts = true
             card.ability.extra.first = false
         end
     end
