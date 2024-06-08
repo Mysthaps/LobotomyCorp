@@ -238,10 +238,21 @@ function Card.open(self)
         end
         self.states.hover.can = false
 
+        if not G.STATES.EXTRACTION_PACK then
+            G.STATES.EXTRACTION_PACK = 727
+        end
+
         G.STATE = G.STATES.EXTRACTION_PACK
         G.GAME.pack_size = self.ability.extra
 
         G.GAME.pack_choices = self.config.center.config.choose or 1
+        -- Cryptid compat
+        if G.GAME.modifiers.cry_misprint_min then
+            G.GAME.pack_size = self.config.center.config.extra
+            if G.GAME.pack_size < 1 then G.GAME.pack_size = 1 end
+            self.ability.extra = G.GAME.pack_size
+            G.GAME.pack_choices = math.min(math.floor(G.GAME.pack_size), G.GAME.pack_choices)
+        end
 
         if self.cost > 0 then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
@@ -341,7 +352,7 @@ function create_UIBox_extraction_pack()
     local _size = G.GAME.pack_size
     G.pack_cards = CardArea(
       G.ROOM.T.x + 9 + G.hand.T.x, G.hand.T.y,
-      _size*G.CARD_W*1.1,
+      math.max(1,math.min(_size,5))*G.CARD_W*1.1,
       1.05*G.CARD_H, 
       {card_limit = _size, type = 'consumeable', highlight_limit = 1})
   
@@ -381,13 +392,6 @@ function create_UIBox_extraction_pack()
       }}
     }}
     return t
-end
-
--- Other minor stuff
-local set_globalsref = Game.set_globals
-function Game.set_globals(self)
-    set_globalsref(self)
-    self.STATES.EXTRACTION_PACK = 727
 end
 
 local can_skip_boosterref = G.FUNCS.can_skip_booster
