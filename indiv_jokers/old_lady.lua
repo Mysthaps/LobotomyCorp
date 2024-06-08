@@ -42,7 +42,7 @@ joker.process_loc_text = function(self)
             "This Abnormality gains",
             "{C:mult}+#2#{} Mult each hand",
             "{C:attention}(#5#/5){} ...",
-            "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+            "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
         }
     })
 end
