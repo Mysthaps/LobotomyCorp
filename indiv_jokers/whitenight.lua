@@ -15,7 +15,7 @@ local joker = {
             "each hand",
             "Played {C:attention}blessed{} cards",
             "give {C:mult}+#1#{} Mult",
-            "Retrigger {C:attention}Blessed{} cards",
+            "Retrigger {C:attention}blessed{} cards",
             "{C:attention}#2#{} times",
         }
     },
