@@ -6,13 +6,14 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
 --- DISPLAY_NAME: Lobotomy Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.3.1
+--- VERSION: 0.4.0
 
 -- To disable a Joker, comment it out by adding -- at the start of the line.
 local joker_list = {
     --- Common
     "theresia",
     "old_lady",
+    "plague_doctor",
     "punishing_bird",
 
     --- Uncommon
@@ -24,6 +25,12 @@ local joker_list = {
     "queen_of_hatred",
     "laetitia",
     "mosb",
+
+    --- Legendary
+}
+
+local blind_list = {
+    "whitenight"
 }
 
 -- Atlases
@@ -52,6 +59,14 @@ SMODS.Atlas({
     py = 95 
 })
 
+SMODS.Atlas({ 
+    key = "LobotomyCorp_Blind", 
+    atlas_table = "ASSET_ATLAS", 
+    path = "temp_blind.png", 
+    px = 71, 
+    py = 95 
+})
+
 SMODS.Atlas({
     key = "modicon",
     path = "LobotomyCorp_icon.png",
@@ -59,42 +74,11 @@ SMODS.Atlas({
     py = 34
 }):register()
 
--- Load localization
-function SMODS.current_mod.process_loc_text()
-    SMODS.process_loc_text(G.localization.descriptions.Other, "p_lobc_extraction_normal", {
-        name = "Extraction Pack",
-        text = {
-            "Choose {C:attention}#1#{} of up to",
-            "{C:attention}#2#{C:joker} Abnormality{} cards"
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions.Other, "lobc_hysteria", {
-        name = "Hysteria",
-        text = {
-            "This Abnormality",
-            "loses {X:red,C:white} X0.5 {} Mult",
-            "after each blind",
-            "and cannot be sold",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions.Other, "lobc_gift", {
-        name = "Gift",
-        text = {
-            "This card",
-            "was created from",
-            "{C:attention}O-01-67{}",
-        }
-    })
-    SMODS.process_loc_text(G.localization.misc.labels, "lobc_gift", "A Wee Witch's Gift")
-    SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_breached", "Breached!")
-    SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_downgrade", "Downgrade...")
-    SMODS.process_loc_text(G.localization.misc.dictionary, "k_lobc_extraction_pack", "Extraction Pack")
-end
-
--- Badge colors, currently used for A Wee Witch's Gift
+-- Badge colors
 local get_badge_colourref = get_badge_colour
 function get_badge_colour(key)
     if key == 'lobc_gift' then return HEX("A0243A") end
+    if key == 'lobc_blessed' then return HEX("380D36") end
     return get_badge_colourref(key)
 end
 
@@ -134,6 +118,26 @@ for _, v in ipairs(joker_list) do
     end
 end
 
+-- Load all blinds
+for k, v in ipairs(blind_list) do
+    local blind = NFS.load(mod_path .. "indiv_blinds/" .. v .. ".lua")()
+
+    if not blind then
+        sendErrorMessage("[LobotomyCorp] Cannot find blind with shorthand: " .. v)
+    else
+        blind.key = v
+        blind.atlas = "LobotomyCorp_Blind"
+
+        local blind_obj = SMODS.Blind(blind)
+
+        for k_, v_ in pairs(blind) do
+            if type(v_) == 'function' then
+                blind_obj[k_] = blind[k_]
+            end
+        end
+    end
+end
+
 -- Make Extraction Pack
 
 SMODS.Center({
@@ -143,7 +147,7 @@ SMODS.Center({
     weight = 5, -- Slightly more weight than all Buffoon Packs combined!! because there is only one Extraction Pack
     kind = "Abnormality",
     cost = 5,
-    discovered = false,
+    discovered = true,
     set = "Booster",
     atlas = "LobotomyCorp_Booster",
     config = {extra = 3, choose = 1},
@@ -180,6 +184,63 @@ end
 function Card:check_rounds(comp)
     local val = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0
     return math.min(val, comp)
+end
+
+-- Card updates
+local card_updateref = Card.update
+function Card.update(self, dt)
+    if G.STAGE == G.STAGES.RUN then
+        -- Check if enough rounds have passed, should be saving
+        if self.config.center.abno then
+            local count = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0
+            self.config.center.discovered = (count >= self.config.center.discover_rounds)
+        end
+    end
+    card_updateref(self, dt)
+end
+
+-- Update round count for abnos
+local set_joker_usageref = set_joker_usage
+function set_joker_usage()
+    set_joker_usageref()
+    for k, v in pairs(G.jokers.cards) do
+        if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno and not v.config.center.discovered and 
+          G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count >= v.config.center.discover_rounds then
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
+                play_sound('card1')
+                v:flip()
+            return true end }))
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
+                discover_card(v.config.center)
+                v:set_sprites(v.config.center, nil)
+                play_sound('card1')
+                v:flip()
+            return true end }))
+        end
+    end
+end
+
+-- Remove Queen of Hatred's sell button
+local can_sell_cardref = Card.can_sell_card
+function Card.can_sell_card(self, context)
+    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
+        return false
+    end
+    return can_sell_cardref(self, context)
+end
+
+-- Check for Old Lady's bullshit
+local add_to_deckref = Card.add_to_deck
+function Card.add_to_deck(self, from_debuff)
+    if not self.added_to_deck then
+        for _, v in ipairs(find_joker_with_key("j_lobc_old_lady")) do
+            if self ~= v then
+                v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
+                card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
+            end
+        end
+    end
+    add_to_deckref(self, from_debuff)
 end
 
 -- Get Abnormality pool
@@ -403,61 +464,4 @@ function G.FUNCS.can_skip_booster(e)
     else
         can_skip_boosterref(e)
     end
-end
-
--- Card updates
-local card_updateref = Card.update
-function Card.update(self, dt)
-    if G.STAGE == G.STAGES.RUN then
-        -- Check if enough rounds have passed, should be saving
-        if self.config.center.abno then
-            local count = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0
-            self.config.center.discovered = (count >= self.config.center.discover_rounds)
-        end
-    end
-    card_updateref(self, dt)
-end
-
--- Update round count for abnos
-local set_joker_usageref = set_joker_usage
-function set_joker_usage()
-    set_joker_usageref()
-    for k, v in pairs(G.jokers.cards) do
-        if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno and not v.config.center.discovered and 
-          G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count >= v.config.center.discover_rounds then
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
-                play_sound('card1')
-                v:flip()
-            return true end }))
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
-                discover_card(v.config.center)
-                v:set_sprites(v.config.center, nil)
-                play_sound('card1')
-                v:flip()
-            return true end }))
-        end
-    end
-end
-
--- Remove Queen of Hatred's sell button
-local can_sell_cardref = Card.can_sell_card
-function Card.can_sell_card(self, context)
-    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
-        return false
-    end
-    return can_sell_cardref(self, context)
-end
-
--- Check for Old Lady's bullshit
-local add_to_deckref = Card.add_to_deck
-function Card.add_to_deck(self, from_debuff)
-    if not self.added_to_deck then
-        for _, v in ipairs(find_joker_with_key("j_lobc_old_lady")) do
-            if self ~= v then
-                v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
-                card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
-            end
-        end
-    end
-    add_to_deckref(self, from_debuff)
 end

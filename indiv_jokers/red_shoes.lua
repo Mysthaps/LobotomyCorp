@@ -20,44 +20,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_red_shoes", {
-        name = "O-04-08",
-        text = {
-            "The girl begged in tears.",
-            "\"Mister, please cut off my feet...\"",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_1", {
-        name = "O-04-08",
-        text = {
-            "{C:attention}(#2#/2){} ...",
-            "{C:attention}(#3#/3){} ...",
-            "{C:attention}(#4#/7){} ..."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_2", {
-        name = "O-04-08",
-        text = {
-            "Played cards permanently gain",
-            "{C:chips}+#1#{} Chips when scored",
-            "{C:attention}(#3#/3){} ...",
-            "{C:attention}(#4#/7){} ..."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_red_shoes_3", {
-        name = "O-04-08",
-        text = {
-            "Played cards permanently gain",
-            "{C:chips}+#1#{} Chips when scored",
-            "When {C:attention}Blind{} is selected, forces",
-            "{C:attention}3{} cards to always be selected",
-            "{C:attention}(#4#/7){} ..."
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.first_hand_drawn and not context.blueprint then
         if #G.hand.highlighted < G.hand.config.highlighted_limit then

@@ -20,32 +20,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_happy_teddy_bear", {
-        name = "T-04-06",
-        text = {
-            "Its memories began",
-            "with a warm hug.",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_happy_teddy_bear_1", {
-        name = "T-04-06",
-        text = {
-            "{C:attention}(#3#/2){} ...",
-            "{C:attention}(#4#/6){} ..."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_happy_teddy_bear_2", {
-        name = "A Teddy Bear",
-        text = {
-            "Upgrade level of played",
-            "{C:attention}poker hand #1#{} times",
-            "{C:attention}(#4#/6){} ..."
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.cardarea == G.jokers and context.before then
         local hand = context.scoring_name

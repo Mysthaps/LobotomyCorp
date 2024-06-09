@@ -20,43 +20,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_queen_of_hatred", {
-        name = "O-01-04",
-        text = {
-            "In the name of",
-            "Love and Justice~",
-            "Here comes Magical Girl!"
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_1", {
-        name = "O-01-04",
-        text = {
-            "{C:attention}(#2#/2){} ...",
-            "{C:attention}(#3#/3){} ...",
-            "{C:attention}(#4#/7){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_2", {
-        name = "O-01-04",
-        text = {
-            "{X:red,C:white} X#1# {} Mult",
-            "{C:attention}(#3#/3){} ...",
-            "{C:attention}(#4#/7){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_queen_of_hatred_3", {
-        name = "O-01-04",
-        text = {
-            "{X:red,C:white} X#1# {} Mult",
-            "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
-            "this Abnormality enters {C:attention}Hysteria{}",
-            "{C:attention}(#4#/7){} ...",
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.joker_main then
         return {

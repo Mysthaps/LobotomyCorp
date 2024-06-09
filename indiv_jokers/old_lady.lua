@@ -19,34 +19,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_old_lady", {
-        name = "O-01-12",
-        text = {
-            "She was so talkative before,",
-            "yet in the end,",
-            "loneliness was the only listener.",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_old_lady_1", {
-        name = "O-01-12",
-        text = {
-            "{C:attention}(#4#/2){} ...",
-            "{C:attention}(#5#/5){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_old_lady_2", {
-        name = "O-01-12",
-        text = {
-            "This Abnormality gains",
-            "{C:mult}+#2#{} Mult each hand",
-            "{C:attention}(#5#/5){} ...",
-            "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.cardarea == G.jokers and not context.blueprint then
         if context.before then

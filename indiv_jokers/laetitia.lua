@@ -20,47 +20,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_laetitia", {
-        name = "O-01-67",
-        text = {
-            "She was so sad that",
-            "she had to leave",
-            "her dear friends behind,",
-            "so she came up with",
-            "a brilliant idea!"
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_laetitia_1", {
-        name = "O-01-67",
-        text = {
-            "{C:attention}(#1#/2){} ...",
-            "{C:attention}(#2#/4){} ...",
-            "{C:attention}(#3#/8){} ..."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_laetitia_2", {
-        name = "A Wee Witch",
-        text = {
-            "If only {C:hearts}Hearts{} cards score, copy",
-            "non-{C:attention}marked{}, scoring cards to hand",
-            "{C:attention}(#2#/4){} ...",
-            "{C:attention}(#3#/8){} ..."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_laetitia_3", {
-        name = "A Wee Witch",
-        text = {
-            "If only {C:hearts}Hearts{} cards score, copy",
-            "non-{C:attention}marked{}, scoring cards to hand",
-            "If no {C:hearts}Hearts{} are scored,",
-            "destroys all scored cards",
-            "{C:attention}(#3#/8){} ..."
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and 
        context.other_card:is_suit("Hearts") and card.ability.extra.all_hearts and 

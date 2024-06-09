@@ -20,45 +20,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_punishing_bird", {
-        name = "O-02-56",
-        text = {
-            "People have been committing",
-            "sins since long ago.",
-            "\"Why do they commit sins,",
-            "knowing it's wrong?\""
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_1", {
-        name = "O-02-56",
-        text = {
-            "{C:attention}(#3#/2){} ...",
-            "{C:attention}(#4#/4){} ...",
-            "{C:attention}(#5#/8){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_2", {
-        name = "Small Bird",
-        text = {
-            "{C:mult}+#1#{} Mult",
-            "{C:attention}(#4#/4){} ...",
-            "{C:attention}(#5#/8){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_punishing_bird_3", {
-        name = "Small Bird",
-        text = {
-            "{C:mult}+#1#{} Mult",
-            "This Abnormality gains",
-            "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-            "{C:attention}(#5#/8){} ...",
-            "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.joker_main then
         return {

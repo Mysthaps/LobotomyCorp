@@ -56,6 +56,7 @@ pattern = "if self.ability.rental then badges[#badges + 1] = 'rental' end"
 position = "after"
 payload = '''
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
+if self.ability.plague_doctor_baptism then badges[#badges + 1] = 'lobc_blessed' end
 '''
 match_indent = false
 overwrite = false
@@ -67,6 +68,7 @@ pattern = "if v == 'rental' then info_queue[#info_queue+1] = {key = 'rental', se
 position = "after"
 payload = '''
 if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
+if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
 '''
 match_indent = false
 overwrite = false
@@ -80,7 +82,7 @@ payload = '''
 if _c.set == "Joker" and _c.abno then
     localize{type = 'other', key = 'und_'.._c.key, set = _c.set, nodes = desc_nodes}
 else
-        localize{type = 'other', key = 'undiscovered_'..(string.lower(_c.set)), set = _c.set, nodes = desc_nodes}
+    localize{type = 'other', key = 'undiscovered_'..(string.lower(_c.set)), set = _c.set, nodes = desc_nodes}
 end
 '''
 match_indent = true

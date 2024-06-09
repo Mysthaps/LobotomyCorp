@@ -20,43 +20,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_mosb", {
-        name = "T-01-75",
-        text = {
-            "The smiling faces are",
-            "unfamiliar yet sorrowful.",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_mosb_1", {
-        name = "T-01-75",
-        text = {
-            "{C:attention}(#5#/3){} ...",
-            "{C:attention}(#6#/6){} ...",
-            "{C:attention}(#7#/9){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_mosb_2", {
-        name = "T-01-75",
-        text = {
-            "Destroys all {C:attention}scored{} cards",
-            "{C:attention}(#6#/6){} ...",
-            "{C:attention}(#7#/9){} ...",
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_mosb_3", {
-        name = "T-01-75",
-        text = {
-            "Destroys all {C:attention}scored{} cards",
-            "This Abnormality gains {C:chips}+#3#{} Chips and",
-            "{C:mult}+#4#{} Mult when it destroys a card",
-            "{C:attention}(#7#/9){} ...",
-            "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.destroying_card and not context.blueprint then
         G.E_MANAGER:add_event(Event({

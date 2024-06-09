@@ -16,32 +16,6 @@ local joker = {
     },
 }
 
-joker.process_loc_text = function(self)
-    SMODS.Joker.process_loc_text(self)
-    SMODS.process_loc_text(G.localization.descriptions["Other"], "und_j_lobc_scorched_girl", {
-        name = "F-01-02",
-        text = {
-            "I'm coming for you.",
-            "You, who will be reduced",
-            "to ashes like me."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_scorched_girl_1", {
-        name = "F-01-02",
-        text = {
-            "{C:attention}(#2#/2){} ...",
-            "{C:attention}(#3#/4){} ..."
-        }
-    })
-    SMODS.process_loc_text(G.localization.descriptions["Joker"], "dis_j_lobc_scorched_girl_2", {
-        name = "F-01-02",
-        text = {
-            "{C:attention}-#1#%{} Blind Size",
-            "{C:attention}(#3#/4){} ..."
-        }
-    })
-end
-
 joker.calculate = function(self, card, context)
     if context.setting_blind and not card.getting_sliced then
         G.E_MANAGER:add_event(Event({
