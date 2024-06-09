@@ -134,7 +134,7 @@ for k, v in ipairs(blind_list) do
     else
         blind.key = v
         blind.atlas = "LobotomyCorp_Blind"
-        blind.discovered = true
+        --blind.discovered = true
 
         local blind_obj = SMODS.Blind(blind)
 
