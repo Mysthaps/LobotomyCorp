@@ -232,7 +232,7 @@ end
 -- Check for Old Lady's bullshit
 local add_to_deckref = Card.add_to_deck
 function Card.add_to_deck(self, from_debuff)
-    if not self.added_to_deck then
+    if not self.added_to_deck and self.ability.set == "Joker" then
         for _, v in ipairs(find_joker_with_key("j_lobc_old_lady")) do
             if self ~= v then
                 v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
