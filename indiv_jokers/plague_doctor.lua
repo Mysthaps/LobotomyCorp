@@ -154,13 +154,16 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
         if card:check_rounds(4) < 4 then
             desc_key = 'dis_'..desc_key..'_2'
-        elseif true then
-            desc_key = 'dis_'..desc_key..'_3'
+        else
+            local count = G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_whitenight"] and G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_whitenight"].count or 0
+            if count == 0 then
+                desc_key = 'dis_'..desc_key..'_3'
+            end
         end
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuff then
+    if specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}

@@ -54,7 +54,11 @@ if self.ability.plague_doctor_baptism then
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
         badges[#badges + 1] = 'lobc_apostle'
     else
-        badges[#badges + 1] = 'lobc_blessed'
+        if not G.GAME.pool_flags["whitenight_defeated"] then
+            badges[#badges + 1] = 'lobc_blessed'
+        else
+            badges[#badges + 1] = 'lobc_blessed_wn'
+        end
     end
 end
 '''
@@ -69,6 +73,7 @@ position = "after"
 payload = '''
 if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
+if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_wn', set = 'Other'} end
 if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end
 '''
 match_indent = false

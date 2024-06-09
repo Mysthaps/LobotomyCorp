@@ -16,25 +16,13 @@ local blind = {
     }
 }
 
-blind.set_blind = function(self, blind)
-    for _, v in ipairs(G.playing_cards) do
-        if v.ability and v.ability.plague_doctor_baptism then
-            v.debuff = true
-        end
+blind.debuff_card = function(self, blind, card, from_blind)
+    if card.ability.plague_doctor_baptism then
+        return true
     end
 end
 
 blind.disable = function(self, blind)
-    for _, v in ipairs(G.playing_cards) do
-        if v.ability and v.ability.plague_doctor_baptism then
-            G.E_MANAGER:add_event(Event({
-                func = function() 
-                    v:start_dissolve() 
-                    return true
-                end 
-            }))
-        end
-    end
     attention_text({
         text = localize('k_lobc_whitenight_disable'),
         scale = 0.35, 
@@ -50,25 +38,28 @@ end
 
 blind.defeat = function(self, blind)
     G.GAME.pool_flags["whitenight_defeated"] = true
-    for _, v in ipairs(G.playing_cards) do
-        if v.ability and v.ability.plague_doctor_baptism then
-            G.E_MANAGER:add_event(Event({
-                func = function() 
-                    v:start_dissolve() 
-                    return true
-                end 
-            }))
+    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        func = function() 
+            local card = create_card('Abnormality', G.jokers, nil, 0, nil, nil, "j_lobc_whitenight", 'wn')
+            card:add_to_deck()
+            G.jokers:emplace(card)
+            card:start_materialize()
+            G.GAME.joker_buffer = 0
+            return true
         end
-    end
+    }))
 end
 
 blind.press_play = function(self, blind)
+    local proc = false
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
         delay = 0.2*G.SETTINGS.GAMESPEED, 
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.ability and v.ability.plague_doctor_baptism then
+                    proc = true
                     G.E_MANAGER:add_event(Event({
                         func = function() 
                             v:start_dissolve() 
@@ -83,7 +74,7 @@ blind.press_play = function(self, blind)
             return true 
         end 
     }))
-    return true
+    return proc
 end
 
 return blind

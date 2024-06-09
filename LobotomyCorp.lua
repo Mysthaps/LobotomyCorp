@@ -27,6 +27,7 @@ local joker_list = {
     "mosb",
 
     --- Legendary
+    "whitenight",
 }
 
 local blind_list = {
@@ -80,6 +81,7 @@ local get_badge_colourref = get_badge_colour
 function get_badge_colour(key)
     if key == 'lobc_gift' then return HEX("A0243A") end
     if key == 'lobc_blessed' then return HEX("380D36") end
+    if key == 'lobc_blessed_wn' then return HEX("EDA9D3") end
     return get_badge_colourref(key)
 end
 
@@ -284,10 +286,14 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         local add = true
         
         if G.GAME.used_jokers[v.key] then
-            add = nil
+            add = false
         end
 
-        if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end
+        if v.yes_pool_flag and v.yes_pool_flag ~= "allow_abnormalities_in_shop" 
+           and not G.GAME.pool_flags[v.no_pool_flag] then 
+            add = false
+        end
+        if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
 
         if add then
            _pool[#_pool+1] = v.key

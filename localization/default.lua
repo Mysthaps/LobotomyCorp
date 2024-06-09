@@ -57,6 +57,13 @@ return {
                     "and injury you possess.",
                 }
             },
+            und_j_lobc_whitenight = {
+                name = "T-03-46",
+                text = {
+                    "Rise, my servants.",
+                    "Rise and serve me.",
+                }
+            },
             und_j_lobc_punishing_bird = {
                 name = "O-02-56",
                 text = {
@@ -119,12 +126,19 @@ return {
                     "{C:attention}O-01-45{}",
                 }
             },
+            lobc_blessed_wn = {
+                name = "Blessed",
+                text = {
+                    "This card",
+                    "was blessed by",
+                    "{C:attention}T-03-46{}",
+                }
+            },
             lobc_apostle = {
                 name = "Apostle",
                 text = {
+                    "{C:red}Debuffed{}",
                     "{C:attention}Destroyed{} when played",
-                    "Is {C:attention}destroyed{} when",
-                    "{C:attention}WhiteNight{} is defeated",
                 }
             },
             lobc_bless_order = {
@@ -286,6 +300,17 @@ return {
                 }
             },
 
+            dis_j_lobc_whitenight_1 = {
+                name = "T-03-46",
+                text = {
+                    "{C:attention}Blesses{} a playing card",
+                    "each hand",
+                    "Played {C:attention}blessed{} cards",
+                    "give {C:mult}+#1#{} Mult",
+                    "{C:attention}(#3#/8){} ..."
+                }
+            },
+
             dis_j_lobc_punishing_bird_1 = {
                 name = "O-02-56",
                 text = {
@@ -373,6 +398,7 @@ return {
         labels = {
             lobc_gift = "A Wee Witch's Gift",
             lobc_blessed = "Blessed",
+            lobc_blessed_wn = "Blessed",
             lobc_apostle = "Apostle",
         },
         dictionary = {
