@@ -66,8 +66,10 @@ blind.press_play = function(self, blind)
                             return true
                         end 
                     }))
-                    blind.chips = blind.chips - get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*5
-                    blind.chip_text = number_format(blind.chips)
+                    if blind.chips > get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*6.66 then
+                        blind.chips = blind.chips - get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*5
+                        blind.chip_text = number_format(blind.chips)
+                    end
                     delay(0.2*G.SETTINGS.GAMESPEED)
                 end
             end
