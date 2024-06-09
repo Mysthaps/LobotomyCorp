@@ -86,6 +86,7 @@ end
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card.ability.extra.mult, card.ability.extra.retriggers, card:check_rounds(8) }
     local desc_key = self.key
+    info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
     if card:check_rounds(8) < 8 then
         desc_key = 'dis_'..desc_key..'_1'
     end
