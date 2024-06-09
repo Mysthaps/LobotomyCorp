@@ -66,7 +66,11 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
+    if specific_vars and specific_vars.debuff then
+        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
+    else
+        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
+    end
 end
 
 return joker

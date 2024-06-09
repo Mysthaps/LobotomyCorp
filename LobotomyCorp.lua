@@ -61,10 +61,11 @@ SMODS.Atlas({
 
 SMODS.Atlas({ 
     key = "LobotomyCorp_Blind", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "temp_blind.png", 
-    px = 71, 
-    py = 95 
+    atlas_table = "ANIMATION_ATLAS", 
+    path = "LobotomyCorp_blind.png", 
+    px = 34, 
+    py = 34,
+    frames = 21,
 })
 
 SMODS.Atlas({
@@ -92,7 +93,11 @@ for _, v in ipairs(joker_list) do
         --joker.discovered = true
         joker.key = v
         joker.atlas = "LobotomyCorp_Jokers"
-        --joker.yes_pool_flag = "allow_abnormalities_in_shop"
+        --[[
+        if not joker.yes_pool_flag then
+            joker.yes_pool_flag = "allow_abnormalities_in_shop"
+        end
+        ]]--
         --joker.config.discover_rounds = 0
         
         if not joker.pos then
@@ -127,6 +132,7 @@ for k, v in ipairs(blind_list) do
     else
         blind.key = v
         blind.atlas = "LobotomyCorp_Blind"
+        blind.discovered = true
 
         local blind_obj = SMODS.Blind(blind)
 
@@ -139,7 +145,6 @@ for k, v in ipairs(blind_list) do
 end
 
 -- Make Extraction Pack
-
 SMODS.Center({
     prefix = 'p',
     key = 'extraction_normal',
@@ -162,6 +167,27 @@ SMODS.Center({
 sendInfoMessage("Loaded LobotomyCorp~")
 
 ---- Other functions ----
+
+-- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
+local get_new_bossref = get_new_boss
+function get_new_boss()
+    if G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"] then return "bl_lobc_whitenight" end
+    return get_new_bossref()
+end
+
+-- i am NOT implementing a none hand myself. yell at me if this fucks up anything
+local get_poker_hand_inforef = G.FUNCS.get_poker_hand_info
+function G.FUNCS.get_poker_hand_info(_cards)
+    if #_cards == 0 then
+        local poker_hands = evaluate_poker_hand(_cards)
+        local scoring_hand = {}
+        local text = "High Card"
+        local disp_text = text
+        local loc_disp_text = localize(text, 'poker_hands')
+        return text, loc_disp_text, poker_hands, scoring_hand, disp_text
+    end
+    return get_poker_hand_inforef(_cards)
+end
 
 -- find_joker but keys
 local function find_joker_with_key(key, non_debuff)

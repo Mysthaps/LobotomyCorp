@@ -1,12 +1,13 @@
 local joker = {
-    name = "Happy Teddy Bear",
-    config = {extra = {upgrade = 2, last_hand_played = nil}}, rarity = 2, cost = 6,
+    name = "WhiteNight",
+    config = {extra = {}}, rarity = 4, cost = 6,
     pos = {x = 4, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
     discover_rounds = 6,
+    yes_pool_flag = "whitenight_defeated",
     loc_txt = {
         name = "Happy Teddy Bear",
         text = {

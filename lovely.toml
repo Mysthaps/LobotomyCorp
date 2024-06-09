@@ -21,9 +21,7 @@ overwrite = false
 target = "cardarea.lua"
 pattern = "(self.config.type == 'deck' and self ~= G.deck) or"
 position = "before"
-payload = '''
-(self.config.type == 'hand' and state == G.STATES.EXTRACTION_PACK) or
-'''
+payload = "(self.config.type == 'hand' and state == G.STATES.EXTRACTION_PACK) or"
 match_indent = false
 overwrite = false
 
@@ -32,9 +30,7 @@ overwrite = false
 target = "functions/button_callbacks.lua"
 pattern = "(G.STATE == G.STATES.BUFFOON_PACK and G.STATES.BUFFOON_PACK) or"
 position = "before"
-payload = '''
-(G.STATE == G.STATES.EXTRACTION_PACK and G.STATES.EXTRACTION_PACK) or
-'''
+payload = "(G.STATE == G.STATES.EXTRACTION_PACK and G.STATES.EXTRACTION_PACK) or"
 match_indent = false
 overwrite = false
 
@@ -43,9 +39,7 @@ overwrite = false
 target = "functions/button_callbacks.lua"
 pattern = "prev_state == G.STATES.SPECTRAL_PACK or prev_state == G.STATES.STANDARD_PACK or"
 position = "after"
-payload = '''
-prev_state == G.STATES.EXTRACTION_PACK or
-'''
+payload = "prev_state == G.STATES.EXTRACTION_PACK or"
 match_indent = false
 overwrite = false
 
@@ -56,7 +50,13 @@ pattern = "if self.ability.rental then badges[#badges + 1] = 'rental' end"
 position = "after"
 payload = '''
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
-if self.ability.plague_doctor_baptism then badges[#badges + 1] = 'lobc_blessed' end
+if self.ability.plague_doctor_baptism then 
+    if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
+        badges[#badges + 1] = 'lobc_apostle'
+    else
+        badges[#badges + 1] = 'lobc_blessed'
+    end
+end
 '''
 match_indent = false
 overwrite = false
@@ -69,6 +69,7 @@ position = "after"
 payload = '''
 if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
+if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end
 '''
 match_indent = false
 overwrite = false
@@ -108,9 +109,7 @@ overwrite = false
 target = "card.lua"
 pattern = "if not self.config.center.discovered and (self.ability.consumeable or self.config.center.unlocked) and not self.config.center.demo and not self.bypass_discovery_center then"
 position = "after"
-payload = '''
-if not (self.ability.set == "Joker" and self.config.center.abno) then
-'''
+payload = "if not (self.ability.set == \"Joker\" and self.config.center.abno) then"
 match_indent = true
 overwrite = false
 
@@ -119,8 +118,6 @@ overwrite = false
 target = "card.lua"
 pattern = "shared_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)"
 position = "after"
-payload = '''
-end
-'''
+payload = "end"
 match_indent = true
 overwrite = false

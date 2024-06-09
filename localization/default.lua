@@ -119,6 +119,14 @@ return {
                     "{C:attention}O-01-45{}",
                 }
             },
+            lobc_apostle = {
+                name = "Apostle",
+                text = {
+                    "{C:attention}Destroyed{} when played",
+                    "Is {C:attention}destroyed{} when",
+                    "{C:attention}WhiteNight{} is defeated",
+                }
+            },
             lobc_bless_order = {
                 name = "Bless Order",
                 text = {
@@ -397,6 +405,9 @@ return {
             k_lobc_plague_apostle_11_2 = "for I bear in my body the marks of Him.",
             k_lobc_plague_apostle_12_1 = "Have not I chosen you twelve,",
             k_lobc_plague_apostle_12_2 = "and one of you is a devil?",
+
+            ---- WhiteNight ----
+            k_lobc_whitenight_disable = "Do not deny me. Why dost thou doubt me when I am in front of thine eyes?",
         }
     }
 }
