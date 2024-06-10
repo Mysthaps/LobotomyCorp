@@ -17,7 +17,7 @@ local blind = {
 }
 
 blind.set_blind = function(self, blind, reset, silent)
-    if next(find_joker_with_key("j_lobc_one_sin")) then
+    if next(SMODS.find_card("j_lobc_one_sin")) then
         attention_text({
             text = localize('k_lobc_whitenight_confession'),
             scale = 0.35, 
@@ -38,7 +38,7 @@ blind.debuff_card = function(self, blind, card, from_blind)
 end
 
 blind.disable = function(self, blind)
-    if not next(find_joker_with_key("j_lobc_one_sin")) then
+    if not next(SMODS.find_card("j_lobc_one_sin")) then
         attention_text({
             text = localize('k_lobc_whitenight_disable'),
             scale = 0.35, 
@@ -55,7 +55,7 @@ end
 
 blind.defeat = function(self, blind)
     G.GAME.pool_flags["whitenight_defeated"] = true
-    if not next(find_joker_with_key("j_lobc_one_sin")) then
+    if not next(SMODS.find_card("j_lobc_one_sin")) then
         G.GAME.joker_buffer = G.GAME.joker_buffer + 1
         G.E_MANAGER:add_event(Event({
             func = function() 

@@ -192,23 +192,6 @@ function G.FUNCS.get_poker_hand_info(_cards)
     return get_poker_hand_inforef(_cards)
 end
 
--- find_joker but keys
-function find_joker_with_key(key, non_debuff)
-    local jokers = {}
-    if not G.jokers or not G.jokers.cards then return {} end
-    for _, v in pairs(G.jokers.cards) do
-        if v and type(v) == 'table' and v.config.center.key == key and (non_debuff or not v.debuff) then
-            table.insert(jokers, v)
-        end
-    end
-    for _, v in pairs(G.consumeables.cards) do
-        if v and type(v) == 'table' and v.config.center.key == key and (non_debuff or not v.debuff) then
-            table.insert(jokers, v)
-        end
-    end
-    return jokers
-end
-
 -- Check rounds until observation unlock
 function Card:check_rounds(comp)
     local val = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0
@@ -271,7 +254,7 @@ end
 local add_to_deckref = Card.add_to_deck
 function Card.add_to_deck(self, from_debuff)
     if not self.added_to_deck and self.ability.set == "Joker" then
-        for _, v in ipairs(find_joker_with_key("j_lobc_old_lady")) do
+        for _, v in ipairs(SMODS.find_card("j_lobc_old_lady")) do
             if self ~= v then
                 v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
                 card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
@@ -284,7 +267,7 @@ end
 -- WhiteNight confession win round
 local alert_debuffref = Blind.alert_debuff
 function Blind.alert_debuff(self, first)
-    if self.config.blind.key == "bl_lobc_whitenight" and next(find_joker_with_key("j_lobc_one_sin")) then
+    if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin")) then
         self.block_play = true
         G.E_MANAGER:add_event(Event({
             blocking = false,
