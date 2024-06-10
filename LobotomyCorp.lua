@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
 --- DISPLAY_NAME: Lobotomy Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.4.0
+--- VERSION: 0.4.1
 
 -- To disable a Joker, comment it out by adding -- at the start of the line.
 local joker_list = {
