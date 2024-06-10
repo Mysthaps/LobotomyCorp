@@ -11,6 +11,7 @@
 -- To disable a Joker, comment it out by adding -- at the start of the line.
 local joker_list = {
     --- Common
+    "one_sin",
     "theresia",
     "old_lady",
     "plague_doctor",
@@ -192,7 +193,7 @@ function G.FUNCS.get_poker_hand_info(_cards)
 end
 
 -- find_joker but keys
-local function find_joker_with_key(key, non_debuff)
+function find_joker_with_key(key, non_debuff)
     local jokers = {}
     if not G.jokers or not G.jokers.cards then return {} end
     for _, v in pairs(G.jokers.cards) do
@@ -278,6 +279,57 @@ function Card.add_to_deck(self, from_debuff)
         end
     end
     add_to_deckref(self, from_debuff)
+end
+
+-- WhiteNight confession win round
+local alert_debuffref = Blind.alert_debuff
+function Blind.alert_debuff(self, first)
+    if self.config.blind.key == "bl_lobc_whitenight" and next(find_joker_with_key("j_lobc_one_sin")) then
+        self.block_play = true
+        G.E_MANAGER:add_event(Event({
+            blocking = false,
+            blockable = false,
+            func = function() 
+                if G.STATE == G.STATES.SELECTING_HAND then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 4*G.SETTINGS.GAMESPEED,
+                        blocking = false,
+                        blockable = false,
+                        func = function() 
+                            self.block_play = false
+                            self.chips = 0
+                            self.chip_text = number_format(self.chips)
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 1,
+                                blocking = false,
+                                blockable = false,
+                                func = (function()
+                                    self.block_play = nil
+                                    if G.buttons then
+                                        local _buttons = G.buttons:get_UIE_by_ID('play_button')
+                                        _buttons.disable_button = nil
+                                    end
+                                    -- recheck just in case it fucks up
+                                    if G.STATE == G.STATES.SELECTING_HAND then
+                                        G.STATE = G.STATES.HAND_PLAYED
+                                        G.STATE_COMPLETE = true
+                                        end_round()
+                                    end
+                                    return true
+                                end)
+                            }))
+                            return true
+                        end
+                    }))
+                    return true
+                end
+            end
+        }))
+    else
+        alert_debuffref(self, first)
+    end
 end
 
 -- Get Abnormality pool

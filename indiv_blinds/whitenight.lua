@@ -16,6 +16,21 @@ local blind = {
     }
 }
 
+blind.set_blind = function(self, blind, reset, silent)
+    if next(find_joker_with_key("j_lobc_one_sin")) then
+        attention_text({
+            text = localize('k_lobc_whitenight_confession'),
+            scale = 0.35, 
+            hold = 4*G.SETTINGS.GAMESPEED,
+            major = G.play,
+            backdrop_colour = G.C.CLEAR,
+            align = 'cm',
+            offset = {x = 0, y = -3.5},
+            silent = true
+        })
+    end
+end
+
 blind.debuff_card = function(self, blind, card, from_blind)
     if card.ability.plague_doctor_baptism then
         return true
@@ -23,32 +38,38 @@ blind.debuff_card = function(self, blind, card, from_blind)
 end
 
 blind.disable = function(self, blind)
-    attention_text({
-        text = localize('k_lobc_whitenight_disable'),
-        scale = 0.35, 
-        hold = 8*G.SETTINGS.GAMESPEED,
-        major = G.play,
-        backdrop_colour = G.C.CLEAR,
-        align = 'cm',
-        offset = {x = 0, y = -3.5},
-        silent = true
-    })
-    blind:wiggle()
+    if not next(find_joker_with_key("j_lobc_one_sin")) then
+        attention_text({
+            text = localize('k_lobc_whitenight_disable'),
+            scale = 0.35, 
+            hold = 8*G.SETTINGS.GAMESPEED,
+            major = G.play,
+            backdrop_colour = G.C.CLEAR,
+            align = 'cm',
+            offset = {x = 0, y = -3.5},
+            silent = true
+        })
+        blind:wiggle()
+    end
 end
 
 blind.defeat = function(self, blind)
     G.GAME.pool_flags["whitenight_defeated"] = true
-    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-    G.E_MANAGER:add_event(Event({
-        func = function() 
-            local card = create_card('Abnormality', G.jokers, nil, 0, nil, nil, "j_lobc_whitenight", 'wn')
-            card:add_to_deck()
-            G.jokers:emplace(card)
-            card:start_materialize()
-            G.GAME.joker_buffer = 0
-            return true
-        end
-    }))
+    if not next(find_joker_with_key("j_lobc_one_sin")) then
+        G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                local card = create_card('Abnormality', G.jokers, nil, 0, nil, nil, "j_lobc_whitenight", 'wn')
+                card:add_to_deck()
+                G.jokers:emplace(card)
+                card:start_materialize()
+                G.GAME.joker_buffer = 0
+                return true
+            end
+        }))
+    else
+        G.GAME.pool_flags["whitenight_confessed"] = true
+    end
 end
 
 blind.press_play = function(self, blind)

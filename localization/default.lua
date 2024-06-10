@@ -10,6 +10,14 @@ return {
                     "to ashes like me."
                 }
             },
+            und_j_lobc_one_sin = {
+                name = "O-03-03",
+                text = {
+                    "It feeds on the \"evil\" that",
+                    "seeps out during conversations",
+                    "between people."
+                }
+            },
             und_j_lobc_queen_of_hatred = {
                 name = "O-01-04",
                 text = {
@@ -165,6 +173,14 @@ return {
                 text = {
                     "{C:attention}-#1#%{} Blind Size",
                     "{C:attention}(#3#/4){} ..."
+                }
+            },
+
+            dis_j_lobc_one_sin_1 = {
+                name = "O-03-03",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#2#/2){} ..."
                 }
             },
 
@@ -433,6 +449,7 @@ return {
             k_lobc_plague_apostle_12_2 = "and one of you is a devil?",
 
             ---- WhiteNight ----
+            k_lobc_whitenight_confession = "To be willing to bear pain is half the atonement.",
             k_lobc_whitenight_disable = "Do not deny me. Why dost thou doubt me when I am in front of thine eyes?",
         }
     }

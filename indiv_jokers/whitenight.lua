@@ -8,6 +8,7 @@ local joker = {
     abno = true,
     discover_rounds = 8,
     yes_pool_flag = "whitenight_defeated",
+    no_pool_flag = "whitenight_confessed",
     loc_txt = {
         name = "WhiteNight",
         text = {
