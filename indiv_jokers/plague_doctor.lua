@@ -129,8 +129,8 @@ joker.calculate = function(self, card, context)
                         })
                     end
                 end
+                G.GAME.pool_flags["plague_doctor_breach"] = true
             end
-            G.GAME.pool_flags["plague_doctor_breach"] = true
         end
     end
 end
