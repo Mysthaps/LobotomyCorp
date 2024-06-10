@@ -22,7 +22,9 @@ joker.calculate = function(self, card, context)
             func = function() 
                 card:juice_up()
                 -- i took this from TheAutumnCircus' Mr. Bones' Stamp
-                G.GAME.blind.chips = math.floor(G.GAME.blind.chips * ((100 - card.ability.extra)/100))
+                local chips = (G.GAME.blind.chips * ((100 - card.ability.extra)/100))
+                if type(chips) == 'table' then chips:ceil() else math.ceil(chips) end
+                G.GAME.blind.chips = chips
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                 G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
                 G.HUD_blind:recalculate() 
@@ -36,10 +38,9 @@ joker.calculate = function(self, card, context)
         G.E_MANAGER:add_event(Event({
             func = function() 
                 for _, v in ipairs(G.hand.cards) do
-                    if not v.debuff then
-                        v.debuff = true
-                        v:juice_up()
-                    end
+                    v.ability.scorched_girl_debuff = true
+                    v.debuff = true
+                    v:juice_up()
                 end
             return true
             end

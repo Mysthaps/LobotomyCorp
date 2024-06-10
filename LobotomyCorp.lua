@@ -248,6 +248,15 @@ function set_joker_usage()
     end
 end
 
+-- Scorched Girl's debuff first hand drawn
+function SMODS.current_mod.set_debuff(card, should_debuff)
+    if card.ability and card.ability.scorched_girl_debuff then
+        card.debuff = true
+        return true
+    end
+    return nil
+end
+
 -- Remove Queen of Hatred's sell button
 local can_sell_cardref = Card.can_sell_card
 function Card.can_sell_card(self, context)
