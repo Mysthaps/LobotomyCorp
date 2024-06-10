@@ -7,7 +7,7 @@
 Greetings, Manager. 
 I see that you've been slacking off while playing a few rounds of cards during our work hours. 
 I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have "fun" while still generating precious energy to meet the daily quota. 
-This may hinder your playing experience, but I am sure you will do just fine.</i><p>
+This may hinder your playing experience, but I am sure you will do just fine.</i></p>
 
 Each added Abnormality have different Observation Levels that unlock more of their Information. 
 This is based on the amount of rounds played with that Abnormality in your Joker slots.
@@ -22,4 +22,4 @@ Instructions can be found [here](https://github.com/Steamopollys/Steamodded/wiki
 
 # Installation
 Head to the mod's *[Releases](https://github.com/Mysthaps/LobotomyCorp/releases/latest)* page and download the latest version.
-You can also *clone* this repository, however, some things may break.
+You can also *clone* this repository, however, some things may break.`
