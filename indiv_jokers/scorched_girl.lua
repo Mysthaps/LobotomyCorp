@@ -46,6 +46,11 @@ joker.calculate = function(self, card, context)
             end
         }))
     end
+    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+        for _, v in ipairs(G.playing_cards) do
+            v.ability.scorched_girl_debuff = nil
+        end
+    end
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)

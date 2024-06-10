@@ -152,7 +152,7 @@ SMODS.Center({
     prefix = 'p',
     key = 'extraction_normal',
     name = "Extraction Pack",
-    weight = 5, -- Slightly more weight than all Buffoon Packs combined!! because there is only one Extraction Pack
+    weight = 3.5,
     kind = "Abnormality",
     cost = 5,
     discovered = true,

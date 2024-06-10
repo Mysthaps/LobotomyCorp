@@ -5,6 +5,15 @@ priority = 0
 
 [[patches]]
 [patches.pattern]
+target = "localization/en-us.lua"
+pattern = "\"{C:attention}Straights{} can be\","
+position = "before"
+payload = "\"{C:attention}Gays{} can be\","
+match_indent = false
+overwrite = false
+
+[[patches]]
+[patches.pattern]
 target = "game.lua"
 pattern = "if self.STATE == self.STATES.BUFFOON_PACK then"
 position = "before"
