@@ -1,13 +1,13 @@
 <h1 align="center">Lobotomy Corporation</h1>
-<h4 align="center"><i>Face the Fear, Build the Future.</i><h4>
+<h4 align="center"><i>Face the Fear, Build the Future.</i></h4>
 
 <p align="center"><img src="assets/LobotomyCorporationLogo.png" style="width:30%" /></p>
 
-<p align="center"><i>
+<h5 align="center"><i>
 Greetings, Manager. 
 I see that you've been slacking off while playing a few rounds of cards during our work hours. 
 I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have "fun" while still generating precious energy to meet the daily quota. 
-This may hinder your playing experience, but I am sure you will do just fine.</i></p>
+This may hinder your playing experience, but I am sure you will do just fine.</i></h5>
 
 Each added Abnormality have different Observation Levels that unlock more of their Information. 
 This is based on the amount of rounds played with that Abnormality in your Joker slots.
