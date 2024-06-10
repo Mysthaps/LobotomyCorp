@@ -10,7 +10,7 @@ local blind = {
     loc_txt = {
         name = "WhiteNight",
         text = {
-            "Scored Apostles reduce",
+            "Played Apostles reduce",
             "blind size by 5X Base"
         }
     }
