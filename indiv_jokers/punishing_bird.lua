@@ -38,6 +38,12 @@ joker.calculate = function(self, card, context)
     end
 
     if context.selling_self and G.STATE ~= G.STATES.GAME_OVER then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('lobc_punishing_bird_hit', 1, 0.8)
+                return true
+            end
+        }))
         G.STATE = G.STATES.GAME_OVER
         if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
             G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0

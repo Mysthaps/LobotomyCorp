@@ -130,5 +130,8 @@ match_indent = true
 target = "functions/misc_functions.lua"
 pattern = "(G.STATE == G.STATES.SPLASH and '') or"
 position = "after"
-payload = "((G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == \"bl_lobc_whitenight\") and \"lobc_third_warning\") or"
+payload = '''
+((G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight") and "lobc_third_warning") or
+(G.STATE == G.STATES.EXTRACTION_PACK and "lobc_abno_choice") or
+'''
 match_indent = true

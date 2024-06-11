@@ -74,6 +74,12 @@ joker.calculate = function(self, card, context)
             -- Increase the apostle count regardless of blessed cards
             card.ability.extra.apostles = card.ability.extra.apostles + 1
             -- Show text. I don't care if you go so fast that it overlaps
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('lobc_plague_doctor_bell', 1, 0.6)
+                    return true
+                end
+            }))
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 attention_text({
                     text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_1'),

@@ -37,8 +37,11 @@ local blind_list = {
 
 local sound_list = {
     third_warning = "Emergency3",
+    abno_choice = "AbnormalityChoice",
     mosb_upgrade = "Danggo_Lv2",
-    old_lady_downgrade = "OldLady_effect01"
+    old_lady_downgrade = "OldLady_effect01",
+    plague_doctor_bell = "Lucifer_Bell0",
+    punishing_bird_hit = "SmallBird_Hit",
 }
 
 -- Atlases
