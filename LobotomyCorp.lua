@@ -35,6 +35,10 @@ local blind_list = {
     "whitenight"
 }
 
+local sound_list = {
+    third_warning = "Emergency3"
+}
+
 -- Atlases
 local mod_path = SMODS.current_mod.path
 SMODS.Atlas({ 
@@ -75,7 +79,7 @@ SMODS.Atlas({
     path = "LobotomyCorp_icon.png",
     px = 34,
     py = 34
-}):register()
+})
 
 -- Badge colors
 local get_badge_colourref = get_badge_colour
@@ -145,6 +149,14 @@ for k, v in ipairs(blind_list) do
             end
         end
     end
+end
+
+-- Load all sounds
+for k, v in pairs(sound_list) do
+    SMODS.Sound({
+        key = k,
+        path = v..".ogg"
+    })
 end
 
 -- Make Extraction Pack

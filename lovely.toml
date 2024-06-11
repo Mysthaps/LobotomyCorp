@@ -10,7 +10,6 @@ pattern = "\"{C:attention}Straights{} can be\","
 position = "before"
 payload = "\"{C:attention}Gays{} can be\","
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -23,7 +22,6 @@ if self.STATE == self.STATES.EXTRACTION_PACK then
 end
 '''
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -32,7 +30,6 @@ pattern = "(self.config.type == 'deck' and self ~= G.deck) or"
 position = "before"
 payload = "(self.config.type == 'hand' and state == G.STATES.EXTRACTION_PACK) or"
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -41,7 +38,6 @@ pattern = "(G.STATE == G.STATES.BUFFOON_PACK and G.STATES.BUFFOON_PACK) or"
 position = "before"
 payload = "(G.STATE == G.STATES.EXTRACTION_PACK and G.STATES.EXTRACTION_PACK) or"
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -50,7 +46,6 @@ pattern = "prev_state == G.STATES.SPECTRAL_PACK or prev_state == G.STATES.STANDA
 position = "after"
 payload = "prev_state == G.STATES.EXTRACTION_PACK or"
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -72,7 +67,6 @@ if self.ability.plague_doctor_baptism then
 end
 '''
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -86,7 +80,6 @@ if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_
 if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end
 '''
 match_indent = false
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -101,7 +94,6 @@ else
 end
 '''
 match_indent = true
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -116,7 +108,6 @@ else
 end
 '''
 match_indent = true
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -125,7 +116,6 @@ pattern = "if not self.config.center.discovered and (self.ability.consumeable or
 position = "after"
 payload = "if not (self.ability.set == \"Joker\" and self.config.center.abno) then"
 match_indent = true
-overwrite = false
 
 [[patches]]
 [patches.pattern]
@@ -134,4 +124,11 @@ pattern = "shared_sprite:draw_shader('dissolve', nil, nil, nil, self.children.ce
 position = "after"
 payload = "end"
 match_indent = true
-overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "(G.STATE == G.STATES.SPLASH and '') or"
+position = "after"
+payload = "((G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == \"bl_lobc_whitenight\") and \"lobc_third_warning\") or"
+match_indent = true
