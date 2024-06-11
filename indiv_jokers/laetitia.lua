@@ -43,6 +43,7 @@ joker.calculate = function(self, card, context)
                 return true
             end
         })) 
+        return {}
     end
 
     if context.cardarea == G.jokers and not context.blueprint then

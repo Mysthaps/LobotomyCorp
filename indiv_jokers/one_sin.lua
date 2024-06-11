@@ -33,6 +33,8 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     local desc_key = self.key
     if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
+    elseif not G.CENTERS["bl_lobc_whitenight"].discovered then
+        desc_key = 'dis_'..desc_key..'_2'
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}

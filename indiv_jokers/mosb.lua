@@ -70,6 +70,7 @@ joker.calculate = function(self, card, context)
                 colour = G.C.MULT
             })
         end
+        return {}
     end
 end
 

@@ -51,9 +51,9 @@ joker.calculate = function(self, card, context)
 
             -- Check in deck
             if not card_to_mark then
-                for k, v in ipairs(G.hand.cards) do
+                for k, v in ipairs(G.deck.cards) do
                     if v.ability and not v.ability.plague_doctor_baptism then
-                        card_to_mark = G.hand.cards[k]
+                        card_to_mark = G.deck.cards[k]
                     end
                 end
             end
@@ -164,7 +164,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     if specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'k_plague_doctor_debuffed', nodes = desc_nodes}
+        localize{type = 'other', key = 'k_lobc_plague_doctor_debuffed', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
     end

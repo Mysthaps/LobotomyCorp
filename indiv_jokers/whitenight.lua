@@ -62,9 +62,9 @@ joker.calculate = function(self, card, context)
 
             -- Check in deck
             if not card_to_mark then
-                for k, v in ipairs(G.hand.cards) do
+                for k, v in ipairs(G.deck.cards) do
                     if v.ability and not v.ability.plague_doctor_baptism then
-                        card_to_mark = G.hand.cards[k]
+                        card_to_mark = G.deck.cards[k]
                     end
                 end
             end
