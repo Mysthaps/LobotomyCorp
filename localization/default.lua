@@ -157,7 +157,14 @@ return {
                     "then in {C:attention}hand{}, then in {C:attention}deck{}",
                 }
             },
-
+            lobc_plague_doctor_debuffed = {
+                name = "Debuffed",
+                text = {
+                    "All abilities",
+                    "are disabled",
+                    "No duplicates"
+                }
+            },
         },
         Joker = {
             ---- Abnormalities' Observation Levels ----
@@ -186,8 +193,7 @@ return {
             dis_j_lobc_one_sin_2 = {
                 name = "One Sin and Hundreds of Good Deeds",
                 text = {
-                    "Played cards",
-                    "give {C:mult}+#1#{} Mult",
+                    "Played cards give {C:mult}+#1#{} Mult when scored",
                     "{C:attention}(#3#/?){} ..."
                 }
             },
@@ -431,15 +437,6 @@ return {
             k_lobc_extraction_pack = "Extraction Pack",
 
             ---- Plague Doctor ----
-            k_lobc_plague_doctor_debuffed = {
-                name = "Plague Doctor",
-                text = {
-                    "All abilities",
-                    "are disabled",
-                    "No duplicates"
-                }
-            },
-
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",
             k_lobc_plague_apostle_1_2 = "I will build my church; and the gates of hell shall not prevail against it.",
             k_lobc_plague_apostle_2_1 = "Tell us, when shall these things be? and what shall be",

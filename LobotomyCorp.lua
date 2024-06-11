@@ -36,7 +36,9 @@ local blind_list = {
 }
 
 local sound_list = {
-    third_warning = "Emergency3"
+    third_warning = "Emergency3",
+    mosb_upgrade = "Danggo_Lv2",
+    old_lady_downgrade = "OldLady_effect01"
 }
 
 -- Atlases
@@ -278,6 +280,12 @@ function Card.add_to_deck(self, from_debuff)
             if self ~= v then
                 v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
                 card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('lobc_old_lady_downgrade', 1, 0.7)
+                        return true
+                    end
+                }))
             end
         end
     end

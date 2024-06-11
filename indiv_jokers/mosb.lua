@@ -1,6 +1,10 @@
 local joker = {
     name = "The Mountain of Smiling Bodies",
-    config = {extra = {chips = 0, mult = 0, chips_gain = 5, mult_gain = 2, gain_scale = 1, destroyed = 0}}, rarity = 3, cost = 8,
+    config = {extra = {
+        chips = 0, mult = 0, 
+        chips_gain = 5, mult_gain = 2, 
+        gain_scale = 1, destroyed = 0,
+    }}, rarity = 3, cost = 8,
     pos = {x = 7, y = 4}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -22,24 +26,21 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.destroying_card and not context.blueprint then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            func = function()
-                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-                card.ability.extra.destroyed = card.ability.extra.destroyed + 1
+        card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
+        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+        card.ability.extra.destroyed = card.ability.extra.destroyed + 1
 
-                if card.ability.extra.destroyed == 1 then
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+        if card.ability.extra.destroyed == 5 then
+            card.ability.extra.chips_gain = card.ability.extra.chips_gain + card.ability.extra.gain_scale
+            card.ability.extra.mult_gain = card.ability.extra.mult_gain + card.ability.extra.gain_scale
+            card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex') })
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('lobc_mosb_upgrade', 1, 0.4)
+                    return true
                 end
-
-                if card.ability.extra.destroyed == 5 then
-                    card.ability.extra.chips_gain = card.ability.extra.chips_gain + card.ability.extra.gain_scale
-                    card.ability.extra.mult_gain = card.ability.extra.mult_gain + card.ability.extra.gain_scale
-                end
-            return true
-            end
-        }))
+            }))
+        end
         return true
     end
 
@@ -70,7 +71,7 @@ joker.calculate = function(self, card, context)
                 colour = G.C.MULT
             })
         end
-        return {}
+        --return {}
     end
 end
 

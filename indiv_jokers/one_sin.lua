@@ -11,8 +11,7 @@ local joker = {
     loc_txt = {
         name = "One Sin and Hundreds of Good Deeds",
         text = {
-            "Played cards",
-            "give {C:mult}+#1#{} Mult",
+            "Played cards give {C:mult}+#1#{} Mult when scored",
             "Punishment shall begin to",
             "rain down {C:attention}WhiteNight{}."
         }
@@ -29,11 +28,11 @@ joker.calculate = function(self, card, context)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card:check_rounds(2) }
+    local vars = { card.ability.extra.mult, card:check_rounds(2), card:check_rounds(666) }
     local desc_key = self.key
     if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif not G.CENTERS["bl_lobc_whitenight"].discovered then
+    elseif not G.P_BLINDS["bl_lobc_whitenight"].discovered then
         desc_key = 'dis_'..desc_key..'_2'
     end
 
