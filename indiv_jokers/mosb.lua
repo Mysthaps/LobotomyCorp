@@ -2,7 +2,7 @@ local joker = {
     name = "The Mountain of Smiling Bodies",
     config = {extra = {
         chips = 0, mult = 0, 
-        chips_gain = 5, mult_gain = 2, 
+        chips_gain = 3, mult_gain = 1, 
         gain_scale = 1, destroyed = 0,
     }}, rarity = 3, cost = 8,
     pos = {x = 7, y = 4}, 
