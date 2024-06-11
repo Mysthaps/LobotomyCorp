@@ -13,9 +13,9 @@ local joker = {
             "Played cards permanently gain",
             "{C:chips}+#1#{} Chips when scored",
             "When {C:attention}Blind{} is selected, forces",
-            "{C:attention}3{} cards to always be selected",
+            "{C:attention}2{} cards to always be selected",
             "Destroys scored cards with",
-            "{C:chips}50{} or more bonus Chips"
+            "{C:chips}100{} or more bonus Chips"
         }
     },
 }
@@ -34,7 +34,7 @@ joker.calculate = function(self, card, context)
                         end
                     end
                 
-                    for i = 1, math.min(3, G.hand.config.highlighted_limit) do
+                    for i = 1, math.min(2, G.hand.config.highlighted_limit - #G.hand.highlighted) do
                         if #available_cards > 0 then
                             local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
                             chosen_card.ability.forced_selection = true
@@ -58,7 +58,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.destroying_card and not context.blueprint and context.destroying_card.ability.perma_bonus >= 50 then
+    if context.destroying_card and not context.blueprint and context.destroying_card.ability.perma_bonus >= 100 then
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()

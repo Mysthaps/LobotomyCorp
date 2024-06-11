@@ -249,7 +249,7 @@ return {
                     "Played cards permanently gain",
                     "{C:chips}+#1#{} Chips when scored",
                     "When {C:attention}Blind{} is selected, forces",
-                    "{C:attention}3{} cards to always be selected",
+                    "{C:attention}2{} cards to always be selected",
                     "{C:attention}(#4#/7){} ..."
                 }
             },
