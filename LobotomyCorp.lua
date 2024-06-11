@@ -171,6 +171,14 @@ sendInfoMessage("Loaded LobotomyCorp~")
 
 ---- Other functions ----
 
+-- oops
+local init_game_objectref = Game.init_game_object
+function Game.init_game_object(self)
+    local G = init_game_objectref(self)
+    G.bosses_used["bl_lobc_whitenight"] = 1e300
+    return G
+end
+
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
