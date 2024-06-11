@@ -164,7 +164,7 @@ SMODS.Center({
     prefix = 'p',
     key = 'extraction_normal',
     name = "Extraction Pack",
-    weight = 3.5,
+    weight = 3,
     kind = "Abnormality",
     cost = 5,
     discovered = true,
