@@ -1,6 +1,6 @@
 local joker = {
     name = "WhiteNight",
-    config = {extra = {mult = 20, retriggers = 5}}, rarity = 4, cost = 20,
+    config = {extra = {mult = 20, retriggers = 3}}, rarity = 4, cost = 20,
     pos = {x = 3, y = 8}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -12,6 +12,7 @@ local joker = {
     loc_txt = {
         name = "WhiteNight",
         text = {
+            "{C:dark_edition}+1{} Joker Slot",
             "{C:attention}Blesses{} a playing card",
             "each hand",
             "Played {C:attention}blessed{} cards",
@@ -82,6 +83,14 @@ joker.calculate = function(self, card, context)
             end
         end
     end
+end
+
+joker.add_to_deck = function(self, card, from_debuff)
+    G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+end
+
+joker.remove_from_deck = function(self, card, from_debuff)
+    G.jokers.config.card_limit = G.jokers.config.card_limit - 1
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
