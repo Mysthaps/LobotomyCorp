@@ -36,8 +36,8 @@ local blind_list = {
 }
 
 local sound_list = {
-    third_warning = "Emergency3",
-    abno_choice = "AbnormalityChoice",
+    music_third_warning = "Emergency3",
+    music_abno_choice = "AbnormalityChoice",
     mosb_upgrade = "Danggo_Lv2",
     old_lady_downgrade = "OldLady_effect01",
     plague_doctor_bell = "Lucifer_Bell0",
@@ -193,6 +193,13 @@ local init_game_objectref = Game.init_game_object
 function Game.init_game_object(self)
     local G = init_game_objectref(self)
     G.bosses_used["bl_lobc_whitenight"] = 1e300
+    for _, v in pairs(SMODS.Sounds) do
+        for kk, vv in pairs(v) do
+            if type(vv) == 'integer' or type(vv) == 'string' then sendDebugMessage(kk.." = "..vv) 
+            else sendDebugMessage(kk) end
+        end
+        sendDebugMessage("--end--")
+    end
     return G
 end
 
