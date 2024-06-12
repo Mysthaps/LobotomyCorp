@@ -146,7 +146,7 @@ return {
                 name = "Apostle",
                 text = {
                     "{C:red}Debuffed{}",
-                    "{C:attention}Destroyed{} when played",
+                    "{C:attention}Perishes{} when played",
                 }
             },
             lobc_bless_order = {

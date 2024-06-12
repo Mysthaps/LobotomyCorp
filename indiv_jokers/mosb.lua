@@ -25,7 +25,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.destroying_card and not context.blueprint then
+    if context.destroying_card and not context.blueprint and not context.destroying_card.ability.eternal then
         card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
         card.ability.extra.destroyed = card.ability.extra.destroyed + 1
