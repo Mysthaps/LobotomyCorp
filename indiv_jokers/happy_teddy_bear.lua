@@ -21,20 +21,23 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.cardarea == G.jokers and context.before then
+    if context.cardarea == G.jokers then
         local hand = context.scoring_name
-        if hand == card.ability.extra.last_hand_played then
-            if not context.blueprint then
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
+        if context.before then
+            if hand == card.ability.extra.last_hand_played then
+                if not context.blueprint then
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
+                    update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'),chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
+                    level_up_hand(card, hand, nil, -G.GAME.hands[hand].level)
+                end
+            else
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'),chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
-                level_up_hand(card, hand, nil, -G.GAME.hands[hand].level)
+                level_up_hand(context.blueprint_card or card, hand, nil, card.ability.extra.upgrade)
             end
-        else
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'),chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
-            level_up_hand(context.blueprint_card or card, hand, nil, card.ability.extra.upgrade)
+        elseif context.after and not context.blueprint then
+            card.ability.extra.last_hand_played = hand
         end
-        card.ability.extra.last_hand_played = hand
     end
 end
 
