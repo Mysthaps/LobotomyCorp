@@ -193,13 +193,6 @@ local init_game_objectref = Game.init_game_object
 function Game.init_game_object(self)
     local G = init_game_objectref(self)
     G.bosses_used["bl_lobc_whitenight"] = 1e300
-    for _, v in pairs(SMODS.Sounds) do
-        for kk, vv in pairs(v) do
-            if type(vv) == 'integer' or type(vv) == 'string' then sendDebugMessage(kk.." = "..vv) 
-            else sendDebugMessage(kk) end
-        end
-        sendDebugMessage("--end--")
-    end
     return G
 end
 
