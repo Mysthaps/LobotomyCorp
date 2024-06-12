@@ -333,6 +333,13 @@ return {
             dis_j_lobc_whitenight_1 = {
                 name = "T-03-46",
                 text = {
+                    "{C:attention}(#3#/?){} ...",
+                    "{C:attention}(#3#/8){} ..."
+                }
+            },
+            dis_j_lobc_whitenight_2 = {
+                name = "T-03-46",
+                text = {
                     "{C:attention}Blesses{} a playing card",
                     "each hand",
                     "Played {C:attention}blessed{} cards",
