@@ -199,8 +199,9 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
-    if G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"] then return "bl_lobc_whitenight" end
-    return get_new_bossref()
+    --if G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"] then return "bl_lobc_whitenight" end
+    --return get_new_bossref()
+    return "bl_lobc_whitenight"
 end
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything

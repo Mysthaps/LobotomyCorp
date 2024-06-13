@@ -76,22 +76,23 @@ blind.press_play = function(self, blind)
     local proc = false
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-        delay = 0.2*G.SETTINGS.GAMESPEED, 
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.ability and v.ability.plague_doctor_baptism then
                     proc = true
                     G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.2*G.SETTINGS.GAMESPEED,
                         func = function() 
                             v:start_dissolve() 
+                            if blind.chips > get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*6.66 then
+                                blind.chips = blind.chips - get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*5
+                                blind.chip_text = number_format(blind.chips)
+                                blind:wiggle()
+                            end
                             return true
                         end 
-                    }))
-                    if blind.chips > get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*6.66 then
-                        blind.chips = blind.chips - get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*5
-                        blind.chip_text = number_format(blind.chips)
-                    end
-                    delay(0.2*G.SETTINGS.GAMESPEED)
+                    }))   
                 end
             end
             return true 
