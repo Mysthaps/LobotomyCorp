@@ -206,7 +206,7 @@ end
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything
 local get_poker_hand_inforef = G.FUNCS.get_poker_hand_info
 function G.FUNCS.get_poker_hand_info(_cards)
-    if #_cards == 0 then
+    if G.STATE == G.STATES.HAND_PLAYED and #_cards == 0 then
         local poker_hands = evaluate_poker_hand(_cards)
         local scoring_hand = {}
         local text = "High Card"
