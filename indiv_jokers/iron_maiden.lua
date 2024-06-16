@@ -34,7 +34,8 @@ local joker = {
 }
 
 joker.update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and not (card.ability.extra.seconds >= card.ability.extra.interval) then
+    if G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and 
+       not (card.ability.extra.seconds >= card.ability.extra.interval) and not card.debuff then
         card.ability.extra.elapsed = card.ability.extra.elapsed + (dt / G.SETTINGS.GAMESPEED)
         if card.ability.extra.elapsed >= 1 then
             card.ability.extra.elapsed = card.ability.extra.elapsed - 1
