@@ -98,6 +98,13 @@ return {
                     "unfamiliar yet sorrowful.",
                 }
             },
+            und_j_lobc_iron_maiden = {
+                name = "T-09-85",
+                text = {
+                    "Now everything will",
+                    "be just fine.",
+                }
+            },
 
             ---- Boosters ----
             p_lobc_extraction_normal = {
@@ -429,6 +436,31 @@ return {
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
+
+            dis_j_lobc_iron_maiden_1 = {
+                name = "T-09-85",
+                text = {
+                    "{C:attention}(#5#/2){} ...",
+                    "{C:attention}(#6#/4){} ...",
+                    "{C:attention}(#7#/6){} ...",
+                }
+            },
+            dis_j_lobc_iron_maiden_2 = {
+                name = "T-09-85",
+                text = {
+                    "Every second, gain {C:attention}#1# score",
+                    "{C:attention}(#6#/4){} ...",
+                    "{C:attention}(#7#/6){} ...",
+                }
+            },
+            dis_j_lobc_iron_maiden_3 = {
+                name = "T-09-85",
+                text = {
+                    "Every second, gain {C:attention}#1# score",
+                    "Every second, temporary {C:blue}-#2#{} hands",
+                    "{C:attention}(#7#/6){} ...",
+                }
+            },
         }
     },
     misc = {
@@ -442,6 +474,8 @@ return {
             k_lobc_breached = "Breached!",
             k_lobc_downgrade = "Downgrade...",
             k_lobc_extraction_pack = "Extraction Pack",
+            k_lobc_active = "active",
+            k_lobc_inactive = "inactive",
 
             ---- Plague Doctor ----
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",

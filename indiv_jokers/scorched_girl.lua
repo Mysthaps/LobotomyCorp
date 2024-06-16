@@ -23,7 +23,7 @@ joker.calculate = function(self, card, context)
                 card:juice_up()
                 -- i took this from TheAutumnCircus' Mr. Bones' Stamp
                 local chips = (G.GAME.blind.chips * ((100 - card.ability.extra)/100))
-                if type(chips) == 'table' then chips:ceil() else math.ceil(chips) end
+                if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
                 G.GAME.blind.chips = chips
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                 G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)

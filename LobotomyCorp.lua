@@ -8,6 +8,7 @@
 --- BADGE_COLOR: FC3A3A
 --- VERSION: 0.4.4b
 
+local mod_path = SMODS.current_mod.path
 -- To disable a Joker, comment it out by adding -- at the start of the line.
 local joker_list = {
     --- Common
@@ -21,6 +22,7 @@ local joker_list = {
     "scorched_girl",
     "happy_teddy_bear",
     "red_shoes",
+    "iron_maiden", -- We Can Change Anything
 
     --- Rare
     "queen_of_hatred",
@@ -42,49 +44,9 @@ local sound_list = {
     old_lady_downgrade = "OldLady_effect01",
     plague_doctor_bell = "Lucifer_Bell0",
     punishing_bird_hit = "SmallBird_Hit",
+    iron_maiden_tick = "Iron_Generate",
+    iron_maiden_end = "Iron_End",
 }
-
--- Atlases
-local mod_path = SMODS.current_mod.path
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Jokers", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "LobotomyCorp_spritesheet.png", 
-    px = 71, 
-    py = 95 
-})
-
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Undiscovered", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "LobotomyCorp_undiscovered.png", 
-    px = 71, 
-    py = 95 
-})
-
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Booster", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "LobotomyCorp_booster.png", 
-    px = 71, 
-    py = 95 
-})
-
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Blind", 
-    atlas_table = "ANIMATION_ATLAS", 
-    path = "LobotomyCorp_blind.png", 
-    px = 34, 
-    py = 34,
-    frames = 21,
-})
-
-SMODS.Atlas({
-    key = "modicon",
-    path = "LobotomyCorp_icon.png",
-    px = 34,
-    py = 34
-})
 
 -- Badge colors
 local get_badge_colourref = get_badge_colour
@@ -136,7 +98,7 @@ for _, v in ipairs(joker_list) do
 end
 
 -- Load all blinds
-for k, v in ipairs(blind_list) do
+for _, v in ipairs(blind_list) do
     local blind = NFS.load(mod_path .. "indiv_blinds/" .. v .. ".lua")()
 
     if not blind then
@@ -163,6 +125,47 @@ for k, v in pairs(sound_list) do
         path = v..".ogg"
     })
 end
+
+-- Atlases
+SMODS.Atlas({ 
+    key = "LobotomyCorp_Jokers", 
+    atlas_table = "ASSET_ATLAS", 
+    path = "LobotomyCorp_spritesheet.png", 
+    px = 71, 
+    py = 95 
+})
+
+SMODS.Atlas({ 
+    key = "LobotomyCorp_Undiscovered", 
+    atlas_table = "ASSET_ATLAS", 
+    path = "LobotomyCorp_undiscovered.png", 
+    px = 71, 
+    py = 95 
+})
+
+SMODS.Atlas({ 
+    key = "LobotomyCorp_Booster", 
+    atlas_table = "ASSET_ATLAS", 
+    path = "LobotomyCorp_booster.png", 
+    px = 71, 
+    py = 95 
+})
+
+SMODS.Atlas({ 
+    key = "LobotomyCorp_Blind", 
+    atlas_table = "ANIMATION_ATLAS", 
+    path = "LobotomyCorp_blind.png", 
+    px = 34, 
+    py = 34,
+    frames = 21,
+})
+
+SMODS.Atlas({
+    key = "modicon",
+    path = "LobotomyCorp_icon.png",
+    px = 34,
+    py = 34
+})
 
 -- Make Extraction Pack
 SMODS.Center({

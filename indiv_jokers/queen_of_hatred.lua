@@ -45,11 +45,13 @@ joker.calculate = function(self, card, context)
                         G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 2
                         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
                             func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                            return true;
+                            end
+                        })) 
+                    return true
                     end
                 })) 
                 G.GAME.pool_flags["queen_of_hatred_breach"] = true
