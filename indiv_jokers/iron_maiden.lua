@@ -11,8 +11,8 @@
 local joker = {
     name = "We Can Change Anything",
     config = {extra = {
-        blind_gain = 5, hands_loss = 0.02, 
-        loss_increase = 0.02, interval = 15, 
+        blind_gain = 5, hands_loss = 0.01, 
+        loss_increase = 0.01, interval = 10, 
         elapsed = 0, seconds = 0
     }}, rarity = 2, cost = 6,
     pos = {x = 7, y = 5}, 
@@ -85,8 +85,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-        local check = (G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and
-            card.ability.extra.seconds < card.ability.extra.interval)
+        local check = (G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND)
         desc_nodes[#desc_nodes+1] = {
             {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
                 {n=G.UIT.C, config={ref_table = self, align = "m", colour = check and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
