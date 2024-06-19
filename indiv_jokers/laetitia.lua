@@ -6,18 +6,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "he",
     discover_rounds = 8,
-    loc_txt = {
-        name = "Laetitia",
-        text = {
-            "If only {C:hearts}Hearts{} cards score, copy",
-            "non-{C:attention}marked{}, scoring cards to hand",
-            "If no {C:hearts}Hearts{} are scored,",
-            "destroys all scored cards",
-            "When this Abnormality is removed,",
-            "{C:attention}permanently{} debuffs all {C:attention}marked{} cards"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

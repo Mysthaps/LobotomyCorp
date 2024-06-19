@@ -6,18 +6,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "teth",
     discover_rounds = 8,
-    loc_txt = {
-        name = "Punishing Bird",
-        text = {
-            "{C:mult}+#1#{} Mult",
-            "This Abnormality gains",
-            "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-            "If this Abnormality is {C:attention}sold{},",
-            "immediately {C:attention}lose{} the game",
-            "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -6,21 +6,11 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "aleph",
     discover_rounds = 8,
     yes_pool_flag = "whitenight_defeated",
     no_pool_flag = "whitenight_confessed",
-    loc_txt = {
-        name = "WhiteNight",
-        text = {
-            "{C:dark_edition}+1{} Joker Slot",
-            "{C:attention}Blesses{} a playing card",
-            "each hand",
-            "Played {C:attention}blessed{} cards",
-            "give {C:mult}+#1#{} Mult",
-            "Retrigger {C:attention}blessed{} cards",
-            "{C:attention}#2#{} times",
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)
@@ -96,11 +86,14 @@ end
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card.ability.extra.mult, card.ability.extra.retriggers, card:check_rounds(8) }
     local desc_key = self.key
-    info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
-    if not G.P_BLINDS["bl_lobc_whitenight"].discovered then
+    local count = G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_plague_doctor"] and G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_plague_doctor"].count or 0
+    if count == 0 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(8) < 8 then
-        desc_key = 'dis_'..desc_key..'_2'
+    else
+        info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
+        if card:check_rounds(8) < 8 then
+            desc_key = 'dis_'..desc_key..'_2'
+        end
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}

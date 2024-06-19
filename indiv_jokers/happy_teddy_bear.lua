@@ -6,18 +6,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "he",
     discover_rounds = 6,
-    loc_txt = {
-        name = "Happy Teddy Bear",
-        text = {
-            "Upgrade level of played",
-            "{C:attention}poker hand #1#{} times",
-            "If {C:attention}consecutive{} hands have",
-            "the same {C:attention}poker hand{},",
-            "reduce its level to {C:attention}0{}",
-            "{C:inactive}(Last hand played: {C:attention}#2#{}{C:inactive}){}"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

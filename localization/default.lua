@@ -105,6 +105,14 @@ return {
                     "be just fine.",
                 }
             },
+            und_j_lobc_servant_of_wrath = {
+                name = "O-01-00",
+                text = {
+                    "Friend... A being more special",
+                    "than any other, calling and",
+                    "greeting each other by name...",
+                }
+            },
 
             ---- Boosters ----
             p_lobc_extraction_normal = {
@@ -145,7 +153,7 @@ return {
                 name = "Blessed",
                 text = {
                     "This card",
-                    "was blessed by",
+                    "was baptized by",
                     "{C:attention}T-03-46{}",
                 }
             },
@@ -161,7 +169,8 @@ return {
                 text = {
                     "Last non-{C:attention}blessed{}",
                     "playing card {C:attention}played{},",
-                    "then in {C:attention}hand{}, then in {C:attention}deck{}",
+                    "then in {C:attention}hand{},",
+                    "then in {C:attention}deck{}"
                 }
             },
             lobc_plague_doctor_debuffed = {
@@ -189,6 +198,13 @@ return {
                     "{C:attention}(#3#/4){} ..."
                 }
             },
+            j_lobc_scorched_girl = {
+                name = "Scorched Girl",
+                text = {
+                    "{C:attention}-#1#%{} Blind Size",
+                    "Debuffs first hand drawn"
+                }
+            },
 
             dis_j_lobc_one_sin_1 = {
                 name = "O-03-03",
@@ -202,6 +218,14 @@ return {
                 text = {
                     "Played cards give {C:mult}+#1#{} Mult when scored",
                     "{C:attention}(#3#/?){} ..."
+                }
+            },
+            j_lobc_one_sin = {
+                name = "One Sin and Hundreds of Good Deeds",
+                text = {
+                    "Played cards give {C:mult}+#1#{} Mult when scored",
+                    "Punishment shall begin to",
+                    "rain down {C:attention}WhiteNight{}."
                 }
             },
 
@@ -230,6 +254,16 @@ return {
                     "{C:attention}(#4#/7){} ...",
                 }
             },
+            j_lobc_queen_of_hatred = {
+                name = "The Queen of Hatred",
+                text = {
+                    "{X:red,C:white} X#1# {} Mult",
+                    "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+                    "this Abnormality enters {C:attention}Hysteria{}",
+                    "At {X:red,C:white} X1 {} Mult, destroys itself",
+                    "and permanent {X:red,C:white} X2 {} Blind Size"
+                }
+            },
 
             dis_j_lobc_happy_teddy_bear_1 = {
                 name = "T-04-06",
@@ -244,6 +278,17 @@ return {
                     "Upgrade level of played",
                     "{C:attention}poker hand #1#{} times",
                     "{C:attention}(#4#/6){} ..."
+                }
+            },
+            j_lobc_happy_teddy_bear = {
+                name = "Happy Teddy Bear",
+                text = {
+                    "Upgrade level of played",
+                    "{C:attention}poker hand #1#{} times",
+                    "If {C:attention}consecutive{} hands have",
+                    "the same {C:attention}poker hand{},",
+                    "reduce its level to {C:attention}0{}",
+                    "{C:inactive}(Last hand played: {C:attention}#2#{}{C:inactive}){}"
                 }
             },
 
@@ -274,6 +319,17 @@ return {
                     "{C:attention}(#4#/7){} ..."
                 }
             },
+            j_lobc_red_shoes = {
+                name = "Red Shoes",
+                text = {
+                    "Played cards permanently gain",
+                    "{C:chips}+#1#{} Chips when scored",
+                    "When {C:attention}Blind{} is selected, forces",
+                    "{C:attention}2{} cards to always be selected",
+                    "Destroys scored cards with",
+                    "{C:chips}100{} or more bonus Chips"
+                }
+            },
 
             dis_j_lobc_theresia_1 = {
                 name = "T-09-09",
@@ -288,6 +344,16 @@ return {
                     "This Abnormality gains",
                     "{C:chips}+#2#{} Chips each hand",
                     "{C:attention}(#4#/4){} ...",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
+                }
+            },
+            j_lobc_theresia = {
+                name = "Theresia",
+                text = {
+                    "This Abnormality gains",
+                    "{C:chips}+#2#{} Chips each hand",
+                    "After the third hand played,",
+                    "debuffs all {C:attention}playing cards{}",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
                 }
             },
@@ -308,6 +374,16 @@ return {
                     "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
                 }
             },
+            j_lobc_old_lady = {
+                name = "Old Lady",
+                text = {
+                    "This Abnormality gains",
+                    "{C:mult}+#2#{} Mult each hand",
+                    "When another Joker is added,",
+                    "this Abnormality loses {C:mult}#3#{} Mult",
+                    "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
+                }
+            },
 
             dis_j_lobc_plague_doctor_1 = {
                 name = "O-01-45",
@@ -320,8 +396,7 @@ return {
             dis_j_lobc_plague_doctor_2 = {
                 name = "O-01-45",
                 text = {
-                    "{C:attention}Blesses{} a playing card",
-                    "each hand",
+                    "{C:attention}Baptizes{} a playing card each hand",
                     "{C:attention}(#3#/4){} ...",
                     "{C:attention}(#4#/?){} ..."
                 }
@@ -329,11 +404,18 @@ return {
             dis_j_lobc_plague_doctor_3 = {
                 name = "Plague Doctor",
                 text = {
-                    "{C:attention}Blesses{} a playing card",
-                    "each hand",
-                    "Played {C:attention}blessed{} cards",
-                    "give {C:mult}+#1#{} Mult",
+                    "{C:attention}Baptizes{} a playing card each hand",
+                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
                     "{C:attention}(#4#/?){} ..."
+                }
+            },
+            j_lobc_plague_doctor = {
+                name = "Plague Doctor",
+                text = {
+                    "{C:attention}Baptizes{} a playing card each hand",
+                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
+                    "After {C:attention}12{} cards are {C:attention}blessed{},",
+                    "{C:attention}breach{}."
                 }
             },
 
@@ -347,11 +429,19 @@ return {
             dis_j_lobc_whitenight_2 = {
                 name = "T-03-46",
                 text = {
-                    "{C:attention}Blesses{} a playing card",
-                    "each hand",
-                    "Played {C:attention}blessed{} cards",
-                    "give {C:mult}+#1#{} Mult",
+                    "{C:dark_edition}+1{} Joker Slot",
+                    "{C:attention}Baptizes{} a playing card each hand",
+                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
                     "{C:attention}(#3#/8){} ..."
+                }
+            },
+            j_lobc_whitenight = {
+                name = "WhiteNight",
+                text = {
+                    "{C:dark_edition}+1{} Joker Slot",
+                    "{C:attention}Baptizes{} a playing card each hand",
+                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
+                    "Retrigger {C:attention}blessed{} cards {C:attention}#2#{} times",
                 }
             },
 
@@ -378,6 +468,17 @@ return {
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
                     "{C:attention}(#5#/8){} ...",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
+                }
+            },
+            j_lobc_punishing_bird = {
+                name = "Punishing Bird",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "This Abnormality gains",
+                    "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
+                    "If this Abnormality is {C:attention}sold{},",
+                    "immediately {C:attention}lose{} the game",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
                 }
             },
@@ -409,6 +510,17 @@ return {
                     "{C:attention}(#3#/8){} ..."
                 }
             },
+            j_lobc_laetitia = {
+                name = "Laetitia",
+                text = {
+                    "If only {C:hearts}Hearts{} cards score, copy",
+                    "non-{C:attention}marked{}, scoring cards to hand",
+                    "If no {C:hearts}Hearts{} are scored,",
+                    "destroys all scored cards",
+                    "When this Abnormality is removed,",
+                    "{C:attention}permanently{} debuffs all {C:attention}marked{} cards"
+                }
+            },
 
             dis_j_lobc_mosb_1 = {
                 name = "T-01-75",
@@ -436,6 +548,17 @@ return {
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
+            j_lobc_mosb = {
+                name = "The Mountain of Smiling Bodies",
+                text = {
+                    "Destroys all {C:attention}scored{} cards",
+                    "This Abnormality gains {C:chips}+#3#{} Chips and",
+                    "{C:mult}+#4#{} Mult when it destroys a card",
+                    "Increase {C:chips}Chips{} and {C:mult}Mult{} gain by {C:attention}#8#{}",
+                    "if {C:attention}5{} cards are destroyed at once",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
+                }
+            },
 
             dis_j_lobc_iron_maiden_1 = {
                 name = "T-09-85",
@@ -457,10 +580,20 @@ return {
                 name = "T-09-85",
                 text = {
                     "Every second, gain {C:attention}#1# score",
-                    "Every second, temporary {C:blue}-#2#{} hands",
+                    "and temporary {C:blue}-#2#{} hands",
                     "{C:attention}(#7#/6){} ...",
                 }
             },
+            j_lobc_iron_maiden = {
+                name = "We Can Change Anything",
+                text = {
+                    "Every second, gain {C:attention}#1#{} score",
+                    "and temporary {C:blue}-#2#{} hands",
+                    "After {C:attention}#3#{} seconds, {C:attention}doubles{}",
+                    "score gain and increase",
+                    "hands loss by {C:blue}#4#{}"
+                }
+            }
         }
     },
     misc = {
@@ -469,6 +602,11 @@ return {
             lobc_blessed = "Blessed",
             lobc_blessed_wn = "Blessed",
             lobc_apostle = "Apostle",
+            lobc_zayin = "ZAYIN",
+            lobc_teth = "TETH",
+            lobc_he = "HE",
+            lobc_waw = "WAW",
+            lobc_aleph = "ALEPH",
         },
         dictionary = {
             k_lobc_breached = "Breached!",

@@ -6,16 +6,10 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "zayin",
     discover_rounds = 2,
     no_pool_flag = "plague_doctor_breach",
-    loc_txt = {
-        name = "One Sin and Hundreds of Good Deeds",
-        text = {
-            "Played cards give {C:mult}+#1#{} Mult when scored",
-            "Punishment shall begin to",
-            "rain down {C:attention}WhiteNight{}."
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

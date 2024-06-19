@@ -6,17 +6,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "teth",
     discover_rounds = 5,
-    loc_txt = {
-        name = "Old Lady",
-        text = {
-            "This Abnormality gains",
-            "{C:mult}+#2#{} Mult each hand",
-            "When another Joker is added,",
-            "this Abnormality loses {C:mult}#3#{} Mult",
-            "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

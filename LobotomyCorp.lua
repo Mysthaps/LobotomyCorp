@@ -4,7 +4,7 @@
 --- PREFIX: lobc
 --- MOD_AUTHOR: [Mysthaps]
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
---- DISPLAY_NAME: Lobotomy Corp.
+--- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
 --- VERSION: 0.5.0
 
@@ -28,6 +28,7 @@ local joker_list = {
     "queen_of_hatred",
     "laetitia",
     "mosb",
+    --"servant_of_wrath",
 
     --- Legendary
     "whitenight",
@@ -54,6 +55,11 @@ function get_badge_colour(key)
     if key == 'lobc_gift' then return HEX("A0243A") end
     if key == 'lobc_blessed' then return HEX("380D36") end
     if key == 'lobc_blessed_wn' then return HEX("EDA9D3") end
+    if key == 'lobc_zayin' then return HEX("1DF900") end
+    if key == 'lobc_teth' then return HEX("13A2FF") end
+    if key == 'lobc_he' then return HEX("FFF900") end
+    if key == 'lobc_waw' then return HEX("7B2BF3") end
+    if key == 'lobc_aleph' then return HEX("FF0000") end
     return get_badge_colourref(key)
 end
 
@@ -93,6 +99,14 @@ for _, v in ipairs(joker_list) do
                 card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
             end
             card.children.center:set_sprite_pos(card.config.center.pos)
+        end
+
+        if joker.risk then
+            joker_obj.set_badges = function(self, card, badges)
+                local color = nil
+                if joker.risk == "he" or joker.risk == "zayin" then color = G.C.UI.TEXT_DARK end
+                badges[#badges+1] = create_badge(localize("lobc_"..joker.risk, "labels"), get_badge_colour("lobc_"..joker.risk), color)
+            end
         end
     end
 end

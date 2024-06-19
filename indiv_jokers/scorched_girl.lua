@@ -6,14 +6,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "teth",
     discover_rounds = 4,
-    loc_txt = {
-        name = "Scorched Girl",
-        text = {
-            "{C:attention}-#1#%{} Blind Size",
-            "Debuffs first hand drawn"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

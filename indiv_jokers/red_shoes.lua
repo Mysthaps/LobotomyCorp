@@ -6,18 +6,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "he",
     discover_rounds = 7,
-    loc_txt = {
-        name = "Red Shoes",
-        text = {
-            "Played cards permanently gain",
-            "{C:chips}+#1#{} Chips when scored",
-            "When {C:attention}Blind{} is selected, forces",
-            "{C:attention}2{} cards to always be selected",
-            "Destroys scored cards with",
-            "{C:chips}100{} or more bonus Chips"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -6,18 +6,10 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "waw",
     discover_rounds = 7,
     no_pool_flag = "queen_of_hatred_breach",
-    loc_txt = {
-        name = "The Queen of Hatred",
-        text = {
-            "{X:red,C:white} X#1# {} Mult",
-            "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
-            "this Abnormality enters {C:attention}Hysteria{}",
-            "At {X:red,C:white} X1 {} Mult, destroys itself",
-            "and permanent {X:red,C:white} X2 {} Blind Size"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -10,18 +10,9 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "aleph",
     discover_rounds = 9,
-    loc_txt = {
-        name = "The Mountain of Smiling Bodies",
-        text = {
-            "Destroys all {C:attention}scored{} cards",
-            "This Abnormality gains {C:chips}+#3#{} Chips and",
-            "{C:mult}+#4#{} Mult when it destroys a card",
-            "Increase {C:chips}Chips{} and {C:mult}Mult{} gain by {C:attention}#8#{}",
-            "if {C:attention}5{} cards are destroyed at once",
-            "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -11,7 +11,7 @@
 local joker = {
     name = "We Can Change Anything",
     config = {extra = {
-        blind_gain = 20, hands_loss = 0.02, 
+        blind_gain = 5, hands_loss = 0.02, 
         loss_increase = 0.02, interval = 15, 
         elapsed = 0, seconds = 0
     }}, rarity = 2, cost = 6,
@@ -20,22 +20,13 @@ local joker = {
     eternal_compat = false,
     perishable_compat = false,
     abno = true,
+    risk = "zayin",
     discover_rounds = 6,
-    loc_txt = {
-        name = "We Can Change Anything",
-        text = {
-            "Every second, gain {C:attention}#1#{} score",
-            "Every second, temporary {C:blue}-#2#{} hands",
-            "After {C:attention}#3#{} seconds, disables",
-            "for the round. {C:attention}Doubles{} score",
-            "gain and {C:blue}+#4#{} hands loss"
-        }
-    },
+    loc_txt = {},
 }
 
 joker.update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and 
-       not (card.ability.extra.seconds >= card.ability.extra.interval) and not card.debuff then
+    if G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and not card.debuff then
         card.ability.extra.elapsed = card.ability.extra.elapsed + (dt / G.SETTINGS.GAMESPEED)
         if card.ability.extra.elapsed >= 1 then
             card.ability.extra.elapsed = card.ability.extra.elapsed - 1
@@ -53,20 +44,17 @@ joker.update = function(self, card, dt)
             end
 
             if chips_check or G.GAME.current_round.hands_left < 1 then
+                play_sound("lobc_iron_maiden_end", 1, 0.4)
                 G.STATE = G.STATES.HAND_PLAYED
                 G.STATE_COMPLETE = true
                 end_round()
-            end
-
-            if card.ability.extra.seconds >= card.ability.extra.interval then
-                card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
-                card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase
-            end
-
-            if (chips_check or G.GAME.current_round.hands_left < 1) or (card.ability.extra.seconds >= card.ability.extra.interval) then
-                play_sound("lobc_iron_maiden_end", 1, 0.4)
             else
                 play_sound("lobc_iron_maiden_tick", 1, 0.4)
+                if card.ability.extra.seconds >= card.ability.extra.interval then
+                    card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
+                    card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase
+                    card.ability.extra.seconds = card.ability.extra.seconds - card.ability.extra.interval
+                end
             end
         end
     end
