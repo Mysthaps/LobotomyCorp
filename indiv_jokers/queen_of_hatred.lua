@@ -73,9 +73,10 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         info_queue[#info_queue+1] = {key = 'lobc_hysteria', set = 'Other'}
         if card:check_rounds(7) < 7 then
             desc_key = 'dis_'..desc_key..'_3'
+        else
+            info_queue[#info_queue+1] = {key = 'lobc_magical_girl', set = 'Other'}
         end
     end
-    
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     if specific_vars and specific_vars.debuffed then

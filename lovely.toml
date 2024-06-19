@@ -151,3 +151,11 @@ pattern = "if key == \"2\" then"
 position = "after"
 payload = "G.PROFILES[G.SETTINGS.profile].joker_usage[_card.config.center.key] = {count = _card.config.center.discover_rounds or 0, order = _card.config.center.order, wins = {}, losses = {}}"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if (#parts._2 == 2) or (#parts._3 == 1 and #parts._2 == 1) then"
+position = "at"
+payload = "if (#parts._2 >= 2) or (#parts._3 == 1 and #parts._2 == 1) then"
+match_indent = true

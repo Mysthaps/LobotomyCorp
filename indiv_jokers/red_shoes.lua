@@ -28,9 +28,15 @@ joker.calculate = function(self, card, context)
                     for i = 1, math.min(2, G.hand.config.highlighted_limit - #G.hand.highlighted) do
                         if #available_cards > 0 then
                             local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
-                            chosen_card.ability.forced_selection = true
-                            G.hand:add_to_highlighted(chosen_card)
+                            G.E_MANAGER:add_event(Event({
+                                func = function() 
+                                    chosen_card.ability.forced_selection = true
+                                    G.hand:add_to_highlighted(chosen_card)
+                                return true 
+                                end 
+                            })) 
                             table.remove(available_cards, chosen_card_key)
+                            delay(0.2)
                         end
                     end
                 return true

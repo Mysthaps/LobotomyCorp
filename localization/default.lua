@@ -133,6 +133,15 @@ return {
                     "and cannot be sold",
                 }
             },
+            lobc_magical_girl = {
+                name = "Magical Girl",
+                text = {
+                    "When this Abnormality",
+                    "{C:attention}breaches{}, {C:attention}permanently{}",
+                    "increase blind",
+                    "size by {X:red,C:white} X2 {}",
+                }
+            },
             lobc_gift = {
                 name = "Gift",
                 text = {
@@ -260,8 +269,8 @@ return {
                     "{X:red,C:white} X#1# {} Mult",
                     "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
-                    "At {X:red,C:white} X1 {} Mult, destroys itself",
-                    "and permanent {X:red,C:white} X2 {} Blind Size"
+                    "At {X:red,C:white} X1 {} Mult,",
+                    "this Abnormality {C:attention}breaches{}"
                 }
             },
 
@@ -593,7 +602,45 @@ return {
                     "score gain and increase",
                     "hands loss by {C:blue}#4#{}"
                 }
-            }
+            },
+
+            dis_j_lobc_servant_of_wrath_1 = {
+                name = "O-01-00",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#3#/3){} ...",
+                    "{C:attention}(#4#/7){} ...",
+                }
+            },
+            dis_j_lobc_servant_of_wrath_2 = {
+                name = "O-01-00",
+                text = {
+                    "When round starts, plays the highest",
+                    "{C:attention}poker hand{} from your hand",
+                    "{C:attention}(#3#/3){} ...",
+                    "{C:attention}(#4#/7){} ...",
+                }
+            },
+            dis_j_lobc_servant_of_wrath_3 = {
+                name = "O-01-00",
+                text = {
+                    "When round starts, plays the highest",
+                    "{C:attention}poker hand{} from your hand",
+                    "Scored cards this way give {X:red,C:white} X#1# {} Mult",
+                    "{C:attention}(#4#/7){} ...",
+                }
+            },
+            j_lobc_servant_of_wrath = {
+                name = "The Servant of Wrath",
+                text = {
+                    "When round starts, plays the highest",
+                    "{C:attention}poker hand{} from your hand",
+                    "Scored cards this way give {X:red,C:white} X#1# {} Mult",
+                    "If {C:attention}3{} hands played this way",
+                    "have {C:attention}3{} or less cards,",
+                    "this Abnormality {C:attention}breaches{}"
+                }
+            },
         }
     },
     misc = {

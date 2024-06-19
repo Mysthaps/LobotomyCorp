@@ -28,7 +28,7 @@ local joker_list = {
     "queen_of_hatred",
     "laetitia",
     "mosb",
-    --"servant_of_wrath",
+    "servant_of_wrath",
 
     --- Legendary
     "whitenight",
