@@ -105,6 +105,13 @@ return {
                     "be just fine.",
                 }
             },
+            und_j_lobc_shy_look = {
+                name = "O-01-92",
+                text = {
+                    "It's a good day!",
+                    "Are you still shy today?",
+                }
+            },
             und_j_lobc_servant_of_wrath = {
                 name = "O-01-00",
                 text = {
@@ -601,6 +608,39 @@ return {
                     "After {C:attention}#3#{} seconds, {C:attention}doubles{}",
                     "score gain and increase",
                     "hands loss by {C:blue}#4#{}"
+                }
+            },
+
+            dis_j_lobc_shy_look_1 = {
+                name = "O-01-92",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#3#/4){} ...",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            dis_j_lobc_shy_look_2 = {
+                name = "O-01-92",
+                text = {
+                    "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
+                    "{C:attention}(#3#/4){} ...",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            dis_j_lobc_shy_look_3 = {
+                name = "O-01-92",
+                text = {
+                    "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
+                    "The face changes every #1# seconds",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            j_lobc_shy_look = {
+                name = "Today's Shy Look",
+                text = {
+                    "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
+                    "The face changes every {C:attention}#1#{} seconds",
+                    "Happier faces give more Chips and Mult",
                 }
             },
 

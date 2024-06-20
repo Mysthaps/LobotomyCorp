@@ -17,6 +17,7 @@ local joker_list = {
     "old_lady",
     "plague_doctor",
     "punishing_bird",
+    "shy_look",
 
     --- Uncommon
     "scorched_girl",
@@ -92,13 +93,15 @@ for _, v in ipairs(joker_list) do
             end
         end
 
-        joker_obj.set_sprites = function(self, card, front)
-            card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
-            local count = G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key].count or 0
-            if count < card.config.center.discover_rounds then
-                card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
+        if not joker.set_sprites then
+            joker_obj.set_sprites = function(self, card, front)
+                card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
+                local count = G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key].count or 0
+                if count < card.config.center.discover_rounds then
+                    card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
+                end
+                card.children.center:set_sprite_pos(card.config.center.pos)
             end
-            card.children.center:set_sprite_pos(card.config.center.pos)
         end
 
         if joker.risk then
@@ -179,6 +182,13 @@ SMODS.Atlas({
     path = "LobotomyCorp_icon.png",
     px = 34,
     py = 34
+})
+
+SMODS.Atlas({
+    key = "LobotomyCorp_moodboard",
+    path = "LobotomyCorp_moodboard.png",
+    px = 71,
+    py = 95
 })
 
 -- Make Extraction Pack
@@ -311,6 +321,24 @@ function Card.add_to_deck(self, from_debuff)
         end
     end
     add_to_deckref(self, from_debuff)
+end
+
+-- Today's Shy Look's sprite thing
+local alignref = Card.align
+function Card.align(self)  
+    if self.children.mood then 
+        self.children.mood.T.y = self.T.y
+        self.children.mood.T.x = self.T.x
+        self.children.mood.T.r = self.T.r
+    end
+
+    alignref(self)
+end
+
+local sprite_drawref = Sprite.draw
+function Sprite.draw(self, overlay)
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"] then return end
+    sprite_drawref(self, overlay)
 end
 
 -- WhiteNight confession win round

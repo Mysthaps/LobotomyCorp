@@ -1,6 +1,6 @@
 local joker = {
     name = "Old Lady",
-    config = {extra = {mult = 5, gain = 2, loss = 20}}, rarity = 1, cost = 6,
+    config = {extra = {mult = 0, gain = 2, loss = 10}}, rarity = 1, cost = 6,
     pos = {x = 7, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -24,11 +24,19 @@ joker.calculate = function(self, card, context)
     end
 
     if context.joker_main then
-        return {
-            message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-            mult_mod = card.ability.extra.mult, 
-            colour = G.C.MULT
-        }
+        if card.ability.extra.mult > 0 then
+            SMODS.eval_this(card, {
+                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
+                mult_mod = card.ability.extra.mult, 
+                colour = G.C.MULT
+            })
+        else
+            SMODS.eval_this(card, {
+                message = localize{type = 'variable', key = 'a_mult_minus', vars = {-card.ability.extra.mult}},
+                mult_mod = card.ability.extra.mult, 
+                colour = G.C.MULT
+            })
+        end
     end
 end
 
