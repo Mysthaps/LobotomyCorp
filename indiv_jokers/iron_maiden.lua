@@ -17,7 +17,7 @@ local joker = {
     }}, rarity = 2, cost = 6,
     pos = {x = 7, y = 5}, 
     blueprint_compat = false, 
-    eternal_compat = false,
+    eternal_compat = true,
     perishable_compat = false,
     abno = true,
     risk = "zayin",
