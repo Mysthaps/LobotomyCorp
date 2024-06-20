@@ -128,7 +128,7 @@ return {
                 name = "Hysteria",
                 text = {
                     "This Abnormality",
-                    "loses {X:red,C:white} X0.5 {} Mult",
+                    "loses {X:mult,C:white} X0.5 {} Mult",
                     "after each blind",
                     "and cannot be sold",
                 }
@@ -139,7 +139,7 @@ return {
                     "When this Abnormality",
                     "{C:attention}breaches{}, {C:attention}permanently{}",
                     "increase blind",
-                    "size by {X:red,C:white} X2 {}",
+                    "size by {X:mult,C:white} X2 {}",
                 }
             },
             lobc_gift = {
@@ -249,7 +249,7 @@ return {
             dis_j_lobc_queen_of_hatred_2 = {
                 name = "O-01-04",
                 text = {
-                    "{X:red,C:white} X#1# {} Mult",
+                    "{X:mult,C:white} X#1# {} Mult",
                     "{C:attention}(#3#/3){} ...",
                     "{C:attention}(#4#/7){} ...",
                 }
@@ -257,8 +257,8 @@ return {
             dis_j_lobc_queen_of_hatred_3 = {
                 name = "O-01-04",
                 text = {
-                    "{X:red,C:white} X#1# {} Mult",
-                    "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "If score is at least {X:mult,C:white} X5 {} of {C:attention}Blind{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
                     "{C:attention}(#4#/7){} ...",
                 }
@@ -266,10 +266,10 @@ return {
             j_lobc_queen_of_hatred = {
                 name = "The Queen of Hatred",
                 text = {
-                    "{X:red,C:white} X#1# {} Mult",
-                    "If score is at least {X:red,C:white} X5 {} of {C:attention}Blind{},",
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "If score is at least {X:mult,C:white} X5 {} of {C:attention}Blind{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
-                    "At {X:red,C:white} X1 {} Mult,",
+                    "At {X:mult,C:white} X1 {} Mult,",
                     "this Abnormality {C:attention}breaches{}"
                 }
             },
@@ -477,7 +477,7 @@ return {
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
                     "{C:attention}(#5#/8){} ...",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
                 }
             },
             j_lobc_punishing_bird = {
@@ -488,7 +488,7 @@ return {
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
                     "If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Rounds){}"
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
                 }
             },
 
@@ -615,8 +615,8 @@ return {
             dis_j_lobc_servant_of_wrath_2 = {
                 name = "O-01-00",
                 text = {
-                    "When round starts, plays the highest",
-                    "{C:attention}poker hand{} from your hand",
+                    "When round starts, plays {C:attention}5{}",
+                    "random cards from your hand",
                     "{C:attention}(#3#/3){} ...",
                     "{C:attention}(#4#/7){} ...",
                 }
@@ -624,21 +624,20 @@ return {
             dis_j_lobc_servant_of_wrath_3 = {
                 name = "O-01-00",
                 text = {
-                    "When round starts, plays the highest",
-                    "{C:attention}poker hand{} from your hand",
-                    "Scored cards this way give {X:red,C:white} X#1# {} Mult",
+                    "When round starts, plays {C:attention}5{}",
+                    "random cards from your hand",
+                    "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
                     "{C:attention}(#4#/7){} ...",
                 }
             },
             j_lobc_servant_of_wrath = {
                 name = "The Servant of Wrath",
                 text = {
-                    "When round starts, plays the highest",
-                    "{C:attention}poker hand{} from your hand",
-                    "Scored cards this way give {X:red,C:white} X#1# {} Mult",
-                    "If {C:attention}3{} hands played this way",
-                    "have {C:attention}3{} or less cards,",
-                    "this Abnormality {C:attention}breaches{}"
+                    "When round starts, plays {C:attention}5{}",
+                    "random cards from your hand",
+                    "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
+                    "If {C:attention}three{} hands played this way are",
+                    "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}",
                 }
             },
         }

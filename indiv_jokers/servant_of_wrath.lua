@@ -13,36 +13,41 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.first_hand_drawn and not context.blueprint then
+    if context.first_hand_drawn and not context.blueprint and not G.GAME.servant_triggered then
         G.hand:sort('desc')
+        G.GAME.servant_triggered = true
         G.E_MANAGER:add_event(Event({
             func = function() 
-                local text, loc_disp_text, poker_hands, scoring_hand, disp_text = G.FUNCS.get_poker_hand_info(G.hand.cards)
-                for _, v in ipairs(scoring_hand) do
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.2,
-                        func = function() 
-                            G.hand:add_to_highlighted(v)
-                        return true 
-                        end 
-                    })) 
+                local available_cards = {}
+
+                for _, v in ipairs(G.hand.cards) do
+                    if not v.ability.forced_selection then
+                        available_cards[#available_cards + 1] = v
+                    end
+                end
+
+                for i = 1, math.min(5, G.hand.config.highlighted_limit - #G.hand.highlighted) do
+                    if #available_cards > 0 then
+                        local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                chosen_card.ability.forced_selection = true
+                                G.hand:add_to_highlighted(chosen_card)
+                            return true
+                            end
+                        }))
+                        table.remove(available_cards, chosen_card_key)
+                        delay(0.2)
+                    end
                 end
 
                 G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
                     func = function() 
                         G.FUNCS.play_cards_from_highlighted({})
                     return true 
                     end 
                 })) 
-
-                if #scoring_hand < 4 then 
-                    card.ability.extra.counter = card.ability.extra.counter + 1
-                    SMODS.eval_this(card, {
-                        message = (card.ability.extra.counter..'/3'),
-                        colour = G.C.FILTER
-                    })
-                end
             return true 
             end 
         }))
@@ -55,7 +60,19 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.joker_main and not context.blueprint and G.GAME.current_round.hands_played == 0 then
+        if context.scoring_name == "High Card" then
+            card.ability.extra.counter = card.ability.extra.counter + 1
+            if card.ability.extra.counter < 3 then
+                SMODS.eval_this(card, {
+                    message = (card.ability.extra.counter..'/3'),
+                    colour = G.C.FILTER
+                })
+            end
+        end
+        
+        G.GAME.servant_triggered = false
+
         if card.ability.extra.counter >= 3 then
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -73,7 +90,7 @@ joker.calculate = function(self, card, context)
                             G.jokers:remove_card(card)
                             card:remove()
                             card = nil
-                            return true;
+                        return true;
                         end
                     }))
                 return true
