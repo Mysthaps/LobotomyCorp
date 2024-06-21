@@ -15,7 +15,7 @@ local joker_list = {
     "one_sin",
     "theresia",
     "old_lady",
-    "wall_gazer",
+    "wall_gazer", -- The Lady Facing the Wall
     "plague_doctor",
     "punishing_bird",
     "shy_look",
@@ -299,6 +299,7 @@ function SMODS.current_mod.set_debuff(card, should_debuff)
     return nil
 end
 
+-- Wall Gazer face down
 local stay_flippedref = Blind.stay_flipped
 function Blind.stay_flipped(self, area, card)
     if area == G.hand and next(SMODS.find_card("j_lobc_wall_gazer")) and G.GAME.current_round.hands_played == 0 then

@@ -14,7 +14,6 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.first_hand_drawn and not context.blueprint and not G.GAME.servant_triggered then
-        G.hand:sort('desc')
         G.GAME.servant_triggered = true
         G.E_MANAGER:add_event(Event({
             func = function() 
