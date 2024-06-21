@@ -15,6 +15,7 @@ local joker_list = {
     "one_sin",
     "theresia",
     "old_lady",
+    "wall_gazer",
     "plague_doctor",
     "punishing_bird",
     "shy_look",
@@ -287,13 +288,23 @@ function set_joker_usage()
     end
 end
 
--- Scorched Girl's debuff first hand drawn
 function SMODS.current_mod.set_debuff(card, should_debuff)
-    if card.ability and card.ability.scorched_girl_debuff then
-        card.debuff = true
-        return true
+    if card.ability then
+        -- Scorched Girl's debuff first hand drawn
+        if card.ability.scorched_girl_debuff then
+            card.debuff = true
+            return true
+        end
     end
     return nil
+end
+
+local stay_flippedref = Blind.stay_flipped
+function Blind.stay_flipped(self, area, card)
+    if area == G.hand and next(SMODS.find_card("j_lobc_wall_gazer")) and G.GAME.current_round.hands_played == 0 then
+        return true
+    end
+    return stay_flippedref(self, area, card_updateref)
 end
 
 -- Remove Queen of Hatred's sell button

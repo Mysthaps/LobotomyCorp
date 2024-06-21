@@ -66,6 +66,14 @@ return {
                     "the roulette spins.\"",
                 }
             },
+            und_j_lobc_wall_gazer = {
+                name = "F-01-18",
+                text = {
+                    "\"Over time, her unbearable sorrow",
+                    "grew into a mournful obsession,",
+                    "covered in countless, lengthy hairs.\"",
+                }
+            },
             und_j_lobc_plague_doctor = {
                 name = "O-01-45",
                 text = {
@@ -442,6 +450,33 @@ return {
                     "If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
                     "and change selected hand type"
+                }
+            },
+
+            dis_j_lobc_wall_gazer_1 = {
+                name = "F-01-18",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/4){} ..."
+                }
+            },
+            dis_j_lobc_wall_gazer_2 = {
+                name = "Wall Gazer",
+                text = {
+                    "Retriggers the {C:attention}lowest{} ranked",
+                    "scoring card in {C:attention}first hand{}",
+                    "randomly from {C:attention}#1#{} to {C:attention}#2#{} times",
+                    "{C:attention}(#4#/4){} ..."
+                }
+            },
+            j_lobc_wall_gazer = {
+                name = "The Lady Facing the Wall",
+                text = {
+                    "Retriggers the {C:attention}lowest{} ranked",
+                    "scoring card in {C:attention}first hand{}",
+                    "randomly from {C:attention}#1#{} to {C:attention}#2#{} times",
+                    "{C:attention}Playing cards{} are drawn {C:attention}face{}",
+                    "{C:attention}down{} until hand is played"
                 }
             },
 
