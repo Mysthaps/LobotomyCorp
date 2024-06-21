@@ -57,6 +57,15 @@ return {
                     "loneliness was the only listener.",
                 }
             },
+            und_j_lobc_nameless_fetus = {
+                name = "O-01-15",
+                text = {
+                    "\"One day you'll understand.",
+                    "The meaning of the desperation",
+                    "on their faces when",
+                    "the roulette spins.\"",
+                }
+            },
             und_j_lobc_plague_doctor = {
                 name = "O-01-45",
                 text = {
@@ -398,6 +407,41 @@ return {
                     "When another Joker is added,",
                     "this Abnormality loses {C:mult}#3#{} Mult",
                     "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
+                }
+            },
+
+            dis_j_lobc_nameless_fetus_1 = {
+                name = "O-01-15",
+                text = {
+                    "{C:attention}(#4#/2){} ...",
+                    "{C:attention}(#5#/4){} ...",
+                    "{C:attention}(#6#/8){} ...",
+                }
+            },
+            dis_j_lobc_nameless_fetus_2 = {
+                name = "O-01-15",
+                text = {
+                    "{X:mult,C:white} X#2# {} Mult after playing a {C:attention}#1#{}",
+                    "{C:attention}(#5#/4){} ...",
+                    "{C:attention}(#6#/8){} ...",
+                }
+            },
+            dis_j_lobc_nameless_fetus_3 = {
+                name = "O-01-15",
+                text = {
+                    "{X:mult,C:white} X#2# {} Mult after playing a {C:attention}#1#{}",
+                    "{X:mult,C:white} X#3# {} Mult if other hands are played",
+                    "{C:attention}(#6#/8){} ...",
+                }
+            },
+            j_lobc_nameless_fetus = {
+                name = "Nameless Fetus",
+                text = {
+                    "{X:mult,C:white} X#2# {} Mult after playing a {C:attention}#1#{}",
+                    "{X:mult,C:white} X#3# {} Mult if other hands are played",
+                    "If the {C:attention}first hand{} of round has",
+                    "only {C:attention}1{} card, destroy it",
+                    "and change selected hand type"
                 }
             },
 

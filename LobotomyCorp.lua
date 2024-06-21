@@ -23,6 +23,7 @@ local joker_list = {
     "scorched_girl",
     "happy_teddy_bear",
     "red_shoes",
+    "nameless_fetus",
     "iron_maiden", -- We Can Change Anything
 
     --- Rare
