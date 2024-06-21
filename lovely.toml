@@ -139,10 +139,10 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "--If the card has any edition/seal, add that here"
+pattern = "if self.pinned then"
 position = "before"
 payload = '''
-if self.children.mood then
+if self.config.center_key == "j_lobc_shy_look" then
     self.children.mood.role.draw_major = self
     self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
     self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
