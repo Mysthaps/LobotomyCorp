@@ -32,6 +32,7 @@ joker.calculate = function(self, card, context)
                 Xmult_mod = card.ability.extra.x_mult
             }
         else
+            play_sound("lobc_nameless_cry", 1, 0.6)
             return {
                 message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult_penalty}},
                 Xmult_mod = card.ability.extra.x_mult_penalty

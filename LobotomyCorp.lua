@@ -49,6 +49,7 @@ local sound_list = {
     punishing_bird_hit = "SmallBird_Hit",
     iron_maiden_tick = "Iron_Generate",
     iron_maiden_end = "Iron_End",
+    nameless_cry = "nameless_cry",
 }
 
 -- Badge colors
