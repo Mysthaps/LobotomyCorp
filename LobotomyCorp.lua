@@ -203,6 +203,7 @@ SMODS.Center({
     kind = "Abnormality",
     cost = 5,
     discovered = true,
+    alerted = true,
     set = "Booster",
     atlas = "LobotomyCorp_Booster",
     config = {extra = 3, choose = 1},

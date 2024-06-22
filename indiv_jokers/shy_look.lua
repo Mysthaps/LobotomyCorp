@@ -56,7 +56,7 @@ joker.calculate = function(self, card, context)
 end
 
 joker.set_sprites = function(self, card, front)
-    card.children.mood = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"], {x = (card.ability and card.ability.extra.face or 1) - 1, y = 0})
+    card.children.mood = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"], {x = ((card.ability and card.ability.extra) and card.ability.extra.face or 1) - 1, y = 0})
     card.children.mood.role.draw_major = card
     card.children.mood.states.hover.can = false
     card.children.mood.states.click.can = false
