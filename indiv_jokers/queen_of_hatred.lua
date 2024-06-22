@@ -21,7 +21,14 @@ joker.calculate = function(self, card, context)
     end
 
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-        if G.GAME.chips >= G.GAME.blind.chips * 5 then
+        local chips_check = false
+        if to_big then
+            chips_check = (to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) * 5)
+        else
+            chips_check = (G.GAME.chips >= G.GAME.blind.chips * 5)
+        end
+
+        if chips_check then
             card.ability.extra.hysteria = true
         end
 
