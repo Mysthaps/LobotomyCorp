@@ -306,7 +306,7 @@ function Blind.stay_flipped(self, area, card)
     if area == G.hand and next(SMODS.find_card("j_lobc_wall_gazer")) and G.GAME.current_round.hands_played == 0 then
         return true
     end
-    return stay_flippedref(self, area, card_updateref)
+    return stay_flippedref(self, area, card)
 end
 
 -- Remove Queen of Hatred's sell button
