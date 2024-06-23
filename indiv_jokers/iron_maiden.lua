@@ -11,8 +11,8 @@
 local joker = {
     name = "We Can Change Anything",
     config = {extra = {
-        blind_gain = 5, hands_loss = 0.01, 
-        loss_increase = 0.01, interval = 10, 
+        blind_gain = 5, hands_loss = 0.02, 
+        loss_increase = 0.02, interval = 10, 
         elapsed = 0, seconds = 0
     }}, rarity = 2, cost = 6,
     pos = {x = 7, y = 5}, 
@@ -43,18 +43,20 @@ joker.update = function(self, card, dt)
                 chips_check = (G.GAME.chips >= G.GAME.blind.chips)
             end
 
-            if chips_check or G.GAME.current_round.hands_left < 1 then
+            if chips_check or G.GAME.current_round.hands_left <= 0 then
                 play_sound("lobc_iron_maiden_end", 1, 0.4)
                 G.STATE = G.STATES.HAND_PLAYED
                 G.STATE_COMPLETE = true
                 end_round()
             else
                 play_sound("lobc_iron_maiden_tick", 1, 0.4)
-                if card.ability.extra.seconds >= card.ability.extra.interval then
-                    card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
-                    card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase
-                    card.ability.extra.seconds = card.ability.extra.seconds - card.ability.extra.interval
-                end
+            end
+
+            if card.ability.extra.seconds >= card.ability.extra.interval then
+                card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+                card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase
+                card.ability.extra.seconds = card.ability.extra.seconds - card.ability.extra.interval
             end
         end
     end

@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.5.2c
+--- VERSION: 0.5.3
 
 local mod_path = SMODS.current_mod.path
 -- To disable a Joker, comment it out by adding -- at the start of the line.
@@ -328,7 +328,7 @@ function Card.add_to_deck(self, from_debuff)
                 card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('lobc_old_lady_downgrade', 1, 0.7)
+                        play_sound('lobc_old_lady_downgrade', 1, 0.6)
                         return true
                     end
                 }))
@@ -633,4 +633,8 @@ function G.FUNCS.can_skip_booster(e)
     else
         can_skip_boosterref(e)
     end
+end
+
+to_big = to_big or function(num)
+    return num
 end

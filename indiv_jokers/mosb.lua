@@ -27,7 +27,7 @@ joker.calculate = function(self, card, context)
             card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex') })
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    play_sound('lobc_mosb_upgrade', 1, 0.4)
+                    play_sound('lobc_mosb_upgrade', 1, 0.3)
                     return true
                 end
             }))

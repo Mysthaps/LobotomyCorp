@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = 1
 
 [[patches]]
 [patches.pattern]
@@ -165,3 +165,12 @@ pattern = "if (#parts._2 == 2) or (#parts._3 == 1 and #parts._2 == 1) then"
 position = "at"
 payload = "if (#parts._2 >= 2) or (#parts._3 == 1 and #parts._2 == 1) then"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+position = "at"
+payload = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left <= 0 then"
+match_indent = true
+
