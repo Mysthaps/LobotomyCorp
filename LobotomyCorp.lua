@@ -54,6 +54,10 @@ local sound_list = {
     nameless_cry = "nameless_cry",
 }
 
+local challenge_list = {
+    "dark_days"
+}
+
 -- Badge colors
 local get_badge_colourref = get_badge_colour
 function get_badge_colour(key)
@@ -147,6 +151,19 @@ for k, v in pairs(sound_list) do
     })
 end
 
+-- Load challenges
+for _, v in ipairs(challenge_list) do
+    local chal = NFS.load(mod_path .. "challenges/" .. v .. ".lua")()
+
+    if not chal then
+        sendErrorMessage("[LobotomyCorp] Cannot find challenge with shorthand: " .. v)
+    else
+        chal.key = v
+        chal.loc_txt = ""
+        local chal_obj = SMODS.Challenge(chal)
+    end
+end
+
 -- Atlases
 SMODS.Atlas({ 
     key = "LobotomyCorp_Jokers", 
@@ -238,7 +255,8 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
-    if G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"] then return "bl_lobc_whitenight" end
+    if G.GAME.modifiers.lobc_all_whitenight or 
+    (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     return get_new_bossref()
     --return "bl_lobc_whitenight"
 end
@@ -452,13 +470,10 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         end
         if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
 
-        if add then
+        if add and not G.GAME.banned_keys[v.key] then
            _pool[#_pool+1] = v.key
+           _pool_size = _pool_size + 1
         end
-    end
-
-    for k,v in pairs(_pool) do
-        _pool_size = _pool_size + 1
     end
 
     --if pool is empty

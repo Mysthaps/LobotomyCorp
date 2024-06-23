@@ -794,6 +794,14 @@ return {
             lobc_waw = "WAW",
             lobc_aleph = "ALEPH",
         },
+        challenge_names = {
+            c_lobc_dark_days = "Dark Days",
+        },
+        v_text = {
+            ch_c_lobc_all_whitenight = {"All {C:attention}Boss Blinds{} are {C:dark_edition}WhiteNight{}"},
+            ch_c_lobc_all_whitenight_2 = {"{C:dark_edition}WhiteNight{} does not give its {C:attention}Joker{} when defeated"},
+            ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"}
+        },
         dictionary = {
             k_lobc_breached = "Breached!",
             k_lobc_downgrade = "Downgrade...",

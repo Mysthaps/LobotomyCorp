@@ -71,33 +71,35 @@ joker.calculate = function(self, card, context)
                     return true
                 end
             }))
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                attention_text({
-                    text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_1'),
-                    scale = 0.35, 
-                    hold = 4*G.SETTINGS.GAMESPEED,
-                    major = G.play,
-                    backdrop_colour = G.C.CLEAR,
-                    align = 'cm',
-                    offset = {x = 0, y = -3.5},
-                    silent = true
-                })
-                attention_text({
-                    text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_2'),
-                    scale = 0.35, 
-                    hold = 4*G.SETTINGS.GAMESPEED,
-                    major = G.play,
-                    backdrop_colour = G.C.CLEAR,
-                    align = 'cm',
-                    offset = {x = 0, y = -3.1},
-                    silent = true
-                })
-                return true 
-                end 
-            }))
+            if not G.GAME.modifiers.lobc_all_whitenight then
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_1'),
+                        scale = 0.35, 
+                        hold = 4*G.SETTINGS.GAMESPEED,
+                        major = G.play,
+                        backdrop_colour = G.C.CLEAR,
+                        align = 'cm',
+                        offset = {x = 0, y = -3.5},
+                        silent = true
+                    })
+                    attention_text({
+                        text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_2'),
+                        scale = 0.35, 
+                        hold = 4*G.SETTINGS.GAMESPEED,
+                        major = G.play,
+                        backdrop_colour = G.C.CLEAR,
+                        align = 'cm',
+                        offset = {x = 0, y = -3.1},
+                        silent = true
+                    })
+                    return true 
+                    end 
+                }))
+            end
 
             -- Breach.
-            if card.ability.extra.apostles >= 12 then
+            if card.ability.extra.apostles >= 12 and not G.GAME.modifiers.lobc_all_whitenight then
                 for _, v in ipairs(G.jokers.cards) do
                     if v.config.center.key == "j_lobc_plague_doctor" then
                         G.E_MANAGER:add_event(Event({
@@ -134,11 +136,23 @@ end
 
 joker.add_to_deck = function(self, card, from_debuff)
     -- Debuffs self if another Plague Doctor already exists
+    local found_dupe = false
     for _, v in ipairs(G.jokers.cards) do
         if v ~= card and v.config.center.key == "j_lobc_plague_doctor" then
             card.debuff = true
             card.ability.perma_debuff = true
+            card.ability.eternal = false
+            found_dupe = true
         end
+    end
+
+    if G.GAME.modifiers.lobc_all_whitenight and not found_dupe then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card.ability.eternal = true
+                return true
+            end
+        }))
     end
 end
 

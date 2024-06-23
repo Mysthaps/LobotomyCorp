@@ -54,21 +54,23 @@ blind.disable = function(self, blind)
 end
 
 blind.defeat = function(self, blind)
-    G.GAME.pool_flags["whitenight_defeated"] = true
-    if not next(SMODS.find_card("j_lobc_one_sin")) then
-        G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-        G.E_MANAGER:add_event(Event({
-            func = function() 
-                local card = create_card('Abnormality', G.jokers, nil, 0, nil, nil, "j_lobc_whitenight", 'wn')
-                card:add_to_deck()
-                G.jokers:emplace(card)
-                card:start_materialize()
-                G.GAME.joker_buffer = 0
-                return true
-            end
-        }))
-    else
-        G.GAME.pool_flags["whitenight_confessed"] = true
+    if not G.GAME.modifiers.lobc_all_whitenight then
+        G.GAME.pool_flags["whitenight_defeated"] = true
+        if not next(SMODS.find_card("j_lobc_one_sin")) then
+            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    local card = create_card('Abnormality', G.jokers, nil, 0, nil, nil, "j_lobc_whitenight", 'wn')
+                    card:add_to_deck()
+                    G.jokers:emplace(card)
+                    card:start_materialize()
+                    G.GAME.joker_buffer = 0
+                    return true
+                end
+            }))
+        else
+            G.GAME.pool_flags["whitenight_confessed"] = true
+        end
     end
 end
 
