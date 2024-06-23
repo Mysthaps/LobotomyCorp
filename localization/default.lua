@@ -137,6 +137,13 @@ return {
                     "greeting each other by name...",
                 }
             },
+            und_j_lobc_youre_bald = {
+                name = "Bald-Is-Awesome!",
+                text = {
+                    "You turn on your",
+                    "electric hair clipper...",
+                }
+            },
 
             ---- Boosters ----
             p_lobc_extraction_normal = {
@@ -757,6 +764,20 @@ return {
                     "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
                     "If {C:attention}three{} hands played this way are",
                     "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}",
+                }
+            },
+
+            dis_j_lobc_youre_bald_1 = {
+                name = "Bald-Is-Awesome!",
+                text = {
+                    "{C:attention}(#1#/3){} ...",
+                }
+            },
+            j_lobc_youre_bald = {
+                name = "You're Bald...",
+                text = {
+                    "All future Jokers",
+                    "become {C:attention}bald{}",
                 }
             },
         }

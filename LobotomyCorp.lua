@@ -19,6 +19,7 @@ local joker_list = {
     "plague_doctor",
     "punishing_bird",
     "shy_look",
+    "youre_bald",
 
     --- Uncommon
     "scorched_girl",
@@ -194,6 +195,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+    key = "LobotomyCorp_jokersbald",
+    path = "LobotomyCorp_jokersbald.png",
+    px = 71,
+    py = 95
+})
+
 -- Make Extraction Pack
 SMODS.Center({
     prefix = 'p',
@@ -354,6 +362,18 @@ local sprite_drawref = Sprite.draw
 function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"] then return end
     sprite_drawref(self, overlay)
+end
+
+-- You're Bald...
+local set_spritesref = Card.set_sprites
+function Card.set_sprites(self, _center, _front)
+    set_spritesref(self, _center, _front)
+    if next(SMODS.find_card("j_lobc_youre_bald")) then
+        if _center and _center.set == "Joker" and self.children.center.atlas == G.ASSET_ATLAS["Joker"] then
+            self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_jokersbald"]
+            self.children.center:set_sprite_pos(_center.pos)
+        end
+    end
 end
 
 -- WhiteNight confession win round
