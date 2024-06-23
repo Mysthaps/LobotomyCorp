@@ -1,6 +1,6 @@
 local joker = {
     name = "The Lady Facing the Wall",
-    config = {extra = {min_retrigger = 1, max_retrigger = 4}}, rarity = 1, cost = 6,
+    config = {extra = {min_retrigger = 1, max_retrigger = 5}}, rarity = 1, cost = 6,
     pos = {x = 9, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,
