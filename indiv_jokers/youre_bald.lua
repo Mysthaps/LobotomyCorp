@@ -1,6 +1,6 @@
 local joker = {
     name = "You're Bald...",
-    config = {}, rarity = 1, cost = 2,
+    config = {}, rarity = 1, cost = 1,
     pos = {x = 2, y = 8}, 
     blueprint_compat = false, 
     eternal_compat = true,
