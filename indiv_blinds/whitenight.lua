@@ -16,7 +16,7 @@ local blind = {
     }
 }
 
-blind.set_blind = function(self, blind, reset, silent)
+blind.set_blind = function(self, reset, silent)
     if next(SMODS.find_card("j_lobc_one_sin")) then
         attention_text({
             text = localize('k_lobc_whitenight_confession'),
@@ -29,15 +29,22 @@ blind.set_blind = function(self, blind, reset, silent)
             silent = true
         })
     end
+
+    if G.GAME.modifiers.lobc_all_whitenight then
+        if G.GAME.round_resets.blind_ante == 1 then G.GAME.blind.chips = G.GAME.blind.chips / 6 end
+        if G.GAME.round_resets.blind_ante == 2 then G.GAME.blind.chips = G.GAME.blind.chips / 3 end
+        if G.GAME.round_resets.blind_ante == 3 then G.GAME.blind.chips = G.GAME.blind.chips / 2 end
+        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+    end
 end
 
-blind.debuff_card = function(self, blind, card, from_blind)
+blind.debuff_card = function(self, card, from_blind)
     if card.ability.plague_doctor_baptism then
         return true
     end
 end
 
-blind.disable = function(self, blind)
+blind.disable = function(self)
     if not next(SMODS.find_card("j_lobc_one_sin")) then
         attention_text({
             text = localize('k_lobc_whitenight_disable'),
@@ -49,11 +56,11 @@ blind.disable = function(self, blind)
             offset = {x = 0, y = -3.5},
             silent = true
         })
-        blind:wiggle()
+        G.GAME.blind:wiggle()
     end
 end
 
-blind.defeat = function(self, blind)
+blind.defeat = function(self)
     if not G.GAME.modifiers.lobc_all_whitenight then
         G.GAME.pool_flags["whitenight_defeated"] = true
         if not next(SMODS.find_card("j_lobc_one_sin")) then
@@ -74,27 +81,28 @@ blind.defeat = function(self, blind)
     end
 end
 
-blind.press_play = function(self, blind)
+blind.press_play = function(self)
     local proc = false
+    local base_chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling
     G.E_MANAGER:add_event(Event({
-        trigger = 'after', 
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.ability and v.ability.plague_doctor_baptism then
-                    proc = true
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.2*G.SETTINGS.GAMESPEED,
-                        func = function() 
-                            v:start_dissolve() 
-                            if blind.chips > get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*6.66 then
-                                blind.chips = blind.chips - get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*5
-                                blind.chip_text = number_format(blind.chips)
-                                blind:wiggle()
-                            end
-                            return true
-                        end 
-                    }))   
+                    if G.GAME.blind.chips > base_chips*2 then
+                        proc = true
+                        v:start_dissolve() 
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.2*G.SETTINGS.GAMESPEED,
+                            func = function() 
+                                G.GAME.blind.chips = G.GAME.blind.chips - base_chips*5
+                                G.GAME.blind.chips = math.max(G.GAME.blind.chips, base_chips*2)
+                                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                                G.GAME.blind:wiggle()
+                                return true
+                            end 
+                        }))
+                    end
                 end
             end
             return true 

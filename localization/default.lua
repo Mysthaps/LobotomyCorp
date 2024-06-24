@@ -800,7 +800,8 @@ return {
         v_text = {
             ch_c_lobc_all_whitenight = {"All {C:attention}Boss Blinds{} are {C:dark_edition}WhiteNight{}"},
             ch_c_lobc_all_whitenight_2 = {"{C:dark_edition}WhiteNight{} does not give its {C:attention}Joker{} when defeated"},
-            ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"}
+            ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"},
+            ch_c_lobc_all_whitenight_4 = {"Reduced {C:attention}Boss Blind Size{} during the first {C:attention}3{} Antes"},
         },
         dictionary = {
             k_lobc_breached = "Breached!",
