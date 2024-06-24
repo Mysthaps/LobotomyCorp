@@ -808,6 +808,8 @@ return {
             k_lobc_extraction_pack = "Extraction Pack",
             k_lobc_active = "active",
             k_lobc_inactive = "inactive",
+            k_lobc_punishing_bird = "Punishing Bird",
+            k_lobc_iron_maiden = "We Can Change Anything",
 
             ---- Plague Doctor ----
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",

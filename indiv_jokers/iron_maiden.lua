@@ -44,9 +44,11 @@ joker.update = function(self, card, dt)
             end
 
             if chips_check or G.GAME.current_round.hands_left <= 0 then
+                G.GAME.current_round.hands_left = 0
                 play_sound("lobc_iron_maiden_end", 1, 0.4)
                 G.STATE = G.STATES.HAND_PLAYED
                 G.STATE_COMPLETE = true
+                if G.GAME.current_round.hands_left <= 0 then G.GAME.lobc_death_text = localize("k_lobc_iron_maiden") end
                 end_round()
             else
                 play_sound("lobc_iron_maiden_tick", 1, 0.4)

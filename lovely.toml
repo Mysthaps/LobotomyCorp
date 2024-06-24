@@ -174,3 +174,18 @@ position = "at"
 payload = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left <= 0 then"
 match_indent = true
 
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "local label_scale = 0.5"
+position = "before"
+payload = '''
+if score == 'defeated_by' and G.GAME.lobc_death_text then 
+    score_tab[1].nodes[1].config.object:remove()
+    score_tab[1].nodes = {
+        {n=G.UIT.O, config={object = DynaText({string = G.GAME.lobc_death_text, colours = {G.C.WHITE},shadow = true, float = true,maxw = 2.2, scale = 0.45})}}
+    }
+end
+'''
+match_indent = true
+
