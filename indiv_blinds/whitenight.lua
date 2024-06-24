@@ -88,7 +88,7 @@ blind.press_play = function(self)
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.ability and v.ability.plague_doctor_baptism then
-                    if G.GAME.blind.chips > base_chips*2 then
+                    if G.GAME.blind.chips > base_chips*6.66 then
                         proc = true
                         v:start_dissolve() 
                         G.E_MANAGER:add_event(Event({
@@ -96,7 +96,7 @@ blind.press_play = function(self)
                             delay = 0.2*G.SETTINGS.GAMESPEED,
                             func = function() 
                                 G.GAME.blind.chips = G.GAME.blind.chips - base_chips*5
-                                G.GAME.blind.chips = math.max(G.GAME.blind.chips, base_chips*2)
+                                G.GAME.blind.chips = math.max(G.GAME.blind.chips, base_chips*6.66)
                                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                                 G.GAME.blind:wiggle()
                                 return true
