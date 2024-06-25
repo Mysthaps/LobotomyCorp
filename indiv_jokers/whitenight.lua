@@ -38,6 +38,7 @@ joker.calculate = function(self, card, context)
             for k, v in ipairs(context.full_hand) do
                 if v.ability and not v.ability.plague_doctor_baptism then
                     card_to_mark = context.full_hand[k]
+                    break
                 end
             end
 
@@ -46,6 +47,7 @@ joker.calculate = function(self, card, context)
                 for k, v in ipairs(G.hand.cards) do
                     if v.ability and not v.ability.plague_doctor_baptism then
                         card_to_mark = G.hand.cards[k]
+                        break
                     end
                 end
             end
@@ -55,6 +57,7 @@ joker.calculate = function(self, card, context)
                 for k, v in ipairs(G.deck.cards) do
                     if v.ability and not v.ability.plague_doctor_baptism then
                         card_to_mark = G.deck.cards[k]
+                        break
                     end
                 end
             end

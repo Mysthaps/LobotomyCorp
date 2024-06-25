@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.5.4
+--- VERSION: 0.6.0
 
 local mod_path = SMODS.current_mod.path
 -- To disable a Joker, comment it out by adding -- at the start of the line.
@@ -30,6 +30,7 @@ local joker_list = {
 
     --- Rare
     "queen_of_hatred",
+    "price_of_silence",
     "laetitia",
     "mosb",
     "servant_of_wrath",
@@ -52,24 +53,30 @@ local sound_list = {
     iron_maiden_tick = "Iron_Generate",
     iron_maiden_end = "Iron_End",
     nameless_cry = "nameless_cry",
+    silence_destroy = "Clock_NoCreate",
+    silence_tick = "Clock_Tick",
 }
 
 local challenge_list = {
     "dark_days"
 }
 
+local badge_colors = {
+    lobc_gift = HEX("A0243A"),
+    lobc_blessed = HEX("380D36"),
+    lobc_blessed_wn = HEX("EDA9D3"),
+    lobc_apostle = HEX("FF0000"),
+    lobc_amplified = HEX("004d00"),
+    lobc_zayin = HEX("1DF900"),
+    lobc_teth = HEX("13A2FF"),
+    lobc_he = HEX("FFF900"),
+    lobc_waw = HEX("7B2BF3"),
+    lobc_aleph = HEX("FF0000"),
+}
 -- Badge colors
 local get_badge_colourref = get_badge_colour
 function get_badge_colour(key)
-    if key == 'lobc_gift' then return HEX("A0243A") end
-    if key == 'lobc_blessed' then return HEX("380D36") end
-    if key == 'lobc_blessed_wn' then return HEX("EDA9D3") end
-    if key == 'lobc_zayin' then return HEX("1DF900") end
-    if key == 'lobc_teth' then return HEX("13A2FF") end
-    if key == 'lobc_he' then return HEX("FFF900") end
-    if key == 'lobc_waw' then return HEX("7B2BF3") end
-    if key == 'lobc_aleph' then return HEX("FF0000") end
-    return get_badge_colourref(key)
+    return badge_colors[key] or get_badge_colourref(key)
 end
 
 -- Load all jokers
@@ -391,6 +398,66 @@ function Card.set_sprites(self, _center, _front)
             self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_jokersbald"]
             self.children.center:set_sprite_pos(_center.pos)
         end
+    end
+end
+
+local amplified_values = {
+    "mult",
+    "h_mult",
+    "h_x_mult",
+    "h_dollars",
+    "p_dollars",
+    "t_mult",
+    "t_chips",
+    "x_mult",
+    "h_size",
+    "d_size",
+    "bonus",
+}
+-- The Price of Silence amplification
+function Card:lobc_check_amplified()
+    if self.ability.price_of_silence_amplified then
+        for _, v in ipairs(amplified_values) do
+            if self.ability[v] and self.config.center.config[v] then
+                self.ability[v] = self.ability[v] + self.config.center.config[v]
+            end
+        end
+        -- glass card moment
+        if self.ability.x_mult and self.config.center.config.Xmult then
+            self.ability.x_mult = self.ability.x_mult + self.config.center.config.Xmult
+        end
+    end
+end
+
+-- Make cards keep ability when transformed
+local set_abilityref = Card.set_ability
+function Card.set_ability(self, center, initial, delay_sprites)
+    local lobc_abilities = {
+        laetitia_gift = false,
+        price_of_silence_amplified = false,
+        plague_doctor_baptism = false,
+    }
+
+    if self.ability and self.playing_card then
+        for k, v in pairs(lobc_abilities) do
+            if self.ability[k] then
+                lobc_abilities[k] = true
+            end
+        end
+    end
+
+    set_abilityref(self, center, initial, delay_sprites)
+
+    if self.ability and self.playing_card then
+        for k, v in pairs(lobc_abilities) do
+            if v then
+                self.ability[k] = true
+            end
+        end
+    end
+    
+    if self.ability and self.playing_card and self.ability.set == "Enhanced" then
+        self:lobc_check_amplified()
     end
 end
 

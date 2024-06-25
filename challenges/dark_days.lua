@@ -10,7 +10,6 @@ local chal = {
         modifiers = {
             {id = 'dollars', value = 25},
             {id = 'hands', value = 5},
-            {id = 'discards', value = 4}
         }
     },
     jokers = {

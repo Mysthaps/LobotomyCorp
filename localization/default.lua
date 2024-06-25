@@ -98,6 +98,13 @@ return {
                     "knowing it's wrong?\""
                 }
             },
+            und_j_lobc_price_of_silence = {
+                name = "O-05-65",
+                text = {
+                    "Time flows as life does,",
+                    "and life goes as time does.",
+                }
+            },
             und_j_lobc_laetitia = {
                 name = "O-01-67",
                 text = {
@@ -207,7 +214,7 @@ return {
             lobc_bless_order = {
                 name = "Bless Order",
                 text = {
-                    "Last non-{C:attention}blessed{}",
+                    "First non-{C:attention}blessed{}",
                     "playing card {C:attention}played{},",
                     "then in {C:attention}hand{},",
                     "then in {C:attention}deck{}"
@@ -221,6 +228,20 @@ return {
                     "No duplicates"
                 }
             },
+            lobc_amplified = {
+                name = "Amplified",
+                text = {
+                    "{C:attention}Enhancements{} on",
+                    "this card have",
+                    "{C:attention}doubled{} values"
+                }
+            },
+            lobc_amplified_1 = {
+                name = "Amplified",
+                text = {
+                    "..."
+                }
+            }
         },
         Joker = {
             ---- Abnormalities' Observation Levels ----
@@ -585,6 +606,44 @@ return {
                 }
             },
 
+            dis_j_lobc_price_of_silence_1 = {
+                name = "O-05-65",
+                text = {
+                    "{C:attention}(#1#/2){} ...",
+                    "{C:attention}(#2#/5){} ...",
+                    "{C:attention}(#3#/7){} ...",
+                }
+            },
+            dis_j_lobc_price_of_silence_2 = {
+                name = "O-05-65",
+                text = {
+                    "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
+                    "card to the {C:attention}leftmost{} scoring card",
+                    "{C:attention}(#2#/5){} ...",
+                    "{C:attention}(#3#/7){} ...",
+                }
+            },
+            dis_j_lobc_price_of_silence_3 = {
+                name = "O-05-65",
+                text = {
+                    "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
+                    "card to the {C:attention}leftmost{} scoring card",
+                    "The converted card becomes {V:1}Amplified{}",
+                    "{C:attention}(#3#/7){} ...",
+                }
+            },
+            j_lobc_price_of_silence = {
+                name = "The Price of Silence",
+                text = {
+                    "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
+                    "card to the {C:attention}leftmost{} scoring card",
+                    "The converted card becomes {V:1}Amplified{}",
+                    "Each hand, after {C:attention}13{} seconds, destroys a",
+                    "random {C:attention}other{} Joker and becomes {C:red}inactive{}",
+                    "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"
+                }
+            },
+
             dis_j_lobc_laetitia_1 = {
                 name = "O-01-67",
                 text = {
@@ -788,6 +847,7 @@ return {
             lobc_blessed = "Blessed",
             lobc_blessed_wn = "Blessed",
             lobc_apostle = "Apostle",
+            lobc_amplified = "Amplified",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -802,7 +862,7 @@ return {
             ch_c_lobc_all_whitenight_2 = {"{C:dark_edition}WhiteNight{} does not give its {C:attention}Joker{} when defeated"},
             ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"},
             ch_c_lobc_all_whitenight_4 = {"Reduced {C:attention}Boss Blind Size{} during the first {C:attention}3{} Antes"},
-            ch_c_lobc_all_whitenight_5 = {"{C:inactive}({}{C:dark_edition}WhiteNight{}{C:inactive} cannot go below {C:attention}X6.66{} Blind Size from {C:attention}Apostles{})"},
+            ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
         },
         dictionary = {
             k_lobc_breached = "Breached!",
@@ -842,6 +902,10 @@ return {
             ---- WhiteNight ----
             k_lobc_whitenight_confession = "To be willing to bear pain is half the atonement.",
             k_lobc_whitenight_disable = "Do not deny me. Why dost thou doubt me when I am in front of thine eyes?",
+
+            ---- The Price of Silence ----
+            k_lobc_price_of_silence_1 = "When time stops, silence falls.",
+            k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
         }
     }
 }

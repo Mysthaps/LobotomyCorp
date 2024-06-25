@@ -46,6 +46,7 @@ pattern = "if self.ability.rental then badges[#badges + 1] = 'rental' end"
 position = "after"
 payload = '''
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
+if self.ability.price_of_silence_amplified then badges[#badges + 1] = 'lobc_amplified' end
 if self.ability.plague_doctor_baptism then 
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
         badges[#badges + 1] = 'lobc_apostle'
@@ -67,6 +68,10 @@ pattern = "if v == 'rental' then info_queue[#info_queue+1] = {key = 'rental', se
 position = "after"
 payload = '''
 if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
+if v == 'lobc_amplified' then
+    local count = G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_price_of_silence"] and G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_price_of_silence"].count or 0
+    info_queue[#info_queue+1] = {key = 'lobc_amplified'..(count < 5 and '_1' or ''), set = 'Other'}
+end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
 if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_wn', set = 'Other'} end
 if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end
