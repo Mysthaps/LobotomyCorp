@@ -1,0 +1,12 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = "if key == \"2\" then"
+position = "after"
+payload = "G.PROFILES[G.SETTINGS.profile].joker_usage[_card.config.center.key] = {count = _card.config.center.discover_rounds or 0, order = _card.config.center.order, wins = {}, losses = {}}"
+match_indent = true

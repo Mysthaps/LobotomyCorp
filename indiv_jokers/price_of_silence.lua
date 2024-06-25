@@ -91,11 +91,11 @@ joker.calculate = function(self, card, context)
             for i=1, #context.scoring_hand do if context.scoring_hand[i].T.x < leftmost.T.x then leftmost = context.scoring_hand[i] end end
             for i=1, #context.scoring_hand do if context.scoring_hand[i].T.x > rightmost.T.x then rightmost = context.scoring_hand[i] end end
             if rightmost ~= leftmost and not rightmost.ability.eternal then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     play_sound('card1')
                     rightmost:flip()
                 return true end }))
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     copy_card(leftmost, rightmost)
                     rightmost.ability.price_of_silence_amplified = true
                     rightmost:lobc_check_amplified()

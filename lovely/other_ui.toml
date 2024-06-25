@@ -1,0 +1,27 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "(self.T.y < G.CARD_H*0.8) and 'bm' or"
+position = "after"
+payload = "(self.config.center.abno and self.T.y < G.CARD_H*1.2) and 'bm' or"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "local label_scale = 0.5"
+position = "before"
+payload = '''
+if score == 'defeated_by' and G.GAME.lobc_death_text then 
+    score_tab[1].nodes[1].config.object:remove()
+    score_tab[1].nodes = {
+        {n=G.UIT.O, config={object = DynaText({string = G.GAME.lobc_death_text, colours = {G.C.WHITE},shadow = true, float = true,maxw = 2.2, scale = 0.45})}}
+    }
+end
+'''
+match_indent = true

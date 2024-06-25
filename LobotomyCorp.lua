@@ -3,7 +3,7 @@
 --- MOD_ID: LobotomyCorp
 --- PREFIX: lobc
 --- MOD_AUTHOR: [Mysthaps]
---- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation by Project Moon.
+--- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation and Library of Ruina by Project Moon.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
 --- VERSION: 0.6.0
@@ -226,6 +226,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+    key = "LobotomyCorp_modifiers",
+    path = "LobotomyCorp_modifiers.png",
+    px = 71,
+    py = 95
+})
+
 -- Make Extraction Pack
 SMODS.Center({
     prefix = 'p',
@@ -250,6 +257,8 @@ SMODS.Center({
 sendInfoMessage("Loaded LobotomyCorp~")
 
 ---- Other functions ----
+
+
 
 -- oops
 local init_game_objectref = Game.init_game_object
@@ -432,16 +441,12 @@ end
 -- Make cards keep ability when transformed
 local set_abilityref = Card.set_ability
 function Card.set_ability(self, center, initial, delay_sprites)
-    local lobc_abilities = {
-        laetitia_gift = false,
-        price_of_silence_amplified = false,
-        plague_doctor_baptism = false,
-    }
+    local lobc_abilities = {}
 
     if self.ability and self.playing_card then
-        for k, v in pairs(lobc_abilities) do
-            if self.ability[k] then
-                lobc_abilities[k] = true
+        for _, v in ipairs(G.lobc_global_modifiers) do
+            if self.ability[v] then
+                lobc_abilities[v] = true
             end
         end
     end
