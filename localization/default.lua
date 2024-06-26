@@ -74,6 +74,14 @@ return {
                     "covered in countless, lengthy hairs.\"",
                 }
             },
+            und_j_lobc_nothing_there = {
+                name = "O-06-20",
+                text = {
+                    "And the many shells",
+                    "cry out one word,",
+                    "\"{C:red}Manager{}\".",
+                }
+            },
             und_j_lobc_plague_doctor = {
                 name = "O-01-45",
                 text = {
@@ -505,6 +513,45 @@ return {
                     "randomly from {C:attention}#1#{} to {C:attention}#2#{} times",
                     "{C:attention}Playing cards{} are drawn {C:attention}face{}",
                     "{C:attention}down{} until hand is played"
+                }
+            },
+
+            dis_j_lobc_nothing_there_1 = {
+                name = "O-06-20",
+                text = {
+                    "{C:attention}(#1#/4){} ...",
+                    "{C:attention}(#2#/7){} ...",
+                    "{C:attention}(#3#/9){} ..."
+                }
+            },
+            dis_j_lobc_nothing_there_2 = {
+                name = "O-06-20",
+                text = {
+                    "Copies the abilities of leftmost",
+                    "and rightmost {C:attention}Jokers{}",
+                    "{C:attention}(#2#/7){} ...",
+                    "{C:attention}(#3#/9){} ..."
+                }
+            },
+            dis_j_lobc_nothing_there_3 = {
+                name = "O-06-20",
+                text = {
+                    "Copies the abilities of leftmost",
+                    "and rightmost {C:attention}Jokers{}",
+                    "When Blind is selected, flips and shuffles",
+                    "all Jokers for the first hand",
+                    "{C:attention}(#3#/9){} ..."
+                }
+            },
+            j_lobc_nothing_there = {
+                name = "Nothing There",
+                text = {
+                    "Copies the abilities of leftmost",
+                    "and rightmost {C:attention}Jokers{}",
+                    "When Blind is selected, flips and shuffles",
+                    "all Jokers for the first hand, then",
+                    "takes the appearance of another Joker",
+                    "Cannot copy Jokers of selected type"
                 }
             },
 

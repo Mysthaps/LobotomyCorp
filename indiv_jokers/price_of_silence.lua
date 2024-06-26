@@ -1,5 +1,3 @@
--- hokma balls
-
 local joker = {
     name = "The Price of Silence",
     config = {extra = {
@@ -141,4 +139,5 @@ end
 
 return joker
 
+-- hokma balls
 -- p + space: the fight

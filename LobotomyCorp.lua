@@ -29,7 +29,13 @@ local joker_list = {
     "iron_maiden", -- We Can Change Anything
 
     --- Rare
+    --[[
+        Nothing There is commented out because while technically it works,
+        it will not calculate other effects until the better_calc branch is merged.
+        Until then, the secondary effect of Nothing There will not be implemented
+    ]]--
     "queen_of_hatred",
+    --"nothing_there",
     "price_of_silence",
     "laetitia",
     "mosb",
@@ -414,6 +420,7 @@ local amplified_values = {
     "mult",
     "h_mult",
     "h_x_mult",
+    "h_chips",
     "h_dollars",
     "p_dollars",
     "t_mult",
