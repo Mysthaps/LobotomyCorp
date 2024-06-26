@@ -108,3 +108,5 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 return joker
+
+-- just reset if you get plague doctor on day 11 lmao

@@ -88,3 +88,6 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 return joker
+
+-- pink shoes aberration
+-- roseate desire faust when

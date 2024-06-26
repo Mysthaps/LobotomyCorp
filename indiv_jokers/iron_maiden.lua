@@ -1,13 +1,3 @@
--- iron maiden
--- my lady has spoken
--- ga1ahad you will shall never collapse
--- so i charged up my lasers
-
--- ta lilalu lila
--- that makes your bones stronger than steel
--- tu lilata lila
--- that backs your thoughts up to the cloud
-
 local joker = {
     name = "We Can Change Anything",
     config = {extra = {
@@ -101,3 +91,13 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 return joker
+
+-- iron maiden
+-- my lady has spoken
+-- ga1ahad you will shall never collapse
+-- so i charged up my lasers
+
+-- ta lilalu lila
+-- that makes your bones stronger than steel
+-- tu lilata lila
+-- that backs your thoughts up to the cloud

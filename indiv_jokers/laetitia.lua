@@ -88,3 +88,5 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 return joker
+
+-- "Shoutouts to the time I called laetitia lolita" - not me

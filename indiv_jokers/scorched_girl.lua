@@ -65,3 +65,14 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 return joker
+
+-- I AM FIRE
+-- BURN THOSE WHO DARE TO CARE FOR ME
+
+-- AND MY FUEL ARE MEMORIES
+-- FUEL ARE MEMORIES OF YOU
+
+-- THEY PERISH WITH THE HEAT
+-- PERISH WITH THE HEAT
+
+-- SO I CAN MOVE ON
