@@ -886,6 +886,52 @@ return {
                     "become {C:attention}bald{}",
                 }
             },
+        },
+        Blind = {
+            -- Abnormalities
+            bl_lobc_whitenight = {
+                name = "WhiteNight",
+                text = {
+                    "Played Apostles reduce",
+                    "blind size by 5X Base"
+                }
+            },
+
+            -- Dawn Ordeals
+
+            -- Noon Ordeals
+
+            -- Dusk Ordeals
+            bl_lobc_dusk_base = {
+                name = "Dusk Ordeal",
+                text = {
+                    "Fight against a",
+                    "random Dusk Ordeal"
+                }
+            },
+            bl_lobc_dusk_green = {
+                name = "Green Dusk",
+                text = {
+                    "Decreases level of played",
+                    "poker hand twice"
+                }
+            },
+            bl_lobc_dusk_amber = {
+                name = "Amber Dusk",
+                text = {
+                    "Debuffs any playing card per card drawn",
+                    "destroys all debuffed cards before scoring"
+                }
+            },
+            bl_lobc_dusk_crimson = {
+                name = "Crimson Dusk",
+                text = {
+                    "Immediately fight Crimson Noon",
+                    "after beating this Blind"
+                }
+            }
+
+            -- Midnight Ordeals
         }
     },
     misc = {
@@ -919,6 +965,13 @@ return {
             k_lobc_inactive = "inactive",
             k_lobc_punishing_bird = "Punishing Bird",
             k_lobc_iron_maiden = "We Can Change Anything",
+
+            ---- Ordeals ----
+            k_lobc_dusk_green = "The Dusk of Green",
+            k_lobc_dusk_green_name = "Where We Must Reach",
+            k_lobc_dusk_green_1 = "We constructed a looming tower to return whence we came.",
+            k_lobc_dusk_green_2 = "There wasn't an answer. We didn't find a single thing we wanted.",
+            k_lobc_dusk_green_3 = "We only witnessed the death of life itself.",
 
             ---- Plague Doctor ----
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",

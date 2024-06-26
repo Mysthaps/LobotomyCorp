@@ -46,7 +46,18 @@ local joker_list = {
 }
 
 local blind_list = {
-    "whitenight"
+    -- Abnormalities
+    "whitenight",
+
+    -- Dawn Ordeals
+    
+    -- Noon Ordeals
+
+    -- Dusk Ordeals
+    --"dusk_base",
+    "dusk_green",
+
+    -- Midnight Ordeals
 }
 
 local sound_list = {
@@ -61,6 +72,8 @@ local sound_list = {
     nameless_cry = "nameless_cry",
     silence_destroy = "Clock_NoCreate",
     silence_tick = "Clock_Tick",
+    green_start = "Machine_Start",
+    green_defeat = "Machine_End",
 }
 
 local challenge_list = {
@@ -78,6 +91,7 @@ local badge_colors = {
     lobc_he = HEX("FFF900"),
     lobc_waw = HEX("7B2BF3"),
     lobc_aleph = HEX("FF0000"),
+    lobc_green = HEX("008000"),
 }
 -- Badge colors
 local get_badge_colourref = get_badge_colour
@@ -264,13 +278,26 @@ sendInfoMessage("Loaded LobotomyCorp~")
 
 ---- Other functions ----
 
+local abno_blinds = {
+    "whitenight",
+}
 
+local ordeal_blinds = {
+    "dusk_green",
+    "dusk_crimson",
+    "dusk_amber",
+}
 
 -- oops
 local init_game_objectref = Game.init_game_object
 function Game.init_game_object(self)
     local G = init_game_objectref(self)
-    G.bosses_used["bl_lobc_whitenight"] = 1e300
+    for _, v in ipairs(abno_blinds) do
+        G.bosses_used["bl_lobc_"..v] = 1e300
+    end
+    for _, v in ipairs(ordeal_blinds) do
+        G.bosses_used["bl_lobc_"..v] = 1e300
+    end
     return G
 end
 
@@ -476,6 +503,7 @@ end
 -- WhiteNight confession win round
 local alert_debuffref = Blind.alert_debuff
 function Blind.alert_debuff(self, first)
+    if self.config.blind.color and self.config.blind.color == "base" then return end
     if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin")) then
         self.block_play = true
         G.E_MANAGER:add_event(Event({
@@ -521,8 +549,61 @@ function Blind.alert_debuff(self, first)
             end
         }))
     else
-        alert_debuffref(self, first)
+        local ordeal = false
+        for _, v in ipairs(ordeal_blinds) do
+            if self.config.blind.color then
+                self:ordeal_alert()
+                ordeal = true
+                break
+            end
+        end
+        if not ordeal then alert_debuffref(self, first) end
     end
+end
+
+-- Blind:alert_debuff for ordeals
+function Blind:ordeal_alert()
+    self.block_play = true
+    G.E_MANAGER:add_event(Event({
+        blockable = false,
+        blocking = false,
+        func = (function()
+            if self.disabled then self.block_play = nil; return true end
+            if G.STATE == G.STATES.SELECTING_HAND then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = G.SETTINGS.GAMESPEED * 0.05,
+                    blockable = false,
+                    func = (function()
+                        play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.5)
+                        local hold_time = G.SETTINGS.GAMESPEED * 6
+                        local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
+                        attention_text({scale = 0.25, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
+                        attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_3'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.2 }, major = G.play, silent = true})
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = hold_time/2,
+                            blocking = false,
+                            blockable = false,
+                            func = (function()
+                                self.block_play = nil
+                                if G.buttons then
+                                    local _buttons = G.buttons:get_UIE_by_ID('play_button')
+                                    _buttons.disable_button = nil
+                                end
+                                return true
+                            end)
+                        }))
+                        return true
+                    end)
+                }))
+                return true
+            end
+        end)
+    }))
 end
 
 -- Get Abnormality pool

@@ -1,19 +1,13 @@
 local blind = {
     name = "WhiteNight",
-    slug = "whitenight", 
+    pos = {x = 0, y = 0},
     dollars = 8, 
     mult = 66.6, 
     vars = {}, 
     debuff = {},
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('D41C25'),
-    loc_txt = {
-        name = "WhiteNight",
-        text = {
-            "Played Apostles reduce",
-            "blind size by 5X Base"
-        }
-    }
+    loc_txt = {}
 }
 
 blind.set_blind = function(self, reset, silent)
