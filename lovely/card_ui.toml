@@ -45,7 +45,7 @@ match_indent = false
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if self.pinned then"
+pattern = "elseif self.sprite_facing == 'back' then"
 position = "before"
 payload = '''
 -- Lobotomy Corporation card modifiers
