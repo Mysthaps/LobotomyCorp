@@ -5,6 +5,7 @@ local joker = {
     blueprint_compat = false, 
     eternal_compat = true,
     perishable_compat = true,
+    yes_pool_flag = "allow_abnormalities_in_shop",
     abno = true,
     risk = "zayin",
     discover_rounds = 3,

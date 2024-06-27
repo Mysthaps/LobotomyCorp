@@ -4,7 +4,7 @@ local joker = {
         blind_gain = 5, hands_loss = 0.02, 
         loss_increase = 0.02, interval = 10, 
         elapsed = 0, seconds = 0
-    }}, rarity = 2, cost = 6,
+    }}, rarity = 1, cost = 6,
     pos = {x = 7, y = 5}, 
     blueprint_compat = false, 
     eternal_compat = true,

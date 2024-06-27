@@ -19,6 +19,7 @@ local joker_list = {
     "plague_doctor",
     "punishing_bird",
     "shy_look",
+    "iron_maiden", -- We Can Change Anything
     "youre_bald",
 
     --- Uncommon
@@ -26,7 +27,6 @@ local joker_list = {
     "happy_teddy_bear",
     "red_shoes",
     "nameless_fetus",
-    "iron_maiden", -- We Can Change Anything
 
     --- Rare
     --[[

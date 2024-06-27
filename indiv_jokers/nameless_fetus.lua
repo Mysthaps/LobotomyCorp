@@ -1,6 +1,6 @@
 local joker = {
     name = "Nameless Fetus",
-    config = {extra = {x_mult = 4, x_mult_penalty = 0.1, chosen_hand = nil}}, rarity = 2, cost = 8,
+    config = {extra = {x_mult = 4, x_mult_penalty = 0.5, chosen_hand = nil}}, rarity = 2, cost = 8,
     pos = {x = 8, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,
