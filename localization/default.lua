@@ -185,7 +185,7 @@ return {
                     "When this Abnormality",
                     "{C:attention}breaches{}, {C:attention}permanently{}",
                     "increase blind",
-                    "size by {X:mult,C:white} X2 {}",
+                    "size by {X:mult,C:white} X1.5 {}",
                 }
             },
             lobc_gift = {

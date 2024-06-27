@@ -80,7 +80,7 @@ joker.calculate = function(self, card, context)
                     card:juice_up(0.3, 0.4)
                     card.states.drag.is = true
                     card.children.center.pinch.x = true
-                    G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 2
+                    G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.5
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.3,
