@@ -345,7 +345,7 @@ return {
                 name = "A Teddy Bear",
                 text = {
                     "Upgrade level of played",
-                    "{C:attention}poker hand #1#{} times",
+                    "{C:attention}poker hand #1#{} time",
                     "{C:attention}(#4#/6){} ..."
                 }
             },
@@ -353,7 +353,7 @@ return {
                 name = "Happy Teddy Bear",
                 text = {
                     "Upgrade level of played",
-                    "{C:attention}poker hand #1#{} times",
+                    "{C:attention}poker hand #1#{} time",
                     "If {C:attention}consecutive{} hands have",
                     "the same {C:attention}poker hand{},",
                     "reduce its level to {C:attention}0{}",
