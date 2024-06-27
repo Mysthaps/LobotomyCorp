@@ -82,6 +82,14 @@ return {
                     "\"{C:red}Manager{}\".",
                 }
             },
+            und_j_lobc_all_around_helper = {
+                name = "T-05-41",
+                text = {
+                    "Blood covers the whole floor,",
+                    "screams echo,",
+                    "people are running away...",
+                }
+            },
             und_j_lobc_plague_doctor = {
                 name = "O-01-45",
                 text = {
@@ -552,6 +560,34 @@ return {
                     "all Jokers for the first hand, then",
                     "takes the appearance of another Joker",
                     "Cannot copy Jokers of selected type"
+                }
+            },
+
+            dis_j_lobc_all_around_helper_1 = {
+                name = "T-05-41",
+                text = {
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ..."
+                }
+            },
+            dis_j_lobc_all_around_helper_2 = {
+                name = "T-05-41",
+                text = {
+                    "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
+                    "{C:attention}(#5#/6){} ...",
+                    "{C:inactive}(Currently {X:mult,C:white} #1# {C:inactive} Mult)",
+                }
+            },
+            j_lobc_all_around_helper = {
+                name = "All-Around Helper",
+                text = {
+                    "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
+                    "After gaining Mult {C:attention}4{} times,",
+                    "destroys a random Joker",
+                    "{C:inactive}(Currently {X:mult,C:white} #1# {C:inactive} Mult)",
+                    "{C:inactive}(Activates after {C:attention}#3#{C:inactive} blind(s))"
                 }
             },
 

@@ -27,6 +27,7 @@ local joker_list = {
     "happy_teddy_bear",
     "red_shoes",
     "nameless_fetus",
+    "all_around_helper",
 
     --- Rare
     --[[
@@ -65,6 +66,7 @@ local blind_list = {
 local sound_list = {
     music_third_warning = "Emergency3",
     music_abno_choice = "AbnormalityChoice",
+
     mosb_upgrade = "Danggo_Lv2",
     old_lady_downgrade = "OldLady_effect01",
     plague_doctor_bell = "Lucifer_Bell0",
@@ -74,6 +76,8 @@ local sound_list = {
     nameless_cry = "nameless_cry",
     silence_destroy = "Clock_NoCreate",
     silence_tick = "Clock_Tick",
+    helper_destroy = "Robo_Rise",
+
     green_start = "Machine_Start",
     green_defeat = "Machine_End",
     amber_start = "Bug_Start",
