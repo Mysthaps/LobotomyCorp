@@ -586,8 +586,8 @@ return {
                     "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
                     "After gaining Mult {C:attention}4{} times,",
                     "destroys a random Joker",
-                    "{C:inactive}(Currently {X:mult,C:white} #1# {C:inactive} Mult)",
-                    "{C:inactive}(Activates after {C:attention}#3#{C:inactive} blind(s))"
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
+                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"
                 }
             },
 

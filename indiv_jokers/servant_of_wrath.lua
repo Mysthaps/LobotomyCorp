@@ -25,7 +25,7 @@ joker.calculate = function(self, card, context)
                     end
                 end
 
-                for i = 1, math.min(5, G.hand.config.highlighted_limit - #G.hand.highlighted) do
+                for i = 1, math.min(5, G.hand.config.highlighted_limit - #G.hand.highlighted, #G.hand.cards - #G.hand.highlighted) do
                     if #available_cards > 0 then
                         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
                         G.E_MANAGER:add_event(Event({
