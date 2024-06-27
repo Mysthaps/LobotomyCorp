@@ -18,8 +18,8 @@ This is based on the amount of rounds played with that Abnormality in your Joker
 
 ## Abnormalities, as Boss Blinds
 Some Abnormalities are able to *breach*. 
-If these Abnormalities' breaching conditions are met, the next Ante's boss blind is guaranteed to be an Abnormality. 
-These blinds are pretty much *superbosses*, make sure you're well-prepared before tackling on these challenges.
+In addition, some breaching Abnormalities can guarantee that the next Ante's boss blind is an Abnormality. 
+These blinds are *superbosses*, make sure you're well-prepared before tackling on these challenges.
 
 ## Extraction Pack
 To help with discovering Abnormalities, a new Booster Pack type is added. 
