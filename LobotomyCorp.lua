@@ -55,7 +55,9 @@ local blind_list = {
 
     -- Dusk Ordeals
     --"dusk_base",
-    "dusk_green",
+    --"dusk_green",
+    --"dusk_crimson",
+    --"dusk_amber",
 
     -- Midnight Ordeals
 }
@@ -74,6 +76,14 @@ local sound_list = {
     silence_tick = "Clock_Tick",
     green_start = "Machine_Start",
     green_defeat = "Machine_End",
+    amber_start = "Bug_Start",
+    amber_defeat = "Bug_End",
+    crimson_start = "Circus_Start",
+    crimson_defeat = "Circus_End",
+    violet_start = "OutterGod_Start",
+    violet_defeat = "OutterGod_End",
+    indigo_start = "Scavenger_Start",
+    indigo_end = "Scavenger_End",
 }
 
 local challenge_list = {
@@ -92,6 +102,10 @@ local badge_colors = {
     lobc_waw = HEX("7B2BF3"),
     lobc_aleph = HEX("FF0000"),
     lobc_green = HEX("008000"),
+    lobc_amber = HEX("FFA500"),
+    lobc_crimson = HEX("DC143C"),
+    lobc_violet = HEX("800080"),
+    lobc_indigo = HEX("1E90FF"),
 }
 -- Badge colors
 local get_badge_colourref = get_badge_colour
@@ -158,7 +172,7 @@ for _, v in ipairs(blind_list) do
     else
         blind.key = v
         blind.atlas = "LobotomyCorp_Blind"
-        --blind.discovered = true
+        blind.discovered = true
 
         local blind_obj = SMODS.Blind(blind)
 
@@ -307,7 +321,7 @@ function get_new_boss()
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     return get_new_bossref()
-    --return "bl_lobc_whitenight"
+    --return "bl_lobc_dusk_base"
 end
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything
@@ -322,6 +336,40 @@ function G.FUNCS.get_poker_hand_info(_cards)
         return text, loc_disp_text, poker_hands, scoring_hand, disp_text
     end
     return get_poker_hand_inforef(_cards)
+end
+
+-- Amber Dusk's debuff per card drawn
+local draw_from_deck_to_handref = G.FUNCS.draw_from_deck_to_hand
+function G.FUNCS.draw_from_deck_to_hand(e)
+    draw_from_deck_to_handref(e)
+    if G.GAME.blind.config.blind.key == "bl_lobc_dusk_amber" then
+        local cards_drawn = e or math.min(#G.deck.cards, G.hand.config.card_limit - #G.hand.cards)
+        local available_cards = {}
+
+        for _, v in ipairs(G.hand.cards) do
+            if not v.debuff then available_cards[#available_cards+1] = v end
+        end
+        for _, v in ipairs(G.deck.cards) do
+            if not v.debuff then available_cards[#available_cards+1] = v end
+        end
+
+        for i = 1, cards_drawn do
+            if #available_cards > 0 then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.2,
+                    func = function() 
+                        local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("dusk_amber"))
+                        chosen_card.debuff = true
+                        chosen_card.ability.dusk_amber_debuff = true
+                        table.remove(available_cards, chosen_card_key)
+                        G.GAME.blind:wiggle()
+                        return true
+                    end 
+                }))
+            end
+        end
+    end
 end
 
 -- Check rounds until observation unlock
@@ -364,15 +412,20 @@ function set_joker_usage()
     end
 end
 
+local should_debuff_ability = {
+    "scorched_girl_debuff",
+    "theresia_debuff",
+    "dusk_amber_debuff"
+}
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
-        -- Scorched Girl's debuff first hand drawn
-        if card.ability.scorched_girl_debuff then
-            card.debuff = true
-            return true
+        for _, v in ipairs(should_debuff_ability) do
+            if card.ability[v] then 
+                card.debuff = true 
+                return true
+            end
         end
     end
-    return nil
 end
 
 -- Wall Gazer face down
@@ -578,11 +631,10 @@ function Blind:ordeal_alert()
                         play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.5)
                         local hold_time = G.SETTINGS.GAMESPEED * 6
                         local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
-                        attention_text({scale = 0.25, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
+                        attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
                         attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
-                        attention_text({scale = 0.35, text = localize(loc_key..'_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
-                        attention_text({scale = 0.35, text = localize(loc_key..'_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
-                        attention_text({scale = 0.35, text = localize(loc_key..'_3'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.2 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
                             delay = hold_time/2,

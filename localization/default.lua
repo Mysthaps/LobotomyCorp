@@ -919,8 +919,8 @@ return {
             bl_lobc_dusk_amber = {
                 name = "Amber Dusk",
                 text = {
-                    "Debuffs any playing card per card drawn",
-                    "destroys all debuffed cards before scoring"
+                    "Debuffs a playing card per card drawn,",
+                    "destroys debuffed cards before scoring"
                 }
             },
             bl_lobc_dusk_crimson = {
@@ -967,11 +967,28 @@ return {
             k_lobc_iron_maiden = "We Can Change Anything",
 
             ---- Ordeals ----
+
+            -- Dusk
             k_lobc_dusk_green = "The Dusk of Green",
             k_lobc_dusk_green_name = "Where We Must Reach",
-            k_lobc_dusk_green_1 = "We constructed a looming tower to return whence we came.",
-            k_lobc_dusk_green_2 = "There wasn't an answer. We didn't find a single thing we wanted.",
-            k_lobc_dusk_green_3 = "We only witnessed the death of life itself.",
+            k_lobc_dusk_green_start_1 = "We constructed a looming tower to return whence we came.",
+            k_lobc_dusk_green_start_2 = "",
+            k_lobc_dusk_green_end_1 = "There wasn't an answer. We didn't find a single thing we wanted.",
+            k_lobc_dusk_green_end_2 = "We only witnessed the death of life itself.",
+
+            k_lobc_dusk_amber = "The Dusk of Amber",
+            k_lobc_dusk_amber_name = "Food Chain",
+            k_lobc_dusk_amber_start_1 = "To accustom oneself to the taste was an inevitable process.",
+            k_lobc_dusk_amber_start_2 = "",
+            k_lobc_dusk_amber_end_1 = "We could live. We could continue eating.",
+            k_lobc_dusk_amber_end_2 = "",
+
+            k_lobc_dusk_crimson = "The Dusk of Crimson",
+            k_lobc_dusk_crimson_name = "The Struggle at the Climax",
+            k_lobc_dusk_crimson_start_1 = "Throwing away our old bodies, we all become one,",
+            k_lobc_dusk_crimson_start_2 = "infinitely continuing the red march.",
+            k_lobc_dusk_crimson_end_1 = "One day we will know, and tomorrow we will march hand in hand.",
+            k_lobc_dusk_crimson_end_2 = "",
 
             ---- Plague Doctor ----
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",

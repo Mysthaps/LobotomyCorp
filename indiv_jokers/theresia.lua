@@ -24,12 +24,14 @@ joker.calculate = function(self, card, context)
         elseif context.after and card.ability.extra.hands_played >= 3 then
             play_sound('card1', 1)
             for _, v in ipairs(G.hand.cards) do
+                v.ability.theresia_debuff = true
                 if not v.debuff then
                     v.debuff = true
                     v:juice_up()
                 end
             end
             for _, v in ipairs(G.deck.cards) do
+                v.ability.theresia_debuff = true
                 v.debuff = true
             end
         end
@@ -45,6 +47,9 @@ joker.calculate = function(self, card, context)
 
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
         card.ability.extra.hands_played = 0
+        for _, v in ipairs(G.playing_cards) do
+            v.ability.theresia_debuff = nil
+        end
     end
 end
 

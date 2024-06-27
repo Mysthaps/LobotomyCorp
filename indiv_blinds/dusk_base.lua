@@ -15,7 +15,9 @@ local blind = {
 
 blind.set_blind = function(self, reset, silent)
     local dusk_blinds = {
-        "dusk_green"
+        "dusk_green",
+        "dusk_crimson",
+        "dusk_amber"
     }
 
     local chosen_blind = pseudorandom_element(dusk_blinds, pseudoseed("dusk_ordeal"))
