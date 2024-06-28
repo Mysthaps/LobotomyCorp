@@ -8,7 +8,6 @@ local blind = {
     vars = {}, 
     debuff = {},
     boss = {min = 1, max = 10},
-    boss_colour = HEX('FFA500'),
     loc_txt = {}
 }
 

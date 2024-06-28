@@ -1004,6 +1004,64 @@ return {
 
             ---- Ordeals ----
 
+            -- Dawn
+            k_lobc_dawn_green = "The Dawn of Green",
+            k_lobc_dawn_green_name = "Doubt",
+            k_lobc_dawn_green_start_1 = "One day, a question crossed through my mind. Where do we come from?",
+            k_lobc_dawn_green_start_2 = "We were given life and left in this world against our own volition.",
+            k_lobc_dawn_green_end_1 = "To live was a process full of pain.",
+            k_lobc_dawn_green_end_2 = "",
+
+            k_lobc_dawn_amber = "The Dawn of Amber",
+            k_lobc_dawn_amber_name = "The Perfect Meal",
+            k_lobc_dawn_amber_start_1 = "A perfect meal, an excellent substitute.",
+            k_lobc_dawn_amber_start_2 = "",
+            k_lobc_dawn_amber_end_1 = "We ate incessantly to live. The inevitable diminution, the waste...",
+            k_lobc_dawn_amber_end_2 = "",
+
+            k_lobc_dawn_violet = "The Dawn of Violet",
+            k_lobc_dawn_violet_name = "The Fruit of Understanding",
+            k_lobc_dawn_violet_start_1 = "To gain an understanding of what is incomprehensible, they dream, staring.",
+            k_lobc_dawn_violet_start_2 = "",
+            k_lobc_dawn_violet_end_1 = "They complied with nothing in their bid to understand. They simply did so.",
+            k_lobc_dawn_violet_end_2 = "",
+
+            k_lobc_dawn_crimson = "The Dawn of Crimson",
+            k_lobc_dawn_crimson_name = "Cheers for the Beginning",
+            k_lobc_dawn_crimson_start_1 = "Let us light a flame yet more radiant in our lives;",
+            k_lobc_dawn_crimson_start_2 = "for life is a candlelight, destined to snuff out one day.",
+            k_lobc_dawn_crimson_end_1 = "To live is to yearn and fight for our desires.",
+            k_lobc_dawn_crimson_end_2 = "",
+
+            -- Noon
+            k_lobc_noon_green = "The Noon of Green",
+            k_lobc_noon_green_name = "Process of Understanding",
+            k_lobc_noon_green_start_1 = "In the end, they were bound to life. We existed only to express despair and ire.",
+            k_lobc_noon_green_start_2 = "We will understand life and the soul with our own hands.",
+            k_lobc_noon_green_end_1 = "We will understand life and the soul with our own hands.",
+            k_lobc_noon_green_end_2 = "",
+
+            k_lobc_noon_violet = "The Noon of Violet",
+            k_lobc_noon_violet_name = "Grant Us Love",
+            k_lobc_noon_violet_start_1 = "We could only hear the weakest and faintest of their acts.",
+            k_lobc_noon_violet_start_2 = "We sought for love and compassion from them.",
+            k_lobc_noon_violet_end_1 = "We cannot understand them, nor will they understand us.",
+            k_lobc_noon_violet_end_2 = "",
+
+            k_lobc_noon_crimson = "The Noon of Crimson",
+            k_lobc_noon_crimson_name = "The Harmony of Skin",
+            k_lobc_noon_crimson_start_1 = "We marched from time to time, and we would share our pleasure.",
+            k_lobc_noon_crimson_start_2 = "",
+            k_lobc_noon_crimson_end_1 = "The collision of one life with another, skin harmonizing,",
+            k_lobc_noon_crimson_end_2 = "painting a yet more beautiful appearance.",
+
+            k_lobc_noon_indigo = "The Noon of Indigo",
+            k_lobc_noon_indigo_name = "Sweeper",
+            k_lobc_noon_indigo_start_1 = "When the night falls in the Backstreets, they will come.",
+            k_lobc_noon_indigo_start_2 = "",
+            k_lobc_noon_indigo_end_1 = "When the sun rises up, there will be no remains anymore.",
+            k_lobc_noon_indigo_end_2 = "",
+
             -- Dusk
             k_lobc_dusk_green = "The Dusk of Green",
             k_lobc_dusk_green_name = "Where We Must Reach",
@@ -1025,6 +1083,28 @@ return {
             k_lobc_dusk_crimson_start_2 = "infinitely continuing the red march.",
             k_lobc_dusk_crimson_end_1 = "One day we will know, and tomorrow we will march hand in hand.",
             k_lobc_dusk_crimson_end_2 = "",
+
+            -- Midnight
+            k_lobc_midnight_green = "The Midnight of Green",
+            k_lobc_midnight_green_name = "Helix of the End",
+            k_lobc_midnight_green_start_1 = "The tower is touched by the sky, and it will leave nothing on the earth.",
+            k_lobc_midnight_green_start_2 = "",
+            k_lobc_midnight_green_end_1 = "Who pays for the suffering and neglect of the lives given to us?",
+            k_lobc_midnight_green_end_2 = "",
+
+            k_lobc_midnight_amber = "The Midnight of Amber",
+            k_lobc_midnight_amber_name = "The Eternal Meal",
+            k_lobc_midnight_amber_start_1 = "They fought amongst themselves to eat the others.",
+            k_lobc_midnight_amber_start_2 = "",
+            k_lobc_midnight_amber_end_1 = "And the stronger side survived. That, simply, is the story.",
+            k_lobc_midnight_amber_end_2 = "",
+
+            k_lobc_midnight_crimson = "The Dusk of Crimson",
+            k_lobc_midnight_crimson_name = "The Struggle at the Climax",
+            k_lobc_midnight_crimson_start_1 = "Throwing away our old bodies, we all become one,",
+            k_lobc_midnight_crimson_start_2 = "infinitely continuing the red march.",
+            k_lobc_midnight_crimson_end_1 = "One day we will know, and tomorrow we will march hand in hand.",
+            k_lobc_midnight_crimson_end_2 = "",
 
             ---- Plague Doctor ----
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",
