@@ -79,7 +79,7 @@ joker.calculate = function(self, card, context)
                     attention_text({
                         text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_1'),
                         scale = 0.35, 
-                        hold = 4*G.SETTINGS.GAMESPEED,
+                        hold = 6*G.SETTINGS.GAMESPEED,
                         major = G.play,
                         backdrop_colour = G.C.CLEAR,
                         align = 'cm',
@@ -89,7 +89,7 @@ joker.calculate = function(self, card, context)
                     attention_text({
                         text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_2'),
                         scale = 0.35, 
-                        hold = 4*G.SETTINGS.GAMESPEED,
+                        hold = 6*G.SETTINGS.GAMESPEED,
                         major = G.play,
                         backdrop_colour = G.C.CLEAR,
                         align = 'cm',

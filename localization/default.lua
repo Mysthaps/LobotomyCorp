@@ -576,7 +576,7 @@ return {
                     "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
                     "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
                     "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {X:mult,C:white} #1# {C:inactive} Mult)",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                 }
             },
             j_lobc_all_around_helper = {
