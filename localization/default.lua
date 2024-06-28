@@ -958,12 +958,54 @@ return {
             bl_lobc_dawn_crimson = {
                 name = "Crimson Dawn",
                 text = {
-                    "Every 3 hands played,",
-                    "sells a random Joker"
+                    "Sells a random Joker",
+                    "every 3 hands played"
+                }
+            },
+            bl_lobc_dawn_violet = {
+                name = "Violet Dawn",
+                text = {
+                    "Lose if hand doesn't",
+                    "score at least 10% of blind"
                 }
             },
 
             -- Noon Ordeals
+            bl_lobc_noon_base = {
+                name = "Noon Ordeal",
+                text = {
+                    "Fight against a",
+                    "random Noon Ordeal"
+                }
+            },
+            bl_lobc_noon_green = {
+                name = "Green Noon",
+                text = {
+                    "Reduces the level of played",
+                    "poker hand if not highest level"
+                }
+            },
+            bl_lobc_noon_indigo = {
+                name = "Indigo Noon",
+                text = {
+                    "Increase blind size by X0.1",
+                    "Base per card discarded"
+                }
+            },
+            bl_lobc_noon_crimson = {
+                name = "Crimson Noon",
+                text = {
+                    "Immediately fight Crimson Dusk",
+                    "after beating this Blind"
+                }
+            },
+            bl_lobc_noon_violet = {
+                name = "Violet Noon",
+                text = {
+                    "Lose if hand doesn't",
+                    "score at least 25% of blind"
+                }
+            },
 
             -- Dusk Ordeals
             bl_lobc_dusk_base = {
@@ -993,9 +1035,37 @@ return {
                     "Immediately fight Crimson Noon",
                     "after beating this Blind"
                 }
-            }
+            },
 
             -- Midnight Ordeals
+            bl_lobc_midnight_base = {
+                name = "Midnight Ordeal",
+                text = {
+                    "Fight against a",
+                    "random Midnight Ordeal"
+                }
+            },
+            bl_lobc_midnight_green = {
+                name = "Green Midnight",
+                text = {
+                    "Halves level of",
+                    "played poker hand"
+                }
+            },
+            bl_lobc_midnight_amber = {
+                name = "Amber Midnight",
+                text = {
+                    "Debuffs half of deck, destroys",
+                    "debuffed cards before scoring"
+                }
+            },
+            bl_lobc_midnight_violet = {
+                name = "Violet Midnight",
+                text = {
+                    "Lose if hand doesn't",
+                    "score at least 40% of blind"
+                }
+            }
         }
     },
     misc = {

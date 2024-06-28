@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation and Library of Ruina by Project Moon.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.6.1c
+--- VERSION: 0.6.1d
 
 local mod_path = SMODS.current_mod.path
 -- To disable a Joker, comment it out by adding -- at the start of the line.
@@ -51,8 +51,18 @@ local blind_list = {
     "whitenight",
 
     -- Dawn Ordeals
+    --"dawn_base",
+    --[["dawn_green",
+    "dawn_crimson",
+    "dawn_amber",
+    "dawn_violet",]]
     
     -- Noon Ordeals
+    --"noon_base",
+    --[["noon_green",
+    "noon_crimson",
+    "noon_indigo",
+    "noon_violet",]]
 
     -- Dusk Ordeals
     --"dusk_base",
@@ -61,6 +71,10 @@ local blind_list = {
     --"dusk_amber",
 
     -- Midnight Ordeals
+    --"midnight_base",
+    --[["midnight_green",
+    "midnight_crimson",
+    "midnight_amber",]]
 }
 
 local sound_list = {
@@ -177,7 +191,7 @@ for _, v in ipairs(blind_list) do
     else
         blind.key = v
         blind.atlas = "LobotomyCorp_Blind"
-        blind.discovered = true
+        --blind.discovered = true
         if blind.color then
             blind.boss_colour = badge_colors["lobc_"..blind.color]
         end
@@ -295,9 +309,6 @@ SMODS.Center({
     end
 })
 
--- Clear all Cathys
-sendInfoMessage("Loaded LobotomyCorp~")
-
 ---- Other functions ----
 
 local abno_blinds = {
@@ -305,9 +316,20 @@ local abno_blinds = {
 }
 
 local ordeal_blinds = {
+    "dawn_green",
+    "dawn_crimson",
+    "dawn_amber",
+    "dawn_violet",
+    "noon_green",
+    "noon_crimson",
+    "noon_indigo",
+    "noon_violet",
     "dusk_green",
     "dusk_crimson",
     "dusk_amber",
+    "midnight_green",
+    "midnight_crimson",
+    "midnight_amber",
 }
 
 -- oops
@@ -329,7 +351,7 @@ function get_new_boss()
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     return get_new_bossref()
-    --return "bl_final_bell"
+    --return "bl_lobc_dusk_base"
 end
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything
@@ -353,6 +375,7 @@ function G.FUNCS.draw_from_deck_to_hand(e)
     if G.GAME.blind.config.blind.key == "bl_lobc_dusk_amber" then
         local cards_drawn = e or math.min(#G.deck.cards, G.hand.config.card_limit - #G.hand.cards)
         local available_cards = {}
+        local proc = false
 
         for _, v in ipairs(G.hand.cards) do
             if not v.ability.dusk_amber_debuff then available_cards[#available_cards+1] = v end
@@ -365,18 +388,20 @@ function G.FUNCS.draw_from_deck_to_hand(e)
             if #available_cards > 0 then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
-                    delay = 0.2,
+                    delay = 0.4,
                     func = function() 
                         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("dusk_amber"))
                         chosen_card.debuff = true
                         chosen_card.ability.dusk_amber_debuff = true
                         table.remove(available_cards, chosen_card_key)
-                        G.GAME.blind:wiggle()
+                        proc = true
                         return true
                     end 
                 }))
             end
         end
+
+        if proc then G.GAME.blind:wiggle() end
     end
 end
 
@@ -890,6 +915,10 @@ function G.FUNCS.can_skip_booster(e)
     end
 end
 
+-- Talisman compat
 to_big = to_big or function(num)
     return num
 end
+
+-- Clear all Cathys
+sendInfoMessage("Loaded LobotomyCorp~")
