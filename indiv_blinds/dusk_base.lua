@@ -9,18 +9,12 @@ local blind = {
     vars = {}, 
     debuff = {},
     boss = {min = 1, max = 10},
-    loc_txt = {}
-}
-
-blind.set_blind = function(self, reset, silent)
-    local dusk_blinds = {
+    blind_list = {
         "dusk_green",
         "dusk_crimson",
         "dusk_amber"
-    }
-
-    local chosen_blind = pseudorandom_element(dusk_blinds, pseudoseed("dusk_ordeal"))
-    G.GAME.blind:set_blind(G.P_BLINDS['bl_lobc_'..chosen_blind])
-end
+    },
+    loc_txt = {}
+}
 
 return blind

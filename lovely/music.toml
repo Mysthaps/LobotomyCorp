@@ -10,6 +10,5 @@ pattern = "(G.STATE == G.STATES.SPLASH and '') or"
 position = "after"
 payload = '''
 ((G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight") and "lobc_music_third_warning") or
-(G.STATE == G.STATES.EXTRACTION_PACK and "lobc_music_abno_choice") or
-'''
+(G.STATE == G.STATES.EXTRACTION_PACK and "lobc_music_abno_choice") or'''
 match_indent = true

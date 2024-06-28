@@ -13,8 +13,7 @@ if _c.set == "Joker" and _c.abno then
     localize{type = 'other', key = 'und_'.._c.key, set = _c.set, nodes = desc_nodes}
 else
     localize{type = 'other', key = 'undiscovered_'..(string.lower(_c.set)), set = _c.set, nodes = desc_nodes}
-end
-'''
+end'''
 match_indent = true
 
 [[patches]]
@@ -27,8 +26,7 @@ if _c.set == "Joker" and _c.abno then
     full_UI_table.name = localize{type = 'name', key = 'und_'.._c.key, set = 'Other', name_nodes = {}, vars = specific_vars or {}}
 else
     full_UI_table.name = localize{type = 'name', set = 'Other', key = 'undiscovered_'..(string.lower(_c.set)), name_nodes = {}}
-end
-'''
+end'''
 match_indent = true
 
 [[patches]]

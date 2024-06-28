@@ -11,8 +11,7 @@ position = "before"
 payload = '''
 if self.STATE == self.STATES.EXTRACTION_PACK then
     self:update_extraction_pack(dt)
-end
-'''
+end'''
 match_indent = false
 
 [[patches]]

@@ -21,8 +21,7 @@ if self.ability.plague_doctor_baptism then
             badges[#badges + 1] = 'lobc_blessed_wn'
         end
     end
-end
-'''
+end'''
 match_indent = false
 
 [[patches]]
@@ -38,8 +37,7 @@ if v == 'lobc_amplified' then
 end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
 if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_wn', set = 'Other'} end
-if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end
-'''
+if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end'''
 match_indent = false
 
 [[patches]]
@@ -62,6 +60,5 @@ if self.config.center_key == "j_lobc_shy_look" then
     self.children.mood.role.draw_major = self
     self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
     self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
-end
-'''
+end'''
 match_indent = true

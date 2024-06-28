@@ -311,38 +311,24 @@ SMODS.Center({
 
 ---- Other functions ----
 
-local abno_blinds = {
-    "whitenight",
-}
-
-local ordeal_blinds = {
-    "dawn_green",
-    "dawn_crimson",
-    "dawn_amber",
-    "dawn_violet",
-    "noon_green",
-    "noon_crimson",
-    "noon_indigo",
-    "noon_violet",
-    "dusk_green",
-    "dusk_crimson",
-    "dusk_amber",
-    "midnight_green",
-    "midnight_crimson",
-    "midnight_amber",
-}
-
 -- oops
 local init_game_objectref = Game.init_game_object
 function Game.init_game_object(self)
     local G = init_game_objectref(self)
-    for _, v in ipairs(abno_blinds) do
-        G.bosses_used["bl_lobc_"..v] = 1e300
-    end
-    for _, v in ipairs(ordeal_blinds) do
+    for _, v in ipairs(blind_list) do
         G.bosses_used["bl_lobc_"..v] = 1e300
     end
     return G
+end
+
+-- Ordeals
+local set_blindref = Blind.set_blind
+function Blind.set_blind(self, blind, reset, silent)
+    if blind and blind.color and blind.color == "base" then
+        local chosen_blind = pseudorandom_element(blind.blind_list, pseudoseed("dusk_ordeal"))
+        return set_blindref(self, G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
+    end
+    return set_blindref(self, blind, reset, silent)
 end
 
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
@@ -635,15 +621,12 @@ function Blind.alert_debuff(self, first)
             end
         }))
     else
-        local ordeal = false
-        for _, v in ipairs(ordeal_blinds) do
-            if self.config.blind.color then
-                self:ordeal_alert()
-                ordeal = true
-                break
-            end
+        if self.config.blind.color then
+            self:ordeal_alert()
+            ordeal = true
+        else 
+            alert_debuffref(self, first) 
         end
-        if not ordeal then alert_debuffref(self, first) end
     end
 end
 

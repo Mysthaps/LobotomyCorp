@@ -1012,28 +1012,30 @@ return {
                 name = "Dusk Ordeal",
                 text = {
                     "Fight against a",
-                    "random Dusk Ordeal"
+                    "random Dusk Ordeal",
                 }
             },
             bl_lobc_dusk_green = {
                 name = "Green Dusk",
                 text = {
                     "Decreases level of played",
-                    "poker hand twice"
+                    "poker hand twice",
                 }
             },
             bl_lobc_dusk_amber = {
                 name = "Amber Dusk",
                 text = {
-                    "Debuffs a playing card per card drawn,",
-                    "destroys debuffed cards before scoring"
+                    "Debuffs a playing card in",
+                    "hand or deck per",
+                    "card drawn, destroys played",
+                    "debuffed cards before scoring",
                 }
             },
             bl_lobc_dusk_crimson = {
                 name = "Crimson Dusk",
                 text = {
                     "Immediately fight Crimson Noon",
-                    "after beating this Blind"
+                    "after beating this Blind",
                 }
             },
 

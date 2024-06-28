@@ -22,6 +22,5 @@ if score == 'defeated_by' and G.GAME.lobc_death_text then
     score_tab[1].nodes = {
         {n=G.UIT.O, config={object = DynaText({string = G.GAME.lobc_death_text, colours = {G.C.WHITE},shadow = true, float = true,maxw = 2.2, scale = 0.45})}}
     }
-end
-'''
+end'''
 match_indent = true
