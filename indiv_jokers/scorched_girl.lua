@@ -47,6 +47,12 @@ joker.calculate = function(self, card, context)
     end
 end
 
+joker.remove_from_deck = function(self, card, from_debuff)
+    for _, v in ipairs(G.playing_cards) do
+        v.ability.scorched_girl_debuff = nil
+    end
+end
+
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card.ability.extra, card:check_rounds(2), card:check_rounds(4) }
     local desc_key = self.key

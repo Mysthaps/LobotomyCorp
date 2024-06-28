@@ -934,6 +934,34 @@ return {
             },
 
             -- Dawn Ordeals
+            bl_lobc_dawn_base = {
+                name = "Dawn Ordeal",
+                text = {
+                    "Fight against a",
+                    "random Dawn Ordeal"
+                }
+            },
+            bl_lobc_dawn_green = {
+                name = "Green Dawn",
+                text = {
+                    "Reduces the level of",
+                    "level 1 poker hands"
+                }
+            },
+            bl_lobc_dawn_amber = {
+                name = "Amber Dawn",
+                text = {
+                    "Debuffs five cards in",
+                    "deck each hand"
+                }
+            },
+            bl_lobc_dawn_crimson = {
+                name = "Crimson Dawn",
+                text = {
+                    "Every 3 hands played,",
+                    "sells a random Joker"
+                }
+            },
 
             -- Noon Ordeals
 
@@ -1099,12 +1127,12 @@ return {
             k_lobc_midnight_amber_end_1 = "And the stronger side survived. That, simply, is the story.",
             k_lobc_midnight_amber_end_2 = "",
 
-            k_lobc_midnight_crimson = "The Dusk of Crimson",
-            k_lobc_midnight_crimson_name = "The Struggle at the Climax",
-            k_lobc_midnight_crimson_start_1 = "Throwing away our old bodies, we all become one,",
-            k_lobc_midnight_crimson_start_2 = "infinitely continuing the red march.",
-            k_lobc_midnight_crimson_end_1 = "One day we will know, and tomorrow we will march hand in hand.",
-            k_lobc_midnight_crimson_end_2 = "",
+            k_lobc_midnight_violet = "The Midnight of Violet",
+            k_lobc_midnight_violet_name = "The God Delusion",
+            k_lobc_midnight_violet_start_1 = "We incessantly tried to accept it. We wanted to understand them",
+            k_lobc_midnight_violet_start_2 = "in our heads by any means, regardless of the consequences.",
+            k_lobc_midnight_violet_end_1 = "For the sake of not crumbling in on oneself. The idea that they may impossibly exist,",
+            k_lobc_midnight_violet_end_2 = "or that they are unreachable and forever enigmatic no matter the path. Unacceptable...",
 
             ---- Plague Doctor ----
             k_lobc_plague_apostle_1_1 = "And I say also unto thee, That thou art the first apostle, and upon this rock",

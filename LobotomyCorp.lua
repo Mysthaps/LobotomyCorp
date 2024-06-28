@@ -355,10 +355,10 @@ function G.FUNCS.draw_from_deck_to_hand(e)
         local available_cards = {}
 
         for _, v in ipairs(G.hand.cards) do
-            if not v.debuff then available_cards[#available_cards+1] = v end
+            if not v.ability.dusk_amber_debuff then available_cards[#available_cards+1] = v end
         end
         for _, v in ipairs(G.deck.cards) do
-            if not v.debuff then available_cards[#available_cards+1] = v end
+            if not v.ability.dusk_amber_debuff then available_cards[#available_cards+1] = v end
         end
 
         for i = 1, cards_drawn do
