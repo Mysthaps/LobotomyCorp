@@ -1,8 +1,8 @@
 local blind = {
-    name = "Amber Dusk",
+    name = "Amber Midnight",
     color = "amber",
-    time = "dusk",
-    pos = {x = 0, y = 3},
+    time = "midnight",
+    pos = {x = 0, y = 17},
     dollars = 5, 
     mult = 2, 
     vars = {}, 
@@ -10,6 +10,21 @@ local blind = {
     boss = {min = 1, max = 10},
     loc_txt = {}
 }
+
+blind.set_blind = function(self, reset, silent)
+    local available_cards = {}
+
+    for _, v in ipairs(G.playing_cards) do
+        available_cards[#available_cards+1] = v
+    end
+
+    for i = 1, math.ceil(#available_cards/2) do
+        local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
+        chosen_card.debuff = true
+        chosen_card.ability.amber_debuff = true
+        table.remove(available_cards, chosen_card_key)
+    end
+end
 
 blind.press_play = function(self)
     local proc = false
@@ -30,13 +45,13 @@ end
 
 blind.defeat = function(self)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.dusk_amber_debuff = nil
+        v.ability.amber_debuff = nil
     end
 end
 
 blind.disable = function(self)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.dusk_amber_debuff = nil
+        v.ability.amber_debuff = nil
     end
 end
 

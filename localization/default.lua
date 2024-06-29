@@ -1051,14 +1051,30 @@ return {
                 name = "Green Midnight",
                 text = {
                     "Halves level of",
-                    "played poker hand"
+                    "played poker hand",
+                    "(rounded down)",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
                 }
             },
             bl_lobc_midnight_amber = {
                 name = "Amber Midnight",
                 text = {
-                    "Debuffs half of deck, destroys",
-                    "debuffed cards before scoring"
+                    "Debuffs half of deck,",
+                    "destroys played debuffed",
+                    "cards before scoring",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
                 }
             },
             bl_lobc_midnight_violet = {

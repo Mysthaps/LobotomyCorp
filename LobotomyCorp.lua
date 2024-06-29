@@ -72,12 +72,14 @@ local blind_list = {
 
     -- Midnight Ordeals
     --"midnight_base",
-    --[["midnight_green",
-    "midnight_crimson",
-    "midnight_amber",]]
+    --"midnight_green",
+    --"midnight_violet",
+    --"midnight_amber",
 }
 
 local sound_list = {
+    music_first_warning = "Emergency1",
+    music_second_warning = "Emergency2",
     music_third_warning = "Emergency3",
     music_abno_choice = "AbnormalityChoice",
 
@@ -337,7 +339,7 @@ function get_new_boss()
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     return get_new_bossref()
-    --return "bl_lobc_dusk_base"
+    --return "bl_lobc_midnight_base"
 end
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything
@@ -364,10 +366,10 @@ function G.FUNCS.draw_from_deck_to_hand(e)
         local proc = false
 
         for _, v in ipairs(G.hand.cards) do
-            if not v.ability.dusk_amber_debuff then available_cards[#available_cards+1] = v end
+            if not v.ability.amber_debuff then available_cards[#available_cards+1] = v end
         end
         for _, v in ipairs(G.deck.cards) do
-            if not v.ability.dusk_amber_debuff then available_cards[#available_cards+1] = v end
+            if not v.ability.amber_debuff then available_cards[#available_cards+1] = v end
         end
 
         for i = 1, cards_drawn do
@@ -378,7 +380,7 @@ function G.FUNCS.draw_from_deck_to_hand(e)
                     func = function() 
                         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("dusk_amber"))
                         chosen_card.debuff = true
-                        chosen_card.ability.dusk_amber_debuff = true
+                        chosen_card.ability.amber_debuff = true
                         table.remove(available_cards, chosen_card_key)
                         proc = true
                         return true
@@ -434,7 +436,7 @@ end
 local should_debuff_ability = {
     "scorched_girl_debuff",
     "theresia_debuff",
-    "dusk_amber_debuff"
+    "amber_debuff"
 }
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
@@ -890,7 +892,7 @@ end
 
 local can_skip_boosterref = G.FUNCS.can_skip_booster
 function G.FUNCS.can_skip_booster(e)
-    if G.pack_cards and G.pack_cards.cards[1] and G.STATE == G.STATES.EXTRACTION_PACK then
+    if G.pack_cards and G.pack_cards.cards and G.pack_cards.cards[1] and G.STATE == G.STATES.EXTRACTION_PACK then
         e.config.colour = G.C.GREY
         e.config.button = 'skip_booster'
     else
