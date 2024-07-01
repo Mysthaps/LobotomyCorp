@@ -190,7 +190,7 @@ end
 for _, v in ipairs(blind_list) do
     local blind = NFS.load(mod_path .. "indiv_blinds/" .. v .. ".lua")()
 
-    if not blind then
+    if not blind or v ~= "whitenight" then
         sendErrorMessage("[LobotomyCorp] Cannot find blind with shorthand: " .. v)
     else
         blind.key = v
@@ -327,7 +327,7 @@ function Game.update_new_round(self, dt)
     if not G.STATE_COMPLETE and 
     (G.GAME.blind.config.blind.color and G.GAME.blind.config.blind.color == "crimson") then
         local original_blind = G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
-        if G.GAME.blind.config.blind.time == "dawn" then
+        if G.GAME.blind.config.blind.time == "dawn" and original_blind ~= "bl_lobc_dawn_crimson" then
             -- For Noon and Dusk, reset to the original blind's values
             G.GAME.blind:set_blind(G.P_BLINDS[original_blind])
             G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*0.8*G.GAME.starting_params.ante_scaling
@@ -340,7 +340,7 @@ function Game.update_new_round(self, dt)
                 ref_table = G.GAME,
                 ref_value = 'chips',
                 ease_to = 0,
-                delay = 0.3,
+                delay = 0.5,
                 func = (function(t) return math.floor(t) end)
             }))
             G.GAME.blind:set_blind(G.P_BLINDS["bl_lobc_"..(G.GAME.blind.config.blind.time == "dusk" and "noon" or "dawn").."_crimson"])
