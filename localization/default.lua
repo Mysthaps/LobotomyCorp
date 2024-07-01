@@ -929,7 +929,7 @@ return {
                 name = "WhiteNight",
                 text = {
                     "Played Apostles reduce",
-                    "blind size by 5X Base"
+                    "blind size by 5X Base",
                 }
             },
 
@@ -945,21 +945,21 @@ return {
                 name = "Green Dawn",
                 text = {
                     "Reduces the level of",
-                    "level 1 poker hands"
+                    "first hand played"
                 }
             },
             bl_lobc_dawn_amber = {
                 name = "Amber Dawn",
                 text = {
-                    "Debuffs five cards in",
+                    "Debuffs 4 cards in",
                     "deck each hand"
                 }
             },
             bl_lobc_dawn_crimson = {
                 name = "Crimson Dawn",
                 text = {
-                    "Sells a random Joker",
-                    "every 3 hands played"
+                    "Sells a random Joker before",
+                    "every third hand scores",
                 }
             },
             bl_lobc_dawn_violet = {
@@ -995,7 +995,7 @@ return {
             bl_lobc_noon_crimson = {
                 name = "Crimson Noon",
                 text = {
-                    "Immediately fight Crimson Dusk",
+                    "Immediately fight Crimson Dawn",
                     "after beating this Blind"
                 }
             },
@@ -1020,6 +1020,7 @@ return {
                 text = {
                     "Decreases level of played",
                     "poker hand twice",
+                    "(down to 0)",
                 }
             },
             bl_lobc_dusk_amber = {
@@ -1053,14 +1054,6 @@ return {
                     "Halves level of",
                     "played poker hand",
                     "(rounded down)",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
                 }
             },
             bl_lobc_midnight_amber = {
@@ -1069,12 +1062,6 @@ return {
                     "Debuffs half of deck,",
                     "destroys played debuffed",
                     "cards before scoring",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
-                    "test",
                 }
             },
             bl_lobc_midnight_violet = {

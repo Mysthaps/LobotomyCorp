@@ -9,8 +9,10 @@ target = "functions/misc_functions.lua"
 pattern = "(G.STATE == G.STATES.SPLASH and '') or"
 position = "after"
 payload = '''
+-- todo: rework music playing
 ((G.GAME and G.GAME.blind and 
-    G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") and "lobc_music_first_warning") or
+    ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") or
+    (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson"))) and "lobc_music_first_warning") or
 ((G.GAME and G.GAME.blind and 
     G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight") and "lobc_music_second_warning") or
 ((G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight") and "lobc_music_third_warning") or

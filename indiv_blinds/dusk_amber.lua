@@ -30,13 +30,13 @@ end
 
 blind.defeat = function(self)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.dusk_amber_debuff = nil
+        v.ability.amber_debuff = nil
     end
 end
 
 blind.disable = function(self)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.dusk_amber_debuff = nil
+        v.ability.amber_debuff = nil
     end
 end
 

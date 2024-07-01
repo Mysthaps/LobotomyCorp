@@ -11,7 +11,7 @@ local blind = {
     boss = {min = 1, max = 10},
     blind_list = {
         "dawn_green",
-        --"dawn_crimson",
+        "dawn_crimson",
         "dawn_amber",
         --"dawn_violet",
     },
