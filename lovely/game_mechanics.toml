@@ -26,3 +26,14 @@ pattern = "if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then"
 position = "at"
 payload = "if G.GAME.blind_on_deck == 'Small' then"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "extras = create_UIBox_blind_tag(type, run_info)"
+position = "at"
+payload = '''
+if not blind_choice.config.color then
+    extras = create_UIBox_blind_tag(type, run_info)
+end'''
+match_indent = true
