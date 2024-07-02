@@ -408,6 +408,7 @@ function Game.update_new_round(self, dt)
             G.GAME.blind.dollars = G.P_BLINDS[original_blind].dollars
             G.GAME.current_round.dollars_to_be_earned = G.GAME.blind.dollars > 0 and (string.rep(localize('$'), G.GAME.blind.dollars)..'') or ('')
             G.GAME.blind.lobc_original_blind = original_blind
+            if G.GAME.round_resets.hands < (G.GAME.blind.config.blind.time == "dusk" and 3 or 2) and G.GAME.current_round.hands_left == 0 then ease_hands_played(1) end
         end
     end
 
