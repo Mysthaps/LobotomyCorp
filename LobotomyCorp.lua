@@ -266,20 +266,18 @@ local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
     if G.GAME.round_resets.blind_states.Small == 'Upcoming' then
-        if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 then
-            if G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125 then
+        if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
+           (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 1) then
                 G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
-            else
-                G.GAME.round_resets.blind_choices.Small = 'bl_small'
-            end
+        else
+            G.GAME.round_resets.blind_choices.Small = 'bl_small'
         end
 
-        if G.GAME.round_resets.ante % 8 == 4 and G.GAME.round_resets.ante > 0 then
-            if G.GAME.modifiers.lobc_ordeals or pseudorandom("noon_ordeal") < 0.125 then
-                G.GAME.round_resets.blind_choices.Big = 'bl_lobc_noon_base'
-            else
-                G.GAME.round_resets.blind_choices.Big = 'bl_big'
-            end
+        if G.GAME.round_resets.ante % 8 == 4 and G.GAME.round_resets.ante > 0 and
+           (G.GAME.modifiers.lobc_ordeals or pseudorandom("noon_ordeal") < 1) then
+            G.GAME.round_resets.blind_choices.Big = 'bl_lobc_noon_base'
+        else
+            G.GAME.round_resets.blind_choices.Big = 'bl_big'
         end
 
         -- don't overwrite whitenight
@@ -293,7 +291,7 @@ function reset_blinds()
         end
 
         if G.GAME.round_resets.ante % 8 == 0 and G.GAME.round_resets.ante > 0 then
-            if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 0.125 then
+            if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 1 then
                 G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] = G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] - 1
                 G.GAME.round_resets.blind_choices.Boss = 'bl_lobc_midnight_base'
             end
@@ -488,6 +486,15 @@ function Blind.alert_debuff(self, first)
             alert_debuffref(self, first) 
         end
     end
+end
+
+-- Make Ordeals not end the game on win ante hopefully
+local get_typeref = Blind.get_type
+function Blind.get_type(self)
+    if self.config.blind.color then
+        return G.GAME.blind_on_deck
+    end
+    return get_typeref(self)
 end
 
 --=============== JOKERS ===============--

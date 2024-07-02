@@ -271,6 +271,7 @@ return {
             dis_j_lobc_scorched_girl_2 = {
                 name = "F-01-02",
                 text = {
+                    "When {C:attention}Blind{} is selected,",
                     "{C:attention}-#1#%{} Blind Size",
                     "{C:attention}(#3#/4){} ..."
                 }
@@ -278,6 +279,7 @@ return {
             j_lobc_scorched_girl = {
                 name = "Scorched Girl",
                 text = {
+                    "When {C:attention}Blind{} is selected,",
                     "{C:attention}-#1#%{} Blind Size",
                     "Debuffs first hand drawn"
                 }
@@ -951,15 +953,15 @@ return {
             bl_lobc_dawn_amber = {
                 name = "Amber Dawn",
                 text = {
-                    "Debuffs 4 cards in",
-                    "deck each hand"
+                    "Debuffs 4 cards in deck",
+                    "after playing a hand"
                 }
             },
             bl_lobc_dawn_crimson = {
                 name = "Crimson Dawn",
                 text = {
                     "Before every third hand,",
-                    "debuff all playing cards",
+                    "debuffs all playing cards",
                     "until a Joker is sold"
                 }
             },
