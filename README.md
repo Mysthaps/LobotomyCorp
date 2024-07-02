@@ -17,16 +17,23 @@ This is based on the amount of rounds played with that Abnormality in your Joker
 *Note: The **Unlock All** function will **not** unlock Abnormalities' Information. You have to use Debug Mode's **Unlock** function.* 
 
 ## Abnormalities, as Boss Blinds
-Some Abnormalities are able to *breach*. 
+Some Abnormalities are able to ***breach***. 
 In addition, some breaching Abnormalities can guarantee that the next Ante's boss blind is an Abnormality. 
-These blinds are *superbosses*, make sure you're well-prepared before tackling on these challenges.
+These blinds are very hard to take down, make sure you're well-prepared before tackling on these challenges.
 
 ## Extraction Pack
-To help with discovering Abnormalities, a new Booster Pack type is added. 
+To help with discovering Abnormalities, a new **Booster Pack** type is added. 
 This pack allows you to pick one of three Abnormalities to add to your Joker slots.
 
 ## Ordeals
-coming soon???
+During the run, **Ordeals** can replace some blinds. These blinds are generally more difficult to take down compared to the other blinds, 
+with **Dawn Ordeals** being the easiest, and **Midnight Ordeals** being much a lot more brutal.
+
+## Challenges
+*Note: Challenges are themed around Lobotomy Corporation itself, as such, they may spoil major parts of the game.* 
+
+In some Challenges, Ordeals are guaranteed to appear. In others, you might be fighting **[[[INFORMATION REDACTED]]]**. 
+Good luck, Manager. You will need it.
 
 # Requirements
 Requires the latest version **Steamodded** 1.0.0-ALPHA.  
@@ -36,4 +43,17 @@ Instructions can be found [here](https://github.com/Steamopollys/Steamodded/wiki
 Head to the mod's *[Releases](https://github.com/Mysthaps/LobotomyCorp/releases/latest)* page and download the latest version.  
 You can also *clone* this repository, however, some things may break.
 
-# **[Lobotomy Corporation](https://store.steampowered.com/app/568220/Lobotomy_Corporation__Monster_Management_Simulation/)** by **Project Moon**.
+# Credits
+### **[Lobotomy Corporation](https://store.steampowered.com/app/568220/Lobotomy_Corporation__Monster_Management_Simulation/)**
+### **[Library of Ruina](https://store.steampowered.com/app/1256670/Library_Of_Ruina/)**
+### **[Limbus Company](https://store.steampowered.com/app/1973530/Limbus_Company/)**
+
+Most art, music and sound effects are taken from **Lobotomy Corporation**. 
+Some abnormalities are based on those of **Library of Ruina**. 
+**Abnormality Choice** theme is from **Limbus Company**. 
+Music by **Studio EIM**. 
+
+<details>
+    <summary><b>Abnormality Effects [Spoilers?]</b></summary>
+    Nameless Fetus, The Lady Facing the Wall, All-Around Helper: <b>Twilight & Sunset</b>
+</details>
