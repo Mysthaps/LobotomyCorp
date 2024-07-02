@@ -10,7 +10,7 @@ pattern = "local blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*bl
 position = "after"
 payload = '''
 if G.GAME.modifiers.lobc_all_whitenight and blind_choice.config.key == "bl_lobc_whitenight" then
-    if G.GAME.round_resets.blind_ante == 1 then blind_amt = blind_amt / 6 end
+    if G.GAME.round_resets.blind_ante <= 1 then blind_amt = blind_amt / 6 end
     if G.GAME.round_resets.blind_ante == 2 then blind_amt = blind_amt / 3 end
     if G.GAME.round_resets.blind_ante == 3 then blind_amt = blind_amt / 2 end
 end'''

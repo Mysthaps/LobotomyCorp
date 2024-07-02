@@ -25,7 +25,7 @@ blind.set_blind = function(self, reset, silent)
     end
 
     if G.GAME.modifiers.lobc_all_whitenight then
-        if G.GAME.round_resets.blind_ante == 1 then G.GAME.blind.chips = G.GAME.blind.chips / 6 end
+        if G.GAME.round_resets.blind_ante <= 1 then G.GAME.blind.chips = G.GAME.blind.chips / 6 end
         if G.GAME.round_resets.blind_ante == 2 then G.GAME.blind.chips = G.GAME.blind.chips / 3 end
         if G.GAME.round_resets.blind_ante == 3 then G.GAME.blind.chips = G.GAME.blind.chips / 2 end
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
