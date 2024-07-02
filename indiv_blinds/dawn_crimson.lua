@@ -11,19 +11,26 @@ local blind = {
     loc_txt = {},
 }
 
+blind.set_blind = function(self)
+    if G.GAME.current_round.hands_played > 0 and G.GAME.current_round.hands_played % 3 == 2 then
+        G.GAME.blind.hands_sub = 1
+        --G.GAME.blind:wiggle()
+    else
+        G.GAME.blind.hands_sub = 0
+    end
+end
 
-blind.press_play = function(self)
-    if G.GAME.current_round.hands_played % 3 == 2 then
-        local available_cards = {}
-        for _, v in ipairs(G.jokers.cards) do
-            if v ~= card and not v.ability.eternal then available_cards[#available_cards+1] = v end
-        end
+blind.debuff_card = function(self, card, from_blind)
+    if G.GAME.blind.hands_sub == 1 and card.area ~= G.jokers then
+        card:set_debuff(true)
+        return true
+    end
+end
 
-        if #available_cards > 0 then
-            local selected_card = pseudorandom_element(available_cards, pseudoseed("price_of_silence"))
-            G.FUNCS.sell_card({config = {ref_table = selected_card}})
-            G.GAME.blind.triggered = true
-        end
+blind.drawn_to_hand = function(self)
+    if G.GAME.current_round.hands_played > 0 and G.GAME.current_round.hands_played % 3 == 2 then
+        G.GAME.blind.hands_sub = 1
+        G.GAME.blind:wiggle()
     end
 end
 

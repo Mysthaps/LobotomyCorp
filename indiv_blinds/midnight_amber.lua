@@ -55,4 +55,11 @@ blind.disable = function(self)
     end
 end
 
+blind.debuff_card = function(self, card, from_blind)
+    if card.ability.amber_debuff then
+        card:set_debuff(true)
+        return true
+    end
+end
+
 return blind

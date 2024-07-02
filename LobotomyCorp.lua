@@ -57,14 +57,14 @@ local blind_list = {
     "dawn_green",
     "dawn_crimson",
     "dawn_amber",
-    --"dawn_violet",
+    "dawn_violet",
     
     -- Noon Ordeals
-    --"noon_base",
-    --"noon_green",
+    "noon_base",
+    "noon_green",
     "noon_crimson",
-    --"noon_indigo",
-    --"noon_violet",
+    "noon_indigo",
+    "noon_violet",
 
     -- Dusk Ordeals
     "dusk_base",
@@ -75,7 +75,7 @@ local blind_list = {
     -- Midnight Ordeals
     "midnight_base",
     "midnight_green",
-    --"midnight_violet",
+    "midnight_violet",
     "midnight_amber",
 }
 
@@ -97,13 +97,13 @@ local sound_list = {
     helper_destroy = "Robo_Rise",
 
     green_start = "Machine_Start",
-    green_defeat = "Machine_End",
+    green_end = "Machine_End",
     amber_start = "Bug_Start",
-    amber_defeat = "Bug_End",
+    amber_end = "Bug_End",
     crimson_start = "Circus_Start",
-    crimson_defeat = "Circus_End",
+    crimson_end = "Circus_End",
     violet_start = "OutterGod_Start",
-    violet_defeat = "OutterGod_End",
+    violet_end = "OutterGod_End",
     indigo_start = "Scavenger_Start",
     indigo_end = "Scavenger_End",
 }
@@ -190,7 +190,7 @@ end
 for _, v in ipairs(blind_list) do
     local blind = NFS.load(mod_path .. "indiv_blinds/" .. v .. ".lua")()
 
-    if not blind or v ~= "whitenight" then
+    if not blind --[[or v ~= "whitenight"]] then
         sendErrorMessage("[LobotomyCorp] Cannot find blind with shorthand: " .. v)
     else
         blind.key = v
@@ -252,6 +252,51 @@ SMODS.Center({
 })
 
 --=============== BLINDS ===============--
+-- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
+local get_new_bossref = get_new_boss
+function get_new_boss()
+    if G.GAME.modifiers.lobc_all_whitenight or 
+    (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
+    return get_new_bossref()
+    --return "bl_lobc_dusk_crimson"
+end
+
+-- Overwrite blind select for Ordeals
+local reset_blindsref = reset_blinds
+function reset_blinds()
+    reset_blindsref()
+    if G.GAME.round_resets.blind_states.Small == 'Upcoming' then
+        if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 then
+            if G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125 then
+                G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
+            end
+        end
+
+        if G.GAME.round_resets.ante % 8 == 4 and G.GAME.round_resets.ante > 0 then
+            if G.GAME.modifiers.lobc_ordeals or pseudorandom("noon_ordeal") < 0.125 then
+                G.GAME.round_resets.blind_choices.Big = 'bl_lobc_noon_base'
+            end
+        end
+
+        -- don't overwrite whitenight
+        if G.GAME.round_resets.blind_choices.Boss == "bl_lobc_whitenight" then return end
+
+        if G.GAME.round_resets.ante % 8 == 6 and G.GAME.round_resets.ante > 0 then
+            if G.GAME.modifiers.lobc_ordeals or pseudorandom("dusk_ordeal") < 0.125 then
+                G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] = G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] - 1
+                G.GAME.round_resets.blind_choices.Boss = 'bl_lobc_dusk_base'
+            end
+        end
+
+        if G.GAME.round_resets.ante % 8 == 0 and G.GAME.round_resets.ante > 0 then
+            if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 0.125 then
+                G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] = G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] - 1
+                G.GAME.round_resets.blind_choices.Boss = 'bl_lobc_midnight_base'
+            end
+        end
+    end
+end
+
 -- Make Lobcorp blinds unable to spawn normally
 local init_game_objectref = Game.init_game_object
 function Game.init_game_object(self)
@@ -270,15 +315,6 @@ function Blind.set_blind(self, blind, reset, silent)
         return set_blindref(self, G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
     end
     return set_blindref(self, blind, reset, silent)
-end
-
--- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
-local get_new_bossref = get_new_boss
-function get_new_boss()
-    if G.GAME.modifiers.lobc_all_whitenight or 
-    (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
-    return get_new_bossref()
-    --return "bl_lobc_noon_crimson"
 end
 
 -- Amber Dusk's debuff per card drawn
@@ -318,6 +354,26 @@ function G.FUNCS.draw_from_deck_to_hand(e)
     end
 end
 
+-- Indigo Noon
+local discard_cards_from_highlightedref = G.FUNCS.discard_cards_from_highlighted
+G.FUNCS.discard_cards_from_highlighted = function(e, hook)
+    if G.GAME.blind.config.blind.key == "bl_lobc_noon_indigo" then
+        local proc = false
+        for _ = 1, math.min(#G.hand.highlighted, G.discard.config.card_limit - #G.play.cards) do
+            local chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*0.1
+            if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
+            G.GAME.blind.chips = G.GAME.blind.chips + chips
+            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+            G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
+            G.HUD_blind:recalculate() 
+            G.hand_text_area.blind_chips:juice_up()
+            proc = true
+        end
+        if proc then G.GAME.blind:wiggle() end
+    end
+    discard_cards_from_highlightedref(e, hook)
+end
+
 -- Crimson Noon and Crimson Dusk switching to lower tier
 local update_new_roundref = Game.update_new_round
 function Game.update_new_round(self, dt)
@@ -327,11 +383,14 @@ function Game.update_new_round(self, dt)
     if not G.STATE_COMPLETE and 
     (G.GAME.blind.config.blind.color and G.GAME.blind.config.blind.color == "crimson") then
         local original_blind = G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
-        if G.GAME.blind.config.blind.time == "dawn" and original_blind ~= "bl_lobc_dawn_crimson" then
-            -- For Noon and Dusk, reset to the original blind's values
-            G.GAME.blind:set_blind(G.P_BLINDS[original_blind])
-            G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*0.8*G.GAME.starting_params.ante_scaling
-            G.GAME.blind.lobc_original_blind = nil
+        sendDebugMessage(original_blind)
+        if G.GAME.blind.config.blind.time == "dawn" then
+            if original_blind ~= "bl_lobc_dawn_crimson" then
+                -- For Noon and Dusk, reset to the original blind's values
+                G.GAME.blind:set_blind(G.P_BLINDS[original_blind])
+                G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*0.8*G.GAME.starting_params.ante_scaling
+                G.GAME.blind.lobc_original_blind = nil
+            end
         else
             G.STATE = G.STATES.DRAW_TO_HAND
             G.E_MANAGER:add_event(Event({
@@ -353,6 +412,21 @@ function Game.update_new_round(self, dt)
     if G.STATE ~= G.STATES.DRAW_TO_HAND then
         update_new_roundref(self, dt)
     end
+end
+
+-- Crimson Dusk selling card
+local sell_cardref = Card.sell_card
+function Card.sell_card(self)
+    if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson" then 
+        G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
+            G.GAME.blind.hands_sub = 0
+            for _, v in ipairs(G.playing_cards) do
+                v:set_debuff(false)
+            end
+            return true
+        end}))
+    end
+    sell_cardref(self)
 end
 
 -- WhiteNight confession win round
@@ -406,7 +480,6 @@ function Blind.alert_debuff(self, first)
     else
         if self.config.blind.color then
             self:ordeal_alert()
-            ordeal = true
         else 
             alert_debuffref(self, first) 
         end
@@ -483,6 +556,7 @@ function Card.set_sprites(self, _center, _front)
     end
 end
 
+-- The Price of Silence amplification
 local amplified_values = {
     "mult",
     "h_mult",
@@ -497,7 +571,6 @@ local amplified_values = {
     "d_size",
     "bonus",
 }
--- The Price of Silence amplification
 function Card:lobc_check_amplified()
     if self.ability.price_of_silence_amplified then
         for _, v in ipairs(amplified_values) do
@@ -528,12 +601,11 @@ function G.FUNCS.get_poker_hand_info(_cards)
     return get_poker_hand_inforef(_cards)
 end
 
+-- Debuffing effects
 local should_debuff_ability = {
     "scorched_girl_debuff",
     "theresia_debuff",
-    "amber_debuff"
 }
--- Debuffing effects
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
         for _, v in ipairs(should_debuff_ability) do
@@ -597,7 +669,7 @@ function Blind:ordeal_alert()
                         attention_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
-                            delay = hold_time/2,
+                            delay = hold_time/3,
                             blocking = false,
                             blockable = false,
                             func = (function()
@@ -618,12 +690,37 @@ function Blind:ordeal_alert()
     }))
 end
 
+-- Announce Ordeal during end_round
+local draw_from_hand_to_discardref = G.FUNCS.draw_from_hand_to_discard
+function G.FUNCS.draw_from_hand_to_discard(e)
+    if G.GAME.blind.config.blind.color then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = G.SETTINGS.GAMESPEED * 5,
+            blockable = false,
+            func = (function()
+                local hold_time = G.SETTINGS.GAMESPEED * 6
+                local blind = G.GAME.blind
+                local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
+                play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.5)
+                attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
+                attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
+                attention_text({scale = 0.35, text = localize(loc_key..'_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
+                attention_text({scale = 0.35, text = localize(loc_key..'_end_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
+                return true
+            end)
+        }))
+    end
+    draw_from_hand_to_discardref(e)
+end
+
 -- Talisman compat
 to_big = to_big or function(num)
     return num
 end
 
 --=============== OBSERVATION ===============--
+
 -- Check rounds until observation unlock
 function Card:check_rounds(comp)
     local val = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0

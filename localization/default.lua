@@ -958,15 +958,16 @@ return {
             bl_lobc_dawn_crimson = {
                 name = "Crimson Dawn",
                 text = {
-                    "Sells a random Joker before",
-                    "every third hand scores",
+                    "Before every third hand,",
+                    "debuff all playing cards",
+                    "until a Joker is sold"
                 }
             },
             bl_lobc_dawn_violet = {
                 name = "Violet Dawn",
                 text = {
-                    "Lose if hand doesn't",
-                    "score at least 10% of blind"
+                    "-1 hand if hand doesn't",
+                    "score at least 20% of blind"
                 }
             },
 
@@ -982,7 +983,7 @@ return {
                 name = "Green Noon",
                 text = {
                     "Reduces the level of played",
-                    "poker hand if not highest level"
+                    "poker hand if highest level"
                 }
             },
             bl_lobc_noon_indigo = {
@@ -1002,8 +1003,8 @@ return {
             bl_lobc_noon_violet = {
                 name = "Violet Noon",
                 text = {
-                    "Lose if hand doesn't",
-                    "score at least 25% of blind"
+                    "-2 hands if hand doesn't",
+                    "score at least 30% of blind"
                 }
             },
 
@@ -1020,7 +1021,6 @@ return {
                 text = {
                     "Decreases level of played",
                     "poker hand twice",
-                    "(down to 0)",
                 }
             },
             bl_lobc_dusk_amber = {

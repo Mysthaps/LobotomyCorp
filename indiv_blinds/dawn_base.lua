@@ -13,7 +13,7 @@ local blind = {
         "dawn_green",
         "dawn_crimson",
         "dawn_amber",
-        --"dawn_violet",
+        "dawn_violet",
     },
     loc_txt = {}
 }
