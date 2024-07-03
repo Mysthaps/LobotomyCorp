@@ -38,6 +38,38 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+-- JokerDisplay mod support
+if SMODS.Mods["JokerDisplay"] then
+    local jd_def = JokerDisplay.Definitions
+    jd_def["j_lobc_one_sin"] = {
+        line_1 = {
+            {
+                text = "+",
+                colour = G.C.MULT
+            },
+            {
+                ref_table = "card.joker_display_values",
+                ref_value = "mult",
+                colour = G.C.MULT
+            }
+        },
+
+        calc_function = function(card)
+            local mult = 0
+            local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+            local _, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
+
+            for i = 1, #scoring_hand do
+                if not (scoring_hand[i] == 'back') and not scoring_hand[i].debuff then
+                    mult = mult + card.ability.extra.mult
+                end
+            end
+
+            card.joker_display_values.mult = mult
+        end
+    }
+end
+
 return joker
 
 -- you know you fucked up when you let one sin breach
