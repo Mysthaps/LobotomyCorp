@@ -115,5 +115,3 @@ end
 return joker
 
 -- the one that nobody cares
-
-
