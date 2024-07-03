@@ -34,7 +34,7 @@ joker.calculate = function(self, card, context)
             func = function() 
                 for _, v in ipairs(G.hand.cards) do
                     v.ability.scorched_girl_debuff = true
-                    v.debuff = true
+                    v:set_debuff(true)
                 end
             return true
             end

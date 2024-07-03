@@ -347,7 +347,7 @@ function G.FUNCS.draw_from_deck_to_hand(e)
                     delay = 0.4,
                     func = function() 
                         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("dusk_amber"))
-                        chosen_card.debuff = true
+                        chosen_card.set_debuff(true)
                         chosen_card.ability.amber_debuff = true
                         table.remove(available_cards, chosen_card_key)
                         proc = true
@@ -646,7 +646,7 @@ function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
         for _, v in ipairs(should_debuff_ability) do
             if card.ability[v] then 
-                card.debuff = true 
+                card:set_debuff(true)
                 return true
             end
         end

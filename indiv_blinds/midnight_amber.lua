@@ -20,7 +20,7 @@ blind.set_blind = function(self, reset, silent)
 
     for i = 1, math.ceil(#available_cards/2) do
         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
-        chosen_card.debuff = true
+        chosen_card:set_debuff(true)
         chosen_card.ability.amber_debuff = true
         table.remove(available_cards, chosen_card_key)
     end

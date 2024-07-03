@@ -26,13 +26,13 @@ joker.calculate = function(self, card, context)
             for _, v in ipairs(G.hand.cards) do
                 v.ability.theresia_debuff = true
                 if not v.debuff then
-                    v.debuff = true
+                    v:set_debuff(true)
                     v:juice_up()
                 end
             end
             for _, v in ipairs(G.deck.cards) do
                 v.ability.theresia_debuff = true
-                v.debuff = true
+                v:set_debuff(true)
             end
         end
     end
