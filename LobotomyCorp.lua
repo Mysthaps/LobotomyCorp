@@ -8,6 +8,11 @@
 --- BADGE_COLOR: FC3A3A
 --- VERSION: 0.7.0
 
+-- Talisman compat
+to_big = to_big or function(num)
+    return num
+end
+
 local mod_path = SMODS.current_mod.path
 
 --=============== STEAMODDED OBJECTS ===============--
@@ -385,7 +390,6 @@ function Game.update_new_round(self, dt)
     if not G.STATE_COMPLETE and 
     (G.GAME.blind.config.blind.color and G.GAME.blind.config.blind.color == "crimson") then
         local original_blind = G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
-        sendDebugMessage(original_blind)
         if G.GAME.blind.config.blind.time == "dawn" then
             if original_blind ~= "bl_lobc_dawn_crimson" then
                 -- For Noon and Dusk, reset to the original blind's values
@@ -394,6 +398,20 @@ function Game.update_new_round(self, dt)
                 G.GAME.blind.lobc_original_blind = nil
             end
         else
+            if G.GAME.current_round.hands_left == 0 then 
+                -- Original hand count must be less than 2 (Noon) or 3 (Dusk)
+                if G.GAME.current_round.hands_played < (G.P_BLINDS[original_blind].time == "dusk" and 3 or 2) and
+                -- Must win blind
+                   to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) then
+                    ease_hands_played(1)
+                    G.GAME.current_round.lobc_hands_given = G.GAME.current_round.lobc_hands_given + 1
+                else
+                    G.GAME.blind.lobc_original_blind = nil
+                    G.STATE_COMPLETE = true
+                    end_round()
+                    return
+                end
+            end
             G.STATE = G.STATES.DRAW_TO_HAND
             G.E_MANAGER:add_event(Event({
                 trigger = 'ease',
@@ -401,14 +419,13 @@ function Game.update_new_round(self, dt)
                 ref_table = G.GAME,
                 ref_value = 'chips',
                 ease_to = 0,
-                delay = 0.5,
+                delay = 0.5 * G.SETTINGS.GAMESPEED,
                 func = (function(t) return math.floor(t) end)
             }))
             G.GAME.blind:set_blind(G.P_BLINDS["bl_lobc_"..(G.GAME.blind.config.blind.time == "dusk" and "noon" or "dawn").."_crimson"])
             G.GAME.blind.dollars = G.P_BLINDS[original_blind].dollars
             G.GAME.current_round.dollars_to_be_earned = G.GAME.blind.dollars > 0 and (string.rep(localize('$'), G.GAME.blind.dollars)..'') or ('')
             G.GAME.blind.lobc_original_blind = original_blind
-            if G.GAME.round_resets.hands < (G.GAME.blind.config.blind.time == "dusk" and 3 or 2) and G.GAME.current_round.hands_left == 0 then ease_hands_played(1) end
         end
     end
 
@@ -417,7 +434,14 @@ function Game.update_new_round(self, dt)
     end
 end
 
--- Crimson Dusk selling card
+-- Reset hands for Crimson Dusk/Noon
+local new_roundref = new_round
+function new_round()
+    new_roundref()
+    G.GAME.current_round.lobc_hands_given = 0
+end
+
+-- Crimson Dawn selling card
 local sell_cardref = Card.sell_card
 function Card.sell_card(self)
     if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson" then 
@@ -675,10 +699,18 @@ function Blind:ordeal_alert()
                         play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.5)
                         local hold_time = G.SETTINGS.GAMESPEED * 6
                         local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
-                        attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
-                        attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
-                        attention_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
-                        attention_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'before',
+                            delay = hold_time,
+                            blockable = false,
+                            func = function()
+                                attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
+                                attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
+                                attention_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
+                                attention_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
+                                return true
+                            end
+                        }))
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
                             delay = hold_time/3,
@@ -724,11 +756,6 @@ function G.FUNCS.draw_from_hand_to_discard(e)
         }))
     end
     draw_from_hand_to_discardref(e)
-end
-
--- Talisman compat
-to_big = to_big or function(num)
-    return num
 end
 
 --=============== OBSERVATION ===============--
