@@ -73,6 +73,47 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+-- JokerDisplay mod support
+if SMODS.Mods["JokerDisplay"] then
+    local jd_def = JokerDisplay.Definitions
+    jd_def["j_lobc_all_around_helper"] = {
+        line_1 = {
+            {
+                border_nodes = {
+                    {
+                        text = "X"
+                    },
+                    {
+                        ref_table = "card.ability.extra",
+                        ref_value = "x_mult"
+                    }
+                }
+            }
+        },
+        line_2 = {
+            {
+                text = "(",
+                colour = G.C.UI.TEXT_INACTIVE
+            },
+            {
+                ref_table = "card.joker_display_values",
+                ref_value = "blinds_remaining",
+                colour = G.C.ORANGE
+            },
+            {
+                text = " blinds)",
+                colour = G.C.UI.TEXT_INACTIVE
+            }
+        },
+
+        calc_function = function(card)
+            card.joker_display_values.blinds_remaining = 4 - card.ability.extra.counter
+        end
+    }
+end
+
 return joker
 
 -- the one that nobody cares
+
+
