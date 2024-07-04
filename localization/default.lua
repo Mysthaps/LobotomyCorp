@@ -1090,8 +1090,15 @@ return {
         },
         challenge_names = {
             c_lobc_dark_days = "Dark Days",
+            c_lobc_ordeals = "Increased Ordeals",
         },
         v_text = {
+            ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},
+            ch_c_lobc_fast_ante_1 = {"Required score scales faster for each Ante ({C:green}Green Stake{})"},
+            ch_c_lobc_fast_ante_2 = {"Required score scales faster for each Ante ({C:purple}Purple Stake{})"},
+            ch_c_lobc_slow_endgame = {"Required score scales slower after Ante {C:attention}8{}"},
+
+            -- Dark Days
             ch_c_lobc_all_whitenight = {"All {C:attention}Boss Blinds{} are {C:dark_edition}WhiteNight{}"},
             ch_c_lobc_all_whitenight_2 = {"{C:dark_edition}WhiteNight{} does not give its {C:attention}Joker{} when defeated"},
             ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"},

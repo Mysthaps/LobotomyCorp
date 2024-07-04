@@ -114,7 +114,8 @@ local sound_list = {
 }
 
 local challenge_list = {
-    "dark_days"
+    "dark_days",
+    "ordeals"
 }
 
 local badge_colors = {
@@ -270,7 +271,7 @@ end
 local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
-    if G.GAME.round_resets.blind_states.Small == 'Upcoming' then
+    if G.GAME.round_resets.blind_states.Small == 'Upcoming' or G.GAME.round_resets.blind_states.Small == 'Hide' then
         if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
            (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) then
                 G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
@@ -328,7 +329,7 @@ end
 local draw_from_deck_to_handref = G.FUNCS.draw_from_deck_to_hand
 function G.FUNCS.draw_from_deck_to_hand(e)
     draw_from_deck_to_handref(e)
-    if G.GAME.blind.config.blind.key == "bl_lobc_dusk_amber" then
+    if G.GAME.blind.config.blind.key == "bl_lobc_dusk_amber" and not G.GAME.blind.disabled then
         local cards_drawn = e or math.min(#G.deck.cards, G.hand.config.card_limit - #G.hand.cards)
         local available_cards = {}
         local proc = false
@@ -347,7 +348,7 @@ function G.FUNCS.draw_from_deck_to_hand(e)
                     delay = 0.4,
                     func = function() 
                         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("dusk_amber"))
-                        chosen_card.set_debuff(true)
+                        chosen_card:set_debuff(true)
                         chosen_card.ability.amber_debuff = true
                         table.remove(available_cards, chosen_card_key)
                         proc = true
@@ -364,7 +365,7 @@ end
 -- Indigo Noon
 local discard_cards_from_highlightedref = G.FUNCS.discard_cards_from_highlighted
 G.FUNCS.discard_cards_from_highlighted = function(e, hook)
-    if G.GAME.blind.config.blind.key == "bl_lobc_noon_indigo" then
+    if G.GAME.blind.config.blind.key == "bl_lobc_noon_indigo" and not G.GAME.blind.disabled then
         local proc = false
         for _ = 1, math.min(#G.hand.highlighted, G.discard.config.card_limit - #G.play.cards) do
             local chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*0.1
@@ -388,7 +389,8 @@ function Game.update_new_round(self, dt)
     if self.shop then self.shop:remove(); self.shop = nil end
 
     if not G.STATE_COMPLETE and 
-    (G.GAME.blind.config.blind.color and G.GAME.blind.config.blind.color == "crimson") then
+       (G.GAME.blind.config.blind.color and G.GAME.blind.config.blind.color == "crimson") and
+       not G.GAME.blind.disabled then
         local original_blind = G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
         if G.GAME.blind.config.blind.time == "dawn" then
             if original_blind ~= "bl_lobc_dawn_crimson" then
@@ -444,7 +446,7 @@ end
 -- Crimson Dawn selling card
 local sell_cardref = Card.sell_card
 function Card.sell_card(self)
-    if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson" then 
+    if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson"and not G.GAME.blind.disabled then 
         G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
             G.GAME.blind.hands_sub = 0
             for _, v in ipairs(G.playing_cards) do
@@ -621,6 +623,18 @@ function Card:lobc_check_amplified()
     end
 end
 
+--=============== CHALLENGES ===============--
+
+-- Apply Modifiers to run
+local start_runref = Game.start_run
+function Game.start_run(self, args)
+    start_runref(self, args)
+    if not args.savetext then
+        if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
+        if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
+    end
+end
+
 --=============== MECHANICAL ===============--
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything
@@ -646,7 +660,7 @@ function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
         for _, v in ipairs(should_debuff_ability) do
             if card.ability[v] then 
-                card:set_debuff(true)
+                --card:set_debuff(true)
                 return true
             end
         end
@@ -697,23 +711,15 @@ function Blind:ordeal_alert()
                     blockable = false,
                     func = (function()
                         play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.5)
-                        local hold_time = G.SETTINGS.GAMESPEED * 6
+                        local hold_time = G.SETTINGS.GAMESPEED * 5
                         local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = hold_time,
-                            blockable = false,
-                            func = function()
-                                attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
-                                attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
-                                attention_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
-                                attention_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
-                                return true
-                            end
-                        }))
+                        attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
+                        attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})
+                        attention_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, silent = true})
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
-                            delay = hold_time/3,
+                            delay = hold_time,
                             blocking = false,
                             blockable = false,
                             func = (function()
