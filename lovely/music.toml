@@ -16,5 +16,5 @@ payload = '''
 ((G.GAME and G.GAME.blind and 
     G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight") and "lobc_music_second_warning") or
 ((G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight") and "lobc_music_third_warning") or
-(G.STATE == G.STATES.EXTRACTION_PACK and "lobc_music_abno_choice") or'''
+((G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER.config.center.group_key == "k_lobc_extraction_pack") and "lobc_music_abno_choice") or'''
 match_indent = true

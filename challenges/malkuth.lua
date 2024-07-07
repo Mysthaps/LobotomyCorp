@@ -4,6 +4,7 @@ local chal = {
             {id = "lobc_malkuth"},
             {id = "lobc_malkuth_2"},
             {id = "lobc_malkuth_3"},
+            {id = "lobc_malkuth_4"},
             {id = "lobc_ordeals"},
             {id = "lobc_fast_ante_1"},
         },

@@ -470,12 +470,13 @@ return {
                     "{C:attention}(#4#/2){} ...",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/8){} ...",
+                    "{C:inactive}(Chosen hand: {C:attention}#1#{C:inactive})",
                 }
             },
             dis_j_lobc_nameless_fetus_2 = {
                 name = "O-01-15",
                 text = {
-                    "{X:mult,C:white} X#2# {} Mult after playing a {C:attention}#1#{}",
+                    "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/8){} ...",
                 }
@@ -483,7 +484,7 @@ return {
             dis_j_lobc_nameless_fetus_3 = {
                 name = "O-01-15",
                 text = {
-                    "{X:mult,C:white} X#2# {} Mult after playing a {C:attention}#1#{}",
+                    "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
                     "{X:mult,C:white} X#3# {} Mult if other hands are played",
                     "{C:attention}(#6#/8){} ...",
                 }
@@ -491,11 +492,11 @@ return {
             j_lobc_nameless_fetus = {
                 name = "Nameless Fetus",
                 text = {
-                    "{X:mult,C:white} X#2# {} Mult after playing a {C:attention}#1#{}",
+                    "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
                     "{X:mult,C:white} X#3# {} Mult if other hands are played",
                     "If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
-                    "and change selected hand type"
+                    "and change chosen hand"
                 }
             },
 
@@ -1107,9 +1108,10 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
 
             -- Malkuth
-            ch_c_lobc_malkuth = {"All {C:attention}Consumables{} are face down"},
-            ch_c_lobc_malkuth_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are face down"},
-            ch_c_lobc_malkuth_3 = {"After Ante {C:attention}6{}, all cards cannot be sold"},
+            ch_c_lobc_malkuth = {"All {C:attention}Consumables{} are faced down"},
+            ch_c_lobc_malkuth_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are faced down"},
+            ch_c_lobc_malkuth_3 = {"Every Ante after Ante {C:attention}3{}, shuffles all owned {C:attention}Jokers{}"},
+            ch_c_lobc_malkuth_4 = {"After Ante {C:attention}6{}, all cards cannot be sold"},
         },
         dictionary = {
             k_lobc_breached = "Breached!",

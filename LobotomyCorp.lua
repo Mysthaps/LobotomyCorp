@@ -114,8 +114,9 @@ local sound_list = {
 }
 
 local challenge_list = {
+    "ordeals",
     "dark_days",
-    "ordeals"
+    "malkuth",
 }
 
 local badge_colors = {
@@ -236,26 +237,6 @@ for _, v in ipairs(challenge_list) do
         local chal_obj = SMODS.Challenge(chal)
     end
 end
-
--- Make Extraction Pack
-SMODS.Center({
-    prefix = 'p',
-    key = 'extraction_normal',
-    name = "Extraction Pack",
-    weight = 3,
-    kind = "Abnormality",
-    cost = 5,
-    discovered = true,
-    alerted = true,
-    set = "Booster",
-    atlas = "LobotomyCorp_Booster",
-    config = {extra = 3, choose = 1},
-    generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-        local vars = { self.config.choose, self.config.extra }
-        full_UI_table.name = localize{type = 'name', set = 'Other', key = self.key, nodes = full_UI_table.name}
-        localize{type = 'other', key = self.key, nodes = desc_nodes, vars = vars}
-    end
-})
 
 --=============== BLINDS ===============--
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
@@ -535,10 +516,14 @@ function Blind.stay_flipped(self, area, card)
     return stay_flippedref(self, area, card)
 end
 
--- Remove Queen of Hatred's sell button
 local can_sell_cardref = Card.can_sell_card
 function Card.can_sell_card(self, context)
+    -- Remove Queen of Hatred's sell button
     if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
+        return false
+    end
+    -- Malkuth
+    if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 6 then
         return false
     end
     return can_sell_cardref(self, context)
@@ -633,6 +618,56 @@ function Game.start_run(self, args)
         if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
     end
+end
+
+-- Cards flipped (Malkuth)
+local card_initref = Card.init
+function Card.init(self, X, Y, W, H, card, center, params)
+    card_initref(self, X, Y, W, H, card, center, params)
+    if G.GAME and G.GAME.modifiers.lobc_malkuth then
+        if self.ability.consumeable or
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 3) then
+            self.facing = 'back'
+            self.sprite_facing = 'back'
+            self.pinch.x = false
+        end
+    end
+end
+
+-- Card shuffle (Malkuth)
+local ease_anteref = ease_ante
+function ease_ante(mod)
+    ease_anteref(mod)
+    G.E_MANAGER:add_event(Event({
+        trigger = "immediate",
+        func = function()
+            if G.GAME.round_resets.ante > 3 then
+                G.jokers:unhighlight_all()
+                if #G.jokers.cards > 1 then 
+                    G.E_MANAGER:add_event(Event({ func = function() 
+                        G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 0.85);return true end })) 
+                        delay(0.1)
+                        G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 1.15);return true end })) 
+                        delay(0.1)
+                        G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 1);return true end })) 
+                    return true end })) 
+                end
+            end
+            return true
+        end
+    }))
+end
+
+-- Override flipping (Malkuth)
+local card_flipref = Card.flip
+function Card.flip(self)
+    if G.GAME and G.GAME.modifiers.lobc_malkuth then
+        if self.ability.consumeable or
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 3) then
+            return
+        end
+    end
+    card_flipref(self)
 end
 
 --=============== MECHANICAL ===============--
@@ -779,14 +814,23 @@ end
 -- Card updates
 local card_updateref = Card.update
 function Card.update(self, dt)
-    --if G.STAGE == G.STAGES.RUN then
-        -- Check if enough rounds have passed, should be saving
-        if self.config.center.abno then
-            local count = lobc_get_usage_count(self.config.center_key)
-            self.config.center.discovered = (count >= self.config.center.discover_rounds)
-        end
-    --end
+    -- Check if enough rounds have passed, should be saving
+    if self.config.center.abno then
+        local count = lobc_get_usage_count(self.config.center_key)
+        self.config.center.discovered = (count >= self.config.center.discover_rounds)
+    end
+
     card_updateref(self, dt)
+
+    -- Card flipped (Malkuth)
+    if G.GAME and G.GAME.modifiers.lobc_malkuth then
+        if self.ability.consumeable or
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 3) then
+            self.facing = 'back'
+            self.sprite_facing = 'back'
+            self.pinch.x = false
+        end
+    end
 end
 
 -- Update round count for abnos
@@ -857,186 +901,28 @@ function get_current_pool(_type, _rarity, _legendary, _append)
     return get_current_poolref(_type, _rarity, _legendary, _append)
 end
 
--- Open Extraction Pack
-local openref = Card.open
-function Card.open(self)
-    if self.ability.set == "Booster" and self.ability.name:find('Extraction') then
-        stop_use()
-        G.STATE_COMPLETE = false 
-        self.opening = true
-
-        if not self.config.center.discovered then
-            discover_card(self.config.center)
-        end
-        self.states.hover.can = false
-
-        if not G.STATES.EXTRACTION_PACK then
-            G.STATES.EXTRACTION_PACK = 727
-        end
-
-        G.STATE = G.STATES.EXTRACTION_PACK
-        G.GAME.pack_size = self.ability.extra
-
-        G.GAME.pack_choices = self.config.center.config.choose or 1
-        -- Cryptid compat
-        if G.GAME.modifiers.cry_misprint_min then
-            G.GAME.pack_size = self.config.center.config.extra
-            if G.GAME.pack_size < 1 then G.GAME.pack_size = 1 end
-            self.ability.extra = G.GAME.pack_size
-            G.GAME.pack_choices = math.min(math.floor(G.GAME.pack_size), G.GAME.pack_choices)
-        end
-
-        if self.cost > 0 then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                inc_career_stat('c_shop_dollars_spent', self.cost)
-                self:juice_up()
-            return true end }))
-            ease_dollars(-self.cost) 
-        else
-            delay(0.2)
-        end
-
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            self:explode()
-            local pack_cards = {}
-
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
-                local _size = self.ability.extra
-                
-                for i = 1, _size do
-                    local card = create_card("Abnormality", G.pack_cards, nil, nil, true, true, nil, 'abn')
-                    card.T.x = self.T.x
-                    card.T.y = self.T.y
-                    card:start_materialize({G.C.WHITE, G.C.WHITE}, nil, 1.5*G.SETTINGS.GAMESPEED)
-                    pack_cards[i] = card
-                end
-                return true
-            end}))
-
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.3*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, func = function()
-                if G.pack_cards then 
-                    if G.pack_cards and G.pack_cards.VT.y < G.ROOM.T.h then 
-                    for k, v in ipairs(pack_cards) do
-                        G.pack_cards:emplace(v)
-                    end
-                    return true
-                    end
-                end
-            end}))
-
-            for i = 1, #G.jokers.cards do
-                G.jokers.cards[i]:calculate_joker({open_booster = true, card = self})
-            end
-
-            if G.GAME.modifiers.inflation then 
-                G.GAME.inflation = G.GAME.inflation + 1
-                G.E_MANAGER:add_event(Event({func = function()
-                    for k, v in pairs(G.I.CARD) do
-                        if v.set_cost then v:set_cost() end
-                    end
-                return true end }))
-            end
-        return true end }))
-    else
-        openref(self)
-    end
-end
-
--- Setup Extraction Pack background
-function Game:update_extraction_pack(dt)
-    if self.buttons then self.buttons:remove(); self.buttons = nil end
-    if self.shop then G.shop.alignment.offset.y = G.ROOM.T.y+11 end
-
-    if not G.STATE_COMPLETE then
-        G.STATE_COMPLETE = true
-        G.CONTROLLER.interrupt.focus = true
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = function()
-                G.booster_pack = UIBox{
-                    definition = create_UIBox_extraction_pack(),
-                    config = {align="tmi", offset = {x=0,y=G.ROOM.T.y + 9},major = G.hand, bond = 'Weak'}
-                }
-                G.booster_pack.alignment.offset.y = -2.2
-                G.ROOM.jiggle = G.ROOM.jiggle + 3
-                ease_background_colour_blind(G.STATES.PLANET_PACK)
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.5,
-                            func = function()
-                                G.CONTROLLER:recall_cardarea_focus('pack_cards')
-                                return true
-                            end}))
-                        return true
-                    end
-                }))  
-                return true
-            end
-        }))  
-    end
-end
-
--- Setup Extraction Pack UI
-function create_UIBox_extraction_pack()
-    local _size = G.GAME.pack_size
-    G.pack_cards = CardArea(
-      G.ROOM.T.x + 9 + G.hand.T.x, G.hand.T.y,
-      math.max(1,math.min(_size,5))*G.CARD_W*1.1,
-      1.05*G.CARD_H, 
-      {card_limit = _size, type = 'consumeable', highlight_limit = 1})
-  
-      local t = {n=G.UIT.ROOT, config = {align = 'tm', r = 0.15, colour = G.C.CLEAR, padding = 0.15}, nodes={
-        {n=G.UIT.R, config={align = "cl", colour = G.C.CLEAR,r=0.15, padding = 0.1, minh = 2, shadow = true}, nodes={
-          {n=G.UIT.R, config={align = "cm"}, nodes={
-          {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
-            {n=G.UIT.C, config={align = "cm", r=0.2, colour = G.C.CLEAR, shadow = true}, nodes={
-              {n=G.UIT.O, config={object = G.pack_cards}},
-            }}
-          }}
-        }},
-        {n=G.UIT.R, config={align = "cm"}, nodes={
-        }},
-        {n=G.UIT.R, config={align = "tm"}, nodes={
-          {n=G.UIT.C,config={align = "tm", padding = 0.05, minw = 2.4}, nodes={}},
-          {n=G.UIT.C,config={align = "tm", padding = 0.05}, nodes={
-          UIBox_dyn_container({
-            {n=G.UIT.C, config={align = "cm", padding = 0.05, minw = 4}, nodes={
-              {n=G.UIT.R,config={align = "bm", padding = 0.05}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = localize('k_lobc_extraction_pack'), colours = {G.C.WHITE},shadow = true, rotate = true, bump = true, spacing =2, scale = 0.7, maxw = 4, pop_in = 0.5})}}
-              }},
-              {n=G.UIT.R,config={align = "bm", padding = 0.05}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = {localize('k_choose')..' '}, colours = {G.C.WHITE},shadow = true, rotate = true, bump = true, spacing =2, scale = 0.5, pop_in = 0.7})}},
-                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'pack_choices'}}, colours = {G.C.WHITE},shadow = true, rotate = true, bump = true, spacing =2, scale = 0.5, pop_in = 0.7})}}
-              }},
-            }}
-          }),
-        }},
-          {n=G.UIT.C,config={align = "tm", padding = 0.05, minw = 2.4}, nodes={
-            {n=G.UIT.R,config={minh =0.2}, nodes={}},
-            {n=G.UIT.R,config={align = "tm",padding = 0.2, minh = 1.2, minw = 1.8, r=0.15,colour = G.C.GREY, one_press = true, button = 'skip_booster', hover = true,shadow = true, func = 'can_skip_booster'}, nodes = {
-              {n=G.UIT.T, config={text = localize('b_skip'), scale = 0.5, colour = G.C.WHITE, shadow = true, focus_args = {button = 'y', orientation = 'bm'}, func = 'set_button_pip'}}
-            }}
-          }}
-        }}
-      }}
-    }}
-    return t
-end
-
-local can_skip_boosterref = G.FUNCS.can_skip_booster
-function G.FUNCS.can_skip_booster(e)
-    if G.pack_cards and G.pack_cards.cards and G.pack_cards.cards[1] and G.STATE == G.STATES.EXTRACTION_PACK then
-        e.config.colour = G.C.GREY
-        e.config.button = 'skip_booster'
-    else
-        can_skip_boosterref(e)
-    end
-end
+-- Make Extraction Pack
+SMODS.Booster({
+    key = 'extraction_normal',
+    weight = 2.5,
+    kind = "Abnormality",
+    cost = 5,
+    atlas = "LobotomyCorp_Booster",
+    config = {extra = 3, choose = 1},
+    create_card = function(self, card)
+        return create_card("Abnormality", G.pack_cards, nil, nil, true, true, nil, 'abn')
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour_blind(G.STATES.PLANET_PACK)
+    end,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.config.center.config.choose, card.ability.extra} }
+	end,
+    group_key = "k_lobc_extraction_pack",
+})
 
 --=============== STEAMODDED OBJECTS 2 ===============--
+
 -- Atlases
 SMODS.Atlas({ 
     key = "LobotomyCorp_Jokers", 
