@@ -979,7 +979,7 @@ SMODS.Atlas({
 })
 
 -- Shaders
-SMODS.Shader({
+--[[SMODS.Shader({
     key = "pixelation",
     path = "pixelation.fs"
 })
@@ -1003,7 +1003,7 @@ local blacklist_shader = {
     "background",
 }
 -- shader test
---[[local draw_shaderref = Sprite.draw_shader
+local draw_shaderref = Sprite.draw_shader
 function Sprite.draw_shader(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
     local check = true
     for _, v in ipairs(blacklist_atlas) do if self.atlas == G.ASSET_ATLAS[v] then check = false end end
