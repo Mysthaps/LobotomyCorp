@@ -479,6 +479,7 @@ return {
                     "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/8){} ...",
+                    "{C:inactive}(Chosen hand: {C:attention}#1#{C:inactive})",
                 }
             },
             dis_j_lobc_nameless_fetus_3 = {
@@ -487,6 +488,7 @@ return {
                     "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
                     "{X:mult,C:white} X#3# {} Mult if other hands are played",
                     "{C:attention}(#6#/8){} ...",
+                    "{C:inactive}(Chosen hand: {C:attention}#1#{C:inactive})",
                 }
             },
             j_lobc_nameless_fetus = {
@@ -496,7 +498,8 @@ return {
                     "{X:mult,C:white} X#3# {} Mult if other hands are played",
                     "If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
-                    "and change chosen hand"
+                    "and change chosen hand",
+                    "{C:inactive}(Chosen hand: {C:attention}#1#{C:inactive})",
                 }
             },
 
