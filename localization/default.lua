@@ -257,7 +257,7 @@ return {
                 text = {
                     "..."
                 }
-            }
+            },
         },
         Joker = {
             ---- Abnormalities' Observation Levels ----
@@ -1091,6 +1091,7 @@ return {
         challenge_names = {
             c_lobc_dark_days = "Dark Days",
             c_lobc_ordeals = "Increased Ordeals",
+            c_lobc_malkuth = "Control",
         },
         v_text = {
             ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},
@@ -1104,6 +1105,11 @@ return {
             ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"},
             ch_c_lobc_all_whitenight_4 = {"Reduced {C:attention}Boss Blind Size{} during the first {C:attention}3{} Antes"},
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
+
+            -- Malkuth
+            ch_c_lobc_malkuth = {"All {C:attention}Consumables{} are face down"},
+            ch_c_lobc_malkuth_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are face down"},
+            ch_c_lobc_malkuth_3 = {"After Ante {C:attention}6{}, all cards cannot be sold"},
         },
         dictionary = {
             k_lobc_breached = "Breached!",

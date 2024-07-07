@@ -32,7 +32,7 @@ position = "after"
 payload = '''
 if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
 if v == 'lobc_amplified' then
-    local count = G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_price_of_silence"] and G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_price_of_silence"].count or 0
+    local count = lobc_get_usage_count("j_lobc_price_of_silence")
     info_queue[#info_queue+1] = {key = 'lobc_amplified'..(count < 5 and '_1' or ''), set = 'Other'}
 end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end

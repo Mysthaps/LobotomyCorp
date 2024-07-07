@@ -26,7 +26,8 @@ local chal = {
         },
     },
     unlocked = function(self)
-        return G.P_BLINDS.bl_lobc_whitenight.discovered
+        local count = lobc_get_usage_count("j_lobc_plague_doctor")
+        return (count > 1 and G.P_BLINDS.bl_lobc_whitenight.discovered)
     end
 }
 

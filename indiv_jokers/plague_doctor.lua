@@ -169,7 +169,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         if card:check_rounds(4) < 4 then
             desc_key = 'dis_'..desc_key..'_2'
         else
-            local count = G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_whitenight"] and G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_whitenight"].count or 0
+            local count = lobc_get_usage_count("j_lobc_whitenight")
             if count == 0 then
                 desc_key = 'dis_'..desc_key..'_3'
             end

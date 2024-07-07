@@ -3,6 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Game ends at below 0 hands instead of 1
 [[patches]]
 [patches.pattern]
 target = "game.lua"
@@ -11,6 +12,7 @@ position = "at"
 payload = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left <= 0 then"
 match_indent = true
 
+# Patches taken from Cryptid
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -27,6 +29,7 @@ position = "at"
 payload = "if G.GAME.blind_on_deck == 'Small' then"
 match_indent = true
 
+# Remove skipping for Ordeals
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -35,5 +38,21 @@ position = "at"
 payload = '''
 if not blind_choice.config.color then
     extras = create_UIBox_blind_tag(type, run_info)
+end'''
+match_indent = true
+
+# Override Steamodded's challenges unlock all
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "challenge_list[#challenge_list+1] ="
+position = "before"
+payload = '''
+if v.mod and v.mod.id == "LobotomyCorp" then
+    if v.unlocked and type(v.unlocked) == 'function' then
+        challenge_unlocked = v:unlocked()
+    elseif type(v.unlocked) == 'boolean' then
+        challenge_unlocked = v.unlocked
+    end
 end'''
 match_indent = true

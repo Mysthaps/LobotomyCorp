@@ -174,7 +174,7 @@ for _, v in ipairs(joker_list) do
         if not joker.set_sprites then
             joker_obj.set_sprites = function(self, card, front)
                 card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
-                local count = G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[card.config.center_key].count or 0
+                local count = lobc_get_usage_count(card.config.center_key)
                 if count < card.config.center.discover_rounds then
                     card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
                 end
@@ -766,22 +766,26 @@ end
 
 --=============== OBSERVATION ===============--
 
+function lobc_get_usage_count(key)
+    return G.PROFILES[G.SETTINGS.profile].joker_usage[key] and G.PROFILES[G.SETTINGS.profile].joker_usage[key].count or 0
+end
+
 -- Check rounds until observation unlock
 function Card:check_rounds(comp)
-    local val = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0
+    local val = lobc_get_usage_count(self.config.center_key)
     return math.min(val, comp)
 end
 
 -- Card updates
 local card_updateref = Card.update
 function Card.update(self, dt)
-    if G.STAGE == G.STAGES.RUN then
+    --if G.STAGE == G.STAGES.RUN then
         -- Check if enough rounds have passed, should be saving
         if self.config.center.abno then
-            local count = G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center_key].count or 0
+            local count = lobc_get_usage_count(self.config.center_key)
             self.config.center.discovered = (count >= self.config.center.discover_rounds)
         end
-    end
+    --end
     card_updateref(self, dt)
 end
 
@@ -791,7 +795,7 @@ function set_joker_usage()
     set_joker_usageref()
     for k, v in pairs(G.jokers.cards) do
         if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno and not v.config.center.discovered and 
-          G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count >= v.config.center.discover_rounds then
+          lobc_get_usage_count(v.config.center_key) >= v.config.center.discover_rounds then
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
                 play_sound('card1')
                 v:flip()
@@ -1087,6 +1091,58 @@ SMODS.Atlas({
     px = 71,
     py = 95
 })
+
+-- Shaders
+SMODS.Shader({
+    key = "pixelation",
+    path = "pixelation.fs"
+})
+
+local blacklist_atlas = {
+    "cards_1",
+    "cards_2",
+    "ui_1",
+    "ui_2",
+    "balatro",
+    "gamepad_ui",
+    "icons",
+    "centers",
+}
+local blacklist_shader = {
+    "lobc_pixelation",
+    "vortex",
+    "flame",
+    "splash",
+    "flash",
+    "background",
+}
+-- shader test
+--[[local draw_shaderref = Sprite.draw_shader
+function Sprite.draw_shader(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+    local check = true
+    for _, v in ipairs(blacklist_atlas) do if self.atlas == G.ASSET_ATLAS[v] then check = false end end
+    if self.atlas == G.ANIMATION_ATLAS["shop_sign"] then check = false end
+    for _, v in ipairs(blacklist_shader) do if _shader == v then check = false end end
+    draw_shaderref(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+    if check then draw_shaderref(self, "lobc_pixelation", _shadow_height, nil, nil, other_obj, ms, mr, mx, my) end
+end
+
+-- Load blank font
+local set_languageref = Game.set_language
+function Game.set_language(self)
+    set_languageref(self)
+    self.FONTS["lobc_blank"] = {
+        file = "Mods/LobotomyCorp/assets/fonts/AdobeBlank.ttf", 
+        render_scale = self.TILESIZE*10, 
+        TEXT_HEIGHT_SCALE = 0.83, 
+        TEXT_OFFSET = {x=10,y=-20}, 
+        FONTSCALE = 0.1, 
+        squish = 1, 
+        DESCSCALE = 1,
+        FONT = love.graphics.newFont("Mods/LobotomyCorp/assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
+    }
+    self.LANGUAGES["en-us"].font = self.FONTS[#self.FONTS]
+end]]
 
 -- Clear all Cathys
 sendInfoMessage("Loaded LobotomyCorp~")

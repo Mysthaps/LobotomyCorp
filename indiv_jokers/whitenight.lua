@@ -89,7 +89,7 @@ end
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card.ability.extra.mult, card.ability.extra.retriggers, card:check_rounds(8) }
     local desc_key = self.key
-    local count = G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_plague_doctor"] and G.PROFILES[G.SETTINGS.profile].joker_usage["j_lobc_plague_doctor"].count or 0
+    local count = lobc_get_usage_count("j_lobc_plague_doctor")
     if count == 0 then
         desc_key = 'dis_'..desc_key..'_1'
     else
