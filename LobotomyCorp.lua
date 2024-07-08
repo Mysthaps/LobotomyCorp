@@ -27,6 +27,7 @@ local joker_list = {
     "punishing_bird",
     "shy_look",
     "iron_maiden", -- We Can Change Anything
+    "old_faith",
     "youre_bald",
 
     --- Uncommon
@@ -35,6 +36,7 @@ local joker_list = {
     "red_shoes",
     "nameless_fetus",
     "all_around_helper",
+    "fotdb",
 
     --- Rare
     --[[
@@ -46,7 +48,7 @@ local joker_list = {
     --"nothing_there",
     "price_of_silence",
     "laetitia",
-    "mosb",
+    "mosb", -- The Mountain of Smiling Bodies
     "servant_of_wrath",
 
     --- Legendary
@@ -889,7 +891,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
     --if pool is empty
     if _pool_size == 0 then
         _pool = EMPTY(G.ARGS.TEMP_POOL)
-        _pool[#_pool + 1] = "j_lobc_punishing_bird" -- teehee
+        _pool[#_pool + 1] = "j_lobc_youre_bald"
     end
 
     return _pool, _pool_key..G.GAME.round_resets.ante
@@ -904,7 +906,7 @@ end
 -- Make Extraction Pack
 SMODS.Booster({
     key = 'extraction_normal',
-    weight = 2.5,
+    weight = 1.75,
     kind = "Abnormality",
     cost = 5,
     atlas = "LobotomyCorp_Booster",

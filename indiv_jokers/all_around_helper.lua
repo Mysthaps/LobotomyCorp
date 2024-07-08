@@ -75,4 +75,4 @@ end
 
 return joker
 
--- the one that nobody cares
+-- reddit the abnormality

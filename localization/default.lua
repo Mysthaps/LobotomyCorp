@@ -131,6 +131,13 @@ return {
                     "a brilliant idea!"
                 }
             },
+            und_j_lobc_fotdb = {
+                name = "T-01-68",
+                text = {
+                    "Where does one go",
+                    "when they die?",
+                }
+            },
             und_j_lobc_mosb = {
                 name = "T-01-75",
                 text = {
@@ -150,6 +157,15 @@ return {
                 text = {
                     "It's a good day!",
                     "Are you still shy today?",
+                }
+            },
+            und_j_lobc_old_faith = {
+                name = "T-09-97",
+                text = {
+                    "Those betrayed hearts",
+                    "sank into the depths,",
+                    "slowly forgotten in the",
+                    "ever-lengthening corridors of time.",
                 }
             },
             und_j_lobc_servant_of_wrath = {
@@ -281,7 +297,7 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "{C:attention}-#1#%{} Blind Size",
-                    "Debuffs first hand drawn"
+                    "{C:red}Debuffs{} first hand drawn"
                 }
             },
 
@@ -432,7 +448,7 @@ return {
                     "This Abnormality gains",
                     "{C:chips}+#2#{} Chips each hand",
                     "After the third hand played,",
-                    "debuffs all {C:attention}playing cards{}",
+                    "{C:red}debuffs{} all {C:attention}playing cards{}",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
                 }
             },
@@ -768,7 +784,43 @@ return {
                     "If no {C:hearts}Hearts{} are scored,",
                     "destroys all scored cards",
                     "When this Abnormality is removed,",
-                    "{C:attention}permanently{} debuffs all {C:attention}marked{} cards"
+                    "{C:attention}permanently{} {C:red}debuffs{} all {C:attention}marked{} cards"
+                }
+            },
+
+            dis_j_lobc_fotdb_1 = {
+                name = "T-01-68",
+                text = {
+                    "{C:attention}(#3#/1){} ...",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ..."
+                }
+            },
+            dis_j_lobc_fotdb_2 = {
+                name = "T-01-68",
+                text = {
+                    "This Abnormality is always {C:dark_edition}Eternal{}",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ..."
+                }
+            },
+            dis_j_lobc_fotdb_3 = {
+                name = "T-01-68",
+                text = {
+                    "This Abnormality is always {C:dark_edition}Eternal{}",
+                    "Gives {X:mult,C:white} X#2# {} per {C:dark_edition}Eternal{} Joker",
+                    "{C:attention}(#5#/6){} ...",
+                    "{C:inactive}(Currently gives {X:mult,C:white} X#1# {C:inactive})",
+                }
+            },
+            j_lobc_fotdb = {
+                name = "Funeral of the Dead Butterflies",
+                text = {
+                    "This Abnormality is always {C:dark_edition}Eternal{}",
+                    "{X:mult,C:white} X#2# {} Mult for each {C:dark_edition}Eternal{} Joker",
+                    "When {C:attention}Boss Blind{} is defeated,",
+                    "adds {C:dark_edition}Eternal{} to a random Joker",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})",
                 }
             },
 
@@ -875,6 +927,33 @@ return {
                     "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
                     "The face changes every {C:attention}#1#{} seconds",
                     "Happier faces give more Chips and Mult",
+                }
+            },
+
+            dis_j_lobc_old_faith_1 = {
+                name = "T-09-91",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/4){} ...",
+                }
+            },
+            dis_j_lobc_old_faith_2 = {
+                name = "T-09-91",
+                text = {
+                    "When {C:attention}Blind{} is selected, add",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
+                    "to a random other card",
+                    "{C:attention}(#4#/4){} ...",
+                }
+            },
+            j_lobc_old_faith = {
+                name = "Old Faith and Promise",
+                text = {
+                    "When {C:attention}Blind{} is selected, add",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
+                    "to a random other card",
+                    "{C:green}#1# in #2#{} chance to",
+                    "{C:attention}permanently{} {C:red}debuff{} it instead",
                 }
             },
 
@@ -1101,6 +1180,8 @@ return {
             ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},
             ch_c_lobc_fast_ante_1 = {"Required score scales faster for each Ante ({C:green}Green Stake{})"},
             ch_c_lobc_fast_ante_2 = {"Required score scales faster for each Ante ({C:purple}Purple Stake{})"},
+            ch_c_lobc_end_ante = {"Game ends after Ante {C:attention}#1#{}"},
+            ch_c_lobc_midnight_endgame = {"Only {C:dark_edition}Midnight{} Ordeals can appear past Ante {C:attention}8{}"},
             ch_c_lobc_slow_endgame = {"Required score scales slower after Ante {C:attention}8{}"},
 
             -- Dark Days
@@ -1115,6 +1196,23 @@ return {
             ch_c_lobc_malkuth_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are faced down"},
             ch_c_lobc_malkuth_3 = {"Every Ante after Ante {C:attention}3{}, shuffles all owned {C:attention}Jokers{}"},
             ch_c_lobc_malkuth_4 = {"After Ante {C:attention}6{}, all cards cannot be sold"},
+
+            -- Yesod
+            ch_c_lobc_yesod = {"Most sprites are modified"},
+            ch_c_lobc_yesod_2 = {"No cards can have {C:dark_edition}Editions{}"},
+            ch_c_lobc_yesod_3 = {"After Ante {C:attention}3{}, removes all {C:attention}Jokers{}' text"},
+            ch_c_lobc_yesod_4 = {"After Ante {C:attention}6{}, removes all text"},
+
+            -- Hod
+            ch_c_lobc_hod = {"All {C:attention}Jokers{} are {C:attention}15%{} less effective"},
+            ch_c_lobc_hod_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are {C:attention}25%{} less effective"},
+            ch_c_lobc_hod_3 = {"After Ante {C:attention}6{}, all {C:attention}Jokers{} are {C:attention}35%{} less effective"},
+
+            -- Netzach
+            ch_c_lobc_netzach = {"After round ends, {C:blue}Hands{} and {C:red}Discards{} are not replenished"},
+            ch_c_lobc_netzach_2 = {"After Ante {C:attention}3{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention1{}"},
+            ch_c_lobc_netzach_3 = {"After Ante {C:attention}6{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention1{}"},
+            ch_c_lobc_netzach_4 = {"All {C:attention}Blinds{} cannot be skipped"},
         },
         dictionary = {
             k_lobc_breached = "Breached!",
@@ -1262,6 +1360,46 @@ return {
             ---- The Price of Silence ----
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
             k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
+
+            ---- Malkuth ----
+            k_lobc_malkuth_1 = "This is what you call a truly uncontrollable situation, manager.",
+            k_lobc_malkuth_2 = "Everything’s all jumbled up, messed up, flustered… hahaha...",
+            k_lobc_malkuth_3 = "It's unpredictable, isn't it?",
+            k_lobc_malkuth_4 = "I just wanted to help out.",
+            k_lobc_malkuth_5 = "Make sure you feel this horrible sense of helplessness to your core, right to your heart.",
+            k_lobc_malkuth_6 = "Please watch me, manager! I can take care of this situation, no problem!",
+            k_lobc_malkuth_7 = "Can’t you hear it? The sound of it struggling, as if to say it can’t fall asleep like this.",
+            k_lobc_malkuth_8 = "I see now how much fun it can be to look down on someone, manager...",
+
+            ---- Yesod ----
+            k_lobc_yesod_1 = "What was I really looking at all this time?",
+            k_lobc_yesod_2 = "This impenetrable darkness is inexplicably lonely.",
+            k_lobc_yesod_3 = "You will not be able to discern anything properly.",
+            k_lobc_yesod_4 = "What did we do wrong?",
+            k_lobc_yesod_5 = "You are unfit to be the manager if you cannot even remember the simplest rules.",
+            k_lobc_yesod_6 = "Now I see; I have been wallowing in despair, for such a long time.",
+            k_lobc_yesod_7 = "I tried to pretend that everything was fine, but in reality, it never was. I was dying on the inside..",
+            k_lobc_yesod_8 = "You should know that all the information you just mindlessly skimmed through was from somebody’s dire sacrifice.",
+
+            ---- Hod ----
+            k_lobc_hod_1 = "I want to help as much as I can here.",
+            k_lobc_hod_2 = "I wish everyone would rely on me...",
+            k_lobc_hod_3 = "How come nobody understands my kindness?",
+            k_lobc_hod_4 = "I’m the only one who cares about them… Why would they hate me...?",
+            k_lobc_hod_5 = "Our employees are suffering! See? Things just don’t work out without me here!",
+            k_lobc_hod_6 = "Forgive me, manager. If you can’t forgive, then please at least forget.",
+            k_lobc_hod_7 = "You all would be dead where you stand without me! Every single one of you!",
+            k_lobc_hod_8 = "I guess I just never was a good person from the start...",
+
+            ---- Netzach ----
+            k_lobc_netzach_1 = "Why do you want to continue prolonging these undesired lives? What’d you expect to see at the end of all this?",
+            k_lobc_netzach_2 = "Why must I wake up and do all the garbage I hate every single day?",
+            k_lobc_netzach_3 = "You weren’t the person I put my trust in.",
+            k_lobc_netzach_4 = "This place will never be safe, you know.",
+            k_lobc_netzach_5 = "I never wanted to be in this position anyways. I never asked for this. Not once.",
+            k_lobc_netzach_6 = "In the end, the hope that anyone will live on thanks to me is gone.",
+            k_lobc_netzach_7 = "Just leave me alone, it’s what you’re best at.",
+            k_lobc_netzach_8 = "All I want is to close my eyes and enjoy a good nap, just once.",
         }
     }
 }
