@@ -20,6 +20,8 @@ local chal = {
             {id = 'j_lobc_one_sin'},
             {id = 'j_luchador'},
             {id = 'j_chicot'},
+            {id = 'v_directors_cut'},
+            {id = 'v_retcon'},
         },
         banned_tags = {
             {id = 'tag_boss'}
