@@ -641,7 +641,7 @@ function ease_ante(mod)
     G.E_MANAGER:add_event(Event({
         trigger = "immediate",
         func = function()
-            if G.GAME.round_resets.ante > 3 then
+            if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 3 then
                 G.jokers:unhighlight_all()
                 if #G.jokers.cards > 1 then 
                     G.E_MANAGER:add_event(Event({ func = function() 
