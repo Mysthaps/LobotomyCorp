@@ -37,6 +37,7 @@ local joker_list = {
     "nameless_fetus",
     "all_around_helper",
     "fotdb",
+    "heart_of_aspiration",
 
     --- Rare
     --[[
@@ -288,16 +289,6 @@ function reset_blinds()
     end
 end
 
--- Make Lobcorp blinds unable to spawn normally
-local init_game_objectref = Game.init_game_object
-function Game.init_game_object(self)
-    local G = init_game_objectref(self)
-    for _, v in ipairs(blind_list) do
-        G.bosses_used["bl_lobc_"..v] = 1e300
-    end
-    return G
-end
-
 -- Ordeals
 local set_blindref = Blind.set_blind
 function Blind.set_blind(self, blind, reset, silent)
@@ -534,7 +525,7 @@ end
 -- Check for Old Lady's bullshit
 local add_to_deckref = Card.add_to_deck
 function Card.add_to_deck(self, from_debuff)
-    if not self.added_to_deck and self.ability.set == "Joker" then
+    if not self.added_to_deck and not from_debuff and self.ability.set == "Joker" then
         for _, v in ipairs(SMODS.find_card("j_lobc_old_lady")) do
             if self ~= v then
                 v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
@@ -619,6 +610,7 @@ function Game.start_run(self, args)
     if not args.savetext then
         if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
+        if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hand_reset = true end
     end
 end
 
@@ -673,6 +665,17 @@ function Card.flip(self)
 end
 
 --=============== MECHANICAL ===============--
+
+local init_game_objectref = Game.init_game_object
+function Game.init_game_object(self)
+    local G = init_game_objectref(self)
+    
+    -- Make Lobcorp blinds unable to spawn normally
+    for _, v in ipairs(blind_list) do
+        G.bosses_used["bl_lobc_"..v] = 1e300
+    end
+    return G
+end
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything
 local get_poker_hand_inforef = G.FUNCS.get_poker_hand_info
@@ -1029,7 +1032,7 @@ function Game.set_language(self)
         DESCSCALE = 1,
         FONT = love.graphics.newFont("Mods/LobotomyCorp/assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
     }
-    self.LANGUAGES["en-us"].font = self.FONTS[#self.FONTS]
+    self.LANGUAGES["en-us"].font = self.FONTS["lobc_blank"]
 end]]
 
 -- Clear all Cathys

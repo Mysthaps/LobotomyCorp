@@ -145,6 +145,13 @@ return {
                     "unfamiliar yet sorrowful.",
                 }
             },
+            und_j_lobc_heart_of_aspiration = {
+                name = "T-09-77",
+                text = {
+                    "Excessive aspiration would bring",
+                    "about unwarranted frenzy.",
+                }
+            },
             und_j_lobc_iron_maiden = {
                 name = "T-09-85",
                 text = {
@@ -169,7 +176,7 @@ return {
                 }
             },
             und_j_lobc_servant_of_wrath = {
-                name = "O-01-00",
+                name = "O-01-??",
                 text = {
                     "Friend... A being more special",
                     "than any other, calling and",
@@ -862,6 +869,47 @@ return {
                 }
             },
 
+            dis_j_lobc_heart_of_aspiration_1 = {
+                name = "T-09-77",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/4){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_heart_of_aspiration_2 = {
+                name = "T-09-77",
+                text = {
+                    "{C:blue}Hands{} and {C:red}Discards{} are",
+                    "not reset after each {C:attention}Blind{}",
+                    "{C:attention}(#4#/4){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_heart_of_aspiration_3 = {
+                name = "T-09-77",
+                text = {
+                    "{C:blue}Hands{} and {C:red}Discards{} are",
+                    "not reset after each {C:attention}Blind{}",
+                    "This Abnormality gains {X:mult,C:white} X#2# {}",
+                    "Mult after each hand",
+                    "{C:attention}(#5#/6){} ...",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})"
+                }
+            },
+            j_lobc_heart_of_aspiration = {
+                name = "The Heart of Aspiration",
+                text = {
+                    "{C:blue}Hands{} and {C:red}Discards{} are",
+                    "not reset after each {C:attention}Blind{}",
+                    "This Abnormality gains {X:mult,C:white} X#2# {}",
+                    "Mult after each hand",
+                    "Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
+                    "after defeating {C:attention}Boss Blind{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})"
+                }
+            },
+
             dis_j_lobc_iron_maiden_1 = {
                 name = "T-09-85",
                 text = {
@@ -958,7 +1006,7 @@ return {
             },
 
             dis_j_lobc_servant_of_wrath_1 = {
-                name = "O-01-00",
+                name = "O-01-??",
                 text = {
                     "{C:attention}(#2#/2){} ...",
                     "{C:attention}(#3#/3){} ...",
@@ -966,7 +1014,7 @@ return {
                 }
             },
             dis_j_lobc_servant_of_wrath_2 = {
-                name = "O-01-00",
+                name = "O-01-??",
                 text = {
                     "When round starts, plays {C:attention}5{}",
                     "random cards from your hand",
@@ -975,7 +1023,7 @@ return {
                 }
             },
             dis_j_lobc_servant_of_wrath_3 = {
-                name = "O-01-00",
+                name = "O-01-??",
                 text = {
                     "When round starts, plays {C:attention}5{}",
                     "random cards from your hand",

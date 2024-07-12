@@ -66,3 +66,36 @@ position = "at"
 payload = "if v.boss and v.boss.showdown then"
 match_indent = true
 
+# For "Hands and Discards do not reset" effects
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.current_round.discards_left = math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards)"
+position = "before"
+payload = "if not G.GAME.lobc_no_hands_reset then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.current_round.hands_played = 0"
+position = "before"
+payload = "end"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.current_round.discards_left = math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards)"
+position = "before"
+payload = "if not G.GAME.lobc_no_hands_reset then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.STATE = G.STATES.SHOP"
+position = "before"
+payload = "end"
+match_indent = true
+
