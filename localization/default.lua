@@ -159,6 +159,15 @@ return {
                     "be just fine.",
                 }
             },
+            und_j_lobc_scarecrow_searching = {
+                name = "F-01-87",
+                text = {
+                    "The city still remained",
+                    "a beautiful place where",
+                    "the emerald roads sparkled",
+                    "bright as ever.",
+                }
+            },
             und_j_lobc_shy_look = {
                 name = "O-01-92",
                 text = {
@@ -304,6 +313,7 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "{C:attention}-#1#%{} Blind Size",
+                    "{s:0.15} {}",
                     "{C:red}Debuffs{} first hand drawn"
                 }
             },
@@ -326,6 +336,7 @@ return {
                 name = "One Sin and Hundreds of Good Deeds",
                 text = {
                     "Played cards give {C:mult}+#1#{} Mult when scored",
+                    "{s:0.15} {}",
                     "Punishment shall begin to",
                     "rain down {C:attention}WhiteNight{}."
                 }
@@ -351,6 +362,7 @@ return {
                 name = "O-01-04",
                 text = {
                     "{X:mult,C:white} X#1# {} Mult",
+                    "{s:0.15} {}",
                     "If score is at least {X:mult,C:white} X5 {} of {C:attention}Blind{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
                     "{C:attention}(#4#/7){} ...",
@@ -360,8 +372,10 @@ return {
                 name = "The Queen of Hatred",
                 text = {
                     "{X:mult,C:white} X#1# {} Mult",
+                    "{s:0.15} {}",
                     "If score is at least {X:mult,C:white} X5 {} of {C:attention}Blind{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
+                    "{s:0.15} {}",
                     "At {X:mult,C:white} X1 {} Mult,",
                     "this Abnormality {C:attention}breaches{}"
                 }
@@ -387,6 +401,7 @@ return {
                 text = {
                     "Upgrade level of played",
                     "{C:attention}poker hand #1#{} time",
+                    "{s:0.15} {}",
                     "If {C:attention}consecutive{} hands have",
                     "the same {C:attention}poker hand{},",
                     "reduce its level to {C:attention}0{}",
@@ -416,6 +431,7 @@ return {
                 text = {
                     "Played cards permanently gain",
                     "{C:chips}+#1#{} Chips when scored",
+                    "{s:0.15} {}",
                     "When {C:attention}Blind{} is selected, forces",
                     "{C:attention}2{} cards to always be selected",
                     "{C:attention}(#4#/7){} ..."
@@ -426,8 +442,10 @@ return {
                 text = {
                     "Played cards permanently gain",
                     "{C:chips}+#1#{} Chips when scored",
+                    "{s:0.15} {}",
                     "When {C:attention}Blind{} is selected, forces",
                     "{C:attention}2{} cards to always be selected",
+                    "{s:0.15} {}",
                     "Destroys scored cards with",
                     "{C:chips}100{} or more bonus Chips"
                 }
@@ -454,6 +472,7 @@ return {
                 text = {
                     "This Abnormality gains",
                     "{C:chips}+#2#{} Chips each hand",
+                    "{s:0.15} {}",
                     "After the third hand played,",
                     "{C:red}debuffs{} all {C:attention}playing cards{}",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
@@ -481,6 +500,7 @@ return {
                 text = {
                     "This Abnormality gains",
                     "{C:mult}+#2#{} Mult each hand",
+                    "{s:0.15} {}",
                     "When another Joker is added,",
                     "this Abnormality loses {C:mult}#3#{} Mult",
                     "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
@@ -509,6 +529,7 @@ return {
                 name = "O-01-15",
                 text = {
                     "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
+                    "{s:0.15} {}",
                     "{X:mult,C:white} X#3# {} Mult if other hands are played",
                     "{C:attention}(#6#/8){} ...",
                     "{C:inactive}(Chosen hand: {C:attention}#1#{C:inactive})",
@@ -518,7 +539,9 @@ return {
                 name = "Nameless Fetus",
                 text = {
                     "{X:mult,C:white} X#2# {} Mult after playing chosen hand",
+                    "{s:0.15} {}",
                     "{X:mult,C:white} X#3# {} Mult if other hands are played",
+                    "{s:0.15} {}",
                     "If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
                     "and change chosen hand",
@@ -548,6 +571,7 @@ return {
                     "Retriggers the {C:attention}lowest{} ranked",
                     "scoring card in {C:attention}first hand{}",
                     "randomly from {C:attention}#1#{} to {C:attention}#2#{} times",
+                    "{s:0.15} {}",
                     "{C:attention}Playing cards{} are drawn {C:attention}face{}",
                     "{C:attention}down{} until hand is played"
                 }
@@ -575,6 +599,7 @@ return {
                 text = {
                     "Copies the abilities of leftmost",
                     "and rightmost {C:attention}Jokers{}",
+                    "{s:0.15} {}",
                     "When Blind is selected, flips and shuffles",
                     "all Jokers for the first hand",
                     "{C:attention}(#3#/9){} ..."
@@ -585,9 +610,11 @@ return {
                 text = {
                     "Copies the abilities of leftmost",
                     "and rightmost {C:attention}Jokers{}",
+                    "{s:0.15} {}",
                     "When Blind is selected, flips and shuffles",
                     "all Jokers for the first hand, then",
                     "takes the appearance of another Joker",
+                    "{s:0.15} {}",
                     "Cannot copy Jokers of selected type"
                 }
             },
@@ -613,8 +640,10 @@ return {
                 text = {
                     "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
                     "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
+                    "{s:0.15} {}",
                     "After gaining Mult {C:attention}4{} times,",
                     "destroys a random Joker",
+                    "{s:0.15} {}",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                     "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"
                 }
@@ -640,6 +669,7 @@ return {
                 name = "Plague Doctor",
                 text = {
                     "{C:attention}Baptizes{} a playing card each hand",
+                    "{s:0.15} {}",
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
                     "{C:attention}(#4#/?){} ..."
                 }
@@ -648,7 +678,9 @@ return {
                 name = "Plague Doctor",
                 text = {
                     "{C:attention}Baptizes{} a playing card each hand",
+                    "{s:0.15} {}",
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
                     "After {C:attention}12{} cards are {C:attention}blessed{},",
                     "{C:attention}breach{}."
                 }
@@ -665,7 +697,9 @@ return {
                 name = "T-03-46",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
+                    "{s:0.15} {}",
                     "{C:attention}Baptizes{} a playing card each hand",
+                    "{s:0.15} {}",
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
                     "{C:attention}(#3#/8){} ..."
                 }
@@ -674,8 +708,11 @@ return {
                 name = "WhiteNight",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
+                    "{s:0.15} {}",
                     "{C:attention}Baptizes{} a playing card each hand",
+                    "{s:0.15} {}",
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
                     "Retrigger {C:attention}blessed{} cards {C:attention}#2#{} times",
                 }
             },
@@ -700,6 +737,7 @@ return {
                 name = "Small Bird",
                 text = {
                     "{C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
                     "{C:attention}(#5#/8){} ...",
@@ -710,8 +748,10 @@ return {
                 name = "Punishing Bird",
                 text = {
                     "{C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
+                    "{s:0.15} {}",
                     "If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
@@ -740,6 +780,7 @@ return {
                 text = {
                     "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card",
+                    "{s:0.15} {}",
                     "The converted card becomes {V:1}Amplified{}",
                     "{C:attention}(#3#/7){} ...",
                 }
@@ -749,7 +790,9 @@ return {
                 text = {
                     "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card",
+                    "{s:0.15} {}",
                     "The converted card becomes {V:1}Amplified{}",
+                    "{s:0.15} {}",
                     "Each hand, after {C:attention}13{} seconds, destroys a",
                     "random {C:attention}other{} Joker and becomes {C:red}inactive{}",
                     "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"
@@ -778,6 +821,7 @@ return {
                 text = {
                     "If only {C:hearts}Hearts{} cards score, copy",
                     "non-{C:attention}marked{}, scoring cards to hand",
+                    "{s:0.15} {}",
                     "If no {C:hearts}Hearts{} are scored,",
                     "destroys all scored cards",
                     "{C:attention}(#3#/8){} ..."
@@ -788,8 +832,10 @@ return {
                 text = {
                     "If only {C:hearts}Hearts{} cards score, copy",
                     "non-{C:attention}marked{}, scoring cards to hand",
+                    "{s:0.15} {}",
                     "If no {C:hearts}Hearts{} are scored,",
                     "destroys all scored cards",
+                    "{s:0.15} {}",
                     "When this Abnormality is removed,",
                     "{C:attention}permanently{} {C:red}debuffs{} all {C:attention}marked{} cards"
                 }
@@ -815,6 +861,7 @@ return {
                 name = "T-01-68",
                 text = {
                     "This Abnormality is always {C:dark_edition}Eternal{}",
+                    "{s:0.15} {}",
                     "Gives {X:mult,C:white} X#2# {} per {C:dark_edition}Eternal{} Joker",
                     "{C:attention}(#5#/6){} ...",
                     "{C:inactive}(Currently gives {X:mult,C:white} X#1# {C:inactive})",
@@ -824,7 +871,9 @@ return {
                 name = "Funeral of the Dead Butterflies",
                 text = {
                     "This Abnormality is always {C:dark_edition}Eternal{}",
+                    "{s:0.15} {}",
                     "{X:mult,C:white} X#2# {} Mult for each {C:dark_edition}Eternal{} Joker",
+                    "{s:0.15} {}",
                     "When {C:attention}Boss Blind{} is defeated,",
                     "adds {C:dark_edition}Eternal{} to a random Joker",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})",
@@ -851,6 +900,7 @@ return {
                 name = "T-01-75",
                 text = {
                     "Destroys all {C:attention}scored{} cards",
+                    "{s:0.15} {}",
                     "This Abnormality gains {C:chips}+#3#{} Chips and",
                     "{C:mult}+#4#{} Mult when it destroys a card",
                     "{C:attention}(#7#/9){} ...",
@@ -861,8 +911,10 @@ return {
                 name = "The Mountain of Smiling Bodies",
                 text = {
                     "Destroys all {C:attention}scored{} cards",
+                    "{s:0.15} {}",
                     "This Abnormality gains {C:chips}+#3#{} Chips and",
                     "{C:mult}+#4#{} Mult when it destroys a card",
+                    "{s:0.15} {}",
                     "Increase {C:chips}Chips{} and {C:mult}Mult{} gain by {C:attention}#8#{}",
                     "if {C:attention}5{} cards are destroyed at once",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
@@ -891,6 +943,7 @@ return {
                 text = {
                     "{C:blue}Hands{} and {C:red}Discards{} are",
                     "not reset after each {C:attention}Blind{}",
+                    "{s:0.15} {}",
                     "This Abnormality gains {X:mult,C:white} X#2# {}",
                     "Mult after each hand",
                     "{C:attention}(#5#/6){} ...",
@@ -902,8 +955,10 @@ return {
                 text = {
                     "{C:blue}Hands{} and {C:red}Discards{} are",
                     "not reset after each {C:attention}Blind{}",
+                    "{s:0.15} {}",
                     "This Abnormality gains {X:mult,C:white} X#2# {}",
                     "Mult after each hand",
+                    "{s:0.15} {}",
                     "Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
                     "after defeating {C:attention}Boss Blind{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})"
@@ -914,16 +969,16 @@ return {
                 name = "T-09-85",
                 text = {
                     "{C:attention}(#5#/2){} ...",
-                    "{C:attention}(#6#/4){} ...",
-                    "{C:attention}(#7#/6){} ...",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/5){} ...",
                 }
             },
             dis_j_lobc_iron_maiden_2 = {
                 name = "T-09-85",
                 text = {
                     "Every second, gain {C:attention}#1# score",
-                    "{C:attention}(#6#/4){} ...",
-                    "{C:attention}(#7#/6){} ...",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/5){} ...",
                 }
             },
             dis_j_lobc_iron_maiden_3 = {
@@ -931,7 +986,7 @@ return {
                 text = {
                     "Every second, gain {C:attention}#1# score",
                     "and temporary {C:blue}-#2#{} hands",
-                    "{C:attention}(#7#/6){} ...",
+                    "{C:attention}(#7#/5){} ...",
                 }
             },
             j_lobc_iron_maiden = {
@@ -939,9 +994,53 @@ return {
                 text = {
                     "Every second, gain {C:attention}#1#{} score",
                     "and temporary {C:blue}-#2#{} hands",
+                    "{s:0.15} {}",
                     "After {C:attention}#3#{} seconds, {C:attention}doubles{}",
                     "score gain and increase",
                     "hands loss by {C:blue}#4#{}"
+                }
+            },
+
+            dis_j_lobc_scarecrow_searching_1 = {
+                name = "F-01-87",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#3#/4){} ...",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            dis_j_lobc_scarecrow_searching_2 = {
+                name = "F-01-87",
+                text = {
+                    "When this Abnormality is obtained and",
+                    "after each Blind, create {C:attention}2 {C:dark_edition}Negative {C:attention}Wisdoms",
+                    "{C:attention}(#3#/4){} ...",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            dis_j_lobc_scarecrow_searching_3 = {
+                name = "F-01-87",
+                text = {
+                    "When this Abnormality is obtained and",
+                    "after each Blind, create {C:attention}2 {C:dark_edition}Negative {C:attention}Wisdoms",
+                    "{s:0.15} {}",
+                    "After each hand, destroy a {C:attention}Wisdom{} to",
+                    "give scoring cards an {C:attention}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            j_lobc_scarecrow_searching = {
+                name = "Scarecrow Searching for Wisdom",
+                text = {
+                    "When this Abnormality is obtained and",
+                    "after each Blind, create {C:attention}2 {C:dark_edition}Negative {C:attention}Wisdoms",
+                    "{s:0.15} {}",
+                    "After each hand, destroy a {C:attention}Wisdom{} to",
+                    "give scoring cards an {C:attention}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
+                    "{s:0.15} {}",
+                    "If there are none, increase Blind Size by",
+                    "{C:attention}10%{} per {C:attention}Wisdom{} created {C:inactive}(once per round){}",
+                    "{C:inactive}({C:attention}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"
                 }
             },
 
@@ -965,6 +1064,7 @@ return {
                 name = "O-01-92",
                 text = {
                     "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
+                    "{s:0.15} {}",
                     "The face changes every #1# seconds",
                     "{C:attention}(#4#/6){} ...",
                 }
@@ -973,7 +1073,9 @@ return {
                 name = "Today's Shy Look",
                 text = {
                     "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
+                    "{s:0.15} {}",
                     "The face changes every {C:attention}#1#{} seconds",
+                    "{s:0.15} {}",
                     "Happier faces give more Chips and Mult",
                 }
             },
@@ -1000,6 +1102,7 @@ return {
                     "When {C:attention}Blind{} is selected, add",
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
                     "to a random other card",
+                    "{s:0.15} {}",
                     "{C:green}#1# in #2#{} chance to",
                     "{C:attention}permanently{} {C:red}debuff{} it instead",
                 }
@@ -1027,6 +1130,7 @@ return {
                 text = {
                     "When round starts, plays {C:attention}5{}",
                     "random cards from your hand",
+                    "{s:0.15} {}",
                     "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
                     "{C:attention}(#4#/7){} ...",
                 }
@@ -1036,7 +1140,9 @@ return {
                 text = {
                     "When round starts, plays {C:attention}5{}",
                     "random cards from your hand",
+                    "{s:0.15} {}",
                     "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
+                    "{s:0.15} {}",
                     "If {C:attention}three{} hands played this way are",
                     "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}",
                 }
@@ -1204,6 +1310,15 @@ return {
                     "score at least 40% of blind"
                 }
             }
+        },
+        EGO_Gift = {
+            c_lobc_wisdom = {
+                name = "Wisdom",
+                text = {
+                    "Creates a",
+                    "{C:attention}playing card{}",
+                }
+            }
         }
     },
     misc = {
@@ -1218,6 +1333,7 @@ return {
             lobc_he = "HE",
             lobc_waw = "WAW",
             lobc_aleph = "ALEPH",
+            ego_gift = "E.G.O Gift",
         },
         challenge_names = {
             c_lobc_dark_days = "Dark Days",
@@ -1240,10 +1356,9 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
 
             -- Malkuth
-            ch_c_lobc_malkuth = {"All {C:attention}Consumables{} are faced down"},
-            ch_c_lobc_malkuth_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are faced down"},
-            ch_c_lobc_malkuth_3 = {"Every Ante after Ante {C:attention}3{}, shuffles all owned {C:attention}Jokers{}"},
-            ch_c_lobc_malkuth_4 = {"After Ante {C:attention}6{}, all cards cannot be sold"},
+            ch_c_lobc_malkuth = {"After Ante 3, all {C:attention}Consumables{} are faced down"},
+            ch_c_lobc_malkuth_2 = {"After Ante {C:attention}6{}, all cards are faced down and can't be sold"},
+            ch_c_lobc_malkuth_3 = {"Every Ante after Ante {C:attention}6{}, shuffles all owned {C:attention}Jokers{}"},
 
             -- Yesod
             ch_c_lobc_yesod = {"Most sprites are modified"},
@@ -1270,6 +1385,8 @@ return {
             k_lobc_inactive = "inactive",
             k_lobc_punishing_bird = "Punishing Bird",
             k_lobc_iron_maiden = "We Can Change Anything",
+            k_ego_gift = "E.G.O Gift",
+            b_ego_gift_cards = "E.G.O Gifts",
 
             ---- Ordeals ----
 

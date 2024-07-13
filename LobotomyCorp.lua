@@ -38,6 +38,7 @@ local joker_list = {
     "all_around_helper",
     "fotdb",
     "heart_of_aspiration",
+    "scarecrow_searching",
 
     --- Rare
     --[[
@@ -122,6 +123,10 @@ local challenge_list = {
     "malkuth",
 }
 
+local consumable_list = {
+    "wisdom",
+}
+
 local badge_colors = {
     lobc_gift = HEX("A0243A"),
     lobc_blessed = HEX("380D36"),
@@ -139,6 +144,7 @@ local badge_colors = {
     lobc_violet = HEX("800080"),
     lobc_indigo = HEX("1E90FF"),
     lobc_base = HEX('C4C4C4'),
+    EGO_Gift = HEX('DD4930'),
 }
 -- Badge colors
 local get_badge_colourref = get_badge_colour
@@ -150,48 +156,42 @@ end
 for _, v in ipairs(joker_list) do
     local joker = NFS.load(mod_path .. "indiv_jokers/" .. v .. ".lua")()
 
-    if not joker then
-        sendErrorMessage("[LobotomyCorp] Cannot find joker with shorthand: " .. v)
-    else
-        --joker.discovered = true
-        joker.key = v
-        joker.atlas = "LobotomyCorp_Jokers"
-        --[[
-        if not joker.yes_pool_flag then
-            joker.yes_pool_flag = "allow_abnormalities_in_shop"
-        end
-        ]]--
-        --joker.config.discover_rounds = 0
-        
-        if not joker.pos then
-            joker.pos = {x = 0, y = 0}
-        end
+    --joker.discovered = true
+    joker.key = v
+    joker.atlas = "LobotomyCorp_Jokers"
+    --[[if not joker.yes_pool_flag then
+        joker.yes_pool_flag = "allow_abnormalities_in_shop"
+    end]]--
+    --joker.config.discover_rounds = 0
 
-        local joker_obj = SMODS.Joker(joker)
+    if not joker.pos then
+        joker.pos = { x = 0, y = 0 }
+    end
 
-        for k_, v_ in pairs(joker) do
-            if type(v_) == 'function' then
-                joker_obj[k_] = joker[k_]
+    local joker_obj = SMODS.Joker(joker)
+
+    for k_, v_ in pairs(joker) do
+        if type(v_) == 'function' then
+            joker_obj[k_] = joker[k_]
+        end
+    end
+
+    if not joker.set_sprites then
+        joker_obj.set_sprites = function(self, card, front)
+            card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
+            local count = lobc_get_usage_count(card.config.center_key)
+            if count < card.config.center.discover_rounds then
+                card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
             end
+            card.children.center:set_sprite_pos(card.config.center.pos)
         end
+    end
 
-        if not joker.set_sprites then
-            joker_obj.set_sprites = function(self, card, front)
-                card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
-                local count = lobc_get_usage_count(card.config.center_key)
-                if count < card.config.center.discover_rounds then
-                    card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
-                end
-                card.children.center:set_sprite_pos(card.config.center.pos)
-            end
-        end
-
-        if joker.risk then
-            joker_obj.set_badges = function(self, card, badges)
-                local color = nil
-                if joker.risk == "he" or joker.risk == "zayin" then color = G.C.UI.TEXT_DARK end
-                badges[#badges+1] = create_badge(localize("lobc_"..joker.risk, "labels"), get_badge_colour("lobc_"..joker.risk), color)
-            end
+    if joker.risk then
+        joker_obj.set_badges = function(self, card, badges)
+            local color = nil
+            if joker.risk == "he" or joker.risk == "zayin" then color = G.C.UI.TEXT_DARK end
+            badges[#badges + 1] = create_badge(localize("lobc_" .. joker.risk, "labels"), get_badge_colour("lobc_" .. joker.risk), color)
         end
     end
 end
@@ -200,22 +200,18 @@ end
 for _, v in ipairs(blind_list) do
     local blind = NFS.load(mod_path .. "indiv_blinds/" .. v .. ".lua")()
 
-    if not blind --[[or v ~= "whitenight"]] then
-        sendErrorMessage("[LobotomyCorp] Cannot find blind with shorthand: " .. v)
-    else
-        blind.key = v
-        blind.atlas = "LobotomyCorp_Blind"
-        --blind.discovered = true
-        if blind.color then
-            blind.boss_colour = badge_colors["lobc_"..blind.color]
-        end
+    blind.key = v
+    blind.atlas = "LobotomyCorp_Blind"
+    --blind.discovered = true
+    if blind.color then
+        blind.boss_colour = badge_colors["lobc_" .. blind.color]
+    end
 
-        local blind_obj = SMODS.Blind(blind)
+    local blind_obj = SMODS.Blind(blind)
 
-        for k_, v_ in pairs(blind) do
-            if type(v_) == 'function' then
-                blind_obj[k_] = blind[k_]
-            end
+    for k_, v_ in pairs(blind) do
+        if type(v_) == 'function' then
+            blind_obj[k_] = blind[k_]
         end
     end
 end
@@ -232,12 +228,26 @@ end
 for _, v in ipairs(challenge_list) do
     local chal = NFS.load(mod_path .. "challenges/" .. v .. ".lua")()
 
-    if not chal then
-        sendErrorMessage("[LobotomyCorp] Cannot find challenge with shorthand: " .. v)
-    else
-        chal.key = v
-        chal.loc_txt = ""
-        local chal_obj = SMODS.Challenge(chal)
+    chal.key = v
+    chal.loc_txt = ""
+    local chal_obj = SMODS.Challenge(chal)
+end
+
+-- Load consumables
+for _, v in ipairs(consumable_list) do
+    local cons = NFS.load(mod_path .. "indiv_consumable/" .. v .. ".lua")()
+
+    cons.key = v
+    cons.atlas = "LobotomyCorp_consumable"
+    if not cons.set then cons.set = "EGO_Gift" end
+    --cons.discovered = true
+
+    local cons_obj = SMODS.Consumable(cons)
+
+    for k_, v_ in pairs(cons) do
+        if type(v_) == 'function' then
+            cons_obj[k_] = cons[k_]
+        end
     end
 end
 
@@ -374,7 +384,7 @@ function Game.update_new_round(self, dt)
                 G.GAME.blind.lobc_original_blind = nil
             end
         else
-            if G.GAME.current_round.hands_left == 0 then 
+            if G.GAME.current_round.hands_left <= 0 then 
                 -- Original hand count must be less than 2 (Noon) or 3 (Dusk)
                 if G.GAME.current_round.hands_played < (G.P_BLINDS[original_blind].time == "dusk" and 3 or 2) and
                 -- Must win blind
@@ -601,6 +611,13 @@ function Card:lobc_check_amplified()
     end
 end
 
+-- E.G.O Gift sell costs
+local set_costref = Card.set_cost
+function Card.set_cost(self)
+    set_costref(self)
+    if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
+end
+
 --=============== CHALLENGES ===============--
 
 -- Apply Modifiers to run
@@ -619,8 +636,8 @@ local card_initref = Card.init
 function Card.init(self, X, Y, W, H, card, center, params)
     card_initref(self, X, Y, W, H, card, center, params)
     if G.GAME and G.GAME.modifiers.lobc_malkuth then
-        if self.ability.consumeable or
-           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 3) then
+        if (self.ability.consumeable and G.GAME.round_resets.ante > 3) or
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
             self.facing = 'back'
             self.sprite_facing = 'back'
             self.pinch.x = false
@@ -635,7 +652,7 @@ function ease_ante(mod)
     G.E_MANAGER:add_event(Event({
         trigger = "immediate",
         func = function()
-            if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 3 then
+            if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 6 then
                 G.jokers:unhighlight_all()
                 if #G.jokers.cards > 1 then 
                     G.E_MANAGER:add_event(Event({ func = function() 
@@ -657,7 +674,7 @@ local card_flipref = Card.flip
 function Card.flip(self)
     if G.GAME and G.GAME.modifiers.lobc_malkuth then
         if self.ability.consumeable or
-           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 3) then
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
             return
         end
     end
@@ -786,10 +803,10 @@ function G.FUNCS.draw_from_hand_to_discard(e)
     if G.GAME.blind.config.blind.color then
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
-            delay = G.SETTINGS.GAMESPEED * 5,
+            delay = G.SETTINGS.GAMESPEED * 4,
             blockable = false,
             func = (function()
-                local hold_time = G.SETTINGS.GAMESPEED * 6
+                local hold_time = G.SETTINGS.GAMESPEED * 5
                 local blind = G.GAME.blind
                 local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
                 play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.5)
@@ -829,8 +846,8 @@ function Card.update(self, dt)
 
     -- Card flipped (Malkuth)
     if G.GAME and G.GAME.modifiers.lobc_malkuth then
-        if self.ability.consumeable or
-           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 3) then
+        if (self.ability.consumeable and G.GAME.round_resets.ante > 3) or
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
             self.facing = 'back'
             self.sprite_facing = 'back'
             self.pinch.x = false
@@ -981,6 +998,29 @@ SMODS.Atlas({
     path = "LobotomyCorp_modifiers.png",
     px = 71,
     py = 95
+})
+SMODS.Atlas({
+    key = "LobotomyCorp_consumable",
+    path = "LobotomyCorp_consumable.png",
+    px = 71,
+    py = 95
+})
+
+-- ConsumableType (guh)
+SMODS.ConsumableType({
+    key = 'EGO_Gift', -- not actually ego gifts... more like tokens....
+    -- Remove all the collection UI stuff
+    --[[create_UIBox_your_collection = nil,
+    inject = function(self)
+        G.P_CENTER_POOLS[self.key] = G.P_CENTER_POOLS[self.key] or {}
+        G.localization.descriptions[self.key] = G.localization.descriptions[self.key] or {}
+        G.C.SET[self.key] = self.primary_colour
+        G.C.SECONDARY_SET[self.key] = self.secondary_colour
+    end,]]--
+    primary_colour = HEX('424e54'),
+    secondary_colour = HEX("dd4930"),
+    loc_txt = {},
+    shop_rate = 0,
 })
 
 -- Shaders

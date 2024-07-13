@@ -11,7 +11,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "zayin",
-    discover_rounds = 6,
+    discover_rounds = 5,
     loc_txt = {},
 }
 
@@ -34,11 +34,13 @@ joker.update = function(self, card, dt)
             end
 
             if chips_check or G.GAME.current_round.hands_left <= 0 then
-                G.GAME.current_round.hands_left = 0
                 play_sound("lobc_iron_maiden_end", 1, 0.4)
                 G.STATE = G.STATES.HAND_PLAYED
                 G.STATE_COMPLETE = true
-                if G.GAME.current_round.hands_left <= 0 then G.GAME.lobc_death_text = localize("k_lobc_iron_maiden") end
+                if G.GAME.current_round.hands_left <= 0 then 
+                    G.GAME.current_round.hands_left = 0
+                    G.GAME.lobc_death_text = localize("k_lobc_iron_maiden") 
+                end
                 end_round()
             else
                 play_sound("lobc_iron_maiden_tick", 1, 0.4)
@@ -64,13 +66,13 @@ end
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { 
         number_format(card.ability.extra.blind_gain), card.ability.extra.hands_loss, card.ability.extra.interval, card.ability.extra.loss_increase,
-        card:check_rounds(2), card:check_rounds(4), card:check_rounds(6) }
+        card:check_rounds(2), card:check_rounds(3), card:check_rounds(5) }
     local desc_key = self.key
     if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(4) < 4 then
+    elseif card:check_rounds(3) < 3 then
         desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(6) < 6 then
+    elseif card:check_rounds(5) < 5 then
         desc_key = 'dis_'..desc_key..'_3'
     end
 

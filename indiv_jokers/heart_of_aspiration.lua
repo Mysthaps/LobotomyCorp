@@ -1,6 +1,6 @@
 local joker = {
     name = "The Heart of Aspiration",
-    config = {extra = {reset = 2, x_mult = 2, gain = 1}}, rarity = 2, cost = 6,
+    config = {extra = {reset = 1, x_mult = 1, gain = 1.5}}, rarity = 2, cost = 6,
     pos = {x = 9, y = 4}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -49,6 +49,7 @@ joker.add_to_deck = function(self, card, from_debuff)
 end
 
 joker.remove_from_deck = function(self, card, from_debuff)
+    -- potential bug: two hearts of aspiration debuffed won't clear the no hands reset. too lazy to fix
     if not G.GAME.modifiers.lobc_netzach and #SMODS.find_card("j_lobc_heart_of_aspiration") == 1 then
         G.GAME.lobc_no_hands_reset = false
     end

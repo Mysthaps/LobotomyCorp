@@ -1,6 +1,6 @@
 local joker = {
     name = "Scorched Girl",
-    config = {extra = 30}, rarity = 2, cost = 5,
+    config = {extra = 20}, rarity = 2, cost = 5,
     pos = {x = 1, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,

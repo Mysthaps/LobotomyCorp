@@ -72,7 +72,7 @@ joker.update = function(self, card, dt)
 end
 
 joker.calculate = function(self, card, context)
-    if context.setting_blind and not card.getting_sliced then
+    if context.setting_blind and not card.getting_sliced and not context.blueprint then
         card.ability.extra.elapsed = 0
         card.ability.extra.seconds = 0
         card.ability.extra.active = true
