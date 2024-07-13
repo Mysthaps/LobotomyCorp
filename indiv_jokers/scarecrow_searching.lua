@@ -109,10 +109,13 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     local desc_key = self.key
     if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(4) < 4 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(6) < 6 then
-        desc_key = 'dis_'..desc_key..'_3'
+    else
+        info_queue[#info_queue+1] = G.P_CENTERS["c_lobc_wisdom"]
+        if card:check_rounds(4) < 4 then
+            desc_key = 'dis_'..desc_key..'_2'
+        elseif card:check_rounds(6) < 6 then
+            desc_key = 'dis_'..desc_key..'_3'
+        end
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}

@@ -420,13 +420,6 @@ function Game.update_new_round(self, dt)
     end
 end
 
--- Reset hands for Crimson Dusk/Noon
-local new_roundref = new_round
-function new_round()
-    new_roundref()
-    G.GAME.current_round.lobc_hands_given = 0
-end
-
 -- Crimson Dawn selling card
 local sell_cardref = Card.sell_card
 function Card.sell_card(self)
@@ -819,6 +812,30 @@ function G.FUNCS.draw_from_hand_to_discard(e)
         }))
     end
     draw_from_hand_to_discardref(e)
+end
+
+local new_roundref = new_round
+function new_round()
+    new_roundref()
+    -- Reset hands for Crimson Dusk/Noon
+    G.GAME.current_round.lobc_hands_given = 0
+
+    -- Kill on new round if hands is 0
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            if G.GAME.current_round.hands_left <= 0 then
+                G.STATE = G.STATES.GAME_OVER
+                if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
+                    G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
+                end
+                G:save_settings()
+                G.FILE_HANDLER.force = true
+                G.STATE_COMPLETE = false
+            end
+        return true
+        end
+    }))
 end
 
 --=============== OBSERVATION ===============--
