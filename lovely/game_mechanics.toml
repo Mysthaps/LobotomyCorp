@@ -78,9 +78,9 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = "G.GAME.current_round.hands_played = 0"
+pattern = "G.GAME.current_round.hands_left = (math.max(1, G.GAME.round_resets.hands + G.GAME.round_bonus.next_hands))"
 position = "before"
-payload = "end"
+payload = "after"
 match_indent = true
 
 [[patches]]
@@ -94,8 +94,8 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
-pattern = "G.STATE = G.STATES.SHOP"
-position = "before"
+pattern = "G.GAME.current_round.hands_left = (math.max(1, G.GAME.round_resets.hands + G.GAME.round_bonus.next_hands))"
+position = "after"
 payload = "end"
 match_indent = true
 
