@@ -34,7 +34,7 @@ joker.calculate = function(self, card, context)
                     play_sound('tarot2', 0.76, 0.4);return true end}))
                 play_sound('tarot2', 1, 0.4)
             else
-                local edition = poll_edition('old_faith_edition', nil, true, true)
+                local edition = poll_edition('old_faith_edition', nil, nil, true)
                 selected_card:set_edition(edition, true)
             end
             card:juice_up()
