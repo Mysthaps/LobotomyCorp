@@ -1012,8 +1012,7 @@ return {
             dis_j_lobc_scarecrow_searching_2 = {
                 name = "F-01-87",
                 text = {
-                    "When this Abnormality is obtained and",
-                    "after each Blind, create {C:attention}2 {C:dark_edition}Negative {C:attention}Wisdoms",
+                    "After each Blind, create {C:attention}2 {C:tarot}Wisdoms {C:inactive}(Must have room)",
                     "{C:attention}(#3#/4){} ...",
                     "{C:attention}(#4#/6){} ...",
                 }
@@ -1021,8 +1020,7 @@ return {
             dis_j_lobc_scarecrow_searching_3 = {
                 name = "F-01-87",
                 text = {
-                    "When this Abnormality is obtained and",
-                    "after each Blind, create {C:attention}2 {C:dark_edition}Negative {C:attention}Wisdoms",
+                    "After each Blind, create {C:attention}2 {C:tarot}Wisdoms {C:inactive}(Must have room)",
                     "{s:0.15} {}",
                     "After each hand, destroy a {C:attention}Wisdom{} to",
                     "give scoring cards an {C:attention}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
@@ -1032,15 +1030,15 @@ return {
             j_lobc_scarecrow_searching = {
                 name = "Scarecrow Searching for Wisdom",
                 text = {
-                    "When this Abnormality is obtained and",
-                    "after each Blind, create {C:attention}2 {C:dark_edition}Negative {C:attention}Wisdoms",
+                    "After each Blind, create {C:attention}2{}",
+                    "{C:tarot}Wisdom{} cards {C:inactive}(Must have room)",
                     "{s:0.15} {}",
-                    "After each hand, destroy a {C:attention}Wisdom{} to",
-                    "give scoring cards an {C:attention}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
+                    "After each hand, destroy a {C:tarot}Wisdom{} to give",
+                    "scoring cards an {C:red}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
                     "{s:0.15} {}",
                     "If there are none, increase Blind Size by",
-                    "{C:attention}10%{} per {C:attention}Wisdom{} created {C:inactive}(once per round){}",
-                    "{C:inactive}({C:attention}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"
+                    "{C:attention}10%{} per {C:tarot}Wisdom{} created {C:inactive}(once per round){}",
+                    "{C:inactive}({C:tarot}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"
                 }
             },
 
@@ -1091,8 +1089,8 @@ return {
                 name = "T-09-91",
                 text = {
                     "When {C:attention}Blind{} is selected, add",
-                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
-                    "to a random other card",
+                    "an {C:dark_edition}edition{} to a random card",
+                    "{C:inactive}(Joker, consumable or playing card)",
                     "{C:attention}(#4#/4){} ...",
                 }
             },
@@ -1100,8 +1098,8 @@ return {
                 name = "Old Faith and Promise",
                 text = {
                     "When {C:attention}Blind{} is selected, add",
-                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
-                    "to a random other card",
+                    "an {C:dark_edition}edition{} to a random card",
+                    "{C:inactive}(Joker, consumable or playing card)",
                     "{s:0.15} {}",
                     "{C:green}#1# in #2#{} chance to",
                     "{C:attention}permanently{} {C:red}debuff{} it instead",

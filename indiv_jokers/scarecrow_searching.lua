@@ -57,7 +57,7 @@ joker.calculate = function(self, card, context)
         else
             if card.ability.extra.active then
                 card.ability.extra.active = false
-                local chips = (G.GAME.blind.chips * (1 + card.ability.extra.destroyed / 10))
+                local chips = (G.GAME.blind.chips * (1 + card.ability.extra.created / 10))
                 if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
                 G.GAME.blind.chips = chips
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
@@ -72,32 +72,13 @@ joker.calculate = function(self, card, context)
 
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
         play_sound('timpani')
-        for i = 1, 2 do
+        for i = 1, math.min(2, G.consumeables.config.card_limit - #G.consumeables.cards) do
             local _card = create_card('EGO_Gift', G.consumeables, nil, nil, nil, nil, 'c_lobc_wisdom', 'scarecrow')
-            _card:set_edition({negative = true}, nil, true)
             _card:add_to_deck()
             G.consumeables:emplace(_card)
             card.ability.extra.created = card.ability.extra.created + 1
         end
         card:juice_up(0.3, 0.5)
-    end
-end
-
-joker.add_to_deck = function(self, card, from_debuff)
-    if not from_debuff then
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                play_sound('timpani')
-                for i = 1, 2 do
-                    local _card = create_card('EGO_Gift', G.consumeables, nil, nil, nil, nil, 'c_lobc_wisdom', 'scarecrow')
-                    _card:set_edition({negative = true}, nil, true)
-                    _card:add_to_deck()
-                    G.consumeables:emplace(_card)
-                    card.ability.extra.created = card.ability.extra.created + 1
-                end
-                card:juice_up(0.3, 0.5)
-            return true 
-            end 
-        }))
     end
 end
 
