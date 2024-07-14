@@ -1337,6 +1337,9 @@ return {
             c_lobc_dark_days = "Dark Days",
             c_lobc_ordeals = "Increased Ordeals",
             c_lobc_malkuth = "Control",
+            c_lobc_yesod = "Information",
+            c_lobc_hod = "Training",
+            c_lobc_netzach = "Safety",
         },
         v_text = {
             ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},

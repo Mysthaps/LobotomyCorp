@@ -11,9 +11,12 @@ local chal = {
     },
     restrictions = {
         banned_cards = {
+            {id = 'j_burglar'},
             {id = 'j_chicot'},
             {id = 'v_directors_cut'},
             {id = 'v_retcon'},
+            {id = 'v_hieroglyph'},
+            {id = 'v_petroglyph'},
         },
     },
     unlocked = function(self)
