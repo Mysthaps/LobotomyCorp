@@ -13,7 +13,8 @@ to_big = to_big or function(num)
     return num
 end
 
-local mod_path = string.gsub(SMODS.current_mod.path, [[\]], "/")
+local mod_path = SMODS.current_mod.path
+local folder = string.match(mod_path, "[Mm]ods.*")
 
 --=============== STEAMODDED OBJECTS ===============--
 -- To disable any object, comment it out by adding -- at the start of the line.
@@ -1080,16 +1081,16 @@ local set_languageref = Game.set_language
 function Game.set_language(self)
     set_languageref(self)
     self.FONTS["blank"] = {
-        file = mod_path.."assets/fonts/AdobeBlank.ttf", 
+        file = folder.."assets/fonts/AdobeBlank.ttf", 
         render_scale = self.TILESIZE*10, 
         TEXT_HEIGHT_SCALE = 0.83, 
         TEXT_OFFSET = {x=10,y=-20}, 
         FONTSCALE = 0.1, 
         squish = 1, 
         DESCSCALE = 1,
-        FONT = love.graphics.newFont(mod_path.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
+        FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
     }
-    --self.LANGUAGES["en-us"].font = self.FONTS["lobc_blank"]
+    self.LANGUAGES["en-us"].font = self.FONTS["blank"]
 end]]
 
 -- Clear all Cathys
