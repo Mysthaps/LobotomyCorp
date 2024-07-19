@@ -50,7 +50,7 @@ end
 
 joker.remove_from_deck = function(self, card, from_debuff)
     -- potential bug: two hearts of aspiration debuffed won't clear the no hands reset. too lazy to fix
-    if not G.GAME.modifiers.lobc_netzach and #SMODS.find_card("j_lobc_heart_of_aspiration") == 1 then
+    if not G.GAME.modifiers.lobc_netzach and #SMODS.find_card("j_lobc_heart_of_aspiration") == 0 then
         G.GAME.lobc_no_hands_reset = false
     end
 end
