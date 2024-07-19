@@ -87,6 +87,26 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_laetitia = {
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
+            { text = ")" }
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(2) >= 2
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- "Shoutouts to the time I called laetitia lolita" - not me

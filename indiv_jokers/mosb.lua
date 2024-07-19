@@ -89,6 +89,47 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_mosb = {
+        text = {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+            { text = " +", colour = G.C.MULT },
+            { ref_table = "card.ability.extra", ref_value = "mult",  colour = G.C.MULT }
+        },
+        reminder_text = {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+            { text = " +", colour = G.C.MULT },
+            { ref_table = "card.joker_display_values", ref_value = "mult",  colour = G.C.MULT }
+        },
+        calc_function = function(card)
+            local chips, mult = 0, 0
+            local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+            local _, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
+
+            for i = 1, #scoring_hand do
+                chips = chips + card.ability.extra.chips_gain
+                mult = mult + card.ability.extra.mult_gain
+            end
+            
+            card.joker_display_values.mult = mult
+            card.joker_display_values.chips = chips
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(6) >= 6
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(6) >= 6
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- lebron james, scream if you love project moon

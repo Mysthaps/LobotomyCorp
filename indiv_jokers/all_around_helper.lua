@@ -73,6 +73,40 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+-- JokerDisplay compat
+-- Modified from OppositeWolf770's implementation
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_all_around_helper = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                }
+            }
+        },
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "remaining_text", },
+            { text = ")" }
+        },
+        calc_function = function(card)
+            card.joker_display_values.remaining_text = localize{type = 'variable', key = 'loyalty_inactive', vars = {4 - card.ability.extra.counter}}
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(3) >= 3
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(6) >= 6
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- reddit the abnormality

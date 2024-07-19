@@ -77,6 +77,29 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_heart_of_aspiration = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                }
+            }
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(4) >= 4
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- funny free clashing abno card

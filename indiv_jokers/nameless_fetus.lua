@@ -70,6 +70,41 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_nameless_fetus = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                }
+            }
+        },
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "chosen_hand", colour = G.C.IMPORTANT },
+            { text = ")" },
+        },
+        calc_function = function(card)
+            local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+            local text, _, _= JokerDisplay.evaluate_hand(hand)
+
+            card.joker_display_values.chosen_hand = localize(card.ability.extra.chosen_hand, 'poker_hands')
+            card.joker_display_values.x_mult = (card.ability.extra.chosen_hand == text or text == "NULL") and card.ability.extra.x_mult or card.ability.extra.x_mult_penalty
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(2) >= 2
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- let's go gambling!

@@ -47,10 +47,15 @@ joker.update = function(self, card, dt)
             end
 
             if card.ability.extra.seconds >= card.ability.extra.interval then
-                card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+                card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
                 card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase
                 card.ability.extra.seconds = card.ability.extra.seconds - card.ability.extra.interval
+                -- Update JokerDisplay text
+                if card.joker_display_values then
+                    card.joker_display_values.blind_gain = number_format(card.ability.extra.blind_gain)
+                    card.ability.extra.hands_loss = card:check_rounds(3) >= 3 and "-"..card.ability.extra.hands_loss or "???"
+                end
             end
         end
     end
@@ -90,6 +95,31 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
             }}
         }
     end
+end
+
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_iron_maiden = {
+        text = {
+            { ref_table = "card.joker_display_values", ref_value = "blind_gain", colour = G.C.IMPORTANT },
+            { text = ", " },
+            { ref_table = "card.joker_display_values", ref_value = "hands_loss", colour = G.C.BLUE }
+        },
+        calc_function = function(card)
+            card.joker_display_values.blind_gain = number_format(card.ability.extra.blind_gain)
+            card.joker_display_values.hands_loss = card:check_rounds(3) >= 3 and "-"..card.ability.extra.hands_loss or "???"
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(2) >= 2
+                if text.children[3] then text.children[3].config.colour = card:check_rounds(3) >= 3 and G.C.BLUE or G.C.UI.TEXT_INACTIVE end
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
 end
 
 return joker

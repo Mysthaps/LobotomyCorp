@@ -50,6 +50,27 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_happy_teddy_bear = {
+        text = {
+            { ref_table = "card.joker_display_values", ref_value = "hand_text", colour = G.C.ORANGE },
+        },
+        calc_function = function(card)
+            card.joker_display_values.hand_text = card.ability.extra.last_hand_played and localize(card.ability.extra.last_hand_played, 'poker_hands') or localize('k_none')
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(6) >= 6
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- happy teddy bear fervent emotions go

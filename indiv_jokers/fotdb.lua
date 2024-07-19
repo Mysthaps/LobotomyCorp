@@ -54,10 +54,12 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         card.ability.extra.x_mult, card.ability.extra.gain, card:check_rounds(1), card:check_rounds(3), card:check_rounds(6)
     }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
+    if card:check_rounds(1) < 1 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(6) < 6 then
+    elseif card:check_rounds(3) < 3 then
         desc_key = 'dis_'..desc_key..'_2'
+    elseif card:check_rounds(6) < 6 then
+        desc_key = 'dis_'..desc_key..'_3'
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
@@ -66,6 +68,29 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
     end
+end
+
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_fotdb = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                }
+            }
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(3) >= 3
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
 end
 
 return joker
