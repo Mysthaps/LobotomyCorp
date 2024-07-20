@@ -24,6 +24,7 @@ joker.calculate = function(self, card, context)
             local selected_card = pseudorandom_element(available_cards, pseudoseed("fotdb"))
             selected_card:set_eternal(true)
             selected_card:juice_up()
+            play_sound("lobc_butterfly_attack", 1, 0.2)
         end
     end
 

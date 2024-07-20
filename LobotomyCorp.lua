@@ -105,6 +105,7 @@ local sound_list = {
     silence_destroy = "Clock_NoCreate",
     silence_tick = "Clock_Tick",
     helper_destroy = "Robo_Rise",
+    butterfly_attack = "Butterfly_Attack",
 
     green_start = "Machine_Start",
     green_end = "Machine_End",
