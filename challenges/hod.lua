@@ -9,6 +9,9 @@ local chal = {
         },
     },
     restrictions = {
+        banned_tags = {
+            {id = 'tag_boss'}
+        },
         banned_cards = {
             {id = 'j_chicot'},
             {id = 'j_lobc_iron_maiden'},
