@@ -107,6 +107,48 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_whitenight = {
+        text = {
+            { text = "+", colour = G.C.MULT },
+            {
+                ref_table = "card.joker_display_values",
+                ref_value = "mult",
+                colour = G.C.MULT
+            }
+        },
+
+        calc_function = function(card)
+            local mult = 0
+            local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+            local _, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
+
+            for i = 1, #scoring_hand do
+                if not scoring_hand[i].debuff and scoring_hand[i].ability.plague_doctor_baptism then
+                    mult = mult + card.ability.extra.mult
+                end
+            end
+
+            card.joker_display_values.mult = mult
+        end,
+
+        retrigger_function = function(card, scoring_hand, held_in_hand)
+            if held_in_hand then return 0 end
+            return card.ability.plague_doctor_baptism and 3 or 0
+        end,
+
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- just reset if you get plague doctor on day 11 lmao

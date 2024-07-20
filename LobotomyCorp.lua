@@ -241,7 +241,7 @@ for _, v in ipairs(consumable_list) do
     cons.key = v
     cons.atlas = "LobotomyCorp_consumable"
     if not cons.set then cons.set = "EGO_Gift" end
-    --cons.discovered = true
+    cons.discovered = true
 
     local cons_obj = SMODS.Consumable(cons)
 

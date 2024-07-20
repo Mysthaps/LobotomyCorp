@@ -125,6 +125,57 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_servant_of_wrath = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                }
+            }
+        },
+        extra = {
+            {
+                { text = "(", colour = G.C.UI.TEXT_INACTIVE },
+                { ref_table = "card.ability.extra", ref_value = "counter", colour = G.C.IMPORTANT },
+                { text = "/3)", colour = G.C.UI.TEXT_INACTIVE }
+            }
+        },
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "high_card", colour = G.C.IMPORTANT },
+            { text = ")" }
+        },
+        extra_config = { scale = 0.3 },
+        calc_function = function(card)
+            local count = 0
+            local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+            local _, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
+
+            for k, v in pairs(scoring_hand) do
+                count = count + JokerDisplay.calculate_card_triggers(v, not (text == 'Unknown') and scoring_hand or nil)
+            end
+
+            card.joker_display_values.x_mult = G.GAME.current_round.hands_played == 0 and tonumber(string.format("%.2f", card.ability.extra.x_mult ^ count)) or 1
+            card.joker_display_values.high_card = localize("High Card", 'poker_hands')
+        end,
+
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(3) >= 3
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(7) >= 7
+            end
+            if extra then
+                extra.states.visible = card:check_rounds(7) >= 7
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- tiphxodia gaming

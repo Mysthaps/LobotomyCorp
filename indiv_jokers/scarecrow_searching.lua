@@ -107,6 +107,26 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_scarecrow_searching = {
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.ability.extra", ref_value = "created", colour = G.C.PURPLE },
+            { text = ")" },
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(6) >= 6
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- free prudence grinder ngl

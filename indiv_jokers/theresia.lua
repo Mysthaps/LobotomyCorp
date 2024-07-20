@@ -76,6 +76,31 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_theresia = {
+        text = {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        },
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.ability.extra", ref_value = "hands_played" },
+            { text = ")" }
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(2) >= 2
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(4) >= 4
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- Shelter from the 27th of March lite

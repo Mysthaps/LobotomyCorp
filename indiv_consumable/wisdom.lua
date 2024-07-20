@@ -4,7 +4,6 @@ local cons = {
     cost = 0,
     pos = {x = 0, y = 0},
     loc_txt = {},
-    discovered = true,
 }
 
 -- Available if hand is active

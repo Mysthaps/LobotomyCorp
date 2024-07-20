@@ -87,6 +87,26 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_red_shoes = {
+        reminder_text = {
+            { text = "(" },
+            { text = "100", colour = G.C.CHIPS },
+            { text = ")" },
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+            end
+            if reminder_text then
+                reminder_text.states.visible = card:check_rounds(7) >= 7
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- pink shoes aberration

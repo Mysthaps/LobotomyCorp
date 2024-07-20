@@ -59,6 +59,34 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_old_faith = {
+        extra = {
+            {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "odds" },
+                { text = " in "},
+                { ref_table = "card.ability", ref_value = "extra" },
+                { text = ")"},
+            }
+        },
+        extra_config = { colour = G.C.GREEN, scale = 0.3 },
+        calc_function = function(card)
+            card.joker_display_values.odds = G.GAME and G.GAME.probabilities.normal or 1
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+            end
+            if reminder_text then
+            end
+            if extra then
+                extra.states.visible = card:check_rounds(4) >= 4
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- the one that nobody cares

@@ -87,7 +87,7 @@ if SMODS.Mods.JokerDisplay then
         },
         reminder_text = {
             { text = "(" },
-            { ref_table = "card.joker_display_values", ref_value = "remaining_text", },
+            { ref_table = "card.joker_display_values", ref_value = "remaining_text", colour = G.C.IMPORTANT },
             { text = ")" }
         },
         calc_function = function(card)

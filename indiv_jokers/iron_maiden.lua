@@ -54,7 +54,7 @@ joker.update = function(self, card, dt)
                 -- Update JokerDisplay text
                 if card.joker_display_values then
                     card.joker_display_values.blind_gain = number_format(card.ability.extra.blind_gain)
-                    card.ability.extra.hands_loss = card:check_rounds(3) >= 3 and "-"..card.ability.extra.hands_loss or "???"
+                    card.joker_display_values.hands_loss = card:check_rounds(3) >= 3 and "-"..card.ability.extra.hands_loss or "???"
                 end
             end
         end

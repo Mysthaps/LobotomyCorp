@@ -95,13 +95,13 @@ if SMODS.Mods.JokerDisplay then
             { text = "+", colour = G.C.CHIPS },
             { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
             { text = " +", colour = G.C.MULT },
-            { ref_table = "card.ability.extra", ref_value = "mult",  colour = G.C.MULT }
+            { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
         },
-        reminder_text = {
+        extra = {
             { text = "+", colour = G.C.CHIPS },
             { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
             { text = " +", colour = G.C.MULT },
-            { ref_table = "card.joker_display_values", ref_value = "mult",  colour = G.C.MULT }
+            { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
         },
         calc_function = function(card)
             local chips, mult = 0, 0
@@ -121,9 +121,9 @@ if SMODS.Mods.JokerDisplay then
                 text.states.visible = card:check_rounds(6) >= 6
             end
             if reminder_text then
-                reminder_text.states.visible = card:check_rounds(6) >= 6
             end
             if extra then
+                extra.states.visible = card:check_rounds(6) >= 6
             end
             return false
         end

@@ -1,15 +1,15 @@
 local faces = {
-    {chips = 40, mult = 15},
-    {chips = 20, mult = 5},
+    {chips = 30, mult = 15},
+    {chips = 15, mult = 5},
     {chips = 5, mult = 1},
-    {chips = -20, mult = -5},
-    {chips = -40, mult = -15}
+    {chips = -15, mult = -5},
+    {chips = -30, mult = -15}
 }
 
 local joker = {
     name = "Today's Shy Look",
     config = {extra = {
-        chips = 5, mult = 1, face = 1,
+        chips = 30, mult = 15, face = 1,
         elapsed = 0, interval = 2
     }}, rarity = 1, cost = 4,
     pos = {x = 4, y = 6}, 
@@ -79,6 +79,12 @@ joker.update = function(self, card, dt)
             card.ability.extra.chips = faces[card.ability.extra.face].chips
             card.ability.extra.mult = faces[card.ability.extra.face].mult
             card.children.mood:set_sprite_pos({x = card.ability.extra.face - 1, y = 0})
+
+            -- Update JokerDisplay text
+            if card.joker_display_values then
+                card.joker_display_values.sign_chips = card.ability.extra.chips >= 0 and "+" or ""
+                card.joker_display_values.sign_mult = card.ability.extra.mult >= 0 and "+" or ""
+            end
         end
     end
 end
@@ -100,6 +106,32 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
     end
+end
+
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_shy_look = {
+        text = {
+            { ref_table = "card.joker_display_values", ref_value = "sign_chips", colour = G.C.CHIPS },
+            { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+            { text = " " },
+            { ref_table = "card.joker_display_values", ref_value = "sign_mult", colour = G.C.MULT },
+            { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
+        },
+        calc_function = function(card)
+            card.joker_display_values.sign_chips = card.ability.extra.chips >= 0 and "+" or ""
+            card.joker_display_values.sign_mult = card.ability.extra.mult >= 0 and "+" or ""
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(6) >= 6
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
 end
 
 return joker

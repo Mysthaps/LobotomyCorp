@@ -70,6 +70,27 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_scorched_girl = {
+        text = {
+            { text = "-" },
+            { ref_table = "card.ability", ref_value = "extra" },
+            { text = "%" },
+        },
+        text_config = { colour = G.C.IMPORTANT },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(2) >= 2
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- I AM FIRE

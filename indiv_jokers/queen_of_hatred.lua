@@ -93,6 +93,38 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if SMODS.Mods.JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_queen_of_hatred = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                }
+            }
+        },
+        extra = {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "hysteria", colour = G.C.IMPORTANT },
+            { text = ")" }
+        },
+        calc_function = function(card)
+            card.joker_display_values.hysteria = localize{type = 'name_text', set = 'Other', key = 'lobc_hysteria', nodes = {}}
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(2) >= 2
+            end
+            if reminder_text then
+            end
+            if extra then
+                extra.states.visible = (card:check_rounds(3) >= 3 and card.ability.extra.hysteria)
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- THE WORST WAW ABNO IN THE FUCKING GAME
