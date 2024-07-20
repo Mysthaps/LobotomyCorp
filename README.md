@@ -56,4 +56,5 @@ Music by **Studio EIM**.
 <details>
     <summary><b>Abnormality Effects [Spoilers?]</b></summary>
     Nameless Fetus, The Lady Facing the Wall, All-Around Helper: <b>Twilight & Sunset</b>
+    Initial JokerDisplay support for All-Around Helper, One Sin and Hundreds of Good Deeds: <b>OppositeWolf770</b>
 </details>
