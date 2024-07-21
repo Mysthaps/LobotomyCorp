@@ -962,6 +962,9 @@ SMODS.Booster({
     group_key = "k_lobc_extraction_pack",
 })
 
+--=============== CONFIG UI ===============--
+
+
 --=============== STEAMODDED OBJECTS 2 ===============--
 
 -- Atlases
@@ -1040,6 +1043,7 @@ SMODS.ConsumableType({
     secondary_colour = HEX("dd4930"),
     loc_txt = {},
     shop_rate = 0,
+    no_doe = true,
 })
 
 -- Shaders
