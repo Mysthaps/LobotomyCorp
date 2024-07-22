@@ -17,33 +17,31 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.destroying_card and not context.blueprint and not context.destroying_card.ability.eternal then
-        card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-        card.ability.extra.destroyed = card.ability.extra.destroyed + 1
-
-        if card.ability.extra.destroyed == 5 then
-            card.ability.extra.chips_gain = card.ability.extra.chips_gain + card.ability.extra.gain_scale
-            card.ability.extra.mult_gain = card.ability.extra.mult_gain + card.ability.extra.gain_scale
-            card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex') })
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('lobc_mosb_upgrade', 1, 0.3)
-                    return true
-                end
-            }))
-        end
         return true
     end
 
     if context.cardarea == G.jokers and not context.blueprint then
         if context.before then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    card.ability.extra.destroyed = 0
-                return true
+            card.ability.extra.destroyed = 0
+            for _, v in ipairs(context.scoring_hand) do
+                if not v.ability.eternal then 
+                    card.ability.extra.destroyed = card.ability.extra.destroyed + 1
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
+                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
                 end
-            }))
+            end
+
+            if card.ability.extra.destroyed == 5 then
+                card.ability.extra.chips_gain = card.ability.extra.chips_gain + card.ability.extra.gain_scale
+                card.ability.extra.mult_gain = card.ability.extra.mult_gain + card.ability.extra.gain_scale
+                card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex') })
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('lobc_mosb_upgrade', 1, 0.3)
+                        return true
+                    end
+                }))
+            end
         end
     end
 
@@ -97,7 +95,7 @@ if SMODS.Mods.JokerDisplay then
             { text = " +", colour = G.C.MULT },
             { ref_table = "card.ability.extra", ref_value = "mult", colour = G.C.MULT }
         },
-        extra = {
+        reminder_text = {
             { text = "+", colour = G.C.CHIPS },
             { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
             { text = " +", colour = G.C.MULT },
@@ -121,9 +119,9 @@ if SMODS.Mods.JokerDisplay then
                 text.states.visible = card:check_rounds(6) >= 6
             end
             if reminder_text then
+                reminder_text.states.visible = card:check_rounds(6) >= 6
             end
             if extra then
-                extra.states.visible = card:check_rounds(6) >= 6
             end
             return false
         end

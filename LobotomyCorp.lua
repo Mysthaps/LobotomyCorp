@@ -686,6 +686,10 @@ function Game.init_game_object(self)
     for _, v in ipairs(blind_list) do
         G.bosses_used["bl_lobc_"..v] = 1e300
     end
+
+    -- Nameless Fetus
+    G.nameless_hand_type = nil
+
     return G
 end
 

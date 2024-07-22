@@ -60,10 +60,12 @@ joker.calculate = function(self, card, context)
 end
 
 joker.remove_from_deck = function(self, card, from_debuff)
-    for _, v in ipairs(G.playing_cards) do
-        if v.ability.laetitia_gift then
-            v.debuff = true
-            v.ability.perma_debuff = true
+    if not from_debuff then
+        for _, v in ipairs(G.playing_cards) do
+            if v.ability.laetitia_gift then
+                v:set_debuff(true)
+                v.ability.perma_debuff = true
+            end
         end
     end
 end
