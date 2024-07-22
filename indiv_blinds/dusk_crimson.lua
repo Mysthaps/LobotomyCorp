@@ -7,6 +7,7 @@ local blind = {
     mult = 2, 
     vars = {}, 
     debuff = {},
+    boss = {min = 1, max = 10},
     loc_txt = {}
 }
 
