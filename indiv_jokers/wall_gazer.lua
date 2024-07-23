@@ -73,7 +73,7 @@ if SMODS.Mods.JokerDisplay then
                     raised_card = scoring_hand[i]
                 end
             end
-            return raised_card and card == raised_card and joker_card.ability.extra.retriggers or 0
+            return raised_card and playing_card == raised_card and joker_card and joker_card.ability.extra.retriggers or 0
         end,
 
         style_function = function(card, text, reminder_text, extra)
