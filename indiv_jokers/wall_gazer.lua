@@ -63,7 +63,7 @@ if SMODS.Mods.JokerDisplay then
             { text = ")" },
         },
 
-        retrigger_function = function(card, scoring_hand, held_in_hand)
+        retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
             if held_in_hand then return 0 end
             local temp_ID = 1e308
             local raised_card = nil
@@ -73,7 +73,7 @@ if SMODS.Mods.JokerDisplay then
                     raised_card = scoring_hand[i]
                 end
             end
-            return raised_card and card == raised_card and card.ability.extra.retriggers or 0
+            return raised_card and card == raised_card and joker_card.ability.extra.retriggers or 0
         end,
 
         style_function = function(card, text, reminder_text, extra)
