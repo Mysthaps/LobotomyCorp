@@ -1055,6 +1055,8 @@ G.FUNCS.lobc_discover_all = function(e)
             }
         end
     end
+    e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    e.config.button = nil
 end
 
 SMODS.current_mod.config_tab = function()
@@ -1095,7 +1097,7 @@ SMODS.current_mod.config_tab = function()
             }},
         }},
 
-        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 1}, nodes = {}},
+        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.85}, nodes = {}},
 
         {n = G.UIT.R, config = {align = "cm", padding = 0}, nodes = {
             {n = G.UIT.C, config = { align = "cm", minw = 2 }, nodes = {}},
@@ -1110,6 +1112,8 @@ SMODS.current_mod.config_tab = function()
             },
             {n = G.UIT.C, config = { align = "cm", minw = 2 }, nodes = {}}
         }},
+
+        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.05}, nodes = {}},
 
         {n = G.UIT.R, config = {align = "cm", padding = 0}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_irreversible'), scale = 0.25, colour = G.C.UI.TEXT_LIGHT}},
