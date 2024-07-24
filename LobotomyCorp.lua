@@ -6,13 +6,14 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation and Library of Ruina by Project Moon.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.8.0
+--- VERSION: 0.8.1
 
 -- Talisman compat
 to_big = to_big or function(num)
     return num
 end
 
+local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 local folder = string.match(mod_path, "[Mm]ods.*")
@@ -293,6 +294,7 @@ end
 local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
+    if config.disable_ordeals and not G.GAME.modifiers.lobc_ordeals then return end
     if G.GAME.round_resets.blind_states.Small == 'Upcoming' or G.GAME.round_resets.blind_states.Small == 'Hide' then
         if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
            (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) and enable_ordeals then
@@ -649,6 +651,34 @@ function Game.start_run(self, args)
         if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
         if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hand_reset = true end
+    end
+    if not config.first_time then
+        config.first_time = true
+        SMODS.save_mod_config(current_mod)
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_lobc_first_time_1'),
+                scale = 0.35, 
+                hold = 15*G.SETTINGS.GAMESPEED,
+                major = G.play,
+                backdrop_colour = G.C.CLEAR,
+                align = 'cm',
+                offset = {x = 0.3, y = -3.5},
+                silent = true
+            })
+            attention_text({
+                text = localize('k_lobc_first_time_2'),
+                scale = 0.35, 
+                hold = 15*G.SETTINGS.GAMESPEED,
+                major = G.play,
+                backdrop_colour = G.C.CLEAR,
+                align = 'cm',
+                offset = {x = 0.3, y = -3.1},
+                silent = true
+            })
+            return true 
+            end 
+        }))
     end
 end
 

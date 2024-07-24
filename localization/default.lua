@@ -1397,8 +1397,8 @@ return {
             lobc_irreversible = "(This effect is permanent on this profile!)",
 
             ---- First time text ----
-            k_lobc_first_time_1 = "Manager, welcome to Lobotomy Corporation. Remember to take a look at the mod's settings if you haven't.",
-            k_lobc_first_time_2 = "(Open the mod in the in-game mod list to see the settings. This message will only appear once.)",
+            k_lobc_first_time_1 = "Manager, welcome to Lobotomy Corporation. Remember to take a look at the mod's settings.",
+            k_lobc_first_time_2 = "(Open the mod in the in-game mod list. This message will only appear once.)",
 
             ---- Ordeals ----
 
