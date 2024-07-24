@@ -63,7 +63,7 @@ joker.set_sprites = function(self, card, front)
 
     card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
     local count = lobc_get_usage_count(card.config.center_key)
-    if count < card.config.center.discover_rounds then
+    if count < card.config.center.discover_rounds and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
         card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
     end
     card.children.center:set_sprite_pos(card.config.center.pos)

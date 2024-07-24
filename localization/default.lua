@@ -1389,6 +1389,13 @@ return {
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
 
+            lobc_show_art_undiscovered = "Show Abnormality Art when Undiscovered",
+            lobc_disable_ordeals = "Disable Random Ordeals",
+            lobc_discover_all = "Discover All",
+            lobc_no_sfx = "Disable Sound Effects",
+            lobc_no_music = "Disable Music",
+            lobc_irreversible = "(This effect is permanent on this profile!)",
+
             ---- Ordeals ----
 
             -- Dawn
