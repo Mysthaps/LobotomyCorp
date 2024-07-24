@@ -793,8 +793,8 @@ return {
                     "{s:0.15} {}",
                     "The converted card becomes {V:1}Amplified{}",
                     "{s:0.15} {}",
-                    "After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys a",
-                    "random {C:attention}other{} Joker and becomes {C:red}inactive{}",
+                    "After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys",
+                    "a random {C:attention}other{} Joker and becomes {C:red}inactive{}",
                     "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"
                 }
             },
