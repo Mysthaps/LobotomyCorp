@@ -1065,6 +1065,8 @@ SMODS.current_mod.config_tab = function()
             }},
         }},
 
+        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 1}, nodes = {}},
+
         {n = G.UIT.R, config = {align = "cm", padding = 0}, nodes = {
             {n = G.UIT.C, config = { align = "cm", minw = 2 }, nodes = {}},
             {n = G.UIT.C,
