@@ -77,6 +77,11 @@ joker.calculate = function(self, card, context)
         card.ability.extra.seconds = 0
         card.ability.extra.active = true
     end
+
+    if context.discard and not context.blueprint then
+        card.ability.extra.elapsed = 0
+        card.ability.extra.seconds = 0
+    end
     
     if context.before and context.cardarea == G.jokers and not context.blueprint then
         card.ability.extra.elapsed = 0
