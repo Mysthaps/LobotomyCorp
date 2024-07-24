@@ -4,6 +4,7 @@ local cons = {
     cost = 0,
     pos = {x = 0, y = 0},
     loc_txt = {},
+    no_doe = true
 }
 
 -- Available if hand is active
