@@ -523,7 +523,7 @@ end
 -- Make Ordeals not end the game on win ante hopefully
 local get_typeref = Blind.get_type
 function Blind.get_type(self)
-    if self.config.blind.color then
+    if self.config.blind.color and not self.config.bonus then
         return G.GAME.blind_on_deck
     end
     return get_typeref(self)
