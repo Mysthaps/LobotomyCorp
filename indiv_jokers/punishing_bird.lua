@@ -49,7 +49,7 @@ end
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card.ability.extra.mult, card.ability.extra.rounds_played, card:check_rounds(2), card:check_rounds(4), card:check_rounds(8) }
     local desc_key = self.key
-    if card:check_rounds(3) < 2 then
+    if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
     elseif card:check_rounds(4) < 4 then
         desc_key = 'dis_'..desc_key..'_2'

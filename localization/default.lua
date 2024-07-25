@@ -690,7 +690,7 @@ return {
                 name = "T-03-46",
                 text = {
                     "{C:attention}(#3#/?){} ...",
-                    "{C:attention}(#3#/8){} ..."
+                    "{C:attention}(#3#/6){} ..."
                 }
             },
             dis_j_lobc_whitenight_2 = {
@@ -701,7 +701,7 @@ return {
                     "{C:attention}Baptizes{} a playing card each hand",
                     "{s:0.15} {}",
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
-                    "{C:attention}(#3#/8){} ..."
+                    "{C:attention}(#3#/6){} ..."
                 }
             },
             j_lobc_whitenight = {
@@ -762,8 +762,8 @@ return {
                 name = "O-05-65",
                 text = {
                     "{C:attention}(#1#/2){} ...",
-                    "{C:attention}(#2#/5){} ...",
-                    "{C:attention}(#3#/7){} ...",
+                    "{C:attention}(#2#/4){} ...",
+                    "{C:attention}(#3#/6){} ...",
                 }
             },
             dis_j_lobc_price_of_silence_2 = {
@@ -771,8 +771,8 @@ return {
                 text = {
                     "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card",
-                    "{C:attention}(#2#/5){} ...",
-                    "{C:attention}(#3#/7){} ...",
+                    "{C:attention}(#2#/4){} ...",
+                    "{C:attention}(#3#/6){} ...",
                 }
             },
             dis_j_lobc_price_of_silence_3 = {
@@ -782,7 +782,7 @@ return {
                     "card to the {C:attention}leftmost{} scoring card",
                     "{s:0.15} {}",
                     "The converted card becomes {V:1}Amplified{}",
-                    "{C:attention}(#3#/7){} ...",
+                    "{C:attention}(#3#/6){} ...",
                 }
             },
             j_lobc_price_of_silence = {

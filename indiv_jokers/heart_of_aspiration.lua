@@ -1,6 +1,6 @@
 local joker = {
     name = "The Heart of Aspiration",
-    config = {extra = {reset = 1, x_mult = 1, gain = 1.5}}, rarity = 2, cost = 6,
+    config = {extra = {reset = 0, x_mult = 0, gain = 1.5}}, rarity = 2, cost = 6,
     pos = {x = 9, y = 4}, 
     blueprint_compat = true, 
     eternal_compat = true,
