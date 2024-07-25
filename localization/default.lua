@@ -1357,7 +1357,7 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
 
             -- Malkuth
-            ch_c_lobc_malkuth = {"After Ante 3, all {C:attention}Consumables{} are faced down"},
+            ch_c_lobc_malkuth = {"After Ante {C:attention}3{}, all {C:attention}Consumables{} are faced down"},
             ch_c_lobc_malkuth_2 = {"After Ante {C:attention}6{}, all cards are faced down and can't be sold"},
             ch_c_lobc_malkuth_3 = {"Every Ante after Ante {C:attention}6{}, shuffles all owned {C:attention}Jokers{}"},
 
@@ -1373,9 +1373,9 @@ return {
             ch_c_lobc_hod_3 = {"After Ante {C:attention}6{}, all {C:attention}Jokers{} are {C:attention}35%{} less effective"},
 
             -- Netzach
-            ch_c_lobc_netzach = {"After round ends, {C:blue}Hands{} and {C:red}Discards{} are not replenished"},
-            ch_c_lobc_netzach_2 = {"After Ante {C:attention}3{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention1{}"},
-            ch_c_lobc_netzach_3 = {"After Ante {C:attention}6{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention1{}"},
+            ch_c_lobc_netzach = {"{C:blue}Hands{} and {C:red}Discards{} are only replenished after beating an {C:attention}Ante{}"},
+            ch_c_lobc_netzach_2 = {"After Ante {C:attention}3{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention}1{}"},
+            ch_c_lobc_netzach_3 = {"After Ante {C:attention}6{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention}1{}"},
             ch_c_lobc_netzach_4 = {"All {C:attention}Blinds{} cannot be skipped"},
         },
         dictionary = {

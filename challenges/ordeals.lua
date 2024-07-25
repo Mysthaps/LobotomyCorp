@@ -10,6 +10,7 @@ local chal = {
             {id = 'tag_boss'}
         },
         banned_cards = {
+            {id = 'j_luchador'},
             {id = 'j_chicot'},
             {id = 'v_directors_cut'},
             {id = 'v_retcon'},

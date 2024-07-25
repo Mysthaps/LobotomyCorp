@@ -17,8 +17,6 @@ local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 local folder = string.match(mod_path, "[Mm]ods.*")
--- temporary Bonus Blinds check
-local enable_ordeals = not SMODS.Mods.BB
 
 --=============== STEAMODDED OBJECTS ===============--
 -- To disable any object, comment it out by adding -- at the start of the line.
@@ -297,7 +295,7 @@ function reset_blinds()
     if config.disable_ordeals and not G.GAME.modifiers.lobc_ordeals then return end
     if G.GAME.round_resets.blind_states.Small == 'Upcoming' or G.GAME.round_resets.blind_states.Small == 'Hide' then
         if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
-           (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) and enable_ordeals then
+           (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) then
                 G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
         else
             G.GAME.round_resets.blind_choices.Small = 'bl_small'
@@ -650,8 +648,10 @@ function Game.start_run(self, args)
     if not args.savetext then
         if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
-        if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hand_reset = true end
+        if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hands_reset = true end
     end
+
+    -- First time text
     if not config.first_time then
         config.first_time = true
         SMODS.save_mod_config(current_mod)

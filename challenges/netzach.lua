@@ -1,5 +1,9 @@
 local chal = {
     rules = {
+        modifiers = {
+            {id = 'hands', value = 7},
+            {id = 'discards', value = 7},
+        },
         custom = {
             {id = "lobc_netzach"},
             {id = "lobc_netzach_2"},
@@ -15,6 +19,8 @@ local chal = {
         },
         banned_cards = {
             {id = 'j_burglar'},
+            {id = 'j_lobc_heart_of_aspiration'},
+            {id = 'j_luchador'},
             {id = 'j_chicot'},
             {id = 'v_directors_cut'},
             {id = 'v_retcon'},
@@ -26,5 +32,16 @@ local chal = {
         return true
     end
 }
+
+if SMODS.Mods.Cryptid then
+    table.insert(chal.restrictions.banned_cards, {id = 'j_cry_blurred'})
+end
+
+if SMODS.Mods.TWEWY then
+    table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_earthshake'})
+    table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_iceRisers'})
+    table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_iceBlow'})
+    table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_straitjacket'})
+end
 
 return chal
