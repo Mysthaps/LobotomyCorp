@@ -41,20 +41,24 @@ Instructions can be found [here](https://github.com/Steamopollys/Steamodded/wiki
 
 # Installation
 Head to the mod's *[Releases](https://github.com/Mysthaps/LobotomyCorp/releases/latest)* page and download the latest version.  
-You can also *clone* this repository, however, some things may break.
+You can also *clone* this repository, however, some things may break. 
+ 
+Please check the mod's configurations after installation. 
 
 # Credits
 ### **[Lobotomy Corporation](https://store.steampowered.com/app/568220/Lobotomy_Corporation__Monster_Management_Simulation/)**
 ### **[Library of Ruina](https://store.steampowered.com/app/1256670/Library_Of_Ruina/)**
-### **[Limbus Company](https://store.steampowered.com/app/1973530/Limbus_Company/)**
+### **[Limbus Company](https://store.steampowered.com/app/1973530/Limbus_Company/)** 
 
-Most art, music and sound effects are taken from **Lobotomy Corporation**. 
-Some abnormalities are based on those of **Library of Ruina**. 
-**Abnormality Choice** theme is from **Limbus Company**. 
-Music by **Studio EIM**. 
+Most art, music and sound effects are taken from **Lobotomy Corporation**.  
+Some abnormalities are based on those of **Library of Ruina**.  
+**First Warning**, **Second Warning** and **Third Warning** made by **Dr.Reb**.  
+**Abnormality Choice** theme is from **Limbus Company**, made by **Studio EIM**.  
 
 <details>
     <summary><b>Abnormality Effects [Spoilers?]</b></summary>
-    Nameless Fetus, The Lady Facing the Wall, All-Around Helper: <b>Twilight & Sunset</b>
+    Nameless Fetus, The Lady Facing the Wall, All-Around Helper: <b>Twilight & Sunset</b><br>
     Initial JokerDisplay support for All-Around Helper, One Sin and Hundreds of Good Deeds: <b>OppositeWolf770</b>
-</details>
+</details><br>
+  
+**Specialist Isaac** sprites and **Arcade Specialist** theme from **[Specialist Dance for Good Items](https://steamcommunity.com/sharedfiles/filedetails/?id=2575911103)**.

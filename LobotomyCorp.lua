@@ -3,7 +3,7 @@
 --- MOD_ID: LobotomyCorp
 --- PREFIX: lobc
 --- MOD_AUTHOR: [Mysthaps]
---- MOD_DESCRIPTION: Face the Fear, Build the Future. Most art is from Lobotomy Corporation and Library of Ruina by Project Moon.
+--- MOD_DESCRIPTION: Face the Fear, Build the Future.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
 --- VERSION: 0.8.1
@@ -119,6 +119,8 @@ local sound_list = {
     violet_end = "OutterGod_End",
     indigo_start = "Scavenger_Start",
     indigo_end = "Scavenger_End",
+
+    arcadespecialist = "arcadespecalist",
 }
 
 local challenge_list = {
@@ -247,6 +249,16 @@ for k, v in pairs(sound_list) do
             return (G.GAME and G.GAME.blind and 
             ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") or
             (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson")))
+        end
+    elseif k == "arcadespecialist" then
+        sound.select_music_track = function()
+            if config.no_music then return false end
+            for _, obj in pairs(G.I.SPRITE) do
+                if obj.atlas == G.ASSET_ATLAS["lobc_isaac"] and obj.states.drag.is then
+                    return true
+                end
+            end
+            return false
         end
     end
 end
@@ -911,10 +923,13 @@ function new_round()
     }))
 end
 
--- No SFX toggle
 local play_soundref = play_sound
 function play_sound(sound_code, per, vol)
-    if config.no_sfx and sound_code:find('lobc') then return end
+    if sound_code:find('lobc') then
+        -- No SFX toggle
+        if config.no_sfx then return end
+        return play_soundref(sound_code, per, vol * 0.8)
+    end
     return play_soundref(sound_code, per, vol)
 end
 
@@ -1121,6 +1136,83 @@ SMODS.current_mod.config_tab = function()
     }}
 end
 
+lobc_isaac_dt, lobc_isaac_x, lobc_isaac_y = 0, 0, 0
+SMODS.current_mod.credits_tab = function()
+    local isaac = Sprite(0, 0, 1.12, 0.94, G.ASSET_ATLAS["lobc_isaac"], {x = 0, y = 0})
+    lobc_isaac_x = 0
+    lobc_isaac_y = 0
+    isaac.states.collide.can = true
+    isaac.states.hover.can = true
+    isaac.states.drag.can = true
+    isaac.states.click.can = true
+    return {n = G.UIT.ROOT, config = {r = 0.1, align = "tm", padding = 0.1, colour = G.C.BLACK, minw = 10, minh = 6}, nodes = {
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_1'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
+        }},
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_pm'), scale = 0.5, colour = G.C.DARK_EDITION}},
+        }},
+
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
+        }},
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_reb'), scale = 0.5, colour = G.C.DARK_EDITION}},
+        }},
+
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_3'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
+        }},
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_eim'), scale = 0.5, colour = G.C.DARK_EDITION}},
+        }},
+
+        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.2}, nodes = {}},
+
+        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_4'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_twi'), scale = 0.3, colour = G.C.DARK_EDITION}},
+        }},
+        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_5'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_opp'), scale = 0.3, colour = G.C.DARK_EDITION}},
+        }},
+
+        {n = G.UIT.R, config = {align = "cr", padding = 0}, nodes = {
+            {n = G.UIT.R, config = {align = "cr", padding = 0}, nodes = {
+                {n = G.UIT.T, config = { text = "hey victin are you happy now >", scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+                {n = G.UIT.O, config = {object = isaac}},
+            }}
+        }},
+    }}
+end
+
+local game_update = Game.update
+function Game.update(self, dt)
+    game_update(self, dt)
+    -- borrowed from jimball
+    for _, obj in pairs(G.I.SPRITE) do
+        if obj.atlas == G.ASSET_ATLAS["lobc_isaac"] then
+            lobc_isaac_dt = lobc_isaac_dt + dt
+            if lobc_isaac_dt > 0.01666 then
+                lobc_isaac_dt = 0
+                if (lobc_isaac_x == 11 and lobc_isaac_y == 19) then
+                    lobc_isaac_x = 0
+                    lobc_isaac_y = 0
+                elseif (lobc_isaac_x < 22) then lobc_isaac_x = lobc_isaac_x + 1
+                elseif (lobc_isaac_y < 19) then
+                    lobc_isaac_x = 0
+                    lobc_isaac_y = lobc_isaac_y + 1
+                end
+                obj:set_sprite_pos({x = lobc_isaac_x, y = lobc_isaac_y})
+            end
+        end
+    end
+end
+
 --=============== STEAMODDED OBJECTS 2 ===============--
 
 -- Atlases
@@ -1182,6 +1274,12 @@ SMODS.Atlas({
     path = "LobotomyCorp_consumable.png",
     px = 71,
     py = 95
+})
+SMODS.Atlas({
+    key = "isaac",
+    path = "isaac.png",
+    px = 56,
+    py = 47
 })
 
 -- ConsumableType (guh)
