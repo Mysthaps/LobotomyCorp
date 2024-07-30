@@ -121,7 +121,7 @@ local sound_list = {
     indigo_start = "Scavenger_Start",
     indigo_end = "Scavenger_End",
 
-    arcadespecialist = "arcadespecalist",
+    music_arcadespecialist = "arcadespecalist",
 }
 
 local challenge_list = {
@@ -255,13 +255,11 @@ for k, v in pairs(sound_list) do
             ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") or
             (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson")))
         end
-    elseif k == "arcadespecialist" then
+    elseif k == "music_arcadespecialist" then
         sound.select_music_track = function()
             if config.no_music then return false end
-            for _, obj in pairs(G.I.SPRITE) do
-                if obj.atlas == G.ASSET_ATLAS["lobc_isaac"] and obj.states.drag.is then
-                    return true
-                end
+            if lobc_isaac and lobc_isaac.states.drag.is then
+                return true
             end
             return false
         end
@@ -1182,13 +1180,13 @@ end
 
 lobc_isaac_dt, lobc_isaac_x, lobc_isaac_y = 0, 0, 0
 SMODS.current_mod.credits_tab = function()
-    local isaac = Sprite(0, 0, 1.12, 0.94, G.ASSET_ATLAS["lobc_isaac"], {x = 0, y = 0})
+    lobc_isaac = lobc_isaac or Sprite(0, 0, 1.12, 0.94, G.ASSET_ATLAS["lobc_isaac"], {x = 0, y = 0})
     lobc_isaac_x = 0
     lobc_isaac_y = 0
-    isaac.states.collide.can = true
-    isaac.states.hover.can = true
-    isaac.states.drag.can = true
-    isaac.states.click.can = true
+    lobc_isaac.states.collide.can = true
+    lobc_isaac.states.hover.can = true
+    lobc_isaac.states.drag.can = true
+    lobc_isaac.states.click.can = true
     return {n = G.UIT.ROOT, config = {r = 0.1, align = "tm", padding = 0.1, colour = G.C.BLACK, minw = 10, minh = 6}, nodes = {
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_1'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
@@ -1228,7 +1226,7 @@ SMODS.current_mod.credits_tab = function()
         {n = G.UIT.R, config = {align = "cr", padding = 0}, nodes = {
             {n = G.UIT.R, config = {align = "cr", padding = 0}, nodes = {
                 {n = G.UIT.T, config = { text = "hey victin are you happy now >", scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-                {n = G.UIT.O, config = {object = isaac}},
+                {n = G.UIT.O, config = {object = lobc_isaac}},
             }}
         }},
     }}
@@ -1238,21 +1236,20 @@ local game_update = Game.update
 function Game.update(self, dt)
     game_update(self, dt)
     -- borrowed from jimball, might need optimization?
-    for _, obj in pairs(G.I.SPRITE) do
-        if obj.atlas == G.ASSET_ATLAS["lobc_isaac"] then
-            lobc_isaac_dt = lobc_isaac_dt + dt
-            if lobc_isaac_dt > 0.01666 then
-                lobc_isaac_dt = 0
-                if (lobc_isaac_x == 11 and lobc_isaac_y == 19) then
-                    lobc_isaac_x = 0
-                    lobc_isaac_y = 0
-                elseif (lobc_isaac_x < 22) then lobc_isaac_x = lobc_isaac_x + 1
-                elseif (lobc_isaac_y < 19) then
-                    lobc_isaac_x = 0
-                    lobc_isaac_y = lobc_isaac_y + 1
-                end
-                obj:set_sprite_pos({x = lobc_isaac_x, y = lobc_isaac_y})
+    if lobc_isaac then
+        lobc_isaac_dt = lobc_isaac_dt + dt
+        if lobc_isaac_dt > 0.01666 then
+            lobc_isaac_dt = 0
+            if (lobc_isaac_x == 11 and lobc_isaac_y == 19) then
+                lobc_isaac_x = 0
+                lobc_isaac_y = 0
+            elseif (lobc_isaac_x < 22) then
+                lobc_isaac_x = lobc_isaac_x + 1
+            elseif (lobc_isaac_y < 19) then
+                lobc_isaac_x = 0
+                lobc_isaac_y = lobc_isaac_y + 1
             end
+            lobc_isaac:set_sprite_pos({ x = lobc_isaac_x, y = lobc_isaac_y })
         end
     end
 end
