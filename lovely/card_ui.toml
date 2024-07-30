@@ -3,14 +3,17 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Card badges
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = "card.lua"
-pattern = "if self.ability.rental then badges[#badges + 1] = 'rental' end"
-position = "after"
+pattern = "(?<indent>[\t ]*)if self.sticker then loc_vars = loc_vars or \\{\\}; loc_vars.sticker=self.sticker end"
+position = "before"
+line_prepend = "$indent"
 payload = '''
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
 if self.ability.price_of_silence_amplified then badges[#badges + 1] = 'lobc_amplified' end
+if self.ability.child_galaxy_pebble then badges[#badges + 1] = 'lobc_pebble' end
 if self.ability.plague_doctor_baptism then 
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
         badges[#badges + 1] = 'lobc_apostle'
@@ -22,24 +25,29 @@ if self.ability.plague_doctor_baptism then
         end
     end
 end'''
-match_indent = false
 
+# Card info queue
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if v == 'rental' then info_queue[#info_queue+1] = {key = 'rental', set = 'Other', vars = {G.GAME.rental_rate or 1}} end"
-position = "after"
+pattern = "if v == 'pinned_left' then info_queue[#info_queue+1] = {key = 'pinned_left', set = 'Other'} end"
+position = "before"
 payload = '''
 if v == 'lobc_gift' then info_queue[#info_queue+1] = {key = 'lobc_gift', set = 'Other'} end
 if v == 'lobc_amplified' then
     local count = lobc_get_usage_count("j_lobc_price_of_silence")
-    info_queue[#info_queue+1] = {key = 'lobc_amplified'..(count < 5 and '_1' or ''), set = 'Other'}
+    info_queue[#info_queue+1] = {key = 'lobc_amplified'..(count < 4 and '_1' or ''), set = 'Other'}
+end
+if v == 'lobc_pebble' then
+    local count = lobc_get_usage_count("j_lobc_child_galaxy")
+    info_queue[#info_queue+1] = {key = 'lobc_pebble'..(count < 4 and '_1' or ''), set = 'Other'}
 end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
 if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_wn', set = 'Other'} end
 if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end'''
-match_indent = false
+match_indent = true
 
+# Card modifiers
 [[patches]]
 [patches.pattern]
 target = "card.lua"

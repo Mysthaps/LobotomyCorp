@@ -11,24 +11,31 @@ local blind = {
 }
 
 blind.set_blind = function(self)
-    if G.GAME.current_round.hands_played > 0 and G.GAME.current_round.hands_played % 3 == 2 then
+    if G.GAME.current_round.hands_played >= 2 then
         G.GAME.blind.hands_sub = 1
+        for _, v in ipairs(G.playing_cards) do
+            v.ability.lobc_dawn_crimson = true
+            SMODS.recalc_debuff(v)
+        end
         --G.GAME.blind:wiggle()
     else
         G.GAME.blind.hands_sub = 0
     end
 end
 
-blind.debuff_card = function(self, card, from_blind)
-    if G.GAME.blind.hands_sub == 1 and card.area ~= G.jokers then
-        card:set_debuff(true)
+blind.recalc_debuff = function(self, card)
+    if card.ability.lobc_dawn_crimson then
         return true
     end
 end
 
 blind.drawn_to_hand = function(self)
-    if G.GAME.current_round.hands_played > 0 and G.GAME.current_round.hands_played % 3 == 2 then
+    if G.GAME.current_round.hands_played >= 2 and G.GAME.blind.hands_sub == 0 then
         G.GAME.blind.hands_sub = 1
+        for _, v in ipairs(G.playing_cards) do
+            v.ability.lobc_dawn_crimson = true
+            SMODS.recalc_debuff(v)
+        end
         G.GAME.blind:wiggle()
     end
 end

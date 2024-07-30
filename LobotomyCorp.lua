@@ -39,6 +39,7 @@ local joker_list = {
     "red_shoes",
     "nameless_fetus",
     "all_around_helper",
+    "child_galaxy",
     "fotdb",
     "heart_of_aspiration",
     "scarecrow_searching",
@@ -139,6 +140,7 @@ local badge_colors = {
     lobc_blessed_wn = HEX("EDA9D3"),
     lobc_apostle = HEX("FF0000"),
     lobc_amplified = HEX("004d00"),
+    lobc_pebble = HEX("AAAAAA"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -226,7 +228,10 @@ end
 for k, v in pairs(sound_list) do
     local sound = SMODS.Sound({
         key = k,
-        path = v..".ogg"
+        path = v..".ogg",
+        pitch = 1,
+        volume = 0.9,
+        no_sync = true,
     })
     if k == "music_abno_choice" then
         sound.select_music_track = function()
@@ -297,7 +302,7 @@ function get_new_boss()
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     return get_new_bossref()
-    --return "bl_lobc_dusk_crimson"
+    --return "bl_lobc_midnight_violet"
 end
 
 -- Overwrite blind select for Ordeals
@@ -467,7 +472,8 @@ function Card.sell_card(self)
         G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
             G.GAME.blind.hands_sub = 0
             for _, v in ipairs(G.playing_cards) do
-                v:set_debuff(false)
+                v.ability.lobc_dawn_crimson = false
+                SMODS.recalc_debuff(v)
             end
             return true
         end}))
@@ -649,6 +655,45 @@ local set_costref = Card.set_cost
 function Card.set_cost(self)
     set_costref(self)
     if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
+end
+
+local drawn_to_handref = Blind.drawn_to_hand
+function Blind.drawn_to_hand(self)
+    drawn_to_handref(self)
+    if not G.GAME.lobc_prepped then return end
+
+    -- Child of the Galaxy add new pebbles
+    local children_of_the_galaxy = SMODS.find_card('j_lobc_child_galaxy')
+    if next(children_of_the_galaxy) then
+        for _, v in ipairs(G.playing_cards) do
+            v.ability.child_galaxy_pebble = nil
+        end
+        
+        local available_cards = {}
+
+        for _, v in ipairs(G.hand.cards) do
+            if not v.ability.child_galaxy_pebble then
+                available_cards[#available_cards + 1] = v
+            end
+        end
+
+        for i = 1, 4 * #children_of_the_galaxy do
+            if #available_cards > 0 then
+                local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
+                chosen_card.ability.child_galaxy_pebble = true
+                chosen_card:juice_up()
+                table.remove(available_cards, chosen_card_key)
+            end
+        end
+    end
+
+    G.GAME.lobc_prepped = nil
+end
+
+local play_cards_from_highlightedref = G.FUNCS.play_cards_from_highlighted
+function G.FUNCS.play_cards_from_highlighted(e)
+    play_cards_from_highlightedref(e)
+    G.GAME.lobc_prepped = true
 end
 
 --=============== CHALLENGES ===============--
@@ -904,28 +949,27 @@ function new_round()
     new_roundref()
     -- Reset hands for Crimson Dusk/Noon
     G.GAME.current_round.lobc_hands_given = 0
+    -- Reset death text if any
+    G.GAME.lobc_death_text = nil
 
     -- Kill on new round if hands is 0
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
             if G.GAME.current_round.hands_left <= 0 then
-                G.STATE = G.STATES.GAME_OVER
-                if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
-                    G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
-                end
-                G:save_settings()
-                G.FILE_HANDLER.force = true
+                G.STATE = G.STATES.NEW_ROUND
                 G.STATE_COMPLETE = false
             end
         return true
         end
     }))
+
+    G.GAME.lobc_prepped = true
 end
 
 local play_soundref = play_sound
 function play_sound(sound_code, per, vol)
-    if sound_code:find('lobc') then
+    if sound_code and sound_code:find('lobc') then
         -- No SFX toggle
         if config.no_sfx then return end
         return play_soundref(sound_code, per, vol * 0.8)
@@ -1193,7 +1237,7 @@ end
 local game_update = Game.update
 function Game.update(self, dt)
     game_update(self, dt)
-    -- borrowed from jimball
+    -- borrowed from jimball, might need optimization?
     for _, obj in pairs(G.I.SPRITE) do
         if obj.atlas == G.ASSET_ATLAS["lobc_isaac"] then
             lobc_isaac_dt = lobc_isaac_dt + dt

@@ -103,7 +103,7 @@ if SMODS.Mods.JokerDisplay then
                 }
             }
         },
-        extra = {
+        reminder_text = {
             { text = "(" },
             { ref_table = "card.joker_display_values", ref_value = "hysteria", colour = G.C.IMPORTANT },
             { text = ")" }
@@ -116,9 +116,9 @@ if SMODS.Mods.JokerDisplay then
                 text.states.visible = card:check_rounds(2) >= 2
             end
             if reminder_text then
+                reminder_text.states.visible = (card:check_rounds(3) >= 3 and card.ability.extra.hysteria)
             end
             if extra then
-                extra.states.visible = (card:check_rounds(3) >= 3 and card.ability.extra.hysteria)
             end
             return false
         end

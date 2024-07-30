@@ -32,9 +32,8 @@ blind.set_blind = function(self, reset, silent)
     end
 end
 
-blind.debuff_card = function(self, card, from_blind)
+blind.recalc_debuff = function(self, card, from_blind)
     if card.ability.plague_doctor_baptism then
-        card:set_debuff(true)
         return true
     end
 end

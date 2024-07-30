@@ -26,6 +26,17 @@ blind.drawn_to_hand = function(self)
         if chips_this_round <= to_big(G.GAME.blind.chips) * 0.2 then
             G.GAME.blind:wiggle()
             ease_hands_played(-1)
+
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    if G.GAME.current_round.hands_left <= 0 then 
+                        G.STATE = G.STATES.NEW_ROUND
+                        G.STATE_COMPLETE = false
+                    end
+                return true
+                end
+            }))
         end
         G.GAME.blind.hands_sub = G.GAME.blind.hands_sub + chips_this_round
     end

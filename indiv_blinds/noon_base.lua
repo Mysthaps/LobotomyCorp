@@ -8,7 +8,6 @@ local blind = {
     mult = 1.5, 
     vars = {}, 
     debuff = {},
-    boss = {min = 1, max = 10},
     blind_list = {
         "noon_green",
         "noon_crimson",

@@ -96,6 +96,9 @@ if SMODS.Mods.JokerDisplay then
             { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = lighten(G.C.SUITS["Hearts"], 0.35) },
             { text = ")" }
         },
+        calc_function = function(card)
+            card.joker_display_values.localized_text = localize("Hearts", 'suits_plural')
+        end,
         style_function = function(card, text, reminder_text, extra)
             if text then 
             end
