@@ -75,7 +75,7 @@ end
 
 -- JokerDisplay compat
 -- Modified from OppositeWolf770's implementation
-if SMODS.Mods.JokerDisplay then
+if JokerDisplay then
     JokerDisplay.Definitions.j_lobc_all_around_helper = {
         text = {
             {

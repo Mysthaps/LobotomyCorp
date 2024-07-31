@@ -39,7 +39,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 -- Modified from OppositeWolf770's implementation
-if SMODS.Mods.JokerDisplay then
+if JokerDisplay then
     JokerDisplay.Definitions.j_lobc_one_sin = {
         text = {
             { text = "+", colour = G.C.MULT },

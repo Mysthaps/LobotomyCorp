@@ -58,7 +58,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
-if SMODS.Mods.JokerDisplay then
+if JokerDisplay then
     JokerDisplay.Definitions.j_lobc_old_lady = {
         text = {
             { ref_table = "card.joker_display_values", ref_value = "sign" },

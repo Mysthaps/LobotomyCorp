@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- VERSION: 0.8.1
+--- VERSION: 0.8.2
 
 -- Talisman compat
 to_big = to_big or function(num)
@@ -655,6 +655,7 @@ function Card.set_cost(self)
     if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
 end
 
+-- Global start of hand effect
 local drawn_to_handref = Blind.drawn_to_hand
 function Blind.drawn_to_hand(self)
     drawn_to_handref(self)

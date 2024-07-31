@@ -97,7 +97,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
-if SMODS.Mods.JokerDisplay then
+if JokerDisplay then
     JokerDisplay.Definitions.j_lobc_iron_maiden = {
         text = {
             { ref_table = "card.joker_display_values", ref_value = "blind_gain", colour = G.C.IMPORTANT },
