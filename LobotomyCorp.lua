@@ -28,9 +28,9 @@ local joker_list = {
     "wall_gazer", -- The Lady Facing the Wall
     "plague_doctor",
     "punishing_bird",
-    "shy_look",
+    "shy_look", -- Today's Shy Look
     "iron_maiden", -- We Can Change Anything
-    "old_faith",
+    "old_faith", -- Old Faith and Promise
     "youre_bald",
 
     --- Uncommon
@@ -39,8 +39,8 @@ local joker_list = {
     "red_shoes",
     "nameless_fetus",
     "all_around_helper",
-    "child_galaxy",
-    "fotdb",
+    "child_galaxy", -- Child of the Galaxy
+    "fotdb", -- Funeral of the Dead Butterflies
     "heart_of_aspiration",
     "scarecrow_searching",
 
@@ -55,6 +55,7 @@ local joker_list = {
     "price_of_silence",
     "laetitia",
     "mosb", -- The Mountain of Smiling Bodies
+    "censored",
     "servant_of_wrath",
 
     --- Legendary
@@ -109,6 +110,7 @@ local sound_list = {
     silence_tick = "Clock_Tick",
     helper_destroy = "Robo_Rise",
     butterfly_attack = "Butterfly_Attack",
+    censored = "Censored_Atk",
 
     green_start = "Machine_Start",
     green_end = "Machine_End",
@@ -162,7 +164,7 @@ end
 
 -- Load all jokers
 for _, v in ipairs(joker_list) do
-    local joker = NFS.load(mod_path .. "indiv_jokers/" .. v .. ".lua")()
+    local joker = SMODS.load_file("indiv_jokers/" .. v .. ".lua")()
 
     --joker.discovered = true
     joker.key = v
@@ -206,7 +208,7 @@ end
 
 -- Load all blinds
 for _, v in ipairs(blind_list) do
-    local blind = NFS.load(mod_path .. "indiv_blinds/" .. v .. ".lua")()
+    local blind = SMODS.load_file("indiv_blinds/" .. v .. ".lua")()
 
     blind.key = v
     blind.atlas = "LobotomyCorp_Blind"
@@ -231,6 +233,7 @@ for k, v in pairs(sound_list) do
         path = v..".ogg",
         pitch = 1,
         volume = 0.9,
+        sync = false,
         no_sync = true,
     })
     if k == "music_abno_choice" then
@@ -263,12 +266,14 @@ for k, v in pairs(sound_list) do
             end
             return false
         end
+    else
+        sound.volume = 0.3
     end
 end
 
 -- Load challenges
 for _, v in ipairs(challenge_list) do
-    local chal = NFS.load(mod_path .. "challenges/" .. v .. ".lua")()
+    local chal = SMODS.load_file("challenges/" .. v .. ".lua")()
 
     chal.key = v
     chal.loc_txt = ""
@@ -277,7 +282,7 @@ end
 
 -- Load consumables
 for _, v in ipairs(consumable_list) do
-    local cons = NFS.load(mod_path .. "indiv_consumable/" .. v .. ".lua")()
+    local cons = SMODS.load_file("indiv_consumable/" .. v .. ".lua")()
 
     cons.key = v
     cons.atlas = "LobotomyCorp_consumable"
@@ -607,11 +612,20 @@ function Sprite.draw(self, overlay)
     sprite_drawref(self, overlay)
 end
 
--- You're Bald...
+-- Sprite-based effects
 local set_spritesref = Card.set_sprites
 function Card.set_sprites(self, _center, _front)
     set_spritesref(self, _center, _front)
-    if next(SMODS.find_card("j_lobc_youre_bald")) then
+
+    -- CENSORED
+    if (self.ability and self.ability.lobc_censored) then
+        self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
+        self.children.center:set_sprite_pos({x = 9, y = 0})
+        self.children.front = nil
+    end
+
+    -- You're Bald...
+    if next(SMODS.find_card("j_lobc_youre_bald")) and (self.ability and not self.ability.lobc_censored) then
         if _center and _center.set == "Joker" and self.children.center.atlas == G.ASSET_ATLAS["Joker"] then
             self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_jokersbald"]
             self.children.center:set_sprite_pos(_center.pos)
@@ -693,6 +707,71 @@ local play_cards_from_highlightedref = G.FUNCS.play_cards_from_highlighted
 function G.FUNCS.play_cards_from_highlighted(e)
     play_cards_from_highlightedref(e)
     G.GAME.lobc_prepped = true
+end
+
+-- CENSORED
+local card_h_popupref = G.UIDEF.card_h_popup
+function G.UIDEF.card_h_popup(card)
+    if next(SMODS.find_card("j_lobc_censored")) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored") then
+        local name_nodes = localize{type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {}}
+        name_nodes[1].config.object.colours = {G.C.RED}
+        return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
+            {n=G.UIT.C, config={align = "cm", object = Moveable(), ref_table = nil}, nodes = {
+                {n=G.UIT.R, config={padding = 0.05, r = 0.12, colour = G.C.BLACK, emboss = 0.07}, nodes={
+                    {n=G.UIT.R, config={align = "cm", padding = 0.07, r = 0.1, colour = G.C.RED}, nodes={
+                        {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes = name_nodes},
+                    }}
+                }}
+            }},
+        }}
+    end
+    return card_h_popupref(card)
+end
+
+-- Remove the topleft message when CENSORED is active
+local generate_UIBox_ability_tableref = Card.generate_UIBox_ability_table
+function Card.generate_UIBox_ability_table(self)
+    if next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored" then return end
+    return generate_UIBox_ability_tableref(self)
+end
+
+-- JokerDisplay modification when CENSORED is active
+if JokerDisplay then
+    local initialize_joker_displayref = Card.initialize_joker_display
+    function Card.initialize_joker_display(self, custom_parent)
+        if next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored" then 
+            self.children.joker_display:remove_text()
+            self.children.joker_display:remove_reminder_text()
+            self.children.joker_display:remove_extra()
+            self.children.joker_display:remove_modifiers()
+            self.children.joker_display_small:remove_text()
+            self.children.joker_display_small:remove_reminder_text()
+            self.children.joker_display_small:remove_extra()
+            self.children.joker_display_small:remove_modifiers()
+            self.children.joker_display_debuff:remove_text()
+            self.children.joker_display_debuff:remove_modifiers()
+            self.children.joker_display_debuff:add_text({ { text = "" .. localize("k_debuffed"), colour = G.C.UI.TEXT_INACTIVE } })
+        
+            local joker_display_definition = JokerDisplay.Definitions["lobc_other_censored"]
+            local definiton_text = joker_display_definition and
+                (joker_display_definition.text or joker_display_definition.line_1)
+            local text_config = joker_display_definition and joker_display_definition.text_config
+        
+            if custom_parent then
+                custom_parent.children.joker_display:add_text(definiton_text, text_config, self)
+                custom_parent.children.joker_display_small:add_text(definiton_text, text_config, self)
+                custom_parent.children.joker_display:recalculate()
+                custom_parent.children.joker_display_small:recalculate()
+            else
+                self.children.joker_display:add_text(definiton_text, text_config)
+                self.children.joker_display_small:add_text(definiton_text, text_config)
+                self.children.joker_display:recalculate()
+                self.children.joker_display_small:recalculate()
+            end
+        else
+            initialize_joker_displayref(self, custom_parent)
+        end
+    end
 end
 
 --=============== CHALLENGES ===============--
@@ -889,7 +968,7 @@ function Blind:ordeal_alert()
                     delay = G.SETTINGS.GAMESPEED * 0.05,
                     blockable = false,
                     func = (function()
-                        play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.5)
+                        play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.3)
                         local hold_time = G.SETTINGS.GAMESPEED * 5
                         local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
                         attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
@@ -931,7 +1010,7 @@ function G.FUNCS.draw_from_hand_to_discard(e)
                 local hold_time = G.SETTINGS.GAMESPEED * 5
                 local blind = G.GAME.blind
                 local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
-                play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.5)
+                play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.3)
                 attention_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, silent = true})
                 attention_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, silent = true})
                 attention_text({scale = 0.35, text = localize(loc_key..'_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, silent = true})

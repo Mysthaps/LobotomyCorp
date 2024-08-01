@@ -177,6 +177,15 @@ return {
                     "bright as ever.",
                 }
             },
+            und_j_lobc_censored = {
+                name = "O-03-89",
+                text = {
+                    "\"If a flaw in the system disables",
+                    "the censors covering the Abnormality,",
+                    "we will once again have to sincerely",
+                    "consider how to dispose of the manager.\"",
+                }
+            },
             und_j_lobc_shy_look = {
                 name = "O-01-92",
                 text = {
@@ -1107,6 +1116,48 @@ return {
                     "If there are none, increase Blind Size by",
                     "{C:attention}10%{} per {C:tarot}Wisdom{} created {C:inactive}(once per round){}",
                     "{C:inactive}({C:tarot}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"
+                }
+            },
+
+            dis_j_lobc_censored_1 = {
+                name = "O-03-89",
+                text = {
+                    "{C:attention}(#4#/2){} ...",
+                    "{C:attention}(#5#/5){} ...",
+                    "{C:attention}(#6#/8){} ...",
+                }
+            },
+            dis_j_lobc_censored_2 = {
+                name = "O-03-89",
+                text = {
+                    "Removes all other descriptions",
+                    "{C:attention}(#5#/5){} ...",
+                    "{C:attention}(#6#/8){} ...",
+                }
+            },
+            dis_j_lobc_censored_3 = {
+                name = "O-03-89",
+                text = {
+                    "Removes all other descriptions",
+                    "{s:0.15} {}",
+                    "Each Joker gives {C:mult}+#1#{} Mult",
+                    "Each held consumable gives {X:mult,C:white} X#2# {} Mult",
+                    "Each playing card in hand gives {C:chips}+#3#{} chips",
+                    "{s:0.15} {}",
+                    "{C:attention}(#6#/8){} ...",
+                }
+            },
+            j_lobc_censored = {
+                name = "CENSORED",
+                text = {
+                    "Removes all other descriptions",
+                    "{s:0.15} {}",
+                    "Each Joker gives {C:mult}+#1#{} Mult",
+                    "Each held consumable gives {X:mult,C:white} X#2# {} Mult",
+                    "Each playing card in hand gives {C:chips}+#3#{} chips",
+                    "{s:0.15} {}",
+                    "After each hand, {C:red}[CENSORED]{} a random card",
+                    "{C:inactive}(Joker, consumable or playing card)",
                 }
             },
 
