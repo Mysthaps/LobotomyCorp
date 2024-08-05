@@ -130,6 +130,7 @@ local challenge_list = {
     "ordeals",
     "dark_days",
     "malkuth",
+    --"yesod",
 }
 
 local consumable_list = {
@@ -709,9 +710,15 @@ function G.FUNCS.play_cards_from_highlighted(e)
     G.GAME.lobc_prepped = true
 end
 
--- CENSORED
+-- Card popup UI effects
 local card_h_popupref = G.UIDEF.card_h_popup
 function G.UIDEF.card_h_popup(card)
+    -- Yesod remove UI
+    if G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 then
+        return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={}}
+    end
+
+    -- CENSORED
     if next(SMODS.find_card("j_lobc_censored")) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored") then
         local name_nodes = localize{type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {}}
         name_nodes[1].config.object.colours = {G.C.RED}
@@ -728,10 +735,11 @@ function G.UIDEF.card_h_popup(card)
     return card_h_popupref(card)
 end
 
--- Remove the topleft message when CENSORED is active
+-- Remove the topleft message when CENSORED/Yesod is active
 local generate_UIBox_ability_tableref = Card.generate_UIBox_ability_table
 function Card.generate_UIBox_ability_table(self)
-    if next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored" then return end
+    if (next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored") 
+    or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3) then return end
     return generate_UIBox_ability_tableref(self)
 end
 
@@ -739,7 +747,7 @@ end
 if JokerDisplay then
     local initialize_joker_displayref = Card.initialize_joker_display
     function Card.initialize_joker_display(self, custom_parent)
-        if next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored" then 
+        if G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 then
             self.children.joker_display:remove_text()
             self.children.joker_display:remove_reminder_text()
             self.children.joker_display:remove_extra()
@@ -750,7 +758,18 @@ if JokerDisplay then
             self.children.joker_display_small:remove_modifiers()
             self.children.joker_display_debuff:remove_text()
             self.children.joker_display_debuff:remove_modifiers()
-            self.children.joker_display_debuff:add_text({ { text = "" .. localize("k_debuffed"), colour = G.C.UI.TEXT_INACTIVE } })
+        elseif next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored" then 
+            self.children.joker_display:remove_text()
+            self.children.joker_display:remove_reminder_text()
+            self.children.joker_display:remove_extra()
+            self.children.joker_display:remove_modifiers()
+            self.children.joker_display_small:remove_text()
+            self.children.joker_display_small:remove_reminder_text()
+            self.children.joker_display_small:remove_extra()
+            self.children.joker_display_small:remove_modifiers()
+            self.children.joker_display_debuff:remove_text()
+            self.children.joker_display_debuff:remove_modifiers()
+            self.children.joker_display_debuff:add_text({ { text = "CENSORED", colour = G.C.UI.TEXT_INACTIVE } })
         
             local joker_display_definition = JokerDisplay.Definitions["lobc_other_censored"]
             local definiton_text = joker_display_definition and
@@ -865,6 +884,72 @@ function Card.flip(self)
         end
     end
     card_flipref(self)
+end
+
+-- Atlases and Shaders not affected by Pixelation (Yesod)
+local blacklist_atlas = {
+    "cards_1",
+    "cards_2",
+    "ui_1",
+    "ui_2",
+    "balatro",
+    "gamepad_ui",
+    "icons",
+    "centers",
+}
+local blacklist_shader = {
+    "lobc_pixelation",
+    "vortex",
+    "flame",
+    "splash",
+    "flash",
+    "background",
+}
+
+-- Apply Pixelation shader (Yesod)
+local draw_shaderref = Sprite.draw_shader
+function Sprite.draw_shader(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+    local check = G.GAME and G.GAME.modifiers.lobc_yesod
+    for _, v in ipairs(blacklist_atlas) do if self.atlas == G.ASSET_ATLAS[v] then check = false end end
+    if self.atlas == G.ANIMATION_ATLAS["shop_sign"] then check = false end
+    for _, v in ipairs(blacklist_shader) do if _shader == v then check = false end end
+    draw_shaderref(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+    if check then draw_shaderref(self, "lobc_pixelation", _shadow_height, nil, nil, other_obj, ms, mr, mx, my) end
+end
+
+-- Load blank font (Yesod)
+local set_languageref = Game.set_language
+function Game.set_language(self)
+    set_languageref(self)
+    self.FONTS["blank"] = {
+        file = folder.."assets/fonts/AdobeBlank.ttf", 
+        render_scale = self.TILESIZE*10, 
+        TEXT_HEIGHT_SCALE = 0.83, 
+        TEXT_OFFSET = {x=10,y=-20}, 
+        FONTSCALE = 0.1, 
+        squish = 1, 
+        DESCSCALE = 1,
+        FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
+    }
+    
+end
+
+-- Apply blank font (Yesod)
+local game_updateref = Game.update
+function Game.update(self, dt)
+    if not G.SETTINGS.paused and G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 then
+        G.LANG.font = G.FONTS["blank"]
+    else
+        G.LANG.font = G.FONTS[1]
+    end
+    game_updateref(self, dt)
+end
+
+-- Remove blank font when appropriate (Yesod)
+local overlay_menuref = G.FUNCS.overlay_menu
+function G.FUNCS.overlay_menu(args)
+    if G.SETTINGS.paused then G.LANG.font = G.FONTS[1] end
+    overlay_menuref(args)
 end
 
 --=============== MECHANICAL ===============--
@@ -1405,15 +1490,7 @@ SMODS.Atlas({
 
 -- ConsumableType (guh)
 SMODS.ConsumableType({
-    key = 'EGO_Gift', -- not actually ego gifts... more like tokens....
-    -- Remove all the collection UI stuff
-    --[[create_UIBox_your_collection = nil,
-    inject = function(self)
-        G.P_CENTER_POOLS[self.key] = G.P_CENTER_POOLS[self.key] or {}
-        G.localization.descriptions[self.key] = G.localization.descriptions[self.key] or {}
-        G.C.SET[self.key] = self.primary_colour
-        G.C.SECONDARY_SET[self.key] = self.secondary_colour
-    end,]]--
+    key = 'EGO_Gift', 
     primary_colour = HEX('424e54'),
     secondary_colour = HEX("dd4930"),
     loc_txt = {},
@@ -1422,56 +1499,10 @@ SMODS.ConsumableType({
 })
 
 -- Shaders
---[[SMODS.Shader({
+SMODS.Shader({
     key = "pixelation",
     path = "pixelation.fs"
 })
-
-local blacklist_atlas = {
-    "cards_1",
-    "cards_2",
-    "ui_1",
-    "ui_2",
-    "balatro",
-    "gamepad_ui",
-    "icons",
-    "centers",
-}
-local blacklist_shader = {
-    "lobc_pixelation",
-    "vortex",
-    "flame",
-    "splash",
-    "flash",
-    "background",
-}
--- shader test
-local draw_shaderref = Sprite.draw_shader
-function Sprite.draw_shader(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
-    local check = true
-    for _, v in ipairs(blacklist_atlas) do if self.atlas == G.ASSET_ATLAS[v] then check = false end end
-    if self.atlas == G.ANIMATION_ATLAS["shop_sign"] then check = false end
-    for _, v in ipairs(blacklist_shader) do if _shader == v then check = false end end
-    draw_shaderref(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
-    if check then draw_shaderref(self, "lobc_pixelation", _shadow_height, nil, nil, other_obj, ms, mr, mx, my) end
-end
-
--- Load blank font
-local set_languageref = Game.set_language
-function Game.set_language(self)
-    set_languageref(self)
-    self.FONTS["blank"] = {
-        file = folder.."assets/fonts/AdobeBlank.ttf", 
-        render_scale = self.TILESIZE*10, 
-        TEXT_HEIGHT_SCALE = 0.83, 
-        TEXT_OFFSET = {x=10,y=-20}, 
-        FONTSCALE = 0.1, 
-        squish = 1, 
-        DESCSCALE = 1,
-        FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
-    }
-    self.LANGUAGES["en-us"].font = self.FONTS["blank"]
-end]]
 
 -- Clear all Cathys
 sendInfoMessage("Loaded LobotomyCorp~")
