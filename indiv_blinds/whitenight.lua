@@ -12,15 +12,14 @@ local blind = {
 
 blind.set_blind = function(self, reset, silent)
     if next(SMODS.find_card("j_lobc_one_sin")) then
-        attention_text({
+        lobc_screen_text({
             text = localize('k_lobc_whitenight_confession'),
             scale = 0.35, 
             hold = 4*G.SETTINGS.GAMESPEED,
             major = G.play,
-            backdrop_colour = G.C.CLEAR,
             align = 'cm',
             offset = {x = 0, y = -3.5},
-            silent = true
+            noisy = false
         })
     end
 
@@ -30,6 +29,11 @@ blind.set_blind = function(self, reset, silent)
         if G.GAME.round_resets.blind_ante == 3 then G.GAME.blind.chips = G.GAME.blind.chips / 2 end
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end
+
+    local eval_func = function()
+        return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_whitenight'
+    end
+    lobc_abno_text("whitenight", eval_func, 0, 12)
 end
 
 blind.recalc_debuff = function(self, card, from_blind)
@@ -40,7 +44,7 @@ end
 
 blind.disable = function(self)
     if not next(SMODS.find_card("j_lobc_one_sin")) then
-        attention_text({
+        lobc_screen_text({
             text = localize('k_lobc_whitenight_disable'),
             scale = 0.35, 
             hold = 8*G.SETTINGS.GAMESPEED,
@@ -48,7 +52,7 @@ blind.disable = function(self)
             backdrop_colour = G.C.CLEAR,
             align = 'cm',
             offset = {x = 0, y = -3.5},
-            silent = true
+            noisy = false
         })
         G.GAME.blind:wiggle()
     end

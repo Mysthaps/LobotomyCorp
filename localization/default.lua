@@ -1671,18 +1671,31 @@ return {
             k_lobc_whitenight_confession = "To be willing to bear pain is half the atonement.",
             k_lobc_whitenight_disable = "Do not deny me. Why dost thou doubt me when I am in front of thine eyes?",
 
+            k_lobc_whitenight_1 = "Ye who are drenched in sin. Rise and face me.",
+            k_lobc_whitenight_2 = "Pursue peace and holiness. Without these, ye shan’t look at me.",
+            k_lobc_whitenight_3 = "The disobedience of one hath caused the many to become sinners...",
+            k_lobc_whitenight_4 = "Now, the many seeketh salvation through the obedience of one.",
+            k_lobc_whitenight_5 = "I have not manifested myself in such a form to lay judgement.",
+            k_lobc_whitenight_6 = "Worship me, and ye will not belong to that sin. I redeem you to free you of such things.",
+            k_lobc_whitenight_7 = "Ye who are full of blessings, rejoice. For I am with ye.",
+            k_lobc_whitenight_8 = "I shall be with ye as I relieve you of the fear of horrifying death.",
+            k_lobc_whitenight_9 = "Be at ease. No calamity shall be able to trouble you.",
+            k_lobc_whitenight_10 = "Ye will gain a body free of such corruption, so how could one deny that this is salvation.",
+            k_lobc_whitenight_11 = "Those who endure until the end will be able to proceed.",
+            k_lobc_whitenight_12 = "Accept my grace, and I shall bury your errors in the past.",
+
             ---- The Price of Silence ----
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
             k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
 
             ---- Malkuth ----
             k_lobc_malkuth_1 = "This is what you call a truly uncontrollable situation, manager.",
-            k_lobc_malkuth_2 = "Everything’s all jumbled up, messed up, flustered… hahaha...",
+            k_lobc_malkuth_2 = "Everything's all jumbled up, messed up, flustered... hahaha...",
             k_lobc_malkuth_3 = "It's unpredictable, isn't it?",
             k_lobc_malkuth_4 = "I just wanted to help out.",
             k_lobc_malkuth_5 = "Make sure you feel this horrible sense of helplessness to your core, right to your heart.",
             k_lobc_malkuth_6 = "Please watch me, manager! I can take care of this situation, no problem!",
-            k_lobc_malkuth_7 = "Can’t you hear it? The sound of it struggling, as if to say it can’t fall asleep like this.",
+            k_lobc_malkuth_7 = "Can't you hear it? The sound of it struggling, as if to say it can't fall asleep like this.",
             k_lobc_malkuth_8 = "I see now how much fun it can be to look down on someone, manager...",
 
             ---- Yesod ----
@@ -1693,26 +1706,26 @@ return {
             k_lobc_yesod_5 = "You are unfit to be the manager if you cannot even remember the simplest rules.",
             k_lobc_yesod_6 = "Now I see; I have been wallowing in despair, for such a long time.",
             k_lobc_yesod_7 = "I tried to pretend that everything was fine, but in reality, it never was. I was dying on the inside..",
-            k_lobc_yesod_8 = "You should know that all the information you just mindlessly skimmed through was from somebody’s dire sacrifice.",
+            k_lobc_yesod_8 = "You should know that all the information you just mindlessly skimmed through was from somebody's dire sacrifice.",
 
             ---- Hod ----
             k_lobc_hod_1 = "I want to help as much as I can here.",
             k_lobc_hod_2 = "I wish everyone would rely on me...",
             k_lobc_hod_3 = "How come nobody understands my kindness?",
-            k_lobc_hod_4 = "I’m the only one who cares about them… Why would they hate me...?",
-            k_lobc_hod_5 = "Our employees are suffering! See? Things just don’t work out without me here!",
-            k_lobc_hod_6 = "Forgive me, manager. If you can’t forgive, then please at least forget.",
+            k_lobc_hod_4 = "I'm the only one who cares about them... Why would they hate me...?",
+            k_lobc_hod_5 = "Our employees are suffering! See? Things just don't work out without me here!",
+            k_lobc_hod_6 = "Forgive me, manager. If you can't forgive, then please at least forget.",
             k_lobc_hod_7 = "You all would be dead where you stand without me! Every single one of you!",
             k_lobc_hod_8 = "I guess I just never was a good person from the start...",
 
             ---- Netzach ----
-            k_lobc_netzach_1 = "Why do you want to continue prolonging these undesired lives? What’d you expect to see at the end of all this?",
+            k_lobc_netzach_1 = "Why do you want to continue prolonging these undesired lives? What'd you expect to see at the end of all this?",
             k_lobc_netzach_2 = "Why must I wake up and do all the garbage I hate every single day?",
-            k_lobc_netzach_3 = "You weren’t the person I put my trust in.",
+            k_lobc_netzach_3 = "You weren't the person I put my trust in.",
             k_lobc_netzach_4 = "This place will never be safe, you know.",
             k_lobc_netzach_5 = "I never wanted to be in this position anyways. I never asked for this. Not once.",
             k_lobc_netzach_6 = "In the end, the hope that anyone will live on thanks to me is gone.",
-            k_lobc_netzach_7 = "Just leave me alone, it’s what you’re best at.",
+            k_lobc_netzach_7 = "Just leave me alone, it's what you're best at.",
             k_lobc_netzach_8 = "All I want is to close my eyes and enjoy a good nap, just once.",
         }
     }

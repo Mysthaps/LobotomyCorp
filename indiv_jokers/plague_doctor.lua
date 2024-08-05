@@ -76,7 +76,7 @@ joker.calculate = function(self, card, context)
             }))
             if not G.GAME.modifiers.lobc_all_whitenight then
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    attention_text({
+                    lobc_screen_text({
                         text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_1'),
                         scale = 0.35, 
                         hold = 6*G.SETTINGS.GAMESPEED,
@@ -84,9 +84,9 @@ joker.calculate = function(self, card, context)
                         backdrop_colour = G.C.CLEAR,
                         align = 'cm',
                         offset = {x = 0, y = -3.5},
-                        silent = true
+                        noisy = false
                     })
-                    attention_text({
+                    lobc_screen_text({
                         text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_2'),
                         scale = 0.35, 
                         hold = 6*G.SETTINGS.GAMESPEED,
@@ -94,7 +94,7 @@ joker.calculate = function(self, card, context)
                         backdrop_colour = G.C.CLEAR,
                         align = 'cm',
                         offset = {x = 0, y = -3.1},
-                        silent = true
+                        noisy = false
                     })
                     return true 
                     end 

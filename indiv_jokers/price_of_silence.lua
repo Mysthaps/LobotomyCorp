@@ -40,7 +40,7 @@ joker.update = function(self, card, dt)
                     selected_card:start_dissolve()
 
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        attention_text({
+                        lobc_screen_text({
                             text = localize('k_lobc_price_of_silence_1'),
                             scale = 0.35, 
                             hold = 4*G.SETTINGS.GAMESPEED,
@@ -48,9 +48,9 @@ joker.update = function(self, card, dt)
                             backdrop_colour = G.C.CLEAR,
                             align = 'cm',
                             offset = {x = 0, y = -3.5},
-                            silent = true
+                            noisy = false
                         })
-                        attention_text({
+                        lobc_screen_text({
                             text = localize('k_lobc_price_of_silence_2'),
                             scale = 0.35, 
                             hold = 4*G.SETTINGS.GAMESPEED,
@@ -58,7 +58,7 @@ joker.update = function(self, card, dt)
                             backdrop_colour = G.C.CLEAR,
                             align = 'cm',
                             offset = {x = 0, y = -3.1},
-                            silent = true
+                            noisy = false
                         })
                         return true 
                         end 
