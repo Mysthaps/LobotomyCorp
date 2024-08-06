@@ -301,7 +301,7 @@ to_big = to_big or function(num)
     return num
 end
 
--- copied from lobc_screen_text
+-- copied from attention_text
 function lobc_screen_text(args)
     args = args or {}
     args.text = args.text or 'test'
@@ -920,7 +920,8 @@ function Game.start_run(self, args)
                 major = G.play,
                 align = 'cm',
                 offset = {x = 0.3, y = -3.5},
-                noisy = false
+                noisy = false,
+                float = false,
             })
             lobc_screen_text({
                 text = localize('k_lobc_first_time_2'),
@@ -929,7 +930,8 @@ function Game.start_run(self, args)
                 major = G.play,
                 align = 'cm',
                 offset = {x = 0.3, y = -3.1},
-                noisy = false
+                noisy = false,
+                float = false,
             })
             return true 
             end 
@@ -1032,7 +1034,6 @@ function Game.set_language(self)
         DESCSCALE = 1,
         FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
     }
-    
 end
 
 -- Apply blank font (Yesod)
@@ -1146,10 +1147,10 @@ function Blind:ordeal_alert()
                         play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.3)
                         local hold_time = G.SETTINGS.GAMESPEED * 5
                         local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
-                        lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false})
-                        lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false})
-                        lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false})
-                        lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false})
+                        lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false})
+                        lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false})
+                        lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false})
+                        lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false, float = false})
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
                             delay = hold_time,
@@ -1186,10 +1187,10 @@ function G.FUNCS.draw_from_hand_to_discard(e)
                 local blind = G.GAME.blind
                 local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
                 play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.3)
-                lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false})
-                lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false})
-                lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false})
-                lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false})
+                lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false})
+                lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false})
+                lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false})
+                lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false, float = false})
                 return true
             end)
         }))

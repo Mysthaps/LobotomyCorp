@@ -52,7 +52,8 @@ blind.disable = function(self)
             backdrop_colour = G.C.CLEAR,
             align = 'cm',
             offset = {x = 0, y = -3.5},
-            noisy = false
+            noisy = false,
+            float = false
         })
         G.GAME.blind:wiggle()
     end

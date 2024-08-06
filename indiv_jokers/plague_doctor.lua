@@ -84,7 +84,8 @@ joker.calculate = function(self, card, context)
                         backdrop_colour = G.C.CLEAR,
                         align = 'cm',
                         offset = {x = 0, y = -3.5},
-                        noisy = false
+                        noisy = false,
+                        float = false
                     })
                     lobc_screen_text({
                         text = localize('k_lobc_plague_apostle_'..card.ability.extra.apostles..'_2'),
@@ -94,7 +95,8 @@ joker.calculate = function(self, card, context)
                         backdrop_colour = G.C.CLEAR,
                         align = 'cm',
                         offset = {x = 0, y = -3.1},
-                        noisy = false
+                        noisy = false,
+                        float = false
                     })
                     return true 
                     end 
