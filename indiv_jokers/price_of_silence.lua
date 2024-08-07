@@ -1,7 +1,7 @@
 local joker = {
     name = "The Price of Silence",
     config = {extra = {
-        elapsed = 0, seconds = 0, active = false
+        elapsed = 0, seconds = 0, active = false, converted = 0,
     }}, rarity = 3, cost = 7,
     pos = {x = 5, y = 8}, 
     blueprint_compat = false, 
@@ -67,6 +67,7 @@ joker.update = function(self, card, dt)
                     }))
 
                     play_sound("lobc_silence_destroy", 1, 0.5)
+                    card.ability.extra.converted = 0
                 end
             end
         end
@@ -106,6 +107,10 @@ joker.calculate = function(self, card, context)
                     rightmost:lobc_check_amplified()
                     rightmost:flip()
                 return true end }))
+                card.ability.extra.converted = card.ability.extra.converted + 1
+            end
+            if card.ability.extra.converted >= 10 then
+                check_for_unlock({type = "lobc_dead_silence"})
             end
         end
     end

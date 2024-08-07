@@ -20,6 +20,9 @@ joker.calculate = function(self, card, context)
                 card.ability.extra.per = card.ability.extra.per - card.ability.extra.loss
             end
         end
+        if card.ability.extra.per >= 4 then
+            check_for_unlock({type = "lobc_our_galaxy"})
+        end
     end
 
     if context.joker_main then

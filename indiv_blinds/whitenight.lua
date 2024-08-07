@@ -33,7 +33,7 @@ blind.set_blind = function(self, reset, silent)
     local eval_func = function()
         return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_whitenight'
     end
-    lobc_abno_text("whitenight", eval_func, 2, 12)
+    if not next(SMODS.find_card("j_lobc_one_sin")) then lobc_abno_text("whitenight", eval_func, 2, 12) end
 end
 
 blind.recalc_debuff = function(self, card, from_blind)
@@ -76,6 +76,7 @@ blind.defeat = function(self)
             }))
         else
             G.GAME.pool_flags["whitenight_confessed"] = true
+            check_for_unlock({type = "lobc_penitence"})
         end
     end
 end

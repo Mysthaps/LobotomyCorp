@@ -10,7 +10,8 @@ local joker = {
     name = "Today's Shy Look",
     config = {extra = {
         chips = 30, mult = 15, face = 1,
-        elapsed = 0, interval = 2
+        elapsed = 0, interval = 2,
+        achievement_check = 0
     }}, rarity = 1, cost = 4,
     pos = {x = 4, y = 6}, 
     blueprint_compat = true, 
@@ -24,6 +25,15 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.joker_main then
+        if card.ability.extra.face == 1 then
+            card.ability.extra.achievement_check = card.ability.extra.achievement_check + 1
+            if card.ability.extra.achievement_check >= 10 then
+                check_for_unlock({type = "lobc_todays_expression"})
+            end
+        else
+            card.ability.extra.achievement_check = 0
+        end
+
         if card.ability.extra.chips > 0 then
             SMODS.eval_this(card, {
                 message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},

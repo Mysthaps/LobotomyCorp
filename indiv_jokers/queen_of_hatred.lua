@@ -1,6 +1,6 @@
 local joker = {
     name = "The Queen of Hatred",
-    config = {extra = {x_mult = 5, loss = 0.5, hysteria = false}}, rarity = 3, cost = 8,
+    config = {extra = {x_mult = 5, loss = 0.5, hysteria = false, round_count = 0}}, rarity = 3, cost = 8,
     pos = {x = 3, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -21,6 +21,8 @@ joker.calculate = function(self, card, context)
     end
 
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+        card.ability.extra.round_count = card.ability.extra.round_count + 1
+
         local chips_check = false
         if to_big then
             chips_check = (to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) * 5)
@@ -64,6 +66,10 @@ joker.calculate = function(self, card, context)
                     message = localize{type = 'variable', key = 'a_xmult_minus', vars = {card.ability.extra.loss}},
                     colour = G.C.RED
                 }
+            end
+        else
+            if card.ability.extra.round_count >= 9 then
+                check_for_unlock({type = "lobc_love_and_hate"})
             end
         end
     end

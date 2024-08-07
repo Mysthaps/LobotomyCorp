@@ -41,6 +41,9 @@ joker.calculate = function(self, card, context)
                         return true
                     end
                 }))
+                if card.ability.extra.mult_gain >= 15 then
+                    check_for_unlock({type = "lobc_smile"})
+                end
             end
         end
     end

@@ -1,6 +1,6 @@
 local joker = {
     name = "The Servant of Wrath",
-    config = {extra = {counter = 0, x_mult = 2.5}}, rarity = 3, cost = 8,
+    config = {extra = {counter = 0, x_mult = 2.5, round_count = 0}}, rarity = 3, cost = 8,
     pos = {x = 4, y = 8}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -100,6 +100,18 @@ joker.calculate = function(self, card, context)
                 message = localize('k_lobc_breached'),
                 colour = G.C.FILTER
             }
+        end
+    end
+
+    if context.end_of_round and not context.repetition and not context.individual then
+        if G.GAME.current_round.hands_played == 1 then
+            card.ability.extra.round_count = card.ability.extra.round_count + 1 
+        else
+            card.ability.extra.round_count = 0
+        end
+
+        if card.ability.extra.round_count >= 6 then
+            check_for_unlock({type = "lobc_blind_rage"})
         end
     end
 end

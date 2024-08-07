@@ -36,6 +36,7 @@ joker.calculate = function(self, card, context)
             end
         }))
         G.GAME.lobc_death_text = localize("k_lobc_punishing_bird")
+        check_for_unlock({type = "lobc_beak"})
         G.STATE = G.STATES.GAME_OVER
         if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
             G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
