@@ -1749,7 +1749,7 @@ return {
             ach_lobc_penitence = "Confess to One Sin and Hundreds of Good Deeds and defeat WhiteNight",
             ach_lobc_love_and_hate = "Have The Queen of Hatred for 9 rounds in one game without going into Hysteria",
             ach_lobc_bear_paws = "Upgrade the same hand type using Happy Teddy Bear 10 times in one game without resetting it",
-            ach_lobc_solitude = "Reach -100 Mult or below on Old Lady",
+            ach_lobc_solitude = "Reach -50 Mult or below on Old Lady",
             ach_lobc_bless = "Have not I chosen you twelve, and one of you is a devil?",
             ach_lobc_paradise_lost = "Fully observe WhiteNight",
             ach_lobc_our_galaxy = "Reach X4 or higher on Child of the Galaxy",

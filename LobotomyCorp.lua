@@ -688,14 +688,16 @@ function Card.add_to_deck(self, from_debuff)
         for _, v in ipairs(SMODS.find_card("j_lobc_old_lady")) do
             if self ~= v then
                 v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
-                card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_lobc_downgrade')})
                 G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.1,
                     func = function()
+                        SMODS.eval_this(v, { message = localize('k_lobc_downgrade') })
                         play_sound('lobc_old_lady_downgrade', 1, 0.6)
                         return true
                     end
                 }))
-                if v.ability.extra.mult <= -100 then
+                if v.ability.extra.mult <= -50 then
                     check_for_unlock({type = "lobc_solitude"})
                 end
             end
