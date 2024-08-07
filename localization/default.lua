@@ -1760,10 +1760,10 @@ return {
             ach_lobc_dead_silence = "Convert 10 cards using The Price of Silence in one game without destroying a Joker",
             ach_lobc_laetitia = "Have 30 or more cards in deck be A Wee Witch's Gift",
             ach_lobc_smile = "Reach +15 Mult per card destroyed or higher on The Mountain of Smiling Bodies",
-            ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds with at most 4 hands after each blind",
+            ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each blind",
             ach_lobc_todays_expression = "Make the happiest face 10 times in a row on Today's Shy Look",
             ach_lobc_tough = "Fully observe You're Bald...",
-            ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds while defeating each blind in only one hand",
+            ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds in one game while defeating each blind in only one hand",
             ach_lobc_midnight = "Defeat a Midnight Ordeal",
             ach_lobc_white_nights = "Beat \"Dark Days\"",
             ach_lobc_malkuth = "Beat \"Control\""
