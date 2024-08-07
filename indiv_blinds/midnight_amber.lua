@@ -47,6 +47,7 @@ blind.defeat = function(self)
     for _, v in ipairs(G.playing_cards) do
         v.ability.amber_debuff = nil
     end
+    check_for_unlock({type = "lobc_midnight"})
 end
 
 blind.disable = function(self)

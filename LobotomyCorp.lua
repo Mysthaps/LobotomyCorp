@@ -6,6 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
+--- DEPENDENCIES: [Steamodded>=1.0.0-ALPHA-0806a]
 --- VERSION: 0.8.3
 
 local current_mod = SMODS.current_mod

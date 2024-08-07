@@ -1744,6 +1744,9 @@ return {
             ach_lobc_todays_expression = "Today's Expression",
             ach_lobc_tough = "Tough",
             ach_lobc_blind_rage = "Blind Rage",
+            ach_lobc_midnight = "Midnight Vanquisher",
+            ach_lobc_white_nights = "White Nights",
+            ach_lobc_malkuth = "The Will to Stand up Straight"
         },
         achievement_descriptions = {
             ach_lobc_penitence = "Confess to One Sin and Hundreds of Good Deeds and defeat WhiteNight",
@@ -1761,6 +1764,9 @@ return {
             ach_lobc_todays_expression = "Make the happiest face 10 times in a row on Today's Shy Look",
             ach_lobc_tough = "Fully observe You're Bald...",
             ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds while defeating each blind in only one hand",
+            ach_lobc_midnight = "Defeat a Midnight Ordeal",
+            ach_lobc_white_nights = "Beat \"Dark Days\"",
+            ach_lobc_malkuth = "Beat \"Control\""
         }
     }
 }

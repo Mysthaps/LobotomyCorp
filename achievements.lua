@@ -168,3 +168,44 @@ SMODS.Achievement({
         return args.type == "lobc_blind_rage"
     end
 })
+
+-- Midnight Vanquisher
+SMODS.Achievement({
+    key = "midnight",
+    order = 16,
+    bypass_all_unlocked = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        if args.type == "round_win" then
+            if G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == 'midnight' then
+                return true
+            end
+        end
+    end
+})
+
+-- White Nights / Dark Days
+SMODS.Achievement({
+    key = "white_nights",
+    order = 17,
+    bypass_all_unlocked = true,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        if args.type == "win_challenge" or args.type == "win_challenge_startup" then
+            return G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_dark_days"]
+        end
+    end
+})
+
+-- The Will to Stand up Straight / Control
+SMODS.Achievement({
+    key = "malkuth",
+    order = 18,
+    bypass_all_unlocked = true,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        if args.type == "win_challenge" or args.type == "win_challenge_startup" then
+            return G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_malkuth"]
+        end
+    end
+})
