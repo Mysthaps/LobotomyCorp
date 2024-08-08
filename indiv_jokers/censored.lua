@@ -140,35 +140,58 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 if JokerDisplay then
-    --[[JokerDisplay.Definitions.j_lobc_censored = {
+    JokerDisplay.Definitions.j_lobc_censored = {
         text = {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+            { text = " +", colour = G.C.MULT },
+            { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
+            { text = " " },
             {
                 border_nodes = {
                     { text = "X" },
-                    { ref_table = "card.ability.extra", ref_value = "x_mult" }
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
                 }
             }
         },
-        reminder_text = {
-            { text = "(" },
-            { ref_table = "card.joker_display_values", ref_value = "remaining_text", colour = G.C.IMPORTANT },
-            { text = ")" }
-        },
         calc_function = function(card)
-            card.joker_display_values.remaining_text = localize{type = 'variable', key = 'loyalty_inactive', vars = {4 - card.ability.extra.counter}}
+            local h_count = 0
+            local j_count = 0
+            local c_count = 0
+
+            for k, v in pairs(G.hand.cards) do
+                if not v.highlighted and not v.debuff then
+                    h_count = h_count + 1
+                end
+            end
+
+            for k, v in pairs(G.jokers.cards) do
+                if not v.debuff then
+                    j_count = j_count + 1
+                end
+            end
+
+            for k, v in pairs(G.consumeables.cards) do
+                if not v.debuff then
+                    c_count = c_count + 1
+                end
+            end
+
+            card.joker_display_values.chips = card.ability.extra.chips * h_count
+            card.joker_display_values.mult = card.ability.extra.mult * j_count
+            card.joker_display_values.x_mult = tonumber(string.format("%.2f", (card.ability.extra.x_mult ^ c_count)))
         end,
         style_function = function(card, text, reminder_text, extra)
             if text then 
-                text.states.visible = card:check_rounds(3) >= 3
+                text.states.visible = card:check_rounds(5) >= 5
             end
             if reminder_text then
-                reminder_text.states.visible = card:check_rounds(6) >= 6
             end
             if extra then
             end
             return false
         end
-    }]]--
+    }
 
     JokerDisplay.Definitions.lobc_other_censored = {
         text = {
@@ -179,5 +202,7 @@ end
 
 return joker
 
--- Hello?
--- I love you.
+-- [CENSORED]
+-- [CENSORED]
+-- [CENSORED]
+-- she [CENSORED] on my [CENSORED] till i [CENSORED]

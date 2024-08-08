@@ -33,8 +33,12 @@ local chal = {
     end
 }
 
-if SMODS.Mods.Cryptid then
+if SMODS.Mods.Cryptid and Cryptid_config["Misc. Jokers"] then
     table.insert(chal.restrictions.banned_cards, {id = 'j_cry_blurred'})
+end
+
+if SMODS.Mods.Bunco then
+    table.insert(chal.restrictions.banned_cards, {id = 'j_bunc_carnival'})
 end
 
 if SMODS.Mods.TWEWY then

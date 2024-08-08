@@ -126,7 +126,8 @@ local challenge_list = {
     "ordeals",
     "dark_days",
     "malkuth",
-    --"yesod",
+    "netzach",
+    "yesod",
 }
 
 local consumable_list = {
@@ -403,6 +404,17 @@ function lobc_abno_text(key, eval_func, delay, quips)
         return true 
         end
     }))
+end
+
+-- what it says
+function lobc_get_usage_count(key)
+    return G.PROFILES[G.SETTINGS.profile].joker_usage[key] and G.PROFILES[G.SETTINGS.profile].joker_usage[key].count or 0
+end
+
+-- Check rounds until observation unlock
+function Card:check_rounds(comp)
+    local val = lobc_get_usage_count(self.config.center_key)
+    return math.min(val, comp)
 end
 
 --=============== BLINDS ===============--
@@ -905,12 +917,28 @@ if JokerDisplay then
     end
 end
 
+-- No editions
+local set_editionref = Card.set_edition
+function Card.set_edition(self, edition, immediate, silent)
+    if G.GAME.modifiers.lobc_yesod then return end
+    set_editionref(self, edition, immediate, silent)
+end
+
 --=============== CHALLENGES ===============--
 
 -- Apply Modifiers to run
 local start_runref = Game.start_run
 function Game.start_run(self, args)
+    -- Reapply blank font to continued games (Yesod)
+    if args.savetext then
+        local g_game = args.savetext.GAME
+        if g_game.modifiers.lobc_yesod and g_game.round_resets.ante > 6 then
+            G.LANG.font = G.FONTS["blank"]
+        end
+    end
+
     start_runref(self, args)
+
     if not args.savetext then
         if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
@@ -962,13 +990,14 @@ function Card.init(self, X, Y, W, H, card, center, params)
     end
 end
 
--- Card shuffle (Malkuth)
+-- Effects upon changing Ante
 local ease_anteref = ease_ante
 function ease_ante(mod)
     ease_anteref(mod)
     G.E_MANAGER:add_event(Event({
         trigger = "immediate",
         func = function()
+            -- Card shuffle (Malkuth)
             if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 6 then
                 G.jokers:unhighlight_all()
                 if #G.jokers.cards > 1 then 
@@ -980,6 +1009,17 @@ function ease_ante(mod)
                         G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 1);return true end })) 
                     return true end })) 
                 end
+            end
+
+            -- Full text hiding (Yesod)
+            if G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 then
+                for _, v in pairs(G.I.MOVEABLE) do
+                    if getmetatable(v) == DynaText then
+                        v.font = G.FONTS["blank"]
+                        v:update_text(true)
+                    end
+                end
+                G.HUD:recalculate()
             end
             return true
         end
@@ -1241,16 +1281,6 @@ function play_sound(sound_code, per, vol)
 end
 
 --=============== OBSERVATION ===============--
-
-function lobc_get_usage_count(key)
-    return G.PROFILES[G.SETTINGS.profile].joker_usage[key] and G.PROFILES[G.SETTINGS.profile].joker_usage[key].count or 0
-end
-
--- Check rounds until observation unlock
-function Card:check_rounds(comp)
-    local val = lobc_get_usage_count(self.config.center_key)
-    return math.min(val, comp)
-end
 
 -- Card updates
 local card_updateref = Card.update
