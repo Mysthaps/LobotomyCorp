@@ -42,6 +42,7 @@ if SMODS.Mods.Cryptid then
     if Cryptid_config["Code Cards"] then
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_malware'})
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_spaghetti'})
+        table.insert(chal.restrictions.banned_cards, {id = 'c_cry_machinecode'})
     end
 
     if Cryptid_config["Spectrals"] then
@@ -64,6 +65,7 @@ if SMODS.Mods.Bunco then
     table.insert(chal.restrictions.banned_cards, {id = 'j_bunc_roygbiv'})
     table.insert(chal.restrictions.banned_cards, {id = 'v_bunc_lamination'})
     table.insert(chal.restrictions.banned_cards, {id = 'v_bunc_supercoating'})
+    
     table.insert(chal.restrictions.banned_tags, {id = 'tag_bunc_glitter'})
     table.insert(chal.restrictions.banned_tags, {id = 'tag_bunc_fluorescent'})
 end

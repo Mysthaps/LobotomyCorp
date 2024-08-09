@@ -17,6 +17,21 @@ self.lobc_global_modifiers = {
     "child_galaxy_pebble",
 }
 
+self.lobc_global_meltdowns = {
+    "malkuth",
+    "yesod",
+    "hod",
+    "netzach",
+    "tiphereth",
+    "gebura",
+    "chesed",
+    "binah",
+    "hokma",
+    "day_47",
+    "day_48",
+    "day_49"
+}
+
 local modifiers_atlas = self.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
 self.lobc_shared_modifiers = {
     laetitia_gift = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 0, y = 0}),

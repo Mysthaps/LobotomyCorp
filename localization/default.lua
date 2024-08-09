@@ -1519,6 +1519,7 @@ return {
             lobc_no_sfx = "Disable Sound Effects",
             lobc_no_music = "Disable Music",
             lobc_irreversible = "(This effect is permanent on this profile!)",
+            lobc_disable_meltdown_color = "Disable Background in some Challenges",
 
             ---- Credits ----
             lobc_credits_1 = "Art and SFX from Lobotomy Corporation and Library of Ruina",
@@ -1689,24 +1690,40 @@ return {
             k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
 
             ---- Malkuth ----
-            k_lobc_malkuth_1 = "This is what you call a truly uncontrollable situation, manager.",
-            k_lobc_malkuth_2 = "Everything's all jumbled up, messed up, flustered... hahaha...",
-            k_lobc_malkuth_3 = "It's unpredictable, isn't it?",
-            k_lobc_malkuth_4 = "I just wanted to help out.",
-            k_lobc_malkuth_5 = "Make sure you feel this horrible sense of helplessness to your core, right to your heart.",
-            k_lobc_malkuth_6 = "Please watch me, manager! I can take care of this situation, no problem!",
-            k_lobc_malkuth_7 = "Can't you hear it? The sound of it struggling, as if to say it can't fall asleep like this.",
-            k_lobc_malkuth_8 = "I see now how much fun it can be to look down on someone, manager...",
+            k_lobc_malkuth_0_1 = "This is what you call a truly uncontrollable situation, manager.",
+            k_lobc_malkuth_0_2 = "Everything's all jumbled up, messed up, flustered... hahaha...",
+            k_lobc_malkuth_0_3 = "It's unpredictable, isn't it?",
+
+            k_lobc_malkuth_1_1 = "I could have done it.",
+            k_lobc_malkuth_1_2 = "I just wanted to help out.",
+
+            k_lobc_malkuth_2_1 = "I knew I didn't have any right to participate in the experiment, that's why I was so impatient.",
+            k_lobc_malkuth_2_2 = "Make sure you feel this horrible sense of helplessness to your core, right to your heart.",
+            k_lobc_malkuth_2_3 = "Please watch me, manager! I can take care of this situation, no problem!",
+            k_lobc_malkuth_2_4 = "I still have so much to do, just look at my notebook... It's all worn out...",
+
+            k_lobc_malkuth_3_1 = "Can't you hear it? The sound of it struggling, as if to say it can't fall asleep like this.",
+            k_lobc_malkuth_3_2 = "Will you finally praise me? I just want to feel proud.",
+            k_lobc_malkuth_3_3 = "Be honest, back then it wasn't that hard to turn around and look back at me.",
+            k_lobc_malkuth_3_4 = "I see now how much fun it can be to look down on someone, manager...",
 
             ---- Yesod ----
-            k_lobc_yesod_1 = "What was I really looking at all this time?",
-            k_lobc_yesod_2 = "This impenetrable darkness is inexplicably lonely.",
-            k_lobc_yesod_3 = "You will not be able to discern anything properly.",
-            k_lobc_yesod_4 = "What did we do wrong?",
-            k_lobc_yesod_5 = "You are unfit to be the manager if you cannot even remember the simplest rules.",
-            k_lobc_yesod_6 = "Now I see; I have been wallowing in despair, for such a long time.",
-            k_lobc_yesod_7 = "I tried to pretend that everything was fine, but in reality, it never was. I was dying on the inside..",
-            k_lobc_yesod_8 = "You should know that all the information you just mindlessly skimmed through was from somebody's dire sacrifice.",
+            k_lobc_yesod_0_1 = "What was I really looking at all this time?",
+            k_lobc_yesod_0_2 = "This impenetrable darkness is inexplicably lonely.",
+            k_lobc_yesod_0_3 = "You will not be able to discern anything properly.",
+
+            k_lobc_yesod_1_1 = "What did we do wrong?",
+            k_lobc_yesod_1_2 = "Are we not even allowed to fall into despair?",
+
+            k_lobc_yesod_2_1 = "To tell you the truth, it’s just that I did not want to witness any more deaths.",
+            k_lobc_yesod_2_2 = "We’ve created monsters that should never have been in this world. This sin can never be forgotten.",
+            k_lobc_yesod_2_3 = "I take great pride in my department and team for obtaining information and expunging it exactly as ordered.",
+            k_lobc_yesod_2_4 = "You should know that all the information you just mindlessly skimmed through was from somebody's dire sacrifice.",
+
+            k_lobc_yesod_3_1 = "You are unfit to be the manager if you cannot even remember the simplest rules.",
+            k_lobc_yesod_3_2 = "Now I see; I have been wallowing in despair, for such a long time.",
+            k_lobc_yesod_3_3 = "I tried to pretend that everything was fine, but in reality, it never was. I was dying on the inside...",
+            k_lobc_yesod_3_4 = "I see now how much fun it can be to look down on someone, manager...",
 
             ---- Hod ----
             k_lobc_hod_1 = "I want to help as much as I can here.",
