@@ -1467,8 +1467,8 @@ return {
         },
         v_text = {
             ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},
-            ch_c_lobc_fast_ante_1 = {"Required score scales faster for each Ante ({C:green}Green Stake{})"},
-            ch_c_lobc_fast_ante_2 = {"Required score scales faster for each Ante ({C:purple}Purple Stake{})"},
+            ch_c_lobc_fast_ante_1 = {"Required score scales {C:green}faster{} for each Ante"},
+            ch_c_lobc_fast_ante_2 = {"Required score scales {C:purple}even faster{} for each Ante"},
             ch_c_lobc_end_ante = {"Game ends after Ante {C:attention}#1#{}"},
             ch_c_lobc_midnight_endgame = {"Only {C:dark_edition}Midnight{} Ordeals can appear past Ante {C:attention}8{}"},
             ch_c_lobc_slow_endgame = {"Required score scales slower after Ante {C:attention}8{}"},
@@ -1492,12 +1492,13 @@ return {
             ch_c_lobc_yesod_4 = {"After Ante {C:attention}6{}, removes all text"},
 
             -- Hod
-            ch_c_lobc_hod = {"All {C:attention}Jokers{} are {C:attention}15%{} less effective"},
-            ch_c_lobc_hod_2 = {"After Ante {C:attention}3{}, all {C:attention}Jokers{} are {C:attention}25%{} less effective"},
-            ch_c_lobc_hod_3 = {"After Ante {C:attention}6{}, all {C:attention}Jokers{} are {C:attention}35%{} less effective"},
+            ch_c_lobc_hod = {"All cards give {C:attention}15%{} less {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {} "},
+            ch_c_lobc_hod_2 = {"After Ante {C:attention}3{}, increase the value to {C:attention}25%{}"},
+            ch_c_lobc_hod_3 = {"After Ante {C:attention}6{}, increase the value to {C:attention}35%{}"},
+            ch_c_lobc_hod_disclaimer = {"{C:inactive}(Jokers display wrong values during scoring... sorry!)"},
 
             -- Netzach
-            ch_c_lobc_netzach = {"{C:blue}Hands{} and {C:red}Discards{} are only replenished after beating an {C:attention}Ante{}"},
+            ch_c_lobc_netzach = {"Only resets {C:blue}Hands{} and {C:red}Discards{} after beating an {C:attention}Ante{}"},
             ch_c_lobc_netzach_2 = {"After Ante {C:attention}3{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention}1{}"},
             ch_c_lobc_netzach_3 = {"After Ante {C:attention}6{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention}1{}"},
             ch_c_lobc_netzach_4 = {"All {C:attention}Blinds{} cannot be skipped"},
@@ -1715,35 +1716,48 @@ return {
             k_lobc_yesod_1_1 = "What did we do wrong?",
             k_lobc_yesod_1_2 = "Are we not even allowed to fall into despair?",
 
-            k_lobc_yesod_2_1 = "To tell you the truth, it’s just that I did not want to witness any more deaths.",
-            k_lobc_yesod_2_2 = "We’ve created monsters that should never have been in this world. This sin can never be forgotten.",
-            k_lobc_yesod_2_3 = "I take great pride in my department and team for obtaining information and expunging it exactly as ordered.",
-            k_lobc_yesod_2_4 = "You should know that all the information you just mindlessly skimmed through was from somebody's dire sacrifice.",
+            k_lobc_yesod_2_1 = "To tell you the truth, it's just that I did not want to witness any more deaths.",
+            k_lobc_yesod_2_2 = "We've created monsters that should never have been in this world.",
+            k_lobc_yesod_2_3 = "This sin can never be forgotten.",
+            k_lobc_yesod_2_4 = "All the information you just mindlessly skimmed through was from somebody's dire sacrifice.",
 
             k_lobc_yesod_3_1 = "You are unfit to be the manager if you cannot even remember the simplest rules.",
             k_lobc_yesod_3_2 = "Now I see; I have been wallowing in despair, for such a long time.",
-            k_lobc_yesod_3_3 = "I tried to pretend that everything was fine, but in reality, it never was. I was dying on the inside...",
-            k_lobc_yesod_3_4 = "I see now how much fun it can be to look down on someone, manager...",
+            k_lobc_yesod_3_3 = "I tried to pretend that everything was fine, but it never was. I was dying on the inside...",
 
             ---- Hod ----
-            k_lobc_hod_1 = "I want to help as much as I can here.",
-            k_lobc_hod_2 = "I wish everyone would rely on me...",
-            k_lobc_hod_3 = "How come nobody understands my kindness?",
-            k_lobc_hod_4 = "I'm the only one who cares about them... Why would they hate me...?",
-            k_lobc_hod_5 = "Our employees are suffering! See? Things just don't work out without me here!",
-            k_lobc_hod_6 = "Forgive me, manager. If you can't forgive, then please at least forget.",
-            k_lobc_hod_7 = "You all would be dead where you stand without me! Every single one of you!",
-            k_lobc_hod_8 = "I guess I just never was a good person from the start...",
+            k_lobc_hod_0_1 = "Well, shall we film the corporate educational video together?",
+            k_lobc_hod_0_2 = "Please make sure to do it carefully, and don’t mess up!",
+
+            k_lobc_hod_1_1 = "I want to help as much as I can here.",
+            k_lobc_hod_1_2 = "I wish everyone would rely on me...",
+
+            k_lobc_hod_2_1 = "How come nobody understands my kindness?",
+            k_lobc_hod_2_2 = "I'm the only one who cares about them... Why would they hate me...?",
+            k_lobc_hod_2_3 = "Manager, you're not mad at me, right? You can’t be mad at me...",
+            k_lobc_hod_2_4 = "Does anyone ever thank me? No, no one does...",
+
+            k_lobc_hod_3_1 = "Our employees are suffering! See? Things just don't work out without me here!",
+            k_lobc_hod_3_2 = "Forgive me, manager. If you can't forgive, then please at least forget.",
+            k_lobc_hod_3_3 = "You all would be dead where you stand without me! Every single one of you!",
+            k_lobc_hod_3_4 = "I guess I just never was a good person from the start...",
 
             ---- Netzach ----
-            k_lobc_netzach_1 = "Why do you want to continue prolonging these undesired lives? What'd you expect to see at the end of all this?",
-            k_lobc_netzach_2 = "Why must I wake up and do all the garbage I hate every single day?",
-            k_lobc_netzach_3 = "You weren't the person I put my trust in.",
-            k_lobc_netzach_4 = "This place will never be safe, you know.",
-            k_lobc_netzach_5 = "I never wanted to be in this position anyways. I never asked for this. Not once.",
-            k_lobc_netzach_6 = "In the end, the hope that anyone will live on thanks to me is gone.",
-            k_lobc_netzach_7 = "Just leave me alone, it's what you're best at.",
-            k_lobc_netzach_8 = "All I want is to close my eyes and enjoy a good nap, just once.",
+            k_lobc_netzach_0_1 = "No one is actually safe here.",
+            k_lobc_netzach_0_2 = "Why do you want to continue prolonging these undesired lives?",
+            k_lobc_netzach_0_3 = "What'd you expect to see at the end of all this?",
+
+            k_lobc_netzach_1_1 = "The moment I woke up again here, I met you. You, whom I never wanted to see ever again.",
+            k_lobc_netzach_1_2 = "Why must I wake up and do all the garbage I hate every single day?",
+
+            k_lobc_netzach_2_1 = "You weren't the person I put my trust in.",
+            k_lobc_netzach_2_2 = "This place will never be safe, you know.",
+            k_lobc_netzach_2_3 = "'Cause this place is always horrible, the only thing I can hope for is a blissful end.",
+
+            k_lobc_netzach_3_1 = "I never wanted to be in this position anyways. I never asked for this. Not once.",
+            k_lobc_netzach_3_2 = "In the end, the hope that anyone will live on thanks to me is gone.",
+            k_lobc_netzach_3_3 = "Just leave me alone, it's what you're best at.",
+            k_lobc_netzach_3_4 = "All I want is to close my eyes and enjoy a good nap, just once.",
         },
         achievement_names = {
             ach_lobc_penitence = "Penitence",

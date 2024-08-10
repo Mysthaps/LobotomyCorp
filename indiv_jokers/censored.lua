@@ -21,13 +21,14 @@ joker.calculate = function(self, card, context)
             return {
                 message = localize('k_debuffed'),
                 colour = G.C.RED,
-                card = card,
+                card = context.other_card,
             }
         else
-            return {
-                h_chips = card.ability.extra.chips,
-                card = card
-            }
+            SMODS.eval_this(context.other_card, {
+                message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
+                chips_mod = card.ability.extra.chips, 
+                colour = G.C.CHIPS
+            })
         end
     end
 

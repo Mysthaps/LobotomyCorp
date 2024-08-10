@@ -109,3 +109,19 @@ payload = '''
 end'''
 match_indent = true
 
+# Patch G.LANG so i can change the font at will
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.LANG = self.LANGUAGES[self.SETTINGS.language] or self.LANGUAGES['en-us']"
+position = "at"
+payload = "self.LANG = copy_table(self.LANGUAGES[self.SETTINGS.language] or self.LANGUAGES['en-us'])"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value = 'chips_text', lang = G.LANGUAGES['en-us'], scale = 0.85, colour = G.C.WHITE, id = 'chip_UI_count', func = 'chip_UI_set', shadow = true}}"
+position = "at"
+payload = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value = 'chips_text', font = (G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6) and G.FONTS['blank'] or G.LANGUAGES['en-us'].font, scale = 0.85, colour = G.C.WHITE, id = 'chip_UI_count', func = 'chip_UI_set', shadow = true}}"
+match_indent = true
