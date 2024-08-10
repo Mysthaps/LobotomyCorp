@@ -7,7 +7,7 @@
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
 --- DEPENDENCIES: [Steamodded>=1.0.0-ALPHA-0806a]
---- VERSION: 0.8.3
+--- VERSION: 0.9.0
 --- CARMEN_SAYS: [You should distort yourself... NOW!]
 
 local current_mod = SMODS.current_mod
@@ -16,6 +16,7 @@ local config = SMODS.current_mod.config
 local folder = string.match(mod_path, "[Mm]ods.*")
 
 --=============== STEAMODDED OBJECTS ===============--
+
 -- To disable any object, comment it out by adding -- at the start of the line.
 local joker_list = {
     --- Common
