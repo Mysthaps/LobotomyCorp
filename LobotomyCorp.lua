@@ -8,7 +8,7 @@
 --- BADGE_COLOR: FC3A3A
 --- DEPENDENCIES: [Steamodded>=1.0.0-ALPHA-0806a]
 --- VERSION: 0.9.0
---- CARMEN_SAYS: [You should distort yourself... NOW!]
+--- CARMEN_SAYS: You should distort yourself... NOW!
 
 local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
