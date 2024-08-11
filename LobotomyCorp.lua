@@ -909,6 +909,7 @@ if JokerDisplay then
         replace_extra = {},
         replace_modifiers = {},
         replace_debuff_text = { { text = "CENSORED", colour = G.C.UI.TEXT_INACTIVE } },
+        stop_calc = true,
         is_replaced_func = function (card, custom_parent)
             return next(SMODS.find_card("j_lobc_censored")) and card.config.center.key ~= "j_lobc_censored"
         end
@@ -922,6 +923,7 @@ if JokerDisplay then
         replace_debuff_text = {},
         replace_debuff_reminder = {},
         replace_debuff_extra = {},
+        stop_calc = true,
         is_replaced_func = function (card, custom_parent)
             return G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3
         end
