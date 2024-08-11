@@ -209,3 +209,42 @@ SMODS.Achievement({
         end
     end
 })
+
+-- The Rationality to Maintain Discretion / Information
+SMODS.Achievement({
+    key = "yesod",
+    order = 19,
+    bypass_all_unlocked = true,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        if args.type == "win_challenge" or args.type == "win_challenge_startup" then
+            return G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_yesod"]
+        end
+    end
+})
+
+-- The Hope to be a Better Person / Hod
+SMODS.Achievement({
+    key = "hod",
+    order = 20,
+    bypass_all_unlocked = true,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        if args.type == "win_challenge" or args.type == "win_challenge_startup" then
+            return G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_hod"]
+        end
+    end
+})
+
+-- The Fearlessness to Keep on Living / Netzach
+SMODS.Achievement({
+    key = "netzach",
+    order = 21,
+    bypass_all_unlocked = true,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        if args.type == "win_challenge" or args.type == "win_challenge_startup" then
+            return G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_netzach"]
+        end
+    end
+})

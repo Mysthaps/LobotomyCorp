@@ -1521,6 +1521,8 @@ return {
             lobc_no_music = "Disable Music",
             lobc_irreversible = "(This effect is permanent on this profile!)",
             lobc_disable_meltdown_color = "Disable Background in some Challenges",
+            lobc_disable_unsettling_sfx = "Disable Only Unsettling Sound Effects",
+            lobc_unlock_challenges = "Unlock All Challenges",
 
             ---- Credits ----
             lobc_credits_1 = "Art and SFX from Lobotomy Corporation and Library of Ruina",
@@ -1777,7 +1779,19 @@ return {
             ach_lobc_blind_rage = "Blind Rage",
             ach_lobc_midnight = "Midnight Vanquisher",
             ach_lobc_white_nights = "White Nights",
-            ach_lobc_malkuth = "The Will to Stand up Straight"
+            ach_lobc_malkuth = "The Will to Stand up Straight",
+            ach_lobc_yesod = "The Rationality to Maintain Discretion",
+            ach_lobc_hod = "The Hope to be a Better Person",
+            ach_lobc_netzach = "The Fearlessness to Keep on Living",
+            ach_lobc_tiphereth = "The Expectation for the Meaning of Existance",
+            ach_lobc_gebura = "The Courage to Protect",
+            ach_lobc_chesed = "Those who are Faithful and Trustworthy",
+            ach_lobc_binah = "The Eye Facing the Fear; Breaking the Cycle",
+            ach_lobc_hokma = "The Eye Embracing the Past; Building the Future",
+            ach_lobc_keter = "Proving Oneself",
+            ach_lobc_asiyah = "Fatigue and Waiting",
+            ach_lobc_briah = "Regret and Atonement",
+            ach_lobc_atziluth = "Freedom and Salvation",
         },
         achievement_descriptions = {
             ach_lobc_penitence = "Confess to One Sin and Hundreds of Good Deeds and defeat WhiteNight",
@@ -1795,9 +1809,21 @@ return {
             ach_lobc_todays_expression = "Make the happiest face 10 times in a row on Today's Shy Look",
             ach_lobc_tough = "Fully observe You're Bald...",
             ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds in one game while defeating each blind in only one hand",
-            ach_lobc_midnight = "Defeat a Midnight Ordeal",
+            ach_lobc_midnight = "Defeat a Midnight Ordeal in a non-challenge game",
             ach_lobc_white_nights = "Beat \"Dark Days\"",
-            ach_lobc_malkuth = "Beat \"Control\""
+            ach_lobc_malkuth = "Beat \"Control\"",
+            ach_lobc_yesod = "Beat \"Information\"",
+            ach_lobc_hod = "Beat \"Training\"",
+            ach_lobc_netzach = "Beat \"Safety\"",
+            ach_lobc_tiphereth = "Beat \"Central Command\"",
+            ach_lobc_gebura = "Beat \"Disciplinary\"",
+            ach_lobc_chesed = "Beat \"Welfare\"",
+            ach_lobc_binah = "Beat \"Extraction\"",
+            ach_lobc_hokma = "Beat \"Record\"",
+            ach_lobc_keter = "Beat \"Architecture\"",
+            ach_lobc_asiyah = "Beat \"Asiyah\"",
+            ach_lobc_briah = "Beat \"Briah\"",
+            ach_lobc_atziluth = "Beat \"Atziluth\"",
         }
     }
 }

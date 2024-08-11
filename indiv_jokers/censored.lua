@@ -1,9 +1,9 @@
 local joker = {
     name = "CENSORED",
     config = {extra = {
-        mult = 10,
-        x_mult = 1.5,
-        chips = 30,
+        mult = 7,
+        x_mult = 1.25,
+        chips = 15,
     }}, rarity = 3, cost = 9,
     pos = {x = 1, y = 6}, 
     blueprint_compat = true, 
@@ -16,7 +16,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.hand then
+    if context.individual and context.cardarea == G.hand and not context.end_of_round then
         if context.other_card.debuff then
             return {
                 message = localize('k_debuffed'),
@@ -26,7 +26,7 @@ joker.calculate = function(self, card, context)
         else
             SMODS.eval_this(context.other_card, {
                 message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
-                chips_mod = card.ability.extra.chips, 
+                chip_mod = card.ability.extra.chips, 
                 colour = G.C.CHIPS
             })
         end
