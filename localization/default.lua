@@ -1520,7 +1520,7 @@ return {
             lobc_no_sfx = "Disable Sound Effects",
             lobc_no_music = "Disable Music",
             lobc_irreversible = "(This effect is permanent on this profile!)",
-            lobc_disable_meltdown_color = "Disable Background in some Challenges",
+            lobc_disable_meltdown_color = "Disable Background Override in some Challenges",
             lobc_disable_unsettling_sfx = "Disable Only Unsettling Sound Effects",
             lobc_unlock_challenges = "Unlock All Challenges",
 
