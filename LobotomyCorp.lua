@@ -1630,6 +1630,9 @@ SMODS.current_mod.credits_tab = function()
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
         }},
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_full_list'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
+        }},
 
         {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.2}, nodes = {}},
 
@@ -1727,12 +1730,6 @@ SMODS.Atlas({
     path = "LobotomyCorp_consumable.png",
     px = 71,
     py = 95
-})
-SMODS.Atlas({
-    key = "isaac",
-    path = "isaac.png",
-    px = 56,
-    py = 47
 })
 
 -- ConsumableType (guh)
