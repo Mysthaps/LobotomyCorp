@@ -1,3 +1,4 @@
+local config = SMODS.current_mod.config
 local joker = {
     name = "The Mountain of Smiling Bodies",
     config = {extra = {
@@ -37,7 +38,7 @@ joker.calculate = function(self, card, context)
                 card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex') })
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        play_sound('lobc_mosb_upgrade', 1, 0.3)
+                        if not config.disable_unsettling_sfx then play_sound('lobc_mosb_upgrade', 1, 0.3) end
                         return true
                     end
                 }))

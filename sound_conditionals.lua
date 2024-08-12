@@ -116,16 +116,4 @@ return {
             (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson")))
         end,
     },
-
-    -- Arcade Specialist: Holding Isaac
-    {
-        key = "music_arcadespecialist",
-        select_music_track = function()
-            if config.no_music then return false end
-            if lobc_isaac and lobc_isaac.states.drag.is then
-                return true
-            end
-            return false
-        end
-    },
 }

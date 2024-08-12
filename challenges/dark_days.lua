@@ -1,3 +1,4 @@
+local config = SMODS.current_mod.config
 local chal = {
     rules = {
         custom = {
@@ -29,7 +30,7 @@ local chal = {
     },
     unlocked = function(self)
         local count = lobc_get_usage_count("j_lobc_plague_doctor")
-        return (count > 1 and G.P_BLINDS.bl_lobc_whitenight.discovered)
+        return ((count > 1 and G.P_BLINDS.bl_lobc_whitenight.discovered) or config.unlock_challenges)
     end
 }
 

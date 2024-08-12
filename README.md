@@ -14,11 +14,9 @@ This may hinder your playing experience, but I am sure you will do just fine.</i
 Each added Abnormality have different Observation Levels that unlock more of their Information. 
 This is based on the amount of rounds played with that Abnormality in your Joker slots.
 
-*Note: The **Unlock All** function will **not** unlock Abnormalities' Information. You have to use Debug Mode's **Unlock** function.* 
-
 ## Abnormalities, as Boss Blinds
 Some Abnormalities are able to ***breach***. 
-In addition, some breaching Abnormalities can guarantee that the next Ante's boss blind is an Abnormality. 
+In addition, some breaching Abnormalities can change the upcoming fights to be an Abnormality as a Boss Blind. 
 These blinds are very hard to take down, make sure you're well-prepared before tackling on these challenges.
 
 ## Extraction Pack
@@ -27,13 +25,17 @@ This pack allows you to pick one of three Abnormalities to add to your Joker slo
 
 ## Ordeals
 During the run, **Ordeals** can replace some blinds. These blinds are generally more difficult to take down compared to the other blinds, 
-with **Dawn Ordeals** being the easiest, and **Midnight Ordeals** being much a lot more brutal.
+with **Dawn Ordeals** being the easiest, and **Midnight Ordeals** being much a lot tougher to overcome.
 
 ## Challenges
-*Note: Challenges are themed around Lobotomy Corporation itself, as such, they may spoil major parts of the game.* 
-
 In some Challenges, Ordeals are guaranteed to appear. In others, you might be fighting **[[[INFORMATION REDACTED]]]**. 
 Good luck, Manager. You will need it.
+
+<details>
+    <summary><b>Lobotomy Corporation Spoilers</b></summary>
+    There are challenges that mirror the Sephirah Meltdowns experienced in the main game. 
+    It is recommended that they should be experienced in the actual game before attempting them here.
+</details><br>
 
 # Requirements
 Requires the latest version **Steamodded** 1.0.0-ALPHA.  
@@ -53,13 +55,10 @@ Please check the mod's configurations after installation.
 
 Most art, music and sound effects are taken from **Lobotomy Corporation**.  
 Some abnormalities are based on those of **Library of Ruina**.  
-**First Warning**, **Second Warning** and **Third Warning** made by **Dr.Reb**.  
-**Abnormality Choice** theme is from **Limbus Company**, made by **Studio EIM**.  
+All music used are listed in the ``music.txt`` file, found [here](https://github.com/Mysthaps/LobotomyCorp/blob/main/music.txt).
 
 <details>
-    <summary><b>Abnormality Effects [Spoilers?]</b></summary>
+    <summary><b>Slight Mod Spoilers!</b></summary>
     Nameless Fetus, The Lady Facing the Wall, All-Around Helper: <b>Twilight & Sunset</b><br>
     Initial JokerDisplay support for All-Around Helper, One Sin and Hundreds of Good Deeds: <b>OppositeWolf770</b>
 </details><br>
-  
-**Specialist Isaac** sprites and **Arcade Specialist** theme from **[Specialist Dance for Good Items](https://steamcommunity.com/sharedfiles/filedetails/?id=2575911103)**.

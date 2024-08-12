@@ -132,8 +132,6 @@ local sound_list = {
     violet_end = "OutterGod_End",
     indigo_start = "Scavenger_Start",
     indigo_end = "Scavenger_End",
-
-    music_arcadespecialist = "arcadespecalist",
 }
 
 local challenge_list = {
@@ -297,6 +295,7 @@ end
 
 -- copied from attention_text
 function lobc_screen_text(args)
+    if config.disable_all_text then return end
     args = args or {}
     args.text = args.text or 'test'
     args.scale = args.scale or 1
@@ -378,6 +377,7 @@ end
 
 -- on-screen text that's present in like every project moon game
 function lobc_abno_text(key, eval_func, delay, quips)
+    if config.disable_abno_text then return end
     local chosen_quip = nil
 
     for _, v in pairs(G.lobc_global_meltdowns) do
@@ -678,7 +678,7 @@ function Blind.alert_debuff(self, first)
             end
         }))
     else
-        if self.config.blind.color then
+        if self.config.blind.color and not config.disable_all_text then
             self:ordeal_alert()
         else 
             alert_debuffref(self, first) 
@@ -900,7 +900,6 @@ function Card.set_edition(self, edition, immediate, silent)
 end
 
 -- JokerDisplay text replacements
-
 if JokerDisplay then
     JokerDisplay.Global_Definitions.Replace["lobc_censored"] = {
         priority = 1,
@@ -1015,7 +1014,7 @@ function Game.start_run(self, args)
         if G.GAME.modifiers["lobc_"..k] then
             lobc_abno_text(k, eval_func, 0.2, v)
             ease_background_colour_blind()
-            if not args.save_text then play_sound("lobc_meltdown_start", 1, 0.5) end
+            if not args.save_text and not config.disable_unsettling_sfx then play_sound("lobc_meltdown_start", 1, 0.5) end
             break
         end
     end
@@ -1412,9 +1411,10 @@ function G.FUNCS.draw_from_hand_to_discard(e)
     if G.GAME.blind.config.blind.color then
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
-            delay = G.SETTINGS.GAMESPEED * 4,
+            delay = not config.disable_all_text and G.SETTINGS.GAMESPEED * 4 or 0,
             blockable = false,
             func = (function()
+                if config.disable_all_text then return true end
                 local hold_time = G.SETTINGS.GAMESPEED * 5
                 local blind = G.GAME.blind
                 local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
@@ -1442,7 +1442,7 @@ function new_round()
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
-            if G.GAME.current_round.hands_left <= 0 then
+            if G.GAME.current_round.hands_left <= 0 and G.GAME.lobc_no_hands_reset then
                 G.STATE = G.STATES.NEW_ROUND
                 G.STATE_COMPLETE = false
             end
@@ -1471,6 +1471,11 @@ function Card.update(self, dt)
     -- Check if enough rounds have passed, should be saving
     if self.config.center.abno then
         local count = lobc_get_usage_count(self.config.center_key)
+        if config.discover_all and count < self.config.center.discover_rounds then
+            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = {count = self.config.center.discover_rounds or 0, order = self.config.center.order, wins = {}, losses = {}}
+            self.config.center.discovered = true
+            self:set_sprites(self.config.center)
+        end
         self.config.center.discovered = (count >= self.config.center.discover_rounds)
     end
 
@@ -1581,102 +1586,39 @@ SMODS.Booster({
 
 --=============== CONFIG UI ===============--
 
-G.FUNCS.lobc_discover_all = function(e)
-    for _, v in ipairs(joker_list) do
-        local key = "j_lobc_"..v
-        if lobc_get_usage_count(key) < G.P_CENTERS[key].discover_rounds then
-            sendDebugMessage(key)
-            G.PROFILES[G.SETTINGS.profile].joker_usage[key] = {
-                count = G.P_CENTERS[key].discover_rounds, 
-                order = G.P_CENTERS[key].order, 
-                wins = {}, 
-                losses = {}
-            }
-        end
-    end
-    e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-    e.config.button = nil
-end
-
-SMODS.current_mod.config_tab = function()
-    return {n = G.UIT.ROOT, config = {r = 0.1, align = "t", padding = 0.1, colour = G.C.BLACK, minw = 8, minh = 6}, nodes = {
-        {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
-            {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
-                create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = "no_sfx" },
-            }},
-            {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
-                { n = G.UIT.T, config = { text = localize('lobc_no_sfx'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
-            }},
+local function create_config_node(config_name)
+    return
+    {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
+        {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
+            create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = config_name },
         }},
-
-        {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
-            {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
-                create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = "no_music" },
-            }},
-            {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
-                { n = G.UIT.T, config = { text = localize('lobc_no_music'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
-            }},
+        {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_'..config_name), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
         }},
-
-        {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
-            {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
-                create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = "show_art_undiscovered" },
-            }},
-            {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
-                { n = G.UIT.T, config = { text = localize('lobc_show_art_undiscovered'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
-            }},
-        }},
-
-        {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
-            {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
-                create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = "disable_ordeals" },
-            }},
-            {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
-                { n = G.UIT.T, config = { text = localize('lobc_disable_ordeals'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
-            }},
-        }},
-
-        {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
-            {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
-                create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = "disable_meltdown_color" },
-            }},
-            {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
-                { n = G.UIT.T, config = { text = localize('lobc_disable_meltdown_color'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
-            }},
-        }},
-
-        {n = G.UIT.R, config = {align = "cm", padding = 0}, nodes = {
-            {n = G.UIT.C, config = { align = "cm", minw = 2 }, nodes = {}},
-            {n = G.UIT.C,
-                config = { align = "cm", minw = 4, minh = 0.6, padding = 0.2, r = 0.1, hover = true, colour = G.C.RED, button = "lobc_discover_all", shadow = true },
-                nodes = {{
-                    n = G.UIT.R, config = { align = "cm", padding = 0 },
-                    nodes = {
-                        { n = G.UIT.T, config = { text = localize('lobc_discover_all'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT, shadow = true, func = 'set_button_pip', focus_args = { button = 'x', set_button_pip = true } } }
-                    }
-                }}
-            },
-            {n = G.UIT.C, config = { align = "cm", minw = 2 }, nodes = {}}
-        }},
-
-        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.05}, nodes = {}},
-
-        {n = G.UIT.R, config = {align = "cm", padding = 0}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_irreversible'), scale = 0.25, colour = G.C.UI.TEXT_LIGHT}},
-        }}
     }}
 end
 
-lobc_isaac_dt, lobc_isaac_x, lobc_isaac_y = 0, 0, 0
+SMODS.current_mod.config_tab = function()
+    return {n = G.UIT.ROOT, config = {r = 0.1, align = "c", padding = 0.1, colour = G.C.BLACK, minh = 6}, nodes = {
+        {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
+            create_config_node("no_music"),
+            create_config_node("disable_unsettling_sfx"),
+            create_config_node("no_sfx"),
+            create_config_node("disable_meltdown_color"),
+            create_config_node("disable_abno_text"),
+        }},
+
+        {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
+            create_config_node("show_art_undiscovered"),
+            create_config_node("disable_ordeals"),
+            create_config_node("discover_all"),
+            create_config_node("unlock_challenges"),
+        }},
+    }}
+end
+
 SMODS.current_mod.credits_tab = function()
-    lobc_isaac = lobc_isaac or Sprite(0, 0, 1.12, 0.94, G.ASSET_ATLAS["lobc_isaac"], {x = 0, y = 0})
-    lobc_isaac_x = 0
-    lobc_isaac_y = 0
-    lobc_isaac.states.collide.can = true
-    lobc_isaac.states.hover.can = true
-    lobc_isaac.states.drag.can = true
-    lobc_isaac.states.click.can = true
-    return {n = G.UIT.ROOT, config = {r = 0.1, align = "tm", padding = 0.1, colour = G.C.BLACK, minw = 10, minh = 6}, nodes = {
+    return {n = G.UIT.ROOT, config = {r = 0.1, align = "cm", padding = 0.1, colour = G.C.BLACK, minw = 10, minh = 6}, nodes = {
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_1'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
         }},
@@ -1688,18 +1630,6 @@ SMODS.current_mod.credits_tab = function()
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
         }},
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_reb'), scale = 0.5, colour = G.C.DARK_EDITION}},
-        }},
-
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_3'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
-        }},
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_eim'), scale = 0.5, colour = G.C.DARK_EDITION}},
-        }},
 
         {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.2}, nodes = {}},
 
@@ -1710,13 +1640,6 @@ SMODS.current_mod.credits_tab = function()
         {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_5'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
             {n = G.UIT.T, config = { text = localize('lobc_credits_opp'), scale = 0.3, colour = G.C.DARK_EDITION}},
-        }},
-
-        {n = G.UIT.R, config = {align = "cr", padding = 0}, nodes = {
-            {n = G.UIT.R, config = {align = "cr", padding = 0}, nodes = {
-                {n = G.UIT.T, config = { text = "hey victin are you happy now >", scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-                {n = G.UIT.O, config = {object = lobc_isaac}},
-            }}
         }},
     }}
 end

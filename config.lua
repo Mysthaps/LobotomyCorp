@@ -8,4 +8,5 @@ return {
     disable_unsettling_sfx = false,
     discover_all = false,
     unlock_challenges = false,
+    disable_abno_text = false,
 }

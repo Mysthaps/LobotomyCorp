@@ -1,3 +1,4 @@
+local config = SMODS.current_mod.config
 local joker = {
     name = "Nameless Fetus",
     config = {extra = {x_mult = 4, x_mult_penalty = 0.5, chosen_hand = nil, proc = false}}, rarity = 2, cost = 8,
@@ -46,7 +47,7 @@ joker.calculate = function(self, card, context)
                 Xmult_mod = card.ability.extra.x_mult
             }
         else
-            play_sound("lobc_nameless_cry", 1, 0.6)
+            if not config.disable_unsettling_sfx then play_sound("lobc_nameless_cry", 1, 0.6) end
             return {
                 message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult_penalty}},
                 Xmult_mod = card.ability.extra.x_mult_penalty

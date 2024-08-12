@@ -1470,7 +1470,7 @@ return {
             ch_c_lobc_fast_ante_1 = {"Required score scales {C:green}faster{} for each Ante"},
             ch_c_lobc_fast_ante_2 = {"Required score scales {C:purple}even faster{} for each Ante"},
             ch_c_lobc_end_ante = {"Game ends after Ante {C:attention}#1#{}"},
-            ch_c_lobc_midnight_endgame = {"Only {C:dark_edition}Midnight{} Ordeals can appear past Ante {C:attention}8{}"},
+            ch_c_lobc_midnight_endgame = {"Only {C:dark_edition}Midnight Ordeals{} can appear past Ante {C:attention}8{}"},
             ch_c_lobc_slow_endgame = {"Required score scales slower after Ante {C:attention}8{}"},
 
             -- Dark Days
@@ -1516,24 +1516,24 @@ return {
 
             lobc_show_art_undiscovered = "Show Abnormality Art when Undiscovered",
             lobc_disable_ordeals = "Disable Random Ordeals",
-            lobc_discover_all = "Discover All",
-            lobc_no_sfx = "Disable Sound Effects",
+            lobc_discover_all = "Discover All (Irreversible)",
+            lobc_no_sfx = "Disable All Sound Effects",
             lobc_no_music = "Disable Music",
             lobc_irreversible = "(This effect is permanent on this profile!)",
-            lobc_disable_meltdown_color = "Disable Background Override in some Challenges",
+            lobc_disable_meltdown_color = "Disable Background Override in Challenges",
             lobc_disable_unsettling_sfx = "Disable Only Unsettling Sound Effects",
             lobc_unlock_challenges = "Unlock All Challenges",
+            lobc_disable_abno_text = "Disable Abnormality (Red) Flavor Text",
+            lobc_disable_all_text = "Disable All Flavor Text",
 
             ---- Credits ----
             lobc_credits_1 = "Art and SFX from Lobotomy Corporation and Library of Ruina",
-            lobc_credits_2 = "\"First Warning\", \"Second Warning\" and \"Third Warning\"",
-            lobc_credits_3 = "\"Abnormality Choice\" from Limbus Company",
+            lobc_credits_2 = "Several tracks used from Lobotomy Corporation and Limbus Company",
+            lobc_credits_full_list = "The full list can be found in the \"music.txt\" file",
             lobc_credits_4 = "Nameless Fetus, The Lady Facing the Wall, All-Around Helper effects: ",
             lobc_credits_5 = "Initial JokerDisplay for All-Around Helper, One Sin and Hundreds of Good Deeds: ",
             lobc_credits_by = "by ",
             lobc_credits_pm = "Project Moon",
-            lobc_credits_reb = "Dr.Reb",
-            lobc_credits_eim = "Studio EIM",
             lobc_credits_twi = "Twilight & Sunset",
             lobc_credits_opp = "OppositeWolf770",
 
