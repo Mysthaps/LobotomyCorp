@@ -98,10 +98,7 @@ joker.add_to_deck = function(self, card, from_debuff)
         trigger = 'after', 
         func = function()
             if JokerDisplay and not from_debuff then
-                for k, v in pairs(G.jokers.cards) do
-                    v.children.joker_display = nil
-                    v:update_joker_display(false, true, "j_lobc_censored")
-                end
+                JokerDisplay.update_all_joker_display(false, true, "j_lobc_censored")
             end
         return true 
         end 
@@ -111,10 +108,7 @@ end
 
 joker.remove_from_deck = function(self, card, from_debuff)
     if JokerDisplay and not from_debuff then
-        for k, v in pairs(G.jokers.cards) do
-            v.children.joker_display = nil
-            v:update_joker_display(false, true, "j_lobc_censored")
-        end
+        JokerDisplay.update_all_joker_display(false, true, "j_lobc_censored")
     end
 end
 

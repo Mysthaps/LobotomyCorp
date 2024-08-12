@@ -892,61 +892,42 @@ function Card.generate_UIBox_ability_table(self)
     return generate_UIBox_ability_tableref(self)
 end
 
--- JokerDisplay modification when CENSORED is active
-if JokerDisplay then
-    local initialize_joker_displayref = Card.initialize_joker_display
-    function Card.initialize_joker_display(self, custom_parent)
-        if G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 then
-            self.children.joker_display:remove_text()
-            self.children.joker_display:remove_reminder_text()
-            self.children.joker_display:remove_extra()
-            self.children.joker_display:remove_modifiers()
-            self.children.joker_display_small:remove_text()
-            self.children.joker_display_small:remove_reminder_text()
-            self.children.joker_display_small:remove_extra()
-            self.children.joker_display_small:remove_modifiers()
-            self.children.joker_display_debuff:remove_text()
-            self.children.joker_display_debuff:remove_modifiers()
-        elseif next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored" then 
-            self.children.joker_display:remove_text()
-            self.children.joker_display:remove_reminder_text()
-            self.children.joker_display:remove_extra()
-            self.children.joker_display:remove_modifiers()
-            self.children.joker_display_small:remove_text()
-            self.children.joker_display_small:remove_reminder_text()
-            self.children.joker_display_small:remove_extra()
-            self.children.joker_display_small:remove_modifiers()
-            self.children.joker_display_debuff:remove_text()
-            self.children.joker_display_debuff:remove_modifiers()
-            self.children.joker_display_debuff:add_text({ { text = "CENSORED", colour = G.C.UI.TEXT_INACTIVE } })
-        
-            local joker_display_definition = JokerDisplay.Definitions["lobc_other_censored"]
-            local definiton_text = joker_display_definition and
-                (joker_display_definition.text or joker_display_definition.line_1)
-            local text_config = joker_display_definition and joker_display_definition.text_config
-        
-            if custom_parent then
-                custom_parent.children.joker_display:add_text(definiton_text, text_config, self)
-                custom_parent.children.joker_display_small:add_text(definiton_text, text_config, self)
-                custom_parent.children.joker_display:recalculate()
-                custom_parent.children.joker_display_small:recalculate()
-            else
-                self.children.joker_display:add_text(definiton_text, text_config)
-                self.children.joker_display_small:add_text(definiton_text, text_config)
-                self.children.joker_display:recalculate()
-                self.children.joker_display_small:recalculate()
-            end
-        else
-            initialize_joker_displayref(self, custom_parent)
-        end
-    end
-end
-
 -- No editions
 local set_editionref = Card.set_edition
 function Card.set_edition(self, edition, immediate, silent)
     if G.GAME.modifiers.lobc_yesod then return end
     set_editionref(self, edition, immediate, silent)
+end
+
+-- JokerDisplay text replacements
+
+if JokerDisplay then
+    JokerDisplay.Global_Definitions.Replace["lobc_censored"] = {
+        priority = 1,
+        replace_text = "lobc_other_censored",
+        replace_reminder = {},
+        replace_extra = {},
+        replace_modifiers = {},
+        replace_debuff_text = { { text = "CENSORED", colour = G.C.UI.TEXT_INACTIVE } },
+        stop_calc = true,
+        is_replaced_func = function (card, custom_parent)
+            return next(SMODS.find_card("j_lobc_censored")) and card.config.center.key ~= "j_lobc_censored"
+        end
+    }
+    JokerDisplay.Global_Definitions.Replace["lobc_yesod"] = {
+        priority = 10,
+        replace_text = {},
+        replace_reminder = {},
+        replace_extra = {},
+        replace_modifiers = {},
+        replace_debuff_text = {},
+        replace_debuff_reminder = {},
+        replace_debuff_extra = {},
+        stop_calc = true,
+        is_replaced_func = function (card, custom_parent)
+            return G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3
+        end
+    }
 end
 
 --=============== CHALLENGES ===============--
@@ -1118,6 +1099,11 @@ function ease_ante(mod)
                         G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 1);return true end })) 
                     return true end })) 
                 end
+            end
+
+            -- JokerDisplay text hiding (Yesod)
+            if G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 and JokerDisplay then
+                JokerDisplay.update_all_joker_display(false, true, "lobc_yesod")
             end
 
             -- Full text hiding (Yesod)
