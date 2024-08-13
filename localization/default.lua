@@ -161,6 +161,14 @@ return {
                     "about unwarranted frenzy.",
                 }
             },
+            und_j_lobc_fairy_festival = {
+                name = "F-04-83",
+                text = {
+                    "Everything will be peaceful",
+                    "while you are under",
+                    "the fairies' care.",
+                }
+            },
             und_j_lobc_iron_maiden = {
                 name = "T-09-85",
                 text = {
@@ -1039,6 +1047,34 @@ return {
                     "Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
                     "after defeating {C:attention}Boss Blind{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})"
+                }
+            },
+
+            dis_j_lobc_fairy_festival_1 = {
+                name = "F-04-83",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#3#/4){} ..."
+                }
+            },
+            dis_j_lobc_fairy_festival_2 = {
+                name = "F-04-83",
+                text = {
+                    "When entering a shop, sets a",
+                    "random shop item's price to {C:money}$#1#{}",
+                    "{C:inactive}(except Vouchers)",
+                    "{C:attention}(#3#/4){} ...",
+                }
+            },
+            j_lobc_fairy_festival = {
+                name = "Fairy Festival",
+                text = {
+                    "When entering a shop, sets a",
+                    "random shop item's price to {C:money}$#1#{}",
+                    "{C:inactive}(except Vouchers)",
+                    "{s:0.15} {}",
+                    "Buying a different item destroys",
+                    "all shop items and locks rerolls",
                 }
             },
 

@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- DEPENDENCIES: [Steamodded>=1.0.0-ALPHA-0806a]
+--- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
 --- VERSION: 0.9.0
 --- CARMEN_SAYS: You should distort yourself... NOW!
 
@@ -27,6 +27,7 @@ local joker_list = {
     "plague_doctor",
     "punishing_bird",
     "shy_look", -- Today's Shy Look
+    --"fairy_festival",
     "iron_maiden", -- We Can Change Anything
     "old_faith", -- Old Faith and Promise
     "youre_bald",
@@ -812,11 +813,12 @@ function Card:lobc_check_amplified()
     end
 end
 
--- E.G.O Gift sell costs
+-- E.G.O Gift sell costs / Fairy Festival
 local set_costref = Card.set_cost
 function Card.set_cost(self)
     set_costref(self)
     if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
+    if self.ability.lobc_fairy_festival and self.cost > 1 then self.cost = 1 end
 end
 
 -- Global start of hand effect
