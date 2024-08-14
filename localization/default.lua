@@ -1073,8 +1073,8 @@ return {
                     "random shop item's price to {C:money}$#1#{}",
                     "{C:inactive}(except Vouchers)",
                     "{s:0.15} {}",
-                    "Buying a different item destroys",
-                    "all shop items and locks rerolls",
+                    "Buying a different item {C:attention}destroys{}",
+                    "all shop items and {C:attention}locks rerolls{}",
                 }
             },
 

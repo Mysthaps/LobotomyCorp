@@ -828,6 +828,7 @@ function G.FUNCS.buy_from_shop(e)
     if card and card:is(Card) then
         if card.ability.lobc_fairy_festival then
             card.ability.lobc_fairy_festival = nil
+            card.children.lobc_fairy_particles:remove()
             card.children.lobc_fairy_particles = nil
         else
             local shop_items = {}
