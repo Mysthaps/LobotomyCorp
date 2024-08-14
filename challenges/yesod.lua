@@ -38,18 +38,20 @@ local chal = {
     end
 }
 
-if SMODS.Mods.Cryptid then
-    if Cryptid_config["Code Cards"] then
+if (SMODS.Mods.Cryptid or {}).can_load then
+    local cry_config = Cryptid_config or SMODS.Mods.Cryptid.config
+
+    if cry_config["Code Cards"] then
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_malware'})
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_spaghetti'})
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_machinecode'})
     end
 
-    if Cryptid_config["Spectrals"] then
+    if cry_config["Spectrals"] then
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_typhoon'})
     end
 
-    if Cryptid_config["Misc. Jokers"] then
+    if cry_config["Misc. Jokers"] then
         table.insert(chal.restrictions.banned_cards, {id = 'j_cry_meteor'})
         table.insert(chal.restrictions.banned_cards, {id = 'j_cry_exoplanet'})
         table.insert(chal.restrictions.banned_cards, {id = 'j_cry_stardust'})
@@ -57,7 +59,7 @@ if SMODS.Mods.Cryptid then
     end
 end
 
-if SMODS.Mods.Bunco then
+if (SMODS.Mods.Bunco or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'c_bunc_cleanse'})
     table.insert(chal.restrictions.banned_cards, {id = 'j_bunc_juggalo'})
     table.insert(chal.restrictions.banned_cards, {id = 'j_bunc_puzzle_board'})
@@ -70,11 +72,11 @@ if SMODS.Mods.Bunco then
     table.insert(chal.restrictions.banned_tags, {id = 'tag_bunc_fluorescent'})
 end
 
-if SMODS.Mods.JankJonklersMod then
+if (SMODS.Mods.JankJonklersMod or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'j_jank_shady_dealer'})
 end
 
-if SMODS.Mods.TWEWY then
+if (SMODS.Mods.TWEWY or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_aquaGhost'})
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_live'})
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_topGear'})

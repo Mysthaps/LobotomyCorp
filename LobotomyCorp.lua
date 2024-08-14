@@ -27,7 +27,7 @@ local joker_list = {
     "plague_doctor",
     "punishing_bird",
     "shy_look", -- Today's Shy Look
-    --"fairy_festival",
+    "fairy_festival",
     "iron_maiden", -- We Can Change Anything
     "old_faith", -- Old Faith and Promise
     "youre_bald",
@@ -819,6 +819,53 @@ function Card.set_cost(self)
     set_costref(self)
     if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
     if self.ability.lobc_fairy_festival and self.cost > 1 then self.cost = 1 end
+end
+
+-- Remove Fairy Festival effect when bought
+local buy_from_shopref = G.FUNCS.buy_from_shop
+function G.FUNCS.buy_from_shop(e)
+    local card = e.config.ref_table
+    if card and card:is(Card) then
+        if card.ability.lobc_fairy_festival then
+            card.ability.lobc_fairy_festival = nil
+            card.children.lobc_fairy_particles = nil
+        else
+            local shop_items = {}
+            local destroy_others = false
+            for _, area in pairs(G.I.CARDAREA) do
+                if area.config.type == 'shop' then
+                    for _, item in ipairs(area.cards) do
+                        if item ~= card then
+                            if item.ability.lobc_fairy_festival then destroy_others = true end
+                            shop_items[#shop_items+1] = item
+                        end
+                    end
+                end
+            end
+
+            if destroy_others then
+                local first_dissolve = nil
+                for _, item in ipairs(shop_items) do
+                    item:start_dissolve({G.C.GREEN, darken(G.C.GREEN, 0.2), darken(G.C.GREEN, 0.4)}, first_dissolve)
+                    first_dissolve = true
+                end
+                G.GAME.lobc_fairy_lock_reroll = true
+                G.GAME.current_round.voucher = nil
+            end
+        end
+    end
+    buy_from_shopref(e)
+end
+
+-- Fairy Festival lock rerolls
+local can_rerollref = G.FUNCS.can_reroll
+function G.FUNCS.can_reroll(e)
+    if G.GAME.lobc_fairy_lock_reroll then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+        return
+    end
+    return can_rerollref(e)
 end
 
 -- Global start of hand effect

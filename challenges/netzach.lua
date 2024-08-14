@@ -33,15 +33,19 @@ local chal = {
     end
 }
 
-if SMODS.Mods.Cryptid and Cryptid_config["Misc. Jokers"] then
-    table.insert(chal.restrictions.banned_cards, {id = 'j_cry_blurred'})
+if (SMODS.Mods.Cryptid or {}).can_load then
+    local cry_config = Cryptid_config or SMODS.Mods.Cryptid.config
+
+    if cry_config["Misc. Jokers"] then
+        table.insert(chal.restrictions.banned_cards, {id = 'j_cry_blurred'})
+    end
 end
 
-if SMODS.Mods.Bunco then
+if (SMODS.Mods.Bunco or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'j_bunc_carnival'})
 end
 
-if SMODS.Mods.TWEWY then
+if (SMODS.Mods.TWEWY or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_earthshake'})
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_iceRisers'})
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_iceBlow'})
