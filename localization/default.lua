@@ -1466,7 +1466,96 @@ return {
                     "+X1 Blind Size per",
                     "Joker slot, minus 3",
                 }
-            }
+            },
+
+            -- The Red Mist
+            bl_lobc_red_mist = {
+                name = "[SPOILERS]",
+                text = {
+                    "[SPOILERS]",
+                    "makes her return."
+                }
+            },
+            bl_lobc_red_mist_effect_1 = { text = {
+                "[PERMANENT]",
+                "Score is capped at",
+                "15% Blind Size each hand"
+            }},
+            bl_lobc_red_mist_effect_2 = { text = {
+                "Destroy 1-3 cards",
+                "held in hand",
+            }},
+            bl_lobc_red_mist_effect_3 = { text = {
+                "Lose $1 per played card,",
+                "destroy it if cannot afford",
+            }},
+            bl_lobc_red_mist_effect_4 = { text = {
+                "Must play 5 cards",
+            }},
+            bl_lobc_red_mist_effect_5 = { text = {
+                "Must play High Card",
+            }},
+            bl_lobc_red_mist_effect_6 = { text = {
+                "All Enhanced cards",
+                "are debuffed"
+            }},
+            bl_lobc_red_mist_effect_7 = { text = {
+                "All face cards",
+                "are debuffed"
+            }},
+            bl_lobc_red_mist_effect_8 = { text = {
+                "Base Chips and",
+                "Mult are halved"
+            }},
+
+            bl_lobc_red_mist_effect_11 = { text = {
+                "[PERMANENT]",
+                "Return all cards from",
+                "hand and discard to deck",
+                "at the start of each Phase"
+            }},
+            bl_lobc_red_mist_effect_12 = { text = {
+                "No hands allowed until",
+                "no consumables left",
+            }},
+            bl_lobc_red_mist_effect_13 = { text = {
+                "Destroy 1-3 played cards",
+            }},
+            bl_lobc_red_mist_effect_14 = { text = {
+                "Permanently debuff all",
+                "played Enhanced cards"
+            }},
+            bl_lobc_red_mist_effect_15 = { text = {
+                "Lose $2 per card in hand,",
+                "destroy it if cannot afford",
+            }},
+            bl_lobc_red_mist_effect_16 = { text = {
+                "Must play 5 cards",
+            }},
+            bl_lobc_red_mist_effect_17 = { text = {
+                "Debuff 1-3 random Jokers",
+            }},
+            bl_lobc_red_mist_effect_18 = { text = {
+                "Hand must contain",
+                "three different suits"
+            }},
+            bl_lobc_red_mist_effect_19 = { text = {
+                "Halves Base Mult, sets",
+                "Base Chips to Base Mult"
+            }},
+
+            bl_lobc_red_mist_effect_21 = { text = {
+                "[PERMANENT]",
+                "Destroy a random card",
+                "in hand after each hand",
+                "(including Eternal cards)"
+            }},
+            
+            bl_lobc_red_mist_effect_31 = { text = {
+                "[PERMANENT]",
+                "-1 Hand Size every 14",
+                "hands played this round",
+            }},
         },
         EGO_Gift = {
             c_lobc_wisdom = {
@@ -1796,6 +1885,25 @@ return {
             k_lobc_netzach_3_2 = "In the end, the hope that anyone will live on thanks to me is gone.",
             k_lobc_netzach_3_3 = "Just leave me alone, it's what you're best at.",
             k_lobc_netzach_3_4 = "All I want is to close my eyes and enjoy a good nap, just once.",
+
+            ---- Gebura ----
+            k_lobc_gebura_0_1 = "I'll destroy a shoddy place like this with my own hands.",
+            k_lobc_gebura_0_2 = "What's left for me, the one who failed to protect them?",
+            k_lobc_gebura_0_3 = "Do you really think feeble cowards like you can stop me?",
+            k_lobc_gebura_0_4 = "Let me show you how to actually wield E.G.O.",
+
+            k_lobc_gebura_1_1 = "I'm back; [SPOILERS] has walked out from a sea of pain.",
+            k_lobc_gebura_1_2 = "I'm no longer weak like I used to be.",
+
+            k_lobc_gebura_2_1 = "Some things simply couldn't be forgotten, no matter how much time has passed.",
+            k_lobc_gebura_2_2 = "Hatred is a poison that eviscerates me, and yet it makes me open my eyes once more.",
+
+            k_lobc_gebura_3_1 = "Some things just wouldn’t cool down, no matter how long they were left in the cold.",
+            k_lobc_gebura_3_2 = "Those monsters always kill people, there is no end to this sin.",
+            k_lobc_gebura_3_3 = "I have descended to bring about their reckoning.",
+
+            k_lobc_gebura_4_1 = "The right path is too far away, and I have too far to go.",
+            k_lobc_gebura_4_2 = "My heart is pulsing with anger, and I must keep pushing.",
         },
         achievement_names = {
             ach_lobc_penitence = "Penitence",

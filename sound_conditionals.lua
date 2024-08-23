@@ -73,6 +73,26 @@ return {
         end,
     },
 
+    -- Distorted Night: Phases 2 & 3 of The Red Mist
+    {
+        key = "music_gebura_1",
+        select_music_track = function()
+            if config.no_music then return false end
+            local phase = G.GAME.current_round.lobc_phases_beaten
+            return (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and (phase == 1 or phase == 2))
+        end,
+    },
+
+    -- Insignia Decay: Phase 4 of The Red Mist
+    {
+        key = "music_gebura_2",
+        select_music_track = function()
+            if config.no_music then return false end
+            local phase = G.GAME.current_round.lobc_phases_beaten
+            return (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and phase >= 3)
+        end,
+    },
+
     -- Abnormality Choice: Extraction Packs
     {
         key = "music_abno_choice",
@@ -94,7 +114,7 @@ return {
         end,
     },
 
-    -- Second Warning: Antes 1-3 of Asiyah Core Suppressions, Midnight Ordeals
+    -- Second Warning: Antes 1-3 of Asiyah Core Suppressions, Midnight Ordeals, Phase 1 of The Red Mist and An Arbiter
     {
         key = "music_second_warning",
         select_music_track = function()
@@ -102,6 +122,7 @@ return {
             for _, v in pairs({"malkuth", "yesod", "hod", "netzach"}) do
                 if G.GAME and G.GAME.modifiers["lobc_"..v] and G.GAME.round_resets.ante <= 3 then return true end
             end
+            if G.GAME.blind and G.GAME.blind.config.blind.phases and G.GAME.current_round.lobc_phases_beaten == 0 then return true end
             return (G.GAME and G.GAME.blind and G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight")
         end,
     },

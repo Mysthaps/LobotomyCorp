@@ -65,6 +65,10 @@ local blind_list = {
     -- Abnormalities
     "whitenight",
 
+    -- Meltdowns
+    "red_mist",
+    --"an_arbiter",
+
     -- Dawn Ordeals
     "dawn_base",
     "dawn_green",
@@ -106,6 +110,8 @@ local sound_list = {
     music_hod_2 = "Theme - Retro Time ALT Mix 1",
     music_netzach_1 = "Abandoned",
     music_netzach_2 = "Blue Dots",
+    music_gebura_1 = "Distorted Night",
+    music_gebura_2 = "Insignia Decay",
 
     meltdown_start = "Boss_StartButton",
     overload_alert = "OverloadAlert3",
@@ -122,6 +128,8 @@ local sound_list = {
     helper_destroy = "Robo_Rise",
     butterfly_attack = "Butterfly_Attack",
     censored = "Censored_Atk",
+
+    gebura_slash = "Gebura_Phase2_Atk1",
 
     green_start = "Machine_Start",
     green_end = "Machine_End",
@@ -244,7 +252,7 @@ for k, v in pairs(sound_list) do
         key = k,
         path = v..".ogg",
         pitch = 1,
-        volume = 0.3,
+        volume = 0.6,
         sync = false,
         no_sync = true,
     })
@@ -252,7 +260,6 @@ for k, v in pairs(sound_list) do
     for _, vv in ipairs(SMODS.load_file("sound_conditionals.lua")()) do
         if k == vv.key then
             sound.select_music_track = vv.select_music_track
-            sound.volume = 0.6
         end
     end
 end
@@ -404,7 +411,8 @@ function lobc_abno_text(key, eval_func, delay, quips)
         end
 
         for k, v in ipairs(quips) do
-            if G.GAME.round_resets.ante >= v.min_ante and G.GAME.round_resets.ante <= v.max_ante then
+            if (v.phase and G.GAME.current_round.lobc_phases_beaten == v.phase) or 
+               (v.min_ante and G.GAME.round_resets.ante >= v.min_ante and G.GAME.round_resets.ante <= v.max_ante) then
                 for i = 1, v.amount do
                     all_quips[#all_quips+1] = k.."_"..i
                 end
@@ -448,10 +456,10 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
-    if G.GAME.modifiers.lobc_all_whitenight or 
+    --[[if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
-    return get_new_bossref()
-    --return "bl_lobc_midnight_violet"
+    return get_new_bossref()]]--
+    return "bl_lobc_dusk_crimson"
 end
 
 -- Overwrite blind select for Ordeals
@@ -560,29 +568,22 @@ G.FUNCS.discard_cards_from_highlighted = function(e, hook)
     discard_cards_from_highlightedref(e, hook)
 end
 
--- Crimson Noon and Crimson Dusk switching to lower tier
+-- Phase bosses
 local update_new_roundref = Game.update_new_round
 function Game.update_new_round(self, dt)
     if self.buttons then self.buttons:remove(); self.buttons = nil end
     if self.shop then self.shop:remove(); self.shop = nil end
 
-    if not G.STATE_COMPLETE and 
-       (G.GAME.blind.config.blind.color and G.GAME.blind.config.blind.color == "crimson") and
-       not G.GAME.blind.disabled then
-        local original_blind = G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
-        if G.GAME.blind.config.blind.time == "dawn" then
-            if original_blind ~= "bl_lobc_dawn_crimson" then
-                -- For Noon and Dusk, reset to the original blind's values
-                G.GAME.blind:set_blind(G.P_BLINDS[original_blind])
-                G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*0.8*G.GAME.starting_params.ante_scaling
-                G.GAME.blind.lobc_original_blind = nil
-            end
+    if not G.STATE_COMPLETE and not G.GAME.blind.disabled and (G.GAME.blind.config.blind.summon or G.GAME.blind.config.blind.phases or G.GAME.blind.lobc_original_blind) then
+        if G.GAME.blind.lobc_original_blind and not G.GAME.blind.config.blind.summon then -- Triggers if blind is not the original blind
+            -- Reset to the original blind's values
+            G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.lobc_original_blind])
+            G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*0.8*G.GAME.starting_params.ante_scaling
+            G.GAME.blind.lobc_original_blind = nil
         else
             if G.GAME.current_round.hands_left <= 0 then 
-                -- Original hand count must be less than 2 (Noon) or 3 (Dusk)
-                if G.GAME.current_round.hands_played < (G.P_BLINDS[original_blind].time == "dusk" and 3 or 2) and
-                -- Must win blind
-                   to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) then
+                if G.GAME.current_round.hands_played - G.GAME.current_round.lobc_hands_given == 1 and -- Increase hands by 1 if there are not enough hands to beat the blind
+                   to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) then -- Must win blind
                     ease_hands_played(1)
                     G.GAME.current_round.lobc_hands_given = G.GAME.current_round.lobc_hands_given + 1
                 else
@@ -591,7 +592,14 @@ function Game.update_new_round(self, dt)
                     end_round()
                     return
                 end
+            else
+                G.GAME.current_round.lobc_phases_beaten = G.GAME.current_round.lobc_phases_beaten + 1
             end
+            
+            if G.GAME.blind.config.blind.phases and G.GAME.current_round.lobc_phases_beaten >= G.GAME.blind.config.blind.phases then
+                return update_new_roundref(self, dt)
+            end
+            
             G.STATE = G.STATES.DRAW_TO_HAND
             G.E_MANAGER:add_event(Event({
                 trigger = 'ease',
@@ -602,10 +610,34 @@ function Game.update_new_round(self, dt)
                 delay = 0.5 * G.SETTINGS.GAMESPEED,
                 func = (function(t) return math.floor(t) end)
             }))
-            G.GAME.blind:set_blind(G.P_BLINDS["bl_lobc_"..(G.GAME.blind.config.blind.time == "dusk" and "noon" or "dawn").."_crimson"])
-            G.GAME.blind.dollars = G.P_BLINDS[original_blind].dollars
-            G.GAME.current_round.dollars_to_be_earned = G.GAME.blind.dollars > 0 and (string.rep(localize('$'), G.GAME.blind.dollars)..'') or ('')
-            G.GAME.blind.lobc_original_blind = original_blind
+
+            if G.GAME.blind.config.blind.phases then 
+                -- Refresh deck
+                G.FUNCS.draw_from_hand_to_discard()
+                G.FUNCS.draw_from_discard_to_deck()
+
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        G.deck:shuffle(G.GAME.blind.config.blind.key..'_phase_'..G.GAME.current_round.lobc_phases_beaten)
+                        G.deck:hard_set_T()
+                        return true
+                    end
+                }))
+
+                G.GAME.blind.prepped = nil
+                G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 1
+                G.GAME.blind:set_text() 
+                SMODS.juice_up_blind()
+            end
+
+            if G.GAME.blind.config.blind.summon then
+                G.GAME.blind.lobc_original_blind = G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
+                G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.summon])
+                G.GAME.blind.dollars = G.P_BLINDS[G.GAME.blind.lobc_original_blind].dollars
+                G.GAME.blind.boss = G.P_BLINDS[G.GAME.blind.lobc_original_blind].boss
+                G.GAME.current_round.dollars_to_be_earned = G.GAME.blind.dollars > 0 and (string.rep(localize('$'), G.GAME.blind.dollars)..'') or ('')
+            end
         end
     end
 
@@ -634,7 +666,8 @@ end
 local alert_debuffref = Blind.alert_debuff
 function Blind.alert_debuff(self, first)
     if self.config.blind.color and self.config.blind.color == "base" then return end
-    if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin")) then
+    if self.config.blind.phases then return end
+    if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin", true)) then
         self.block_play = true
         G.E_MANAGER:add_event(Event({
             blocking = false,
@@ -694,6 +727,60 @@ function Blind.get_type(self)
         return G.GAME.blind_on_deck
     end
     return get_typeref(self)
+end
+
+-- Save some blind variables
+local blind_saveref = Blind.save
+function Blind.save(self)
+    local blindTable = blind_saveref(self)
+    blindTable.lobc_original_blind = self.lobc_original_blind
+    blindTable.lobc_current_effect = self.lobc_current_effect
+    return blindTable
+end
+
+local blind_loadref = Blind.load
+function Blind.load(self, blindTable)
+    self.lobc_original_blind = blindTable.lobc_original_blind
+    self.lobc_current_effect = blindTable.lobc_current_effect
+    blind_loadref(self, blindTable)
+end
+
+-- Load text midgame
+local set_textref = Blind.set_text
+function Blind.set_text(self)
+    if self.config.blind and self.lobc_current_effect and self.config.blind.phases and G.GAME.current_round.lobc_phases_beaten < self.config.blind.phases then
+        local loc_vars = nil
+        local obj = self.config.blind
+        if obj.loc_vars and type(obj.loc_vars) == 'function' then
+        	local res = obj:loc_vars() or {}
+        	loc_vars = res.vars or {}
+        end
+        local loc_target = localize{type = 'raw_descriptions', key = self.config.blind.key.."_effect_"..self.lobc_current_effect, set = 'Blind', vars = loc_vars or self.config.blind.vars}
+        if loc_target then 
+            self.loc_name = self.name == '' and self.name or localize{type = 'name_text', key = self.config.blind.key, set = 'Blind'}
+            self.loc_debuff_text = ''
+            EMPTY(self.loc_debuff_lines)
+            for k, v in ipairs(loc_target) do
+                self.loc_debuff_text = self.loc_debuff_text..v..(k <= #loc_target and ' ' or '')
+                self.loc_debuff_lines[k] = v
+            end
+        else
+            return set_textref(self)
+        end
+    else
+        set_textref(self)
+    end
+end
+
+-- Score capping, just steal it from Cryptid
+Blind.cry_cap_score = Blind.cry_cap_score or function(self, score)
+    if not self.disabled then
+        local obj = self.config.blind
+        if obj.cry_cap_score and type(obj.cry_cap_score) == 'function' then
+            return obj:cry_cap_score(score)
+        end
+    end
+    return score
 end
 
 --=============== JOKERS ===============--
@@ -1177,7 +1264,7 @@ function ease_ante(mod)
 
             for _, v in pairs({"malkuth", "yesod", "hod", "netzach"}) do
                 if G.GAME.modifiers["lobc_"..v] and G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante == 7 then
-                    play_sound("lobc_overload_alert", 1, 0.5)
+                    if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
                     break
                 end
             end
@@ -1243,17 +1330,6 @@ function Game.set_language(self)
         DESCSCALE = 1,
         FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
     }
-end
-
--- Apply blank font (Yesod)
-local game_updateref = Game.update
-function Game.update(self, dt)
-    if not G.SETTINGS.paused and G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 and G.STATE ~= G.STATES.GAME_OVER then
-        G.LANG.font = G.FONTS["blank"]
-    else
-        G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font
-    end
-    game_updateref(self, dt)
 end
 
 -- Remove blank font when appropriate (Yesod)
@@ -1413,6 +1489,9 @@ end
 -- Blind:alert_debuff for ordeals
 function Blind:ordeal_alert()
     if G.GAME.current_round.hands_played > 0 then return end
+    for _, v in ipairs(SMODS.find_card("bl_lobc_iron_maiden", true)) do
+        if v.ability.extra.elapsed ~= 0 or v.ability.extra.seconds ~= 0 then return true end
+    end
     self.block_play = true
     G.E_MANAGER:add_event(Event({
         blockable = false,
@@ -1483,8 +1562,9 @@ end
 local new_roundref = new_round
 function new_round()
     new_roundref()
-    -- Reset hands for Crimson Dusk/Noon
+    -- Reset hands for on death summon bosses
     G.GAME.current_round.lobc_hands_given = 0
+    G.GAME.current_round.lobc_phases_beaten = 0
     -- Reset death text if any
     G.GAME.lobc_death_text = nil
 
@@ -1511,6 +1591,21 @@ function play_sound(sound_code, per, vol)
         return play_soundref(sound_code, per, vol * 0.8)
     end
     return play_soundref(sound_code, per, vol)
+end
+
+-- Update every frame
+local game_updateref = Game.update
+function Game.update(self, dt)
+    -- Apply blank font (Yesod)
+    if not G.SETTINGS.paused and G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 and G.STATE ~= G.STATES.GAME_OVER then
+        G.LANG.font = G.FONTS["blank"]
+    else
+        G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font
+    end
+
+    -- i hate chicot
+    if G.GAME and G.GAME.blind and G.GAME.blind.config.blind.phases then G.GAME.blind.disabled = nil end
+    game_updateref(self, dt)
 end
 
 --=============== OBSERVATION ===============--

@@ -11,7 +11,7 @@ local blind = {
 }
 
 blind.set_blind = function(self, reset, silent)
-    if next(SMODS.find_card("j_lobc_one_sin")) then
+    if next(SMODS.find_card("j_lobc_one_sin", true)) then
         lobc_screen_text({
             text = localize('k_lobc_whitenight_confession'),
             scale = 0.35, 
@@ -33,7 +33,7 @@ blind.set_blind = function(self, reset, silent)
     local eval_func = function()
         return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_whitenight'
     end
-    if not next(SMODS.find_card("j_lobc_one_sin")) then lobc_abno_text("whitenight", eval_func, 2, 12) end
+    if not next(SMODS.find_card("j_lobc_one_sin", true)) then lobc_abno_text("whitenight", eval_func, 2, 12) end
 end
 
 blind.recalc_debuff = function(self, card, from_blind)
@@ -43,7 +43,7 @@ blind.recalc_debuff = function(self, card, from_blind)
 end
 
 blind.disable = function(self)
-    if not next(SMODS.find_card("j_lobc_one_sin")) then
+    if not next(SMODS.find_card("j_lobc_one_sin", true)) then
         lobc_screen_text({
             text = localize('k_lobc_whitenight_disable'),
             scale = 0.35, 
@@ -62,7 +62,7 @@ end
 blind.defeat = function(self)
     if not G.GAME.modifiers.lobc_all_whitenight then
         G.GAME.pool_flags["whitenight_defeated"] = true
-        if not next(SMODS.find_card("j_lobc_one_sin")) then
+        if not next(SMODS.find_card("j_lobc_one_sin", true)) then
             G.GAME.joker_buffer = G.GAME.joker_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = function() 

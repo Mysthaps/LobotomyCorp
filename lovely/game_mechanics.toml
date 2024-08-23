@@ -125,3 +125,28 @@ pattern = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value = 'chips_text', lan
 position = "at"
 payload = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value = 'chips_text', font = (G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6) and G.FONTS['blank'] or G.LANGUAGES['en-us'].font, scale = 0.85, colour = G.C.WHITE, id = 'chip_UI_count', func = 'chip_UI_set', shadow = true}}"
 match_indent = true
+
+# Patches lifted straight from Cryptid (The Tax effect)
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "func = (function()  update_hand_text({delay = 0, immediate = true}, {mult = 0, chips = 0, chip_total = math.floor(hand_chips*mult), level = '', handname = ''});play_sound('button', 0.9, 0.6);return true end)"
+position = "at"
+payload = "func = (function()  update_hand_text({delay = 0, immediate = true}, {mult = 0, chips = 0, chip_total = G.GAME.blind.cry_cap_score and G.GAME.blind:cry_cap_score(math.floor(hand_chips*mult)) or math.floor(hand_chips*mult), level = '', handname = ''});play_sound('button', 0.9, 0.6);return true end)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "ease_to = G.GAME.chips + math.floor(hand_chips*mult),"
+position = "at"
+payload = "ease_to = G.GAME.chips + (G.GAME.blind.cry_cap_score and G.GAME.blind:cry_cap_score(math.floor(hand_chips*mult)) or math.floor(hand_chips*mult)),"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "ease_to = G.GAME.chips + math.floor(hand_chips * mult) * (e and e.antiscore and -1 or 1),"
+position = 'at'
+match_indent = true
+payload = '''ease_to = G.GAME.chips + (G.GAME.blind.cry_cap_score and G.GAME.blind:cry_cap_score(math.floor(hand_chips*mult)) or math.floor(hand_chips*mult)) * (e and e.antiscore and -1 or 1),'''

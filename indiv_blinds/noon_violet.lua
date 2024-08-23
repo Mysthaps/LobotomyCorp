@@ -13,7 +13,7 @@ local blind = {
 blind.set_blind = function(self, reset, silent)
     G.GAME.blind.prepped = nil
     -- this keeps track of the score
-    G.GAME.blind.hands_sub = 0
+    G.GAME.blind.hands_sub = to_big(0)
     -- increase blind size
     local chips = get_blind_amount(G.GAME.round_resets.ante) * G.GAME.starting_params.ante_scaling * G.consumeables.config.card_limit * 0.2
     if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
