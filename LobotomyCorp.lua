@@ -1005,7 +1005,7 @@ function G.UIDEF.card_h_popup(card)
     end
 
     -- CENSORED
-    if (next(SMODS.find_card("j_lobc_censored")) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored"))
+    if (next(SMODS.find_card("j_lobc_censored", true)) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored"))
        or (card.ability and card.ability.lobc_censored) then
         local name_nodes = localize{type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {}}
         name_nodes[1].config.object.colours = {G.C.RED}
@@ -1025,7 +1025,7 @@ end
 -- Remove the topleft message when CENSORED/Yesod is active
 local generate_UIBox_ability_tableref = Card.generate_UIBox_ability_table
 function Card.generate_UIBox_ability_table(self)
-    if (next(SMODS.find_card("j_lobc_censored")) and self.config.center.key ~= "j_lobc_censored") 
+    if (next(SMODS.find_card("j_lobc_censored", true)) and self.config.center.key ~= "j_lobc_censored") 
     or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3) 
     or (self.ability and self.ability.lobc_censored) then return end
     return generate_UIBox_ability_tableref(self)
