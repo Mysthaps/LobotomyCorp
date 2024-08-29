@@ -39,7 +39,7 @@ local chal = {
 }
 
 if (SMODS.Mods.Cryptid or {}).can_load then
-    local cry_config = Cryptid_config or SMODS.Mods.Cryptid.config
+    local cry_config = SMODS.load_mod_config({id = "Cryptid", path = SMODS.Mods.Cryptid.path})
 
     if cry_config["Code Cards"] then
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_malware'})
