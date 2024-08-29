@@ -1,13 +1,14 @@
+local config = SMODS.current_mod.config
 local blind = {
     name = "The Red Mist",
     pos = {x = 0, y = 19},
-    dollars = 1, 
-    mult = 40, 
+    dollars = 0, 
+    mult = 8, 
     phases = 4, 
     vars = {}, 
     debuff = {},
     boss = {showdown = true, min = 10, max = 10},
-    boss_colour = HEX('D41C25'),
+    boss_colour = HEX('C71F1F'),
     loc_txt = {}
 }
 
@@ -33,9 +34,19 @@ local function destroy_cards(cardarea, min, max)
     }))
 end
 
+local function get_available_jokers()
+    local jokers = {}
+    for _, v in ipairs(G.jokers.cards) do
+        if not v.ability.eternal and not v.ability.hysteria then
+            jokers[#jokers+1] = v
+        end
+    end
+    return jokers
+end
+
 blind.set_blind = function(self, reset, silent)
-    G.GAME.current_round.lobc_phases_beaten = 2
-    G.GAME.blind.lobc_current_effect = 21
+    G.GAME.current_round.lobc_phases_beaten = 0
+    G.GAME.blind.lobc_current_effect = 1
     G.GAME.blind.lobc_score_cap = 0.15
     G.GAME.blind:set_text()
     G.GAME.blind.prepped = nil
@@ -52,6 +63,7 @@ blind.set_blind = function(self, reset, silent)
     local eval_func = function() return G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" end
     lobc_abno_text("gebura", eval_func, 0.2, quips)
     ease_background_colour_blind()
+    if not config.disable_unsettling_sfx then play_sound("lobc_meltdown_start", 1, 0.5) end
 end
 
 blind.press_play = function(self)
@@ -209,6 +221,31 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             G.GAME.blind:wiggle()
         end
     end
+    -- [34] No hands until a Joker sold
+    if G.GAME.blind.lobc_current_effect == 34 then
+        if not G.GAME.blind.lobc_has_sold_joker then
+            G.GAME.blind.triggered = true
+            return true
+        end
+    end
+    -- [35] No [most played poker hand] allowed
+    if G.GAME.blind.lobc_current_effect == 35 then
+        if handname == G.GAME.current_round.most_played_poker_hand then
+            G.GAME.blind.triggered = true
+            return true
+        end
+    end
+    -- [37] Sets level of played poker hand to 0
+    if G.GAME.blind.lobc_current_effect == 37 then
+        G.GAME.blind.triggered = true
+        local hand_level = G.GAME.hands[handname].level
+        local to_remove = hand_level
+        if type(hand_level) == "table" then to_remove:ceil() else to_remove = math.ceil(to_remove) end
+        if not check then
+            level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -to_remove)
+            G.GAME.blind:wiggle()
+        end
+    end
 end
 
 blind.recalc_debuff = function(self, card, from_blind)
@@ -259,8 +296,9 @@ blind.drawn_to_hand = function(self)
             local effect_selected = nil
 
             local function additional_check(eff)
-                if eff == 12 and #G.consumeables.cards == 0 then return true end
-                if eff == 22 and #G.jokers.cards == 0 then return true end
+                if eff == 12 then return (#G.consumeables.cards == 0) end
+                if eff == 22 then return (#G.jokers.cards == 0) end
+                if eff == 34 then return (#G.jokers.cards <= 5 or #get_available_jokers() == 0) end
             end
 
             while not effect_selected or effect_selected == G.GAME.blind.lobc_current_effect or additional_check(effect_selected) do
@@ -282,6 +320,7 @@ blind.drawn_to_hand = function(self)
             v.ability.lobc_gebura_debuff = nil
         end
         G.GAME.lobc_hod_modifier = 1
+        G.GAME.blind.lobc_has_sold_joker = false
 
         -- [17] Debuff 1-3 random Jokers
         if G.GAME.blind.lobc_current_effect == 17 then
@@ -298,18 +337,18 @@ blind.drawn_to_hand = function(self)
             end
             G.GAME.blind:wiggle()
         end
-        -- [21] At the start of every other hand, destroy a card held in hand
+        -- [21], [31] At the start of every (other) hand, destroy a card held in hand
         if G.GAME.current_round.lobc_phases_beaten >= 2 then
             G.GAME.blind.discards_sub = G.GAME.blind.discards_sub or 0
             G.GAME.blind.discards_sub = G.GAME.blind.discards_sub + 1
-            if G.GAME.blind.discards_sub % 2 == 0 then
+            if G.GAME.blind.discards_sub % 2 == 0 or G.GAME.current_round.lobc_phases_beaten >= 3 then
                 G.GAME.blind:wiggle()
                 destroy_cards(G.hand, 1, 1)
             end
         end
         -- [22], [32] Debuff all [highest owned rarity] Jokers
         if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
-            local highest = 0
+            local highest = 1
             for _, v in ipairs(G.jokers.cards) do
                 if type(v.config.center.rarity) ~= "number" then return end
                 if v.config.center.rarity > highest then highest = v.config.center.rarity end
@@ -322,13 +361,15 @@ blind.drawn_to_hand = function(self)
             end
             G.GAME.blind:wiggle()
         end
-        -- [25] All cards give 25% less chips, Mult and XMult
+        -- [25], [36] All cards give 25%/50% less chips, Mult and XMult
         if G.GAME.blind.lobc_current_effect == 25 then
             G.GAME.lobc_hod_modifier = 0.75
+        elseif G.GAME.blind.lobc_current_effect == 36 then
+            G.GAME.lobc_hod_modifier = 0.5
         end
         -- [33] Debuff all [most owned rarity] Jokers
         if G.GAME.blind.lobc_current_effect == 33 then
-            local rarities = {}
+            local rarities = {0, 0, 0, 0}
             local highest = 0
             for _, v in ipairs(G.jokers.cards) do
                 if type(v.config.center.rarity) ~= "number" then return end
@@ -338,10 +379,15 @@ blind.drawn_to_hand = function(self)
                     highest = rarities[v.config.center.rarity]
                 end
             end
-            for _, v in ipairs(G.jokers.cards) do
-                if v.config.center.rarity == highest then 
-                    v.ability.lobc_gebura_debuff = true
-                    v:juice_up()
+            for k, v in ipairs(rarities) do
+                if v == highest and v > 0 then 
+                    for _, vv in ipairs(G.jokers.cards) do
+                        if vv.config.center.rarity == k then
+                            vv.ability.lobc_gebura_debuff = true
+                            vv:juice_up()
+                        end
+                    end
+                    break
                 end
             end
             G.GAME.blind:wiggle()
@@ -358,13 +404,36 @@ end
 
 blind.loc_vars = function(self)
     -- [22], [32] Debuff all [highest owned rarity] Jokers
-    if G.GAME.blind.lobc_current_effect == 22 then
+    if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
+        local highest = 1
+        for _, v in ipairs(G.jokers.cards) do
+            if type(v.config.center.rarity) ~= "number" then
+            elseif v.config.center.rarity > highest then highest = v.config.center.rarity end
+        end
+        return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[highest]} }
+    end
+    -- [33] Debuff all [most owned rarity] Jokers
+    if G.GAME.blind.lobc_current_effect == 33 then
+        local rarities = {}
         local highest = 0
         for _, v in ipairs(G.jokers.cards) do
             if type(v.config.center.rarity) ~= "number" then return end
-            if v.config.center.rarity > highest then highest = v.config.center.rarity end
+            rarities[v.config.center.rarity] = rarities[v.config.center.rarity] or 0
+            rarities[v.config.center.rarity] = rarities[v.config.center.rarity] + 1
+            if highest < rarities[v.config.center.rarity] then
+                highest = rarities[v.config.center.rarity]
+            end
         end
-        return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[highest]} }
+        for k, v in ipairs(rarities) do
+            if v == highest and v > 0 then 
+                return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[k]} }
+            end
+        end
+        return { vars = {localize('k_common')} }
+    end
+    -- [35] No [most played poker hand] allowed
+    if G.GAME.blind.lobc_current_effect == 35 then
+        return { vars = { localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') }}
     end
 end
 

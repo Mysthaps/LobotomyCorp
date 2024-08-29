@@ -6,7 +6,7 @@
 --- MOD_DESCRIPTION: Face the Fear, Build the Future.
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
+--- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0828e]
 --- VERSION: 0.9.0
 --- CARMEN_SAYS: You should distort yourself... NOW!
 
@@ -66,7 +66,7 @@ local blind_list = {
     "whitenight",
 
     -- Meltdowns
-    --"red_mist",
+    "red_mist",
     --"an_arbiter",
 
     -- Dawn Ordeals
@@ -110,6 +110,8 @@ local sound_list = {
     music_hod_2 = "Theme - Retro Time ALT Mix 1",
     music_netzach_1 = "Abandoned",
     music_netzach_2 = "Blue Dots",
+    music_tiphereth_1 = "Eternal",
+    music_tiphereth_2 = "Dark Fantasy Scene",
     music_gebura_1 = "Distorted Night",
     music_gebura_2 = "Insignia Decay",
 
@@ -150,6 +152,8 @@ local challenge_list = {
     "yesod",
     "hod",
     "netzach",
+    "tiphereth",
+    "gebura",
 }
 
 local consumable_list = {
@@ -456,6 +460,7 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
+    if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     return get_new_bossref()
@@ -466,10 +471,18 @@ end
 local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
+    -- Hide Small and Big Blind (Gebura)
+    if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > 8 then
+        G.GAME.round_resets.blind_states.Small = 'Hide'
+        G.GAME.round_resets.blind_states.Big = 'Hide'
+        ease_background_colour_blind()
+        return
+    end
     if config.disable_ordeals and not G.GAME.modifiers.lobc_ordeals then return end
     if G.GAME.round_resets.blind_states.Small == 'Upcoming' or G.GAME.round_resets.blind_states.Small == 'Hide' then
         if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
-           (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) then
+           (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) and 
+           not (G.GAME.round_resets.ante >= 8 and G.GAME.modifiers.lobc_tiphereth) then
                 G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
         else
             G.GAME.round_resets.blind_choices.Small = 'bl_small'
@@ -492,8 +505,9 @@ function reset_blinds()
             end
         end
 
-        if G.GAME.round_resets.ante % 8 == 0 and G.GAME.round_resets.ante > 0 then
-            if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 0.125 then
+        if (G.GAME.round_resets.ante % 8 == 0 and G.GAME.round_resets.ante > 0) or
+           (G.GAME.round_resets.ante >= 8 and G.GAME.modifiers.lobc_tiphereth) then
+            if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 0.125 or G.GAME.modifiers.lobc_tiphereth then
                 G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] = G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] - 1
                 G.GAME.round_resets.blind_choices.Boss = 'bl_lobc_midnight_base'
             end
@@ -624,11 +638,13 @@ function Game.update_new_round(self, dt)
                         return true
                     end
                 }))
+                ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
 
                 G.GAME.blind.prepped = nil
                 G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 1
                 G.GAME.blind:set_text() 
                 SMODS.juice_up_blind()
+                if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
             end
 
             if G.GAME.blind.config.blind.summon then
@@ -649,15 +665,20 @@ end
 -- Crimson Dawn selling card
 local sell_cardref = Card.sell_card
 function Card.sell_card(self)
-    if self.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson" and not G.GAME.blind.disabled then 
-        G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
-            G.GAME.blind.hands_sub = 2
-            for _, v in ipairs(G.playing_cards) do
-                v.ability.lobc_dawn_crimson = false
-                SMODS.recalc_debuff(v)
-            end
-            return true
-        end}))
+    if self.ability.set == 'Joker' and G.GAME.blind then
+        if G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson" and not G.GAME.blind.disabled then 
+            G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
+                G.GAME.blind.hands_sub = 2
+                for _, v in ipairs(G.playing_cards) do
+                    v.ability.lobc_dawn_crimson = false
+                    SMODS.recalc_debuff(v)
+                end
+                return true
+            end}))
+        end
+        if G.GAME.blind.config.blind.key == "bl_lobc_red_mist" then
+            G.GAME.blind.lobc_has_sold_joker = true
+        end
     end
     sell_cardref(self)
 end
@@ -735,6 +756,7 @@ function Blind.save(self)
     local blindTable = blind_saveref(self)
     blindTable.lobc_original_blind = self.lobc_original_blind
     blindTable.lobc_current_effect = self.lobc_current_effect
+    blindTable.lobc_has_sold_joker = self.lobc_has_sold_joker
     return blindTable
 end
 
@@ -742,6 +764,7 @@ local blind_loadref = Blind.load
 function Blind.load(self, blindTable)
     self.lobc_original_blind = blindTable.lobc_original_blind
     self.lobc_current_effect = blindTable.lobc_current_effect
+    self.lobc_has_sold_joker = blindTable.lobc_has_sold_joker
     blind_loadref(self, blindTable)
 end
 
@@ -962,21 +985,32 @@ function Blind.drawn_to_hand(self)
     drawn_to_handref(self)
     if not G.GAME.lobc_prepped then return end
 
+    -- Gebura's effect
+    if G.GAME.modifiers.lobc_gebura and self.config.blind.key ~= "bl_lobc_red_mist" then
+        local available_cards = {}
+        for _, v in ipairs(G.hand.cards) do
+            if not v.highlighted then available_cards[#available_cards+1] = v end
+        end
+        if #available_cards > 0 then
+            local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("lobc_gebura_destroy"))
+            table.remove(available_cards, chosen_card_key)
+            chosen_card:start_dissolve() 
+            play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5)
+        end
+    end
+
     -- Child of the Galaxy add new pebbles
     local children_of_the_galaxy = SMODS.find_card('j_lobc_child_galaxy')
     if next(children_of_the_galaxy) then
         for _, v in ipairs(G.playing_cards) do
             v.ability.child_galaxy_pebble = nil
         end
-        
         local available_cards = {}
-
         for _, v in ipairs(G.hand.cards) do
             if not v.ability.child_galaxy_pebble then
                 available_cards[#available_cards + 1] = v
             end
         end
-
         for i = 1, 4 * #children_of_the_galaxy do
             if #available_cards > 0 then
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
@@ -1088,6 +1122,8 @@ function Game.start_run(self, args)
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
         if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hands_reset = true end
         if G.GAME.modifiers.lobc_hod then G.GAME.lobc_hod_modifier = 0.85 end
+        if G.GAME.modifiers.lobc_gebura then G.GAME.win_ante = 9 end
+        if G.GAME.modifiers.lobc_end_ante then G.GAME.win_ante = G.GAME.modifiers.lobc_end_ante end
     end
 
     -- First time text
@@ -1146,12 +1182,19 @@ function Game.start_run(self, args)
             { min_ante = 4, max_ante = 6, amount = 3 },
             { min_ante = 7, max_ante = G.GAME.win_ante, amount = 4 },
         },
+        tiphereth = {
+            global = 2,
+            { min_ante = 0, max_ante = 3, amount = 3 },
+            { min_ante = 4, max_ante = 6, amount = 3 },
+            { min_ante = 7, max_ante = G.GAME.win_ante, amount = 3 },
+        },
+        gebura = {},
     }
 
     local eval_func = function() return G.GAME.round_resets.ante <= G.GAME.win_ante end
     for k, v in pairs(quips) do
         if G.GAME.modifiers["lobc_"..k] then
-            lobc_abno_text(k, eval_func, 0.2, v)
+            if v.global then lobc_abno_text(k, eval_func, 0.2, v) end
             ease_background_colour_blind()
             if not args.save_text and not config.disable_unsettling_sfx then play_sound("lobc_meltdown_start", 1, 0.5) end
             break
@@ -1176,6 +1219,8 @@ local colors = {
     yesod = HEX("81339C"),
     hod = HEX("DA7F2F"),
     netzach = HEX("69A448"),
+    tiphereth = HEX("FFC50B"),
+    gebura = HEX("C71F1F"),
 }
 
 local ease_background_colour_blindref = ease_background_colour_blind
@@ -1264,8 +1309,8 @@ function ease_ante(mod)
                 end
             end
 
-            for _, v in pairs({"malkuth", "yesod", "hod", "netzach"}) do
-                if G.GAME.modifiers["lobc_"..v] and G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante == 7 then
+            for _, v in pairs({"malkuth", "yesod", "hod", "netzach", "tiphereth"}) do
+                if G.GAME.modifiers["lobc_"..v] and (G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante == 7) then
                     if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
                     break
                 end

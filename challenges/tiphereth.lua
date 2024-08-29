@@ -1,9 +1,10 @@
+local config = SMODS.current_mod.config
 local chal = {
     rules = {
         custom = {
+            {id = "lobc_tiphereth"},
             {id = "lobc_ordeals"},
             {id = "lobc_fast_ante_2"},
-            {id = "lobc_midnight_endgame"},
             {id = "lobc_end_ante", value = 10}
         },
     },
@@ -17,12 +18,13 @@ local chal = {
             {id = 'v_directors_cut'},
             {id = 'v_retcon'},
         },
-        banned_other = {
-            {id = 'bl_final_acorn', type = 'blind'},
-        }
     },
     unlocked = function(self)
-        return true
+        local count = 0
+        for _, v in pairs({"malkuth", "yesod", "netzach", "hod"}) do
+            if G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_"..v] then count = count + 1 end
+        end
+        return count >= 3 or config.unlock_challenges
     end
 }
 

@@ -1470,9 +1470,9 @@ return {
 
             -- The Red Mist
             bl_lobc_red_mist = {
-                name = "[SPOILERS]",
+                name = "The Red Mist",
                 text = {
-                    "[SPOILERS]",
+                    "The Red Mist",
                     "makes her return."
                 }
             },
@@ -1512,7 +1512,8 @@ return {
                 "[PERMANENT]",
                 "Return all cards from",
                 "hand and discard to deck",
-                "at the start of each Phase"
+                "at the start of each Phase",
+                "Refresh Discards"
             }},
             bl_lobc_red_mist_effect_12 = { text = {
                 "No hands allowed until",
@@ -1545,7 +1546,7 @@ return {
             }},
 
             bl_lobc_red_mist_effect_21 = { text = {
-                "[PERMANENT]",
+                "[ENTIRE PHASE]",
                 "At the start of every",
                 "other hand, destroy a card",
                 "held in hand"
@@ -1575,10 +1576,10 @@ return {
             }},
             
             bl_lobc_red_mist_effect_31 = { text = {
-                "[PERMANENT]",
-                "Increase score cap",
-                "by 2.5% after",
-                "each hand played"
+                "[ENTIRE PHASE]",
+                "At the start of every",
+                "hand, destroy a card",
+                "held in hand"
             }},
             bl_lobc_red_mist_effect_32 = { text = {
                 "Debuff all #1# Jokers",
@@ -1588,7 +1589,7 @@ return {
             }},
             bl_lobc_red_mist_effect_34 = { text = {
                 "No hands until",
-                "#1# Jokers are left"
+                "a Joker sold"
             }},
             bl_lobc_red_mist_effect_35 = { text = {
                 "No #1# allowed",
@@ -1634,13 +1635,14 @@ return {
             c_lobc_yesod = "Information",
             c_lobc_hod = "Training",
             c_lobc_netzach = "Safety",
+            c_lobc_tiphereth = "Central Command",
+            c_lobc_gebura = "Discipline",
         },
         v_text = {
             ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},
             ch_c_lobc_fast_ante_1 = {"Required score scales {C:green}faster{} for each Ante"},
             ch_c_lobc_fast_ante_2 = {"Required score scales {C:purple}even faster{} for each Ante"},
             ch_c_lobc_end_ante = {"Game ends after Ante {C:attention}#1#{}"},
-            ch_c_lobc_midnight_endgame = {"Only {C:dark_edition}Midnight Ordeals{} can appear past Ante {C:attention}8{}"},
             ch_c_lobc_slow_endgame = {"Required score scales slower after Ante {C:attention}8{}"},
 
             -- Dark Days
@@ -1672,6 +1674,14 @@ return {
             ch_c_lobc_netzach_2 = {"After Ante {C:attention}3{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention}1{}"},
             ch_c_lobc_netzach_3 = {"After Ante {C:attention}6{}, reduces {C:blue}Hands{} and {C:red}Discards{} by {C:attention}1{}"},
             ch_c_lobc_netzach_4 = {"All {C:attention}Blinds{} cannot be skipped"},
+
+            -- Tiphereth
+            ch_c_lobc_tiphereth = {"{C:dark_edition}Midnight Ordeals{} appear every Ante after Ante {C:attention}8{}"},
+
+            -- Gebura
+            ch_c_lobc_gebura = {"{C:red}The Red Mist{} makes her return."},
+            ch_c_lobc_gebura_2 = {"Before each hand played, {C:red}destroy{} a random card in hand"},
+            ch_c_lobc_gebura_omeganum = {"{C:inactive}({C:attention}OmegaNum{C:inactive} found! Please use {C:attention}Vanilla{C:inactive} or {C:attention}BigNum{C:inactive}!)"},
         },
         dictionary = {
             k_lobc_breached = "Breached!",
@@ -1930,6 +1940,22 @@ return {
             k_lobc_netzach_3_2 = "In the end, the hope that anyone will live on thanks to me is gone.",
             k_lobc_netzach_3_3 = "Just leave me alone, it's what you're best at.",
             k_lobc_netzach_3_4 = "All I want is to close my eyes and enjoy a good nap, just once.",
+
+            ---- Tiphereth ----
+            k_lobc_tiphereth_0_1 = "Every Containment Unit is under my reign.",
+            k_lobc_tiphereth_0_2 = "I hope this performance and song will appease our souls.",
+
+            k_lobc_tiphereth_1_1 = "We are two, but one. Do you know what this means?",
+            k_lobc_tiphereth_1_2 = "The Central Department is quite big. Everyone who works there has their hands full.",
+            k_lobc_tiphereth_1_3 = "Is it time for yet another replacement? Time to head to storage, then...",
+
+            k_lobc_tiphereth_2_1 = "Just what were you even looking for in the first place?",
+            k_lobc_tiphereth_2_2 = "Don't stand there looking at me like that, with your forlorn smile. I've already abandoned you...",
+            k_lobc_tiphereth_2_3 = "I wish to walk with you again, with the sound of the waves behind us.",
+
+            k_lobc_tiphereth_3_1 = "If this song of mine that you can hear right now is a dirge to you...",
+            k_lobc_tiphereth_3_2 = "When he returns, could you show him how I've grown? Will you show him how strong I am now...?",
+            k_lobc_tiphereth_3_3 = "You said that something good would happen next time...",
 
             ---- Gebura ----
             k_lobc_gebura_0_1 = "I'll destroy a shoddy place like this with my own hands.",

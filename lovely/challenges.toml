@@ -3,6 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Dark Days: Override blind amount
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -14,4 +15,14 @@ if G.GAME.modifiers.lobc_all_whitenight and blind_choice.config.key == "bl_lobc_
     if G.GAME.round_resets.blind_ante == 2 then blind_amt = blind_amt / 3 end
     if G.GAME.round_resets.blind_ante == 3 then blind_amt = blind_amt / 2 end
 end'''
+match_indent = true
+
+# Discipline: change Ante counter
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value='win_ante', scale = scale, colour = G.C.WHITE, shadow = true}}"
+position = "at"
+payload = '''
+G.GAME.modifiers.lobc_gebura and {n=G.UIT.T, config={text = "8?", scale = scale}} or {n=G.UIT.T, config={ref_table = G.GAME, ref_value='win_ante', scale = scale, colour = G.C.WHITE, shadow = true}},'''
 match_indent = true
