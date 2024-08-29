@@ -1546,15 +1546,60 @@ return {
 
             bl_lobc_red_mist_effect_21 = { text = {
                 "[PERMANENT]",
-                "Destroy a random card",
-                "in hand after each hand",
-                "(including Eternal cards)"
+                "At the start of every",
+                "other hand, destroy a card",
+                "held in hand"
+            }},
+            bl_lobc_red_mist_effect_22 = { text = {
+                "Debuff all #1# Jokers",
+            }},
+            bl_lobc_red_mist_effect_23 = { text = {
+                "Must play exactly 1 card",
+            }},
+            bl_lobc_red_mist_effect_24 = { text = {
+                "Hand must contain",
+                "four different ranks"
+            }},
+            bl_lobc_red_mist_effect_25 = { text = {
+                "All cards give 25% less",
+                "chips, Mult and XMult",
+            }},
+            bl_lobc_red_mist_effect_26 = { text = {
+                "Halves level of",
+                "played poker hand",
+                "(rounded down)"
+            }},
+            bl_lobc_red_mist_effect_27 = { text = {
+                "Lose $3 per played card,",
+                "or destroy it if cannot afford"
             }},
             
             bl_lobc_red_mist_effect_31 = { text = {
                 "[PERMANENT]",
-                "-1 Hand Size every 14",
-                "hands played this round",
+                "Increase score cap",
+                "by 2.5% after",
+                "each hand played"
+            }},
+            bl_lobc_red_mist_effect_32 = { text = {
+                "Debuff all #1# Jokers",
+            }},
+            bl_lobc_red_mist_effect_33 = { text = {
+                "Debuff all #1# Jokers",
+            }},
+            bl_lobc_red_mist_effect_34 = { text = {
+                "No hands until",
+                "#1# Jokers are left"
+            }},
+            bl_lobc_red_mist_effect_35 = { text = {
+                "No #1# allowed",
+            }},
+            bl_lobc_red_mist_effect_36 = { text = {
+                "All cards give 50% less",
+                "chips, Mult and XMult",
+            }},
+            bl_lobc_red_mist_effect_37 = { text = {
+                "Set level of played",
+                "poker hand to 0",
             }},
         },
         EGO_Gift = {
@@ -1801,7 +1846,7 @@ return {
             k_lobc_whitenight_disable = "Do not deny me. Why dost thou doubt me when I am in front of thine eyes?",
 
             k_lobc_whitenight_1 = "Ye who are drenched in sin. Rise and face me.",
-            k_lobc_whitenight_2 = "Pursue peace and holiness. Without these, ye shan’t look at me.",
+            k_lobc_whitenight_2 = "Pursue peace and holiness. Without these, ye shan't look at me.",
             k_lobc_whitenight_3 = "The disobedience of one hath caused the many to become sinners...",
             k_lobc_whitenight_4 = "Now, the many seeketh salvation through the obedience of one.",
             k_lobc_whitenight_5 = "I have not manifested myself in such a form to lay judgement.",
@@ -1854,14 +1899,14 @@ return {
 
             ---- Hod ----
             k_lobc_hod_0_1 = "Well, shall we film the corporate educational video together?",
-            k_lobc_hod_0_2 = "Please make sure to do it carefully, and don’t mess up!",
+            k_lobc_hod_0_2 = "Please make sure to do it carefully, and don't mess up!",
 
             k_lobc_hod_1_1 = "I want to help as much as I can here.",
             k_lobc_hod_1_2 = "I wish everyone would rely on me...",
 
             k_lobc_hod_2_1 = "How come nobody understands my kindness?",
             k_lobc_hod_2_2 = "I'm the only one who cares about them... Why would they hate me...?",
-            k_lobc_hod_2_3 = "Manager, you're not mad at me, right? You can’t be mad at me...",
+            k_lobc_hod_2_3 = "Manager, you're not mad at me, right? You can't be mad at me...",
             k_lobc_hod_2_4 = "Does anyone ever thank me? No, no one does...",
 
             k_lobc_hod_3_1 = "Our employees are suffering! See? Things just don't work out without me here!",
@@ -1892,13 +1937,13 @@ return {
             k_lobc_gebura_0_3 = "Do you really think feeble cowards like you can stop me?",
             k_lobc_gebura_0_4 = "Let me show you how to actually wield E.G.O.",
 
-            k_lobc_gebura_1_1 = "I'm back; [SPOILERS] has walked out from a sea of pain.",
+            k_lobc_gebura_1_1 = "I'm back; the Red Mist has walked out from a sea of pain.",
             k_lobc_gebura_1_2 = "I'm no longer weak like I used to be.",
 
             k_lobc_gebura_2_1 = "Some things simply couldn't be forgotten, no matter how much time has passed.",
             k_lobc_gebura_2_2 = "Hatred is a poison that eviscerates me, and yet it makes me open my eyes once more.",
 
-            k_lobc_gebura_3_1 = "Some things just wouldn’t cool down, no matter how long they were left in the cold.",
+            k_lobc_gebura_3_1 = "Some things just wouldn't cool down, no matter how long they were left in the cold.",
             k_lobc_gebura_3_2 = "Those monsters always kill people, there is no end to this sin.",
             k_lobc_gebura_3_3 = "I have descended to bring about their reckoning.",
 

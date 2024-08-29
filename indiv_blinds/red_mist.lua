@@ -11,9 +11,32 @@ local blind = {
     loc_txt = {}
 }
 
+local function destroy_cards(cardarea, min, max)
+    local first = true
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            local available_cards = {}
+            for _, v in ipairs(cardarea.cards) do
+                if not v.highlighted then available_cards[#available_cards+1] = v end
+            end
+            for i = 1, pseudorandom("gebura_effect_"..G.GAME.blind.lobc_current_effect, min, max) do
+                if #available_cards <= 0 then break end
+                local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_"..G.GAME.blind.lobc_current_effect))
+                table.remove(available_cards, chosen_card_key)
+                chosen_card:start_dissolve() 
+                play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
+                first = nil
+            end
+        return true
+        end
+    }))
+end
+
 blind.set_blind = function(self, reset, silent)
-    G.GAME.current_round.lobc_phases_beaten = 1
-    G.GAME.blind.lobc_current_effect = 11
+    G.GAME.current_round.lobc_phases_beaten = 2
+    G.GAME.blind.lobc_current_effect = 21
+    G.GAME.blind.lobc_score_cap = 0.15
     G.GAME.blind:set_text()
     G.GAME.blind.prepped = nil
     -- this keeps track of the score
@@ -37,40 +60,22 @@ blind.press_play = function(self)
 
     -- [2] Destroy 1-3 cards in hand
     if G.GAME.blind.lobc_current_effect == 2 then
-        local available_cards = {}
-        for _, v in ipairs(G.hand.cards) do
-            if not v.highlighted then available_cards[#available_cards+1] = v end
-        end
-        for i = 1, pseudorandom("gebura_effect_2", 1, 3) do
-            if #available_cards <= 0 then break end
-            local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_2"))
-            table.remove(available_cards, chosen_card_key)
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after', 
-                delay = 0.3 * G.SETTINGS.GAMESPEED, 
-                func = function()
-                    G.GAME.blind:wiggle()
-                    chosen_card:start_dissolve() 
-                    play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5)
-                return true 
-                end 
-            }))
-        end
+        destroy_cards(G.hand, 1, 3)
         G.GAME.blind.triggered = true
         return true
     end
-
-    -- [3] Lose $1 per played card, destroy it if cannot afford
-    if G.GAME.blind.lobc_current_effect == 3 then
+    -- [3], [27] Lose $1/$3 per played card, destroy it if cannot afford
+    if G.GAME.blind.lobc_current_effect == 3 or G.GAME.blind.lobc_current_effect == 27 then
+        local loss = (G.GAME.blind.lobc_current_effect == 3) and 1 or 3
         local current_dollars = G.GAME.dollars
         local first = true
         G.E_MANAGER:add_event(Event({
             func = function()
                 for _, v in ipairs(G.play.cards) do
-                    if current_dollars > 0 then 
+                    if current_dollars - loss >= 0 then 
                         G.E_MANAGER:add_event(Event({func = function() v:juice_up(); return true end })) 
-                        ease_dollars(-1) 
-                        current_dollars = current_dollars - 1
+                        ease_dollars(-loss) 
+                        current_dollars = current_dollars - loss
                     else
                         v:start_dissolve() 
                         play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
@@ -84,33 +89,12 @@ blind.press_play = function(self)
         G.GAME.blind.triggered = true
         return true
     end
-
     -- [13] Destroy 1-3 played cards
     if G.GAME.blind.lobc_current_effect == 13 then
-        local first = true
-        G.GAME.blind:wiggle()
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = function()
-                local available_cards = {}
-                for _, v in ipairs(G.play.cards) do
-                    available_cards[#available_cards+1] = v
-                end
-                for i = 1, pseudorandom("gebura_effect_13", 1, 3) do
-                    if #available_cards <= 0 then break end
-                    local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_13"))
-                    table.remove(available_cards, chosen_card_key)
-                    chosen_card:start_dissolve() 
-                    play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
-                    first = nil
-                end
-            return true
-            end
-        }))
+        destroy_cards(G.play, 1, 3)
         G.GAME.blind.triggered = true
         return true
     end
-
     -- [14] Permanently debuff all played Enhanced cards
     if G.GAME.blind.lobc_current_effect == 14 then
         local proc = nil
@@ -129,7 +113,6 @@ blind.press_play = function(self)
         G.GAME.blind.triggered = proc
         return proc
     end
-
     -- [15] Lose $2 per card in hand, destroy it if cannot afford
     if G.GAME.blind.lobc_current_effect == 15 then
         local current_dollars = G.GAME.dollars
@@ -137,7 +120,7 @@ blind.press_play = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
                 for _, v in ipairs(G.hand.cards) do
-                    if current_dollars > 0 then 
+                    if current_dollars - 2 >= 0 then 
                         G.E_MANAGER:add_event(Event({func = function() v:juice_up(); return true end })) 
                         ease_dollars(-2) 
                         current_dollars = current_dollars - 2
@@ -164,7 +147,6 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             return true
         end
     end
-
     -- [5] Must play High Card
     if G.GAME.blind.lobc_current_effect == 5 then
         if handname ~= "High Card" then
@@ -172,7 +154,6 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             return true
         end
     end
-
     -- [12] No hands until all consumables used
     if G.GAME.blind.lobc_current_effect == 12 then
         if #G.consumeables.cards > 0 then
@@ -180,7 +161,6 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             return true
         end
     end
-
     -- [18] Hand must contain three different suits
     if G.GAME.blind.lobc_current_effect == 18 then
         local suits = {}
@@ -196,23 +176,54 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
         G.GAME.blind.triggered = (count < 3)
         return (count < 3)
     end
+    -- [23] Must play exactly 1 card
+    if G.GAME.blind.lobc_current_effect == 23 then
+        if #cards ~= 1 then
+            G.GAME.blind.triggered = true
+            return true
+        end
+    end
+    -- [24] Hand must contain four different ranks
+    if G.GAME.blind.lobc_current_effect == 24 then
+        local ranks = {}
+        local count = 0
+        for _, v in ipairs(cards) do
+            if v.config.center.no_rank then 
+            elseif v.config.center.any_rank then count = count + 1
+            elseif not ranks[v.base.id] then
+                ranks[v.base.id] = true
+                count = count + 1
+            end
+        end
+        G.GAME.blind.triggered = (count < 4)
+        return (count < 4)
+    end
+    -- [26] Halves level of played poker hand (rounded down)
+    if G.GAME.blind.lobc_current_effect == 26 then
+        G.GAME.blind.triggered = true
+        local hand_level = G.GAME.hands[handname].level
+        local to_remove = hand_level/2
+        if type(hand_level) == "table" then to_remove:ceil() else to_remove = math.ceil(to_remove) end
+        if not check then
+            level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -to_remove)
+            G.GAME.blind:wiggle()
+        end
+    end
 end
 
 blind.recalc_debuff = function(self, card, from_blind)
-    -- [6] All Enhanced cards are debuffed, taken from The Stone
+    -- [6] All Enhanced cards are debuffed
     if G.GAME.blind.lobc_current_effect == 6 then
         if card.area ~= G.jokers and card.config.center ~= G.P_CENTERS.c_base then
             return true
         end
     end
-
     -- [7] All face cards are debuffed
     if G.GAME.blind.lobc_current_effect == 7 then
         if card.area ~= G.jokers and card:is_face(true) then
             return true
         end
     end
-
     -- Universal debuff effect
     if card.ability.lobc_gebura_debuff then
         return true
@@ -225,13 +236,11 @@ blind.modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
         G.GAME.blind.triggered = true
         return math.max(math.floor(mult*0.5 + 0.5), 1), math.max(math.floor(hand_chips*0.5 + 0.5), 0), true
     end
-
     -- [19] Halves Base Mult, sets Base Chips to Base Mult
     if G.GAME.blind.lobc_current_effect == 19 then
         G.GAME.blind.triggered = true
         return math.max(math.floor(mult*0.5 + 0.5), 1), math.max(math.floor(mult*0.5 + 0.5), 1), true
     end
-
     return mult, hand_chips, false
 end
 
@@ -243,14 +252,15 @@ blind.drawn_to_hand = function(self)
             local phase_effects = {
                 {min = 2, max = 8},
                 {min = 2, max = 9},
-                {min = 2, max = 8},
-                {min = 2, max = 8},
+                {min = 2, max = 7},
+                {min = 2, max = 7},
             }
             local phase = G.GAME.current_round.lobc_phases_beaten
             local effect_selected = nil
 
             local function additional_check(eff)
                 if eff == 12 and #G.consumeables.cards == 0 then return true end
+                if eff == 22 and #G.jokers.cards == 0 then return true end
             end
 
             while not effect_selected or effect_selected == G.GAME.blind.lobc_current_effect or additional_check(effect_selected) do
@@ -268,10 +278,10 @@ blind.drawn_to_hand = function(self)
         for _, v in ipairs(G.jokers.cards) do
             v.ability.lobc_gebura_debuff = nil
         end
-
         for _, v in ipairs(G.playing_cards) do
             v.ability.lobc_gebura_debuff = nil
         end
+        G.GAME.lobc_hod_modifier = 1
 
         -- [17] Debuff 1-3 random Jokers
         if G.GAME.blind.lobc_current_effect == 17 then
@@ -288,20 +298,79 @@ blind.drawn_to_hand = function(self)
             end
             G.GAME.blind:wiggle()
         end
+        -- [21] At the start of every other hand, destroy a card held in hand
+        if G.GAME.current_round.lobc_phases_beaten >= 2 then
+            G.GAME.blind.discards_sub = G.GAME.blind.discards_sub or 0
+            G.GAME.blind.discards_sub = G.GAME.blind.discards_sub + 1
+            if G.GAME.blind.discards_sub % 2 == 0 then
+                G.GAME.blind:wiggle()
+                destroy_cards(G.hand, 1, 1)
+            end
+        end
+        -- [22], [32] Debuff all [highest owned rarity] Jokers
+        if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
+            local highest = 0
+            for _, v in ipairs(G.jokers.cards) do
+                if type(v.config.center.rarity) ~= "number" then return end
+                if v.config.center.rarity > highest then highest = v.config.center.rarity end
+            end
+            for _, v in ipairs(G.jokers.cards) do
+                if v.config.center.rarity == highest then 
+                    v.ability.lobc_gebura_debuff = true
+                    v:juice_up()
+                end
+            end
+            G.GAME.blind:wiggle()
+        end
+        -- [25] All cards give 25% less chips, Mult and XMult
+        if G.GAME.blind.lobc_current_effect == 25 then
+            G.GAME.lobc_hod_modifier = 0.75
+        end
+        -- [33] Debuff all [most owned rarity] Jokers
+        if G.GAME.blind.lobc_current_effect == 33 then
+            local rarities = {}
+            local highest = 0
+            for _, v in ipairs(G.jokers.cards) do
+                if type(v.config.center.rarity) ~= "number" then return end
+                rarities[v.config.center.rarity] = rarities[v.config.center.rarity] or 0
+                rarities[v.config.center.rarity] = rarities[v.config.center.rarity] + 1
+                if highest < rarities[v.config.center.rarity] then
+                    highest = rarities[v.config.center.rarity]
+                end
+            end
+            for _, v in ipairs(G.jokers.cards) do
+                if v.config.center.rarity == highest then 
+                    v.ability.lobc_gebura_debuff = true
+                    v:juice_up()
+                end
+            end
+            G.GAME.blind:wiggle()
+        end
 
         for _, v in ipairs(G.jokers.cards) do
             SMODS.recalc_debuff(v)
         end
-
         for _, v in ipairs(G.playing_cards) do
             SMODS.recalc_debuff(v)
         end
     end
 end
 
+blind.loc_vars = function(self)
+    -- [22], [32] Debuff all [highest owned rarity] Jokers
+    if G.GAME.blind.lobc_current_effect == 22 then
+        local highest = 0
+        for _, v in ipairs(G.jokers.cards) do
+            if type(v.config.center.rarity) ~= "number" then return end
+            if v.config.center.rarity > highest then highest = v.config.center.rarity end
+        end
+        return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[highest]} }
+    end
+end
+
 -- [1] Caps score, using Cryptid's The Tax function
 blind.cry_cap_score = function(self, score)
-    return math.floor(math.min(0.15*G.GAME.blind.chips,score)+0.5)
+    return math.floor(math.min(G.GAME.blind.lobc_score_cap*G.GAME.blind.chips,score)+0.5)
 end
 
 return blind

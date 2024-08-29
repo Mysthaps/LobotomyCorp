@@ -66,7 +66,7 @@ local blind_list = {
     "whitenight",
 
     -- Meltdowns
-    "red_mist",
+    --"red_mist",
     --"an_arbiter",
 
     -- Dawn Ordeals
@@ -456,10 +456,10 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
-    --[[if G.GAME.modifiers.lobc_all_whitenight or 
+    if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
-    return get_new_bossref()]]--
-    return "bl_lobc_dusk_crimson"
+    return get_new_bossref()
+    --return "bl_lobc_red_mist"
 end
 
 -- Overwrite blind select for Ordeals
@@ -1345,7 +1345,7 @@ end
 local eval_cardref = eval_card
 function eval_card(card, context)
     local eval = eval_cardref(card, context)
-    if eval and G.GAME.modifiers.lobc_hod then
+    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
         if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
         if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
         if eval.x_mult then 
@@ -1364,7 +1364,7 @@ end
 local calculate_jokerref = Card.calculate_joker
 function Card.calculate_joker(self, context)
     local eval = calculate_jokerref(self, context)
-    if eval and G.GAME.modifiers.lobc_hod then
+    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
         if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
         if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
         if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
@@ -1375,6 +1375,7 @@ function Card.calculate_joker(self, context)
             else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
         end
         if eval.Xmult_mod then 
+            sendDebugMessage(G.GAME.lobc_hod_modifier)
             if eval.Xmult_mod < 1 then eval.Xmult_mod = eval.Xmult_mod * G.GAME.lobc_hod_modifier
             else eval.Xmult_mod = 1 + (eval.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
         end
@@ -1389,7 +1390,7 @@ end
 local get_editionref = Card.get_edition
 function Card.get_edition(self, context)
     local eval = get_editionref(self)
-    if eval and G.GAME.modifiers.lobc_hod then
+    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
         if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
         if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
         if eval.x_mult_mod then 
@@ -1402,7 +1403,7 @@ end
 
 local eval_thisref = SMODS.eval_this
 function SMODS.eval_this(_card, effects)
-    if effects and G.GAME.modifiers.lobc_hod then
+    if effects and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
         if effects.mult_mod then effects.mult_mod = effects.mult_mod * G.GAME.lobc_hod_modifier end
         if effects.chip_mod then effects.chip_mod = effects.chip_mod * G.GAME.lobc_hod_modifier end
         if effects.Xmult_mod then 
