@@ -85,7 +85,10 @@ joker.update = function(self, card, dt)
         if card.ability.extra.elapsed >= card.ability.extra.interval then
             card.ability.extra.elapsed = card.ability.extra.elapsed - card.ability.extra.interval
 
-            card.ability.extra.face = pseudorandom("shy_today", 1, 5)
+            local old_face = card.ability.extra.face
+            while card.ability.extra.face == old_face do
+                card.ability.extra.face = math.random(1, 5)
+            end
             card.ability.extra.chips = faces[card.ability.extra.face].chips
             card.ability.extra.mult = faces[card.ability.extra.face].mult
             card.children.mood:set_sprite_pos({x = card.ability.extra.face - 1, y = 0})
