@@ -96,4 +96,30 @@ end
 
 return joker
 
--- the one that nobody cares
+--[[text = {
+    "This Abnormality is always {C:dark_edition}Eternal{}",
+    "{s:0.15} {}",
+    "Starts with {C:attention}10{} {C:tarot}The Living{} and {C:tarot}The Departed{}",
+    "{s:0.15} {}",
+    "When a card is {C:blue}played{} or {C:red}discarded{}, randomly",
+    "transfer 1 {C:tarot}The Living{} or {C:tarot}The Departed{}",
+    "to the current {C:attention}Blind{}",
+    "{s:0.15} {}",
+    "After scoring ends, increase score by {C:attention}2%{}",
+    "for every {C:tarot}The Living{} and decrease {C:attention}Blind Size",
+    "by {C:attention}2%{} for every {C:tarot}The Departed{}",
+    "on the current {C:attention}Blind{}, then convert",
+    "all {C:tarot}The Living{} into {C:tarot}The Departed{}",
+    "{s:0.15} {}",
+    "When all {C:tarot}The Living{} and {C:tarot}The Departed{} are",
+    "depleted, or when {C:attention}Blind{} is defeated, reset both",
+    "{C:tarot}The Living{} and {C:tarot}The Departed{} values to {C:attention}0{},",
+    "then gain a sum of {C:attention}20{} {C:tarot}The Living{} and {C:tarot}The Departed{}",
+    "based on the following probabilities",
+    "(calculate separately for each stack):",
+    "{s:0.15} {}",
+    "- At score {X:mult,C:white} X5 {} or higher than {C:attention}Blind Size{},",
+    "more chance to gain {C:tarot}The Departed{} over {C:tarot}The Living{}",
+    "- At score {X:mult,C:white} X2 {} or lower than {C:attention}Blind Size{},",
+    "more chance to gain {C:tarot}The Living{} over {C:tarot}The Departed{}",
+}]]--

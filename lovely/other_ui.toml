@@ -5,14 +5,6 @@ priority = 1
 
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = "(self.T.y < G.CARD_H*0.8) and 'bm' or"
-position = "after"
-payload = "(self.config.center.abno and self.T.y < G.CARD_H*1.2) and 'bm' or"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "local label_scale = 0.5"
 position = "before"

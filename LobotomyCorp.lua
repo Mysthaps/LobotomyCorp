@@ -1490,6 +1490,18 @@ function G.FUNCS.get_poker_hand_info(_cards)
     return get_poker_hand_inforef(_cards)
 end
 
+-- Make infoboxes show under the card in Collection view middle row
+local align_h_popupref = Card.align_h_popup
+function Card.align_h_popup(self)
+    local ret = align_h_popupref(self)
+    local focused_ui = self.children.focused_ui and true or false
+    if (self.config.center.abno and self.T.y < G.CARD_H*1.2) then
+        ret.offset.y = focused_ui and 0.12 or 0.1
+        ret.type = "bm"
+    end
+    return ret
+end
+
 -- Debuffing effects
 local should_debuff_ability = {
     "scorched_girl_debuff",
