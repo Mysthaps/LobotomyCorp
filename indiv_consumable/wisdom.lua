@@ -7,6 +7,10 @@ local cons = {
     no_doe = true
 }
 
+cons.in_pool = function(self)
+    return false
+end
+
 -- Available if hand is active
 cons.can_use = function(self, card)
     return G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED

@@ -13,6 +13,9 @@ local chal = {
             omeganum_check and {id = "lobc_gebura_omeganum"},
         },
     },
+    consumeables = {
+        {id = 'c_lobc_tt2', eternal = true, edition = 'negative'},
+    },
     deck = {
         type = "Challenge Deck",
         cards = {

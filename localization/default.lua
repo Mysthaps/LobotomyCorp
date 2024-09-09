@@ -1610,6 +1610,15 @@ return {
                     "Creates a",
                     "{C:attention}playing card{}",
                 }
+            },
+            c_lobc_tt2 = {
+                name = "TT2 Protocol",
+                text = {
+                    "Sets {C:attention}Ante{} to next",
+                    "multiple of {C:attention}8{}, minus {C:attention}1{}",
+                    "Destroy {C:attention}#1#{} playing cards",
+                    "per {C:attention}Ante{} skipped"
+                }
             }
         }
     },

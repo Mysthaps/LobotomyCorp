@@ -158,6 +158,7 @@ local challenge_list = {
 
 local consumable_list = {
     "wisdom",
+    "tt2",
 }
 
 local badge_colors = {
@@ -1506,6 +1507,7 @@ end
 local should_debuff_ability = {
     "scorched_girl_debuff",
     "theresia_debuff",
+    "tt2_debuff",
 }
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
@@ -1943,7 +1945,8 @@ SMODS.ConsumableType({
     primary_colour = HEX('424e54'),
     secondary_colour = HEX("dd4930"),
     loc_txt = {},
-    shop_rate = 0,
+    shop_rate = (SMODS.Mods.Cryptid or {}).can_load and 0.1 or 0,
+    default = 'c_lobc_tt2',
     no_doe = true,
 })
 

@@ -64,6 +64,12 @@ blind.set_blind = function(self, reset, silent)
     lobc_abno_text("gebura", eval_func, 0.2, quips)
     ease_background_colour_blind()
     if not config.disable_unsettling_sfx then play_sound("lobc_meltdown_start", 1, 0.5) end
+
+    for _, v in ipairs(G.consumeables.cards) do
+        if v.config.center.key == "c_lobc_tt2" then
+            v:start_dissolve()
+        end
+    end
 end
 
 blind.press_play = function(self)
