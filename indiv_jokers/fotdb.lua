@@ -26,6 +26,8 @@ joker.calculate = function(self, card, context)
             selected_card:juice_up()
             play_sound("lobc_butterfly_attack", 1, 0.2)
         end
+
+        return nil, true
     end
 
     if context.joker_main and card.ability.extra.x_mult > 1 then

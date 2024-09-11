@@ -44,13 +44,9 @@ local joker_list = {
     "scarecrow_searching",
 
     --- Rare
-    --[[
-        Nothing There is commented out because while technically it works,
-        it will not calculate other effects until the better_calc branch is merged.
-        Until then, the secondary effect of Nothing There will not be implemented
-    ]]--
     "queen_of_hatred",
     --"nothing_there",
+    "big_bird",
     "price_of_silence",
     "laetitia",
     "mosb", -- The Mountain of Smiling Bodies
@@ -130,6 +126,8 @@ local sound_list = {
     helper_destroy = "Robo_Rise",
     butterfly_attack = "Butterfly_Attack",
     censored = "Censored_Atk",
+    big_bird_attract = "Bigbird_Attract",
+    big_bird_destroy = "Bigbird_HeadCut",
 
     gebura_slash = "Gebura_Phase2_Atk1",
 
@@ -168,6 +166,7 @@ local badge_colors = {
     lobc_apostle = HEX("FF0000"),
     lobc_amplified = HEX("004d00"),
     lobc_pebble = HEX("AAAAAA"),
+    lobc_enchanted = HEX("C8831B"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -980,6 +979,46 @@ function G.FUNCS.can_reroll(e)
     return can_rerollref(e)
 end
 
+-- Big Bird draw Enchanted cards
+local draw_cardref = draw_card
+function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
+    if from == G.deck and to == G.hand and not card then
+        local enchanted = {}
+        for _, v in ipairs(G.discard.cards) do
+            if v.ability.big_bird_enchanted and not v.ability.big_bird_enchanted_marked_for_draw then enchanted[#enchanted+1] = v end
+        end
+        for _, v in ipairs(G.deck.cards) do
+            if v.ability.big_bird_enchanted and not v.ability.big_bird_enchanted_marked_for_draw then enchanted[#enchanted+1] = v end
+        end
+        if #enchanted > 0 then
+            local e_card = pseudorandom_element(enchanted, pseudoseed("enchanted_draw"))
+            e_card.ability.big_bird_enchanted_marked_for_draw = true
+            play_sound("lobc_big_bird_attract", 1, 0.6)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    e_card.ability.big_bird_enchanted_marked_for_draw = nil
+                return true
+                end
+            }))
+            return draw_cardref(e_card.area, G.hand, percent, dir, sort, e_card, delay, mute, stay_flipped, vol, discarded_only)
+        end
+    end
+    draw_cardref(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
+end
+
+-- Clear Enchanted cards when Blind ends
+local blind_defeatref = Blind.defeat
+function Blind.defeat(self, silent)
+    blind_defeatref(self, silent)
+    for _, v in ipairs(G.playing_cards) do
+        if v.ability.big_bird_enchanted then
+            v.ability.big_bird_enchanted = nil
+            v.children.lobc_big_bird_particles = nil
+        end
+    end
+end
+
 -- Global start of hand effect
 local drawn_to_handref = Blind.drawn_to_hand
 function Blind.drawn_to_hand(self)
@@ -1064,13 +1103,6 @@ function Card.generate_UIBox_ability_table(self)
     or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3) 
     or (self.ability and self.ability.lobc_censored) then return end
     return generate_UIBox_ability_tableref(self)
-end
-
--- No editions
-local set_editionref = Card.set_edition
-function Card.set_edition(self, edition, immediate, silent)
-    if G.GAME.modifiers.lobc_yesod then return end
-    set_editionref(self, edition, immediate, silent)
 end
 
 -- JokerDisplay text replacements
@@ -1387,6 +1419,13 @@ function G.FUNCS.overlay_menu(args)
     overlay_menuref(args)
 end
 
+-- No editions (Yesod)
+local set_editionref = Card.set_edition
+function Card.set_edition(self, edition, immediate, silent)
+    if G.GAME.modifiers.lobc_yesod then return end
+    set_editionref(self, edition, immediate, silent)
+end
+
 -- Reduce return values for card evals (Hod)
 local eval_cardref = eval_card
 function eval_card(card, context)
@@ -1696,6 +1735,19 @@ function Card.update(self, dt)
             self.sprite_facing = 'back'
             self.pinch.x = false
         end
+    end
+
+    -- Restore Enchanted particles on reload (Big Bird)
+    if self.ability.big_bird_enchanted and not self.children.lobc_big_bird_particles then
+        self.children.lobc_big_bird_particles = Particles(0, 0, 0,0, {
+            timer = 0.3,
+            scale = 0.45,
+            speed = 0.3,
+            lifespan = 4,
+            attach = self,
+            colours = {darken(G.C.MONEY, 0.1), darken(G.C.MONEY, 0.3), darken(G.C.MONEY, 0.5)},
+            fill = true
+        })
     end
 end
 

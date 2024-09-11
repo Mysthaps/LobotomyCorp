@@ -46,6 +46,8 @@ joker.calculate = function(self, card, context)
                     check_for_unlock({type = "lobc_smile"})
                 end
             end
+
+            return nil, true
         end
     end
 
@@ -64,7 +66,7 @@ joker.calculate = function(self, card, context)
                 colour = G.C.MULT
             })
         end
-        --return {}
+        return nil, true
     end
 end
 

@@ -5,15 +5,15 @@ priority = 1
 
 # Card badges
 [[patches]]
-[patches.regex]
+[patches.pattern]
 target = "card.lua"
-pattern = "(?<indent>[\t ]*)if self.sticker then loc_vars = loc_vars or \\{\\}; loc_vars.sticker=self.sticker end"
+pattern = "if self.seal then badges[#badges + 1] = string.lower(self.seal)..'_seal' end"
 position = "before"
-line_prepend = "$indent"
 payload = '''
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
 if self.ability.price_of_silence_amplified then badges[#badges + 1] = 'lobc_amplified' end
 if self.ability.child_galaxy_pebble then badges[#badges + 1] = 'lobc_pebble' end
+if self.ability.big_bird_enchanted then badges[#badges + 1] = 'lobc_enchanted' end
 if self.ability.plague_doctor_baptism then 
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
         badges[#badges + 1] = 'lobc_apostle'
@@ -25,6 +25,7 @@ if self.ability.plague_doctor_baptism then
         end
     end
 end'''
+match_indent = true
 
 # Card info queue
 [[patches]]
@@ -41,6 +42,10 @@ end
 if v == 'lobc_pebble' then
     local count = lobc_get_usage_count("j_lobc_child_galaxy")
     info_queue[#info_queue+1] = {key = 'lobc_pebble'..(count < 4 and '_1' or ''), set = 'Other'}
+end
+if v == 'lobc_enchanted' then
+    local count = lobc_get_usage_count("j_lobc_big_bird")
+    info_queue[#info_queue+1] = {key = 'lobc_enchanted'..(count < 2 and '_1' or ''), set = 'Other'}
 end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
 if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_wn', set = 'Other'} end

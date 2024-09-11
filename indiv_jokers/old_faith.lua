@@ -39,6 +39,7 @@ joker.calculate = function(self, card, context)
             end
             card:juice_up()
         end
+        return nil, true
     end
 end
 

@@ -7,7 +7,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "aleph",
-    discover_rounds = 6,
+    discover_rounds = 3,
     yes_pool_flag = "whitenight_defeated",
     no_pool_flag = "whitenight_confessed",
     loc_txt = {},
@@ -87,14 +87,14 @@ joker.remove_from_deck = function(self, card, from_debuff)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card.ability.extra.retriggers, card:check_rounds(6) }
+    local vars = { card.ability.extra.mult, card.ability.extra.retriggers, card:check_rounds(3) }
     local desc_key = self.key
     local count = lobc_get_usage_count("j_lobc_plague_doctor")
     if count == 0 then
         desc_key = 'dis_'..desc_key..'_1'
     else
         info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
-        if card:check_rounds(6) < 6 then
+        if card:check_rounds(3) < 3 then
             desc_key = 'dis_'..desc_key..'_2'
         end
     end

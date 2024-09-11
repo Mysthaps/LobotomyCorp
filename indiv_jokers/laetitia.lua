@@ -1,6 +1,6 @@
 local joker = {
     name = "Laetitia",
-    config = {extra = {first = false, not_hearts = true, all_hearts = true}}, rarity = 3, cost = 7,
+    config = {extra = {first = false, not_hearts = true, all_hearts = true}}, rarity = 3, cost = 8,
     pos = {x = 9, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -34,7 +34,7 @@ joker.calculate = function(self, card, context)
                 return true
             end
         })) 
-        return {}
+        return nil, true
     end
 
     if context.cardarea == G.jokers and not context.blueprint then

@@ -82,6 +82,15 @@ return {
                     "\"{C:red}Manager{}\".",
                 }
             },
+            und_j_lobc_big_bird = {
+                name = "O-02-40",
+                text = {
+                    "A month later, we",
+                    "came to the conclusion:",
+                    "There was no such",
+                    "\"beast\" in the forest.",
+                }
+            },
             und_j_lobc_all_around_helper = {
                 name = "T-05-41",
                 text = {
@@ -329,6 +338,21 @@ return {
             },
             lobc_pebble_1 = {
                 name = "Pebble",
+                text = {
+                    "{C:inactive}...{}"
+                }
+            },
+            lobc_enchanted = {
+                name = "Enchanted",
+                text = {
+                    "Always drawn to hand",
+                    "Returns after {C:blue}play{} or {C:red}discard{}",
+                    "Effect removed at the",
+                    "end of the {C:attention}Blind{}",
+                }
+            },
+            lobc_enchanted_1 = {
+                name = "Enchanted",
                 text = {
                     "{C:inactive}...{}"
                 }
@@ -662,6 +686,47 @@ return {
                 }
             },
 
+            dis_j_lobc_big_bird_1 = {
+                name = "O-02-40",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/4){} ...",
+                    "{C:attention}(#5#/6){} ..."
+                }
+            },
+            dis_j_lobc_big_bird_2 = {
+                name = "O-02-40",
+                text = {
+                    "At the start of the {C:attention}Blind{},",
+                    "{V:1}Enchants{} a random playing card",
+                    "{C:attention}(#4#/4){} ...",
+                    "{C:attention}(#5#/6){} ..."
+                }
+            },
+            dis_j_lobc_big_bird_3 = {
+                name = "O-02-40",
+                text = {
+                    "At the start of the {C:attention}Blind{},",
+                    "{V:1}Enchants{} a random playing card",
+                    "{s:0.15} {}",
+                    "Scored {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "{C:attention}(#5#/6){} ..."
+                }
+            },
+            j_lobc_big_bird = {
+                name = "Big Bird",
+                text = {
+                    "At the start of the {C:attention}Blind{},",
+                    "{V:1}Enchants{} a random playing card",
+                    "{s:0.15} {}",
+                    "Scored {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "{s:0.15} {}",
+                    "If no {V:1}Enchanted{} cards were scored,",
+                    "when {C:attention}Blind{} is defeated, destroy",
+                    "them and lose {C:money}$#2#{} per card"
+                }
+            },
+
             dis_j_lobc_all_around_helper_1 = {
                 name = "T-05-41",
                 text = {
@@ -733,7 +798,7 @@ return {
                 name = "T-03-46",
                 text = {
                     "{C:attention}(#3#/?){} ...",
-                    "{C:attention}(#3#/6){} ..."
+                    "{C:attention}(#3#/3){} ..."
                 }
             },
             dis_j_lobc_whitenight_2 = {
@@ -744,7 +809,7 @@ return {
                     "{C:attention}Baptizes{} a playing card each hand",
                     "{s:0.15} {}",
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
-                    "{C:attention}(#3#/6){} ..."
+                    "{C:attention}(#3#/3){} ..."
                 }
             },
             j_lobc_whitenight = {
@@ -1630,6 +1695,7 @@ return {
             lobc_apostle = "Apostle",
             lobc_amplified = "Amplified",
             lobc_pebble = "Pebble",
+            lobc_enchanted = "Enchanted",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",

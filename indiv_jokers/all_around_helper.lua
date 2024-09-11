@@ -1,6 +1,6 @@
 local joker = {
     name = "All-Around Helper",
-    config = {extra = {x_mult = 1, gain = 0.25, counter = 0}}, rarity = 2, cost = 7,
+    config = {extra = {x_mult = 1, gain = 0.4, counter = 0}}, rarity = 2, cost = 7,
     pos = {x = 7, y = 1}, 
     blueprint_compat = true, 
     eternal_compat = true,

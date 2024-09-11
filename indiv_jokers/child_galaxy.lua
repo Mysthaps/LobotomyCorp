@@ -23,6 +23,7 @@ joker.calculate = function(self, card, context)
         if card.ability.extra.per >= 4 then
             check_for_unlock({type = "lobc_our_galaxy"})
         end
+        return nil, true
     end
 
     if context.joker_main then
@@ -54,6 +55,7 @@ joker.calculate = function(self, card, context)
                 colour = G.C.MULT
             })
         end
+        return nil, true
     end
 end
 

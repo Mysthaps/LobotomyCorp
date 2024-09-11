@@ -29,6 +29,7 @@ joker.calculate = function(self, card, context)
                 chip_mod = card.ability.extra.chips, 
                 colour = G.C.CHIPS
             })
+            return nil, true
         end
     end
 
@@ -61,6 +62,7 @@ joker.calculate = function(self, card, context)
                 })
             end
         end
+        return nil, true
     end
 
     if context.after and context.cardarea == G.jokers and not context.blueprint then
@@ -90,6 +92,8 @@ joker.calculate = function(self, card, context)
             return true 
             end 
         }))
+
+        return nil, true
     end
 end
 

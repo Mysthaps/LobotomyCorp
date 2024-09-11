@@ -68,6 +68,7 @@ joker.calculate = function(self, card, context)
                 card:juice_up()
             end
         end
+        return nil, true
     end
 
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
@@ -79,6 +80,7 @@ joker.calculate = function(self, card, context)
             card.ability.extra.created = card.ability.extra.created + 1
         end
         card:juice_up(0.3, 0.5)
+        return nil, true
     end
 end
 
