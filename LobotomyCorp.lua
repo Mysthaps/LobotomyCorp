@@ -7,7 +7,7 @@
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
 --- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0828e]
---- VERSION: 0.9.0
+--- VERSION: 0.9.0-pre1
 --- CARMEN_SAYS: You should distort yourself... NOW!
 
 local current_mod = SMODS.current_mod
