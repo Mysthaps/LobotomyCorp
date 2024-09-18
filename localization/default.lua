@@ -1712,6 +1712,7 @@ return {
             c_lobc_netzach = "Safety",
             c_lobc_tiphereth = "Central Command",
             c_lobc_gebura = "Discipline",
+            c_lobc_production = "Energy Production",
         },
         v_text = {
             ch_c_lobc_ordeals = {"Ordeals are guaranteed to appear every {C:attention}2{} Antes"},
@@ -1726,6 +1727,10 @@ return {
             ch_c_lobc_all_whitenight_3 = {"{C:attention}Plague Doctor{} cannot {C:attention}breach{}"},
             ch_c_lobc_all_whitenight_4 = {"Reduced {C:attention}Boss Blind Size{} during the first {C:attention}3{} Antes"},
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
+
+            -- Energy Production
+            ch_c_lobc_production = {"After each {C:attention}Ante{}, open an unskippable {C:attention}Extraction Pack"},
+            ch_c_lobc_production_2 = {"All {C:attention}Boss Blinds{} are replaced with {C:attention}Ordeals{}"},
 
             -- Malkuth
             ch_c_lobc_malkuth = {"After Ante {C:attention}3{}, all {C:attention}Consumables{} are faced down"},
@@ -1780,6 +1785,7 @@ return {
             lobc_unlock_challenges = "Unlock All Challenges",
             lobc_disable_abno_text = "Disable Abnormality (Red) Flavor Text",
             lobc_disable_all_text = "Disable All Flavor Text",
+            lobc_lobcorp_music = "Enable Lobcorp Themes in Normal Gameplay",
 
             ---- Credits ----
             lobc_credits_1 = "Art and SFX from Lobotomy Corporation and Library of Ruina",

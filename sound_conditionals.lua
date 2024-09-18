@@ -144,7 +144,9 @@ return {
                 if G.GAME and G.GAME.modifiers["lobc_"..v] and not G.GAME.blind.lobc_current_effect then return 10 end
             end
             if G.GAME.blind and G.GAME.blind.config.blind.phases and G.GAME.current_round.lobc_phases_beaten == 0 then return 10 end
-            return (G.GAME and G.GAME.blind and G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight") and 2 or false
+            return (G.GAME and G.GAME.blind and 
+            ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight") or
+            (config.lobcorp_music and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown))) and 2 or false
         end,
     },
 
@@ -155,7 +157,62 @@ return {
             if config.no_music then return false end
             return (G.GAME and G.GAME.blind and 
             ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") or
-            (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson"))) and 1 or false
+            (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson") or
+            (config.lobcorp_music and G.GAME.blind.config.blind.boss and not G.GAME.blind.config.blind.boss.showdown))) and 1 or false
         end,
+    },
+
+    -- Neutral1, Neutral2, Neutral3, Neutral4
+    {
+        key = "music_neutral1",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.round_resets.ante <= 2 and (G.GAME.modifiers.lobc_production or config.lobcorp_music)) and 0 or false
+        end,
+        sync = {
+            lobc_music_neutral1 = true,
+            lobc_music_neutral2 = true,
+            lobc_music_neutral3 = true,
+            lobc_music_neutral4 = true,
+        }
+    },
+    {
+        key = "music_neutral2",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.round_resets.ante >= 3 and G.GAME.round_resets.ante <= 4 and (G.GAME.modifiers.lobc_production or config.lobcorp_music)) and 0 or false
+        end,
+        sync = {
+            lobc_music_neutral1 = true,
+            lobc_music_neutral2 = true,
+            lobc_music_neutral3 = true,
+            lobc_music_neutral4 = true,
+        }
+    },
+    {
+        key = "music_neutral3",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.round_resets.ante >= 5 and G.GAME.round_resets.ante <= 6 and (G.GAME.modifiers.lobc_production or config.lobcorp_music)) and 0 or false
+        end,
+        sync = {
+            lobc_music_neutral1 = true,
+            lobc_music_neutral2 = true,
+            lobc_music_neutral3 = true,
+            lobc_music_neutral4 = true,
+        }
+    },
+    {
+        key = "music_neutral4",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.round_resets.ante >= 7 and (G.GAME.modifiers.lobc_production or config.lobcorp_music)) and 0 or false
+        end,
+        sync = {
+            lobc_music_neutral1 = true,
+            lobc_music_neutral2 = true,
+            lobc_music_neutral3 = true,
+            lobc_music_neutral4 = true,
+        }
     },
 }

@@ -7,7 +7,7 @@
 --- DISPLAY_NAME: L Corp.
 --- BADGE_COLOR: FC3A3A
 --- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0909a]
---- VERSION: 0.9.0-pre1
+--- VERSION: 0.9.0-pre1b
 --- CARMEN_SAYS: You should distort yourself... NOW!
 
 local current_mod = SMODS.current_mod
@@ -97,6 +97,10 @@ local sound_list = {
     music_second_warning = "Emergency2",
     music_third_warning = "Emergency3",
     music_abno_choice = "AbnormalityChoice",
+    music_neutral1 = "Neutral1",
+    music_neutral2 = "Neutral2",
+    music_neutral3 = "Neutral3",
+    music_neutral4 = "Neutral4",
 
     music_malkuth_1 = "Violation of Black Colors",
     music_malkuth_2 = "Red Dots",
@@ -145,6 +149,7 @@ local sound_list = {
 
 local challenge_list = {
     "ordeals",
+    --"production",
     "dark_days",
     "malkuth",
     "yesod",
@@ -264,6 +269,7 @@ for k, v in pairs(sound_list) do
     for _, vv in ipairs(SMODS.load_file("sound_conditionals.lua")()) do
         if k == vv.key then
             sound.select_music_track = vv.select_music_track
+            sound.sync = vv.sync
         end
     end
 end
@@ -1718,7 +1724,7 @@ function Card.update(self, dt)
     if self.config.center.abno then
         local count = lobc_get_usage_count(self.config.center_key)
         if config.discover_all and count < self.config.center.discover_rounds then
-            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = {count = self.config.center.discover_rounds or 0, order = self.config.center.order, wins = {}, losses = {}}
+            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = {count = self.config.center.discover_rounds or 0}
             self.config.center.discovered = true
             self:set_sprites(self.config.center)
         end
@@ -1872,6 +1878,7 @@ SMODS.current_mod.config_tab = function()
             create_config_node("disable_ordeals"),
             create_config_node("discover_all"),
             create_config_node("unlock_challenges"),
+            create_config_node("lobcorp_music"),
         }},
     }}
 end

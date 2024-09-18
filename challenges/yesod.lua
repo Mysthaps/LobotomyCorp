@@ -43,8 +43,11 @@ if (SMODS.Mods.Cryptid or {}).can_load then
 
     if cry_config["Code Cards"] then
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_malware'})
-        table.insert(chal.restrictions.banned_cards, {id = 'c_cry_spaghetti'})
+        table.insert(chal.restrictions.banned_cards, {id = 'c_cry_rework'})
         table.insert(chal.restrictions.banned_cards, {id = 'c_cry_machinecode'})
+        if cry_config["Misc."] then
+            table.insert(chal.restrictions.banned_cards, {id = 'c_cry_spaghetti'})
+        end
     end
 
     if cry_config["Spectrals"] then

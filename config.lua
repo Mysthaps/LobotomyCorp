@@ -9,4 +9,5 @@ return {
     discover_all = false,
     unlock_challenges = false,
     disable_abno_text = false,
+    lobcorp_music = false,
 }
