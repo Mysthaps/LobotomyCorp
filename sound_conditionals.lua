@@ -162,6 +162,15 @@ return {
         end,
     },
 
+    -- Story1
+    {
+        key = "music_story1",
+        select_music_track = function()
+            if config.no_music or not config.lobcorp_music then return false end
+            return (G.STATE == G.STATES.MENU) and 10 or false
+        end,
+    },
+
     -- Neutral1, Neutral2, Neutral3, Neutral4
     {
         key = "music_neutral1",

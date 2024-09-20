@@ -97,6 +97,7 @@ local sound_list = {
     music_second_warning = "Emergency2",
     music_third_warning = "Emergency3",
     music_abno_choice = "AbnormalityChoice",
+    music_story1 = "Story1",
     music_neutral1 = "Neutral1",
     music_neutral2 = "Neutral2",
     music_neutral3 = "Neutral3",
