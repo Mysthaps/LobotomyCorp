@@ -1,10 +1,10 @@
 local joker = {
     name = "Child of the Galaxy",
-    config = {extra = {per = 0, gain = 0.1, loss = 0.1}}, rarity = 2, cost = 8,
+    config = {extra = {per = 0, gain = 0.15, loss = 0.1}}, rarity = 2, cost = 8,
     pos = {x = 9, y = 2}, 
     blueprint_compat = true, 
     eternal_compat = true,
-    perishable_compat = true,
+    perishable_compat = false,
     abno = true,
     risk = "he",
     discover_rounds = 7,
@@ -17,8 +17,11 @@ joker.calculate = function(self, card, context)
             if v.ability.child_galaxy_pebble then
                 card.ability.extra.per = card.ability.extra.per + card.ability.extra.gain
             else
-                card.ability.extra.per = card.ability.extra.per - card.ability.extra.loss
+                if card.ability.extra.per >= -1 then
+                    card.ability.extra.per = card.ability.extra.per - card.ability.extra.loss
+                end
             end
+            card.ability.extra.per = math.floor(card.ability.extra.per*100)/100
         end
         if card.ability.extra.per >= 4 then
             check_for_unlock({type = "lobc_our_galaxy"})
@@ -77,7 +80,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}

@@ -8,6 +8,7 @@ local blind = {
     vars = {}, 
     debuff = {},
     loc_txt = {},
+    boss_bcolour = HEX("008000"),
 }
 
 blind.debuff_hand = function(self, cards, hand, handname, check)

@@ -10,6 +10,7 @@ target = "card.lua"
 pattern = "if self.seal then badges[#badges + 1] = string.lower(self.seal)..'_seal' end"
 position = "before"
 payload = '''
+if self.config.center.abno and not self.config.center.discovered and self.area ~= G.jokers then badges.force_rarity = false end
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
 if self.ability.price_of_silence_amplified then badges[#badges + 1] = 'lobc_amplified' end
 if self.ability.child_galaxy_pebble then badges[#badges + 1] = 'lobc_pebble' end
@@ -68,8 +69,8 @@ for _, v in ipairs(G.lobc_global_modifiers) do
     end
 end
 
--- Face for Today's Shy Look
-if self.config.center_key == "j_lobc_shy_look" then
+-- Face for Lobotomy Corporation jokers
+if self.children.mood then
     self.children.mood.role.draw_major = self
     self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
     self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)

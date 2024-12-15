@@ -1,0 +1,18 @@
+{
+    "id": "LobotomyCorp",
+    "name": "Lobotomy Corporation",
+    "author": ["Mysthaps"],
+    "description": "Face the Fear, Build the Future.",
+    "prefix": "lobc",
+    "main_file": "LobotomyCorp.lua",
+    "badge_colour": "FC3A3A",
+    "badge_text_colour": "FFFFFF",
+    "display_name": "L Corp.",
+    "version": "1.0.0-pre2",
+    "dependencies": [
+        "Steamodded (>=1.0.0~ALPHA-1213b)"
+    ],
+    "carmen_says": "You should distort yourself... NOW!",
+    "matagan": "porreh",
+    "cha": "maganera"
+}

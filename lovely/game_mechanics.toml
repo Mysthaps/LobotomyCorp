@@ -150,3 +150,11 @@ pattern = "ease_to = G.GAME.chips + math.floor(hand_chips * mult) * (e and e.ant
 position = 'at'
 match_indent = true
 payload = '''ease_to = G.GAME.chips + (G.GAME.blind.cry_cap_score and G.GAME.blind:cry_cap_score(math.floor(hand_chips*mult)) or math.floor(hand_chips*mult)) * (e and e.antiscore and -1 or 1),'''
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = "self.hands_sub = G.GAME.round_resets.hands - 1"
+position = 'at'
+match_indent = true
+payload = '''self.hands_sub = G.GAME.current_round.hands_left - 1'''

@@ -1,6 +1,6 @@
 local joker = {
     name = "Scarecrow Searching for Wisdom",
-    config = {extra = {created = 0, active = true}}, rarity = 2, cost = 6,
+    config = {extra = {created = 0, active = true}}, rarity = 2, cost = 7,
     pos = {x = 9, y = 5}, 
     blueprint_compat = false, 
     eternal_compat = true,
@@ -57,7 +57,7 @@ joker.calculate = function(self, card, context)
         else
             if card.ability.extra.active then
                 card.ability.extra.active = false
-                local chips = (G.GAME.blind.chips * (1 + card.ability.extra.created / 10))
+                local chips = (G.GAME.blind.chips * (1 + (2*card.ability.extra.created) / 10))
                 if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
                 G.GAME.blind.chips = chips
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
@@ -102,7 +102,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}

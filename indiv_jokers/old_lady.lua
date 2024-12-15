@@ -1,6 +1,6 @@
 local joker = {
     name = "Old Lady",
-    config = {extra = {mult = 0, gain = 2, loss = 10}}, rarity = 1, cost = 6,
+    config = {extra = {mult = 0, gain = 1, loss = 10}}, rarity = 1, cost = 4,
     pos = {x = 7, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -52,11 +52,38 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
     end
+end
+
+-- Check for Old Lady's bullshit
+local add_to_deckref = Card.add_to_deck
+function Card.add_to_deck(self, from_debuff)
+    if not self.added_to_deck and not from_debuff and self.ability.set == "Joker" then
+        for _, v in ipairs(SMODS.find_card("j_lobc_old_lady")) do
+            if self ~= v then
+                v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.1,
+                    func = function()
+                        SMODS.eval_this(v, { message = localize('k_lobc_downgrade') })
+                        play_sound('lobc_old_lady_downgrade', 1, 0.6)
+                        return true
+                    end
+                }))
+                if v.ability.extra.mult <= -50 then
+                    check_for_unlock({type = "lobc_solitude"})
+                end
+            end
+        end
+    end
+    add_to_deckref(self, from_debuff)
 end
 
 if JokerDisplay then

@@ -1,19 +1,11 @@
---- STEAMODDED HEADER
---- MOD_NAME: Lobotomy Corporation
---- MOD_ID: LobotomyCorp
---- PREFIX: lobc
---- MOD_AUTHOR: [Mysthaps]
---- MOD_DESCRIPTION: Face the Fear, Build the Future.
---- DISPLAY_NAME: L Corp.
---- BADGE_COLOR: FC3A3A
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0909a]
---- VERSION: 0.9.0-pre1b
---- CARMEN_SAYS: You should distort yourself... NOW!
+--- Welcome to Lobcorp spaghetti code
 
 local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 local folder = string.match(mod_path, "[Mm]ods.*")
+-- Since Cryptid completely overrides create_card, make sure it is only patched later, and only when needed
+create_card_late_patched = false
 
 --=============== STEAMODDED OBJECTS ===============--
 
@@ -29,6 +21,7 @@ local joker_list = {
     "shy_look", -- Today's Shy Look
     "fairy_festival",
     "iron_maiden", -- We Can Change Anything
+    "you_must_be_happy",
     "old_faith", -- Old Faith and Promise
     "youre_bald",
 
@@ -39,6 +32,7 @@ local joker_list = {
     "nameless_fetus",
     "all_around_helper",
     "child_galaxy", -- Child of the Galaxy
+    "big_bird",
     "fotdb", -- Funeral of the Dead Butterflies
     "heart_of_aspiration",
     "scarecrow_searching",
@@ -46,7 +40,7 @@ local joker_list = {
     --- Rare
     "queen_of_hatred",
     --"nothing_there",
-    "big_bird",
+    "judgement_bird",
     "price_of_silence",
     "laetitia",
     "mosb", -- The Mountain of Smiling Bodies
@@ -55,11 +49,17 @@ local joker_list = {
 
     --- Legendary
     "whitenight",
-}
 
+    --- Crossovers
+    --"jolliest_jester",
+}
 local blind_list = {
     -- Abnormalities
     "whitenight",
+    "apocalypse_bird",
+    "ab_beak",
+    "ab_eyes",
+    "ab_arms",
 
     -- Meltdowns
     "red_mist",
@@ -91,7 +91,6 @@ local blind_list = {
     "midnight_violet",
     "midnight_amber",
 }
-
 local sound_list = {
     music_first_warning = "Emergency1",
     music_second_warning = "Emergency2",
@@ -102,6 +101,9 @@ local sound_list = {
     music_neutral2 = "Neutral2",
     music_neutral3 = "Neutral3",
     music_neutral4 = "Neutral4",
+    music_roland1 = "Roland01",
+    music_roland2 = "Roland02",
+    music_roland3 = "Roland03",
 
     music_malkuth_1 = "Violation of Black Colors",
     music_malkuth_2 = "Red Dots",
@@ -135,6 +137,8 @@ local sound_list = {
     big_bird_destroy = "Bigbird_HeadCut",
 
     gebura_slash = "Gebura_Phase2_Atk1",
+    dice_roll = "Dice_Roll",
+    apoc_birth = "Bossbird_Birth",
 
     green_start = "Machine_Start",
     green_end = "Machine_End",
@@ -147,10 +151,9 @@ local sound_list = {
     indigo_start = "Scavenger_Start",
     indigo_end = "Scavenger_End",
 }
-
 local challenge_list = {
     "ordeals",
-    --"production",
+    "production",
     "dark_days",
     "malkuth",
     "yesod",
@@ -159,7 +162,6 @@ local challenge_list = {
     "tiphereth",
     "gebura",
 }
-
 local consumable_list = {
     "wisdom",
     "tt2",
@@ -197,6 +199,7 @@ for _, v in ipairs(joker_list) do
     local joker = SMODS.load_file("indiv_jokers/" .. v .. ".lua")()
 
     --joker.discovered = true
+    if joker.dependency and not (SMODS.Mods[joker.dependency] or {}).can_load then goto continue end
     joker.key = v
     joker.atlas = "LobotomyCorp_Jokers"
     --[[if not joker.yes_pool_flag then
@@ -229,11 +232,14 @@ for _, v in ipairs(joker_list) do
 
     if joker.risk then
         joker_obj.set_badges = function(self, card, badges)
-            local color = nil
-            if joker.risk == "he" or joker.risk == "zayin" then color = G.C.UI.TEXT_DARK end
-            badges[#badges + 1] = create_badge(localize("lobc_" .. joker.risk, "labels"), get_badge_colour("lobc_" .. joker.risk), color)
+            if self.discovered then
+                local color = nil
+                if joker.risk == "he" or joker.risk == "zayin" then color = G.C.UI.TEXT_DARK end
+                badges[#badges + 1] = create_badge(localize("lobc_" .. joker.risk, "labels"), get_badge_colour("lobc_" .. joker.risk), color)
+            end
         end
     end
+    ::continue::
 end
 
 -- Load all blinds
@@ -241,7 +247,11 @@ for _, v in ipairs(blind_list) do
     local blind = SMODS.load_file("indiv_blinds/" .. v .. ".lua")()
 
     blind.key = v
-    blind.atlas = "LobotomyCorp_Blind"
+    blind.atlas = blind.atlas or "LobotomyCorp_Blind"
+    if not blind.pos then 
+        blind.pos = {x = 0, y = 0} 
+        blind.atlas = nil
+    end
     --blind.discovered = true
     if blind.color then
         blind.boss_colour = badge_colors["lobc_" .. blind.color]
@@ -462,16 +472,64 @@ function Card:check_rounds(comp)
     return math.min(val, comp)
 end
 
+-- Find a specific passive key
+function find_passive(key)
+    if G.GAME.blind and G.GAME.blind.passives then
+        for _, v in ipairs(G.GAME.blind.passives) do
+            if v == key then return true end
+        end
+    end
+    return false
+end
+
+-- Make Abnos breach
+function abno_breach(card, delay)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', 
+        delay = (delay or 1)*G.SETTINGS.GAMESPEED,
+        func = function()
+            play_sound('tarot1')
+            card.T.r = -0.2
+            card:juice_up(0.3, 0.4)
+            card.states.drag.is = true
+            card.children.center.pinch.x = true
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_lobc_breached'), colour = G.C.FILTER, instant = true})
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                func = function()
+                    G.jokers:remove_card(card)
+                    card:remove()
+                    card = nil
+                return true 
+                end
+            }))
+            return true
+        end
+    }))
+end
+
 --=============== BLINDS ===============--
 
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
     if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
+    if G.GAME.modifiers.lobc_production then
+        local ante = G.GAME.round_resets.ante
+        if ante <= 2 then return "bl_lobc_dawn_base" end
+        if ante <= 4 then return "bl_lobc_noon_base" end
+        if ante <= 6 then return "bl_lobc_dusk_base" end
+        return "bl_lobc_midnight_base"
+    end
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
-    return get_new_bossref()
-    --return "bl_lobc_red_mist"
+    if G.GAME.modifiers.lobc_placeholder or 
+    (G.GAME.pool_flags["apocalypse_bird_event"] and not G.GAME.pool_flags["apocalypse_bird_defeated"]) then return "bl_lobc_apocalypse_bird" end
+    --if string.lower(G.PROFILES[G.SETTINGS.profile].name) == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
+    local new_boss = get_new_bossref() 
+    while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do -- does this work?
+        new_boss = get_new_bossref()
+    end
+    return new_boss
 end
 
 -- Overwrite blind select for Ordeals
@@ -486,6 +544,7 @@ function reset_blinds()
         return
     end
     if config.disable_ordeals and not G.GAME.modifiers.lobc_ordeals then return end
+    if G.GAME.modifiers.lobc_production then return end
     if G.GAME.round_resets.blind_states.Small == 'Upcoming' or G.GAME.round_resets.blind_states.Small == 'Hide' then
         if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
            (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) and 
@@ -522,71 +581,53 @@ function reset_blinds()
     end
 end
 
--- Ordeals
+-- Ordeals / Passives
 local set_blindref = Blind.set_blind
 function Blind.set_blind(self, blind, reset, silent)
-    if blind and blind.color and blind.color == "base" then
-        local chosen_blind = pseudorandom_element(blind.blind_list, pseudoseed("dusk_ordeal"))
-        return set_blindref(self, G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
-    end
-    return set_blindref(self, blind, reset, silent)
-end
-
--- Amber Dusk's debuff per card drawn
-local draw_from_deck_to_handref = G.FUNCS.draw_from_deck_to_hand
-function G.FUNCS.draw_from_deck_to_hand(e)
-    draw_from_deck_to_handref(e)
-    if G.GAME.blind.config.blind.key == "bl_lobc_dusk_amber" and not G.GAME.blind.disabled then
-        local cards_drawn = e or math.min(#G.deck.cards, G.hand.config.card_limit - #G.hand.cards)
-        local available_cards = {}
-        local proc = false
-
-        for _, v in ipairs(G.hand.cards) do
-            if not v.ability.amber_debuff then available_cards[#available_cards+1] = v end
+    if not reset then
+        if blind and blind.color and blind.color == "base" then
+            local chosen_blind = pseudorandom_element(blind.blind_list, pseudoseed("dusk_ordeal"))
+            return self:set_blind(G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
         end
-        for _, v in ipairs(G.deck.cards) do
-            if not v.ability.amber_debuff then available_cards[#available_cards+1] = v end
-        end
-
-        for i = 1, cards_drawn do
-            if #available_cards > 0 then
+        if blind and blind.key == "bl_lobc_apocalypse_bird" then
+            if not G.GAME.blind.lobc_original_blind then
+                G.GAME.blind.lobc_original_blind = "bl_lobc_apocalypse_bird"
+                G.GAME.apoc_music = 1
+                play_sound("lobc_dice_roll", 1, 0.8)
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.4,
-                    func = function() 
-                        local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("dusk_amber"))
-                        chosen_card:set_debuff(true)
-                        chosen_card.ability.amber_debuff = true
-                        table.remove(available_cards, chosen_card_key)
-                        proc = true
-                        return true
+                    trigger = 'before',
+                    func = function()
+                        display_cutscene({x = 0, y = 0})
+                    return true 
                     end 
                 }))
+                return self:set_blind(G.P_BLINDS["bl_lobc_ab_eyes"], reset, silent)
+            else
+                G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function() 
+                    play_sound("lobc_apoc_birth", 1, 0.8)
+                return true end }))
+                G.E_MANAGER:add_event(Event({trigger = 'before', func = function()
+                    display_cutscene({x = 0, y = 1})
+                return true end }))
             end
         end
-
-        if proc then G.GAME.blind:wiggle() end
-    end
-end
-
--- Indigo Noon
-local discard_cards_from_highlightedref = G.FUNCS.discard_cards_from_highlighted
-G.FUNCS.discard_cards_from_highlighted = function(e, hook)
-    if G.GAME.blind.config.blind.key == "bl_lobc_noon_indigo" and not G.GAME.blind.disabled then
-        local proc = false
-        for _ = 1, math.min(#G.hand.highlighted, G.discard.config.card_limit - #G.play.cards) do
-            local chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling*0.1
-            if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
-            G.GAME.blind.chips = G.GAME.blind.chips + chips
-            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-            G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
-            G.HUD_blind:recalculate() 
-            G.hand_text_area.blind_chips:juice_up()
-            proc = true
+        self.passives = blind and lobc_deep_copy(blind.passives)
+        if self.passives then
+            self.children.alert = UIBox{
+                definition = create_UIBox_card_alert(), 
+                config = {
+                    align = "tri",
+                    offset = {
+                        x = 0.1, y = 0
+                    },
+                    parent = self
+                }
+            }
+        else
+            self.children.alert = nil
         end
-        if proc then G.GAME.blind:wiggle() end
     end
-    discard_cards_from_highlightedref(e, hook)
+    return set_blindref(self, blind, reset, silent)
 end
 
 -- Phase bosses
@@ -598,21 +639,27 @@ function Game.update_new_round(self, dt)
     if not G.STATE_COMPLETE and not G.GAME.blind.disabled and (G.GAME.blind.config.blind.summon or G.GAME.blind.config.blind.phases or G.GAME.blind.lobc_original_blind) then
         if G.GAME.blind.lobc_original_blind and not G.GAME.blind.config.blind.summon then -- Triggers if blind is not the original blind
             -- Reset to the original blind's values
-            G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.lobc_original_blind])
-            G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*0.8*G.GAME.starting_params.ante_scaling
-            G.GAME.blind.lobc_original_blind = nil
+            if G.GAME.blind.lobc_original_blind ~= G.GAME.blind.config.blind.key then
+                G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.lobc_original_blind])
+                G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*G.P_BLINDS[G.GAME.blind.lobc_original_blind].mult*G.GAME.starting_params.ante_scaling
+                G.GAME.blind.children.alert = nil
+            end
+            -- Apocalypse Bird death cutscene
+            if G.GAME.blind.lobc_original_blind == "bl_lobc_apocalypse_bird" and G.GAME.chips >= G.GAME.blind.chips then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    func = function()
+                        display_cutscene({x = 3, y = 1})
+                    return true 
+                    end 
+                }))
+            end
         else
-            if G.GAME.current_round.hands_left <= 0 then 
-                if G.GAME.current_round.hands_played - G.GAME.current_round.lobc_hands_given == 1 and -- Increase hands by 1 if there are not enough hands to beat the blind
-                   to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) then -- Must win blind
-                    ease_hands_played(1)
-                    G.GAME.current_round.lobc_hands_given = G.GAME.current_round.lobc_hands_given + 1
-                else
-                    G.GAME.blind.lobc_original_blind = nil
-                    G.STATE_COMPLETE = true
-                    end_round()
-                    return
-                end
+            if G.GAME.current_round.hands_left <= 0 and G.GAME.chips < G.GAME.blind.chips then 
+                G.GAME.blind.lobc_original_blind = nil
+                G.STATE_COMPLETE = true
+                end_round()
+                return
             else
                 G.GAME.current_round.lobc_phases_beaten = G.GAME.current_round.lobc_phases_beaten + 1
             end
@@ -632,29 +679,45 @@ function Game.update_new_round(self, dt)
                 func = (function(t) return math.floor(t) end)
             }))
 
-            if G.GAME.blind.config.blind.phases then 
+            if G.GAME.blind.config.blind.phase_refresh then 
                 -- Refresh deck
-                G.FUNCS.draw_from_hand_to_discard()
                 G.FUNCS.draw_from_discard_to_deck()
-
+                G.FUNCS.draw_from_hand_to_deck()
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
+                    trigger = 'before',
+                    delay = 1,
+                    blockable = false,
                     func = function()
-                        G.deck:shuffle(G.GAME.blind.config.blind.key..'_phase_'..G.GAME.current_round.lobc_phases_beaten)
-                        G.deck:hard_set_T()
-                        return true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'immediate',
+                            func = function()
+                                G.deck:shuffle(G.GAME.blind.config.blind.key..'_refresh')
+                                G.deck:hard_set_T()
+                            return true
+                            end
+                        }))
+                    return true
                     end
                 }))
+                
                 ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
 
+                if G.GAME.blind.config.blind.key == "bl_lobc_red_mist" then 
+                    G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 5 
+                    if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
+                end
                 G.GAME.blind.prepped = nil
-                G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 1
-                G.GAME.blind:set_text() 
+                G.GAME.blind.hands_sub = 0
+                G.GAME.blind:set_text()
                 SMODS.juice_up_blind()
-                if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
             end
 
             if G.GAME.blind.config.blind.summon then
+                local obj = G.GAME.blind.config.blind
+                G.P_BLINDS[obj.key].discovered = true
+                if obj.defeat and type(obj.defeat) == 'function' then
+                    obj:defeat()
+                end
                 G.GAME.blind.lobc_original_blind = G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
                 G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.summon])
                 G.GAME.blind.dollars = G.P_BLINDS[G.GAME.blind.lobc_original_blind].dollars
@@ -669,25 +732,25 @@ function Game.update_new_round(self, dt)
     end
 end
 
--- Crimson Dawn selling card
-local sell_cardref = Card.sell_card
-function Card.sell_card(self)
-    if self.ability.set == 'Joker' and G.GAME.blind then
-        if G.GAME.blind.config.blind.key == "bl_lobc_dawn_crimson" and not G.GAME.blind.disabled then 
-            G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function()
-                G.GAME.blind.hands_sub = 2
-                for _, v in ipairs(G.playing_cards) do
-                    v.ability.lobc_dawn_crimson = false
-                    SMODS.recalc_debuff(v)
-                end
-                return true
-            end}))
-        end
-        if G.GAME.blind.config.blind.key == "bl_lobc_red_mist" then
-            G.GAME.blind.lobc_has_sold_joker = true
+local defeatref = Blind.defeat
+function Blind.defeat(self, silent)
+    -- Reset music when a LobotomyCorp boss is defeated
+    if self.lobc_original_blind and self.lobc_original_blind == self.config.blind.key then
+        self.lobc_original_blind = nil
+        G.apoc_music = nil
+    end
+    defeatref(self, silent)
+    -- Clear Enchanted from cards
+    if not find_passive("psv_lobc_lamp") then
+        for _, v in ipairs(G.playing_cards) do
+            if v.ability.big_bird_enchanted then
+                v.ability.big_bird_enchanted = nil
+            end
+            if v.ability.big_bird_enchanted then
+                v.children.lobc_big_bird_particles = nil
+            end
         end
     end
-    sell_cardref(self)
 end
 
 -- WhiteNight confession win round
@@ -695,6 +758,7 @@ local alert_debuffref = Blind.alert_debuff
 function Blind.alert_debuff(self, first)
     if self.config.blind.color and self.config.blind.color == "base" then return end
     if self.config.blind.phases then return end
+    if self.config.blind.key == "bl_lobc_apocalypse_bird" or find_passive("psv_lobc_cracking_eggs") then return end
     if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin", true)) then
         self.block_play = true
         G.E_MANAGER:add_event(Event({
@@ -778,14 +842,18 @@ end
 -- Load text midgame
 local set_textref = Blind.set_text
 function Blind.set_text(self)
-    if self.config.blind and self.lobc_current_effect and self.config.blind.phases and G.GAME.current_round.lobc_phases_beaten < self.config.blind.phases then
+    if self.config.blind and (self.config.blind.key == "bl_lobc_red_mist" or self.config.blind.key == "bl_lobc_apocalypse_bird" or find_passive("psv_lobc_cracking_eggs")) then -- shitty bandage fix
         local loc_vars = nil
         local obj = self.config.blind
         if obj.loc_vars and type(obj.loc_vars) == 'function' then
         	local res = obj:loc_vars() or {}
         	loc_vars = res.vars or {}
         end
-        local loc_target = localize{type = 'raw_descriptions', key = self.config.blind.key.."_effect_"..self.lobc_current_effect, set = 'Blind', vars = loc_vars or self.config.blind.vars}
+        local loc_key = self.config.blind.key.."_effect"
+        if self.lobc_current_effect and self.config.blind.phases and G.GAME.current_round.lobc_phases_beaten < self.config.blind.phases then
+            loc_key = loc_key.."_"..self.lobc_current_effect
+        end
+        local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or self.config.blind.vars}
         if loc_target then 
             self.loc_name = self.name == '' and self.name or localize{type = 'name_text', key = self.config.blind.key, set = 'Blind'}
             self.loc_debuff_text = ''
@@ -813,56 +881,137 @@ Blind.cry_cap_score = Blind.cry_cap_score or function(self, score)
     return score
 end
 
---=============== JOKERS ===============--
+-- Apocalypse Bird cutscenes
+function display_cutscene(pos)
+    G.lobc_displaying_cutscene = true
+    G.lobc_cutscene_transparency = 0
+    G.lobc_cutscene_timer = 0
 
--- Wall Gazer face down
-local stay_flippedref = Blind.stay_flipped
-function Blind.stay_flipped(self, area, card)
-    if area == G.hand and next(SMODS.find_card("j_lobc_wall_gazer")) and G.GAME.current_round.hands_played == 0 then
-        return true
+    G.lobc_cutscene = Sprite(0, 0, 14.2*(1024/654), 14.2, G.ASSET_ATLAS["lobc_LobotomyCorp_cutscenes"], pos)
+    G.lobc_cutscene.states.drag.can = false
+    G.lobc_cutscene.draw_self = function(self, overlay)
+        if not self.states.visible then return end
+        if self.sprite_pos.x ~= self.sprite_pos_copy.x or self.sprite_pos.y ~= self.sprite_pos_copy.y then
+            self:set_sprite_pos(self.sprite_pos)
+        end
+        prep_draw(self, 1)
+        love.graphics.scale(1/(self.scale.x/self.VT.w), 1/(self.scale.y/self.VT.h))
+        love.graphics.setColor({1, 1, 1, G.lobc_cutscene_transparency})
+        love.graphics.draw(
+            self.atlas.image,
+            self.sprite,
+            0, 0,
+            0,
+            self.VT.w/(self.T.w),
+            self.VT.h/(self.T.h)
+        )
+        love.graphics.pop()
+        add_to_drawhash(self)
+        self:draw_boundingrect()
+        if self.shader_tab then love.graphics.setShader() end
     end
-    return stay_flippedref(self, area, card)
+
+    G.SETTINGS.paused = true
+    -- copied from G.FUNCS.overlay_menu just to remove the pop-in anim
+    if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+    G.CONTROLLER.locks.frame_set = true
+    G.CONTROLLER.locks.frame = true
+    G.CONTROLLER.cursor_down.target = nil
+    G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
+    G.OVERLAY_MENU = UIBox{
+        definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                {n=G.UIT.O, config={object = G.lobc_cutscene}},
+            }},
+        }},
+        config = {
+            align = "cm",
+            offset = {x = 0, y = 0},
+            major = G.ROOM_ATTACH,
+            bond = 'Strong',
+            no_esc = true
+        }
+    }
 end
 
-local can_sell_cardref = Card.can_sell_card
-function Card.can_sell_card(self, context)
-    -- Remove Queen of Hatred's sell button
-    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
-        return false
+--=============== BLIND PASSIVE UI ===============--
+function info_from_passive(passive)
+    local desc_nodes = {}
+    localize{type = 'descriptions', key = passive, set = "Passive", nodes = desc_nodes, vars = {}}
+    local desc = {}
+    for _, v in ipairs(desc_nodes) do
+        desc[#desc+1] = {n=G.UIT.R, config={align = "cl"}, nodes=v}
     end
-    -- Malkuth
-    if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 6 then
-        return false
-    end
-    return can_sell_cardref(self, context)
+    return 
+    {n=G.UIT.R, config={align = "cl", colour = lighten(G.C.GREY, 0.4), r = 0.1, padding = 0.05}, nodes={
+        {n=G.UIT.R, config={align = "cl", padding = 0.05, r = 0.1}, nodes = localize{type = 'name', key = passive, set = "Passive", name_nodes = {}, vars = {}}},
+        {n=G.UIT.R, config={align = "cl", minw = 6, minh = 0.4, r = 0.1, padding = 0.05, colour = desc_nodes.background_colour or G.C.WHITE}, nodes={{n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=desc}}}
+    }}
 end
 
--- Check for Old Lady's bullshit
-local add_to_deckref = Card.add_to_deck
-function Card.add_to_deck(self, from_debuff)
-    if not self.added_to_deck and not from_debuff and self.ability.set == "Joker" then
-        for _, v in ipairs(SMODS.find_card("j_lobc_old_lady")) do
-            if self ~= v then
-                v.ability.extra.mult = v.ability.extra.mult - v.ability.extra.loss
-                G.E_MANAGER:add_event(Event({
-                    trigger = "after",
-                    delay = 0.1,
-                    func = function()
-                        SMODS.eval_this(v, { message = localize('k_lobc_downgrade') })
-                        play_sound('lobc_old_lady_downgrade', 1, 0.6)
-                        return true
-                    end
-                }))
-                if v.ability.extra.mult <= -50 then
-                    check_for_unlock({type = "lobc_solitude"})
+function create_UIBox_blind_passive(blind)
+    local passive_lines = {}
+    for _, v in ipairs(blind.passives) do
+        passive_lines[#passive_lines+1] = info_from_passive(v)
+    end
+    return
+    {n=G.UIT.ROOT, config = {align = 'cm', colour = lighten(G.C.JOKER_GREY, 0.5), r = 0.1, emboss = 0.05, padding = 0.05}, nodes={
+        {n=G.UIT.R, config={align = "cm", emboss = 0.05, r = 0.1, minw = 2.5, padding = 0.05, colour = G.C.GREY}, nodes={
+            {n=G.UIT.C, config = {align = "lm", padding = 0.1}, nodes = passive_lines}
+        }}
+    }}
+end
+
+local blind_hoverref = Blind.hover
+function Blind.hover(self)
+    if not G.CONTROLLER.dragging.target or G.CONTROLLER.using_touch then 
+        if not self.hovering and self.states.visible and self.children.animatedSprite.states.visible then
+            if self.passives then
+                G.blind_passive = UIBox{
+                    definition = create_UIBox_blind_passive(self),
+                    config = {
+                        major = self,
+                        parent = nil,
+                        offset = {
+                            x = 0.15,
+                            y = 0.2 + 0.38*#self.passives,
+                        },  
+                        type = "cr",
+                    }
+                }
+                G.blind_passive.attention_text = true
+                G.blind_passive.states.collide.can = false
+                G.blind_passive.states.drag.can = false
+                if self.children.alert then
+                    self.children.alert:remove()
+                    self.children.alert = nil
                 end
             end
         end
     end
-    add_to_deckref(self, from_debuff)
+    blind_hoverref(self)
 end
 
--- Today's Shy Look's sprite thing
+local blind_stop_hoverref = Blind.stop_hover
+function Blind.stop_hover(self)
+    if G.blind_passive then
+        G.blind_passive:remove()
+        G.blind_passive = nil
+    end
+    blind_stop_hoverref(self)
+end
+
+--=============== JOKERS ===============--
+
+-- E.G.O Gift sell costs / Fairy Festival
+local set_costref = Card.set_cost
+function Card.set_cost(self)
+    set_costref(self)
+    if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
+    if self.ability.lobc_fairy_festival and self.cost > 0 then self.cost = 0 end
+end
+
+-- Front sprites thing (Today's Shy Look / You Must Be Happy)
 local alignref = Card.align
 function Card.align(self)  
     if self.children.mood then 
@@ -877,153 +1026,8 @@ end
 local sprite_drawref = Sprite.draw
 function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"] then return end
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_yes_no"] then return end
     sprite_drawref(self, overlay)
-end
-
--- Sprite-based effects
-local set_spritesref = Card.set_sprites
-function Card.set_sprites(self, _center, _front)
-    set_spritesref(self, _center, _front)
-
-    -- CENSORED
-    if (self.ability and self.ability.lobc_censored) then
-        self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
-        self.children.center:set_sprite_pos({x = 9, y = 0})
-        self.children.front = nil
-    end
-
-    -- You're Bald...
-    if next(SMODS.find_card("j_lobc_youre_bald")) and (self.ability and not self.ability.lobc_censored) then
-        if _center and _center.set == "Joker" and self.children.center.atlas == G.ASSET_ATLAS["Joker"] then
-            self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_jokersbald"]
-            self.children.center:set_sprite_pos(_center.pos)
-        end
-    end
-end
-
--- The Price of Silence amplification
-local amplified_values = {
-    "mult",
-    "h_mult",
-    "h_x_mult",
-    "h_chips",
-    "h_dollars",
-    "p_dollars",
-    "t_mult",
-    "t_chips",
-    "x_mult",
-    "h_size",
-    "d_size",
-    "bonus",
-}
-function Card:lobc_check_amplified()
-    if self.ability.price_of_silence_amplified then
-        for _, v in ipairs(amplified_values) do
-            if self.ability[v] and self.config.center.config[v] then
-                self.ability[v] = self.ability[v] + self.config.center.config[v]
-            end
-        end
-        -- glass card moment
-        if self.ability.x_mult and self.config.center.config.Xmult then
-            self.ability.x_mult = self.ability.x_mult + self.config.center.config.Xmult
-        end
-    end
-end
-
--- E.G.O Gift sell costs / Fairy Festival
-local set_costref = Card.set_cost
-function Card.set_cost(self)
-    set_costref(self)
-    if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
-    if self.ability.lobc_fairy_festival and self.cost > 1 then self.cost = 1 end
-end
-
--- Remove Fairy Festival effect when bought
-local buy_from_shopref = G.FUNCS.buy_from_shop
-function G.FUNCS.buy_from_shop(e)
-    local card = e.config.ref_table
-    if card and card:is(Card) then
-        if card.ability.lobc_fairy_festival then
-            card.ability.lobc_fairy_festival = nil
-            card.children.lobc_fairy_particles:remove()
-            card.children.lobc_fairy_particles = nil
-        else
-            local shop_items = {}
-            local destroy_others = false
-            for _, area in pairs(G.I.CARDAREA) do
-                if area.config.type == 'shop' then
-                    for _, item in ipairs(area.cards) do
-                        if item ~= card then
-                            if item.ability.lobc_fairy_festival then destroy_others = true end
-                            shop_items[#shop_items+1] = item
-                        end
-                    end
-                end
-            end
-
-            if destroy_others then
-                local first_dissolve = nil
-                for _, item in ipairs(shop_items) do
-                    item:start_dissolve({G.C.GREEN, darken(G.C.GREEN, 0.2), darken(G.C.GREEN, 0.4)}, first_dissolve)
-                    first_dissolve = true
-                end
-                G.GAME.lobc_fairy_lock_reroll = true
-                G.GAME.current_round.voucher = nil
-            end
-        end
-    end
-    buy_from_shopref(e)
-end
-
--- Fairy Festival lock rerolls
-local can_rerollref = G.FUNCS.can_reroll
-function G.FUNCS.can_reroll(e)
-    if G.GAME.lobc_fairy_lock_reroll then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-        return
-    end
-    return can_rerollref(e)
-end
-
--- Big Bird draw Enchanted cards
-local draw_cardref = draw_card
-function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
-    if from == G.deck and to == G.hand and not card then
-        local enchanted = {}
-        for _, v in ipairs(G.discard.cards) do
-            if v.ability.big_bird_enchanted and not v.ability.big_bird_enchanted_marked_for_draw then enchanted[#enchanted+1] = v end
-        end
-        for _, v in ipairs(G.deck.cards) do
-            if v.ability.big_bird_enchanted and not v.ability.big_bird_enchanted_marked_for_draw then enchanted[#enchanted+1] = v end
-        end
-        if #enchanted > 0 then
-            local e_card = pseudorandom_element(enchanted, pseudoseed("enchanted_draw"))
-            e_card.ability.big_bird_enchanted_marked_for_draw = true
-            play_sound("lobc_big_bird_attract", 1, 0.6)
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    e_card.ability.big_bird_enchanted_marked_for_draw = nil
-                return true
-                end
-            }))
-            return draw_cardref(e_card.area, G.hand, percent, dir, sort, e_card, delay, mute, stay_flipped, vol, discarded_only)
-        end
-    end
-    draw_cardref(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
-end
-
--- Clear Enchanted cards when Blind ends
-local blind_defeatref = Blind.defeat
-function Blind.defeat(self, silent)
-    blind_defeatref(self, silent)
-    for _, v in ipairs(G.playing_cards) do
-        if v.ability.big_bird_enchanted then
-            v.ability.big_bird_enchanted = nil
-            v.children.lobc_big_bird_particles = nil
-        end
-    end
 end
 
 -- Global start of hand effect
@@ -1033,16 +1037,26 @@ function Blind.drawn_to_hand(self)
     if not G.GAME.lobc_prepped then return end
 
     -- Gebura's effect
-    if G.GAME.modifiers.lobc_gebura and self.config.blind.key ~= "bl_lobc_red_mist" then
+    if G.GAME.modifiers.lobc_gebura then
         local available_cards = {}
+        local destroyed_cards = {}
+        local first = true
         for _, v in ipairs(G.hand.cards) do
             if not v.highlighted then available_cards[#available_cards+1] = v end
         end
         if #available_cards > 0 then
-            local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("lobc_gebura_destroy"))
-            table.remove(available_cards, chosen_card_key)
-            chosen_card:start_dissolve() 
-            play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5)
+            for i = 1, (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and G.GAME.current_round.lobc_phases_beaten >= 2) and 2 or 1 do
+                local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("lobc_gebura_destroy"))
+                table.remove(available_cards, chosen_card_key)
+                destroyed_cards[#destroyed_cards+1] = chosen_card
+                chosen_card:start_dissolve() 
+                if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
+                first = nil
+            end
+            delay(0.2)
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = {chosen_card}})
+            end
         end
     end
 
@@ -1080,11 +1094,11 @@ end
 -- Card popup UI effects
 local card_h_popupref = G.UIDEF.card_h_popup
 function G.UIDEF.card_h_popup(card)
+    local t = card_h_popupref(card)
     -- Yesod remove UI
     if G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 then
         return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={}}
     end
-
     -- CENSORED
     if (next(SMODS.find_card("j_lobc_censored", true)) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored"))
        or (card.ability and card.ability.lobc_censored) then
@@ -1100,7 +1114,25 @@ function G.UIDEF.card_h_popup(card)
             }},
         }}
     end
-    return card_h_popupref(card)
+    -- Apocalypse Bird/Long Arms
+    if G.GAME.lobc_long_arms and card.playing_card and G.GAME.lobc_long_arms[card:get_id()] then
+        table.insert(
+            t.nodes[1].nodes[1].nodes[1].nodes[2].nodes[1].nodes,
+            {n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.T, config={
+                    text = localize("k_lobc_rank_sin"),
+                    scale = 0.32*G.LANG.font.DESCSCALE*(G.F_MOBILE_UI and 1.5 or 1),
+                    colour = G.C.UI.TEXT_DARK,
+                }},
+                {n=G.UIT.T, config={
+                    text = G.GAME.lobc_long_arms[card:get_id()], 
+                    scale = 0.32*G.LANG.font.DESCSCALE*(G.F_MOBILE_UI and 1.5 or 1),
+                    colour = G.C.RED,
+                }}
+            }}
+        )
+    end
+    return t
 end
 
 -- Remove the topleft message when CENSORED/Yesod is active
@@ -1265,8 +1297,17 @@ local colors = {
 
 local ease_background_colour_blindref = ease_background_colour_blind
 function ease_background_colour_blind(state, blind_override)
-    if config.disable_meltdown_color then return ease_background_colour_blindref(state, blind_override) end
+    if G.GAME.blind then
+        if G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
+            ease_background_colour({new_colour = darken(HEX("FFFFFF"), 0.2), special_colour = darken(HEX("FFFFFF"), 0.4), contrast = 0.7})
+            return
+        elseif G.GAME.blind.lobc_original_blind == "bl_lobc_apocalypse_bird" then
+            ease_background_colour({new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1})
+            return
+        end
+    end
 
+    if config.disable_meltdown_color then return ease_background_colour_blindref(state, blind_override) end
     for k, v in pairs(colors) do
         if G.GAME.modifiers["lobc_"..k] then
             ease_colour(G.C.DYN_UI.MAIN, v)
@@ -1289,20 +1330,6 @@ function get_blind_main_colour(blind)
     return get_blind_main_colourref(blind)
 end
 
--- Cards flipped (Malkuth)
-local card_initref = Card.init
-function Card.init(self, X, Y, W, H, card, center, params)
-    card_initref(self, X, Y, W, H, card, center, params)
-    if G.GAME and G.GAME.modifiers.lobc_malkuth then
-        if (self.ability.consumeable and G.GAME.round_resets.ante > 3) or
-           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
-            self.facing = 'back'
-            self.sprite_facing = 'back'
-            self.pinch.x = false
-        end
-    end
-end
-
 -- Effects upon changing Ante
 local ease_anteref = ease_ante
 function ease_ante(mod)
@@ -1310,6 +1337,12 @@ function ease_ante(mod)
     G.E_MANAGER:add_event(Event({
         trigger = "immediate",
         func = function()
+            -- You Must Be Happy ante effect
+            if G.GAME.you_must_be_happy and G.GAME.you_must_be_happy ~= 1 then
+                G.GAME.lobc_hod_modifier = G.GAME.lobc_hod_modifier / G.GAME.you_must_be_happy
+                G.GAME.you_must_be_happy = 1
+            end
+
             -- Card shuffle (Malkuth)
             if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 6 then
                 G.jokers:unhighlight_all()
@@ -1360,152 +1393,6 @@ function ease_ante(mod)
     }))
 end
 
--- Override flipping (Malkuth)
-local card_flipref = Card.flip
-function Card.flip(self)
-    if G.GAME and G.GAME.modifiers.lobc_malkuth then
-        if self.ability.consumeable or
-           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
-            return
-        end
-    end
-    card_flipref(self)
-end
-
--- Atlases and Shaders not affected by Pixelation (Yesod)
-local blacklist_atlas = {
-    "cards_1",
-    "cards_2",
-    "ui_1",
-    "ui_2",
-    "balatro",
-    "gamepad_ui",
-    "icons",
-    "centers",
-}
-local blacklist_shader = {
-    "lobc_pixelation",
-    "vortex",
-    "flame",
-    "splash",
-    "flash",
-    "background",
-}
-
--- Apply Pixelation shader (Yesod)
-local draw_shaderref = Sprite.draw_shader
-function Sprite.draw_shader(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
-    local check = G.GAME and G.GAME.modifiers.lobc_yesod
-    for _, v in ipairs(blacklist_atlas) do if self.atlas == G.ASSET_ATLAS[v] then check = false end end
-    if self.atlas == G.ANIMATION_ATLAS["shop_sign"] then check = false end
-    for _, v in ipairs(blacklist_shader) do if _shader == v then check = false end end
-    draw_shaderref(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
-    if check then draw_shaderref(self, "lobc_pixelation", _shadow_height, nil, nil, other_obj, ms, mr, mx, my) end
-end
-
--- Load blank font (Yesod)
-local set_languageref = Game.set_language
-function Game.set_language(self)
-    set_languageref(self)
-    self.FONTS["blank"] = {
-        file = folder.."assets/fonts/AdobeBlank.ttf", 
-        render_scale = self.TILESIZE*10, 
-        TEXT_HEIGHT_SCALE = 0.83, 
-        TEXT_OFFSET = {x=10,y=-20}, 
-        FONTSCALE = 0.1, 
-        squish = 1, 
-        DESCSCALE = 1,
-        FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
-    }
-end
-
--- Remove blank font when appropriate (Yesod)
-local overlay_menuref = G.FUNCS.overlay_menu
-function G.FUNCS.overlay_menu(args)
-    if G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font end
-    overlay_menuref(args)
-end
-
--- No editions (Yesod)
-local set_editionref = Card.set_edition
-function Card.set_edition(self, edition, immediate, silent)
-    if G.GAME.modifiers.lobc_yesod then return end
-    set_editionref(self, edition, immediate, silent)
-end
-
--- Reduce return values for card evals (Hod)
-local eval_cardref = eval_card
-function eval_card(card, context)
-    local eval = eval_cardref(card, context)
-    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
-        if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
-        if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
-        if eval.x_mult then 
-            if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
-            else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
-        end
-        if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
-        if eval.h_x_mult then 
-            if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
-            else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval
-end
-
-local calculate_jokerref = Card.calculate_joker
-function Card.calculate_joker(self, context)
-    local eval = calculate_jokerref(self, context)
-    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
-        if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
-        if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
-        if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
-        if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
-        if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
-        if eval.h_x_mult then 
-            if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
-            else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
-        end
-        if eval.Xmult_mod then 
-            sendDebugMessage(G.GAME.lobc_hod_modifier)
-            if eval.Xmult_mod < 1 then eval.Xmult_mod = eval.Xmult_mod * G.GAME.lobc_hod_modifier
-            else eval.Xmult_mod = 1 + (eval.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
-        end
-        if eval.x_mult then 
-            if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
-            else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval
-end
-
-local get_editionref = Card.get_edition
-function Card.get_edition(self, context)
-    local eval = get_editionref(self)
-    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
-        if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
-        if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
-        if eval.x_mult_mod then 
-            if eval.x_mult_mod < 1 then eval.x_mult_mod = eval.x_mult_mod * G.GAME.lobc_hod_modifier
-            else eval.x_mult_mod = 1 + (eval.x_mult_mod - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval
-end
-
-local eval_thisref = SMODS.eval_this
-function SMODS.eval_this(_card, effects)
-    if effects and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier < 1 then
-        if effects.mult_mod then effects.mult_mod = effects.mult_mod * G.GAME.lobc_hod_modifier end
-        if effects.chip_mod then effects.chip_mod = effects.chip_mod * G.GAME.lobc_hod_modifier end
-        if effects.Xmult_mod then 
-            if effects.Xmult_mod < 1 then effects.Xmult_mod = effects.Xmult_mod * G.GAME.lobc_hod_modifier
-            else effects.Xmult_mod = 1 + (effects.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval_thisref(_card, effects)
-end
-
 --=============== MECHANICAL ===============--
 
 local init_game_objectref = Game.init_game_object
@@ -1519,6 +1406,22 @@ function Game.init_game_object(self)
 
     -- Nameless Fetus
     G.nameless_hand_type = nil
+    -- Production last pack Ante
+    G.production_last_pack = 1
+    -- Effect multi
+    G.lobc_hod_modifier = 1
+
+    -- Yesod font
+    self.FONTS["blank"] = {
+        file = folder.."assets/fonts/AdobeBlank.ttf", 
+        render_scale = self.TILESIZE*10, 
+        TEXT_HEIGHT_SCALE = 0.83, 
+        TEXT_OFFSET = {x=10,y=-20}, 
+        FONTSCALE = 0.1, 
+        squish = 1, 
+        DESCSCALE = 1,
+        FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
+    }
 
     return G
 end
@@ -1711,9 +1614,121 @@ function Game.update(self, dt)
         G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font
     end
 
+    -- Update cutscene transparency
+    if G.lobc_displaying_cutscene then
+        G.lobc_cutscene_timer = G.lobc_cutscene_timer + dt
+        if G.lobc_cutscene_timer < 0.5 then G.lobc_cutscene_transparency = G.lobc_cutscene_timer * 2 end
+        if G.lobc_cutscene_timer >= 0.5 and G.lobc_cutscene_timer < 5 then G.lobc_cutscene_transparency = 1 end
+        if G.lobc_cutscene_timer >= 5 and G.lobc_cutscene_timer <= 6 then G.lobc_cutscene_transparency = 6 - G.lobc_cutscene_timer end
+        if G.lobc_cutscene_timer >= 6 then 
+            G.lobc_cutscene_transparency = 0
+            G.lobc_displaying_cutscene = false
+            G.SETTINGS.paused = false
+            if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+        end
+    end
+
     -- i hate chicot
-    if G.GAME and G.GAME.blind and G.GAME.blind.config.blind.phases then G.GAME.blind.disabled = nil end
+    if find_passive("psv_lobc_fixed_encounter") then G.GAME.blind.disabled = nil end
     game_updateref(self, dt)
+end
+
+-- Reduce return values for card evals
+local eval_cardref = eval_card
+function eval_card(card, context)
+    local eval = eval_cardref(card, context)
+    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+        if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
+        if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
+        if eval.x_mult then 
+            if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
+            else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
+        end
+        if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
+        if eval.h_x_mult then 
+            if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
+            else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+        end
+    end
+    return eval
+end
+
+local calculate_jokerref = Card.calculate_joker
+function Card.calculate_joker(self, context)
+    if context.callback then
+        local callbackref = context.callback
+        context.callback = function(self, eval, the_j)
+            if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+                if eval then 
+                    if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
+                    if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
+                    if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
+                    if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
+                    if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
+                    if eval.h_x_mult then
+                        if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
+                        else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+                    end
+                    if eval.Xmult_mod then
+                        if eval.Xmult_mod < 1 then eval.Xmult_mod = eval.Xmult_mod * G.GAME.lobc_hod_modifier
+                        else eval.Xmult_mod = 1 + (eval.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+                    end
+                    if eval.x_mult then
+                        if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
+                        else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
+                    end
+                end
+                if eval.jokers then
+                    if eval.jokers.chips then eval.jokers.chips = eval.jokers.chips * G.GAME.lobc_hod_modifier end
+                    if eval.jokers.mult then eval.jokers.mult = eval.jokers.mult * G.GAME.lobc_hod_modifier end
+                    if eval.jokers.mult_mod then eval.jokers.mult_mod = eval.jokers.mult_mod * G.GAME.lobc_hod_modifier end
+                    if eval.jokers.chip_mod then eval.jokers.chip_mod = eval.jokers.chip_mod * G.GAME.lobc_hod_modifier end
+                    if eval.jokers.h_mult then eva.jokersl.h_mult = eval.jokers.h_mult * G.GAME.lobc_hod_modifier end
+                    if eval.jokers.h_x_mult then
+                        if eval.jokers.h_x_mult < 1 then eval.jokers.h_x_mult = eval.jokers.h_x_mult * G.GAME.lobc_hod_modifier
+                        else eval.jokers.h_x_mult = 1 + (eval.jokers.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+                    end
+                    if eval.jokers.Xmult_mod then
+                        if eval.jokers.Xmult_mod < 1 then eval.jokers.Xmult_mod = eval.jokers.Xmult_mod * G.GAME.lobc_hod_modifier
+                        else eval.jokers.Xmult_mod = 1 + (eval.jokers.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+                    end
+                    if eval.jokers.x_mult then
+                        if eval.jokers.x_mult < 1 then eval.jokers.x_mult = eval.jokers.x_mult * G.GAME.lobc_hod_modifier
+                        else eval.jokers.x_mult = 1 + (eval.jokers.x_mult - 1) * G.GAME.lobc_hod_modifier end
+                    end
+                end
+            end
+            callbackref(self, eval, the_j)
+        end
+    end
+    return calculate_jokerref(self, context)
+end
+
+local get_editionref = Card.get_edition
+function Card.get_edition(self)
+    local eval = get_editionref(self)
+    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+        if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
+        if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
+        if eval.x_mult_mod then 
+            if eval.x_mult_mod < 1 then eval.x_mult_mod = eval.x_mult_mod * G.GAME.lobc_hod_modifier
+            else eval.x_mult_mod = 1 + (eval.x_mult_mod - 1) * G.GAME.lobc_hod_modifier end
+        end
+    end
+    return eval
+end
+
+local eval_thisref = SMODS.eval_this
+function SMODS.eval_this(_card, effects)
+    if effects and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+        if effects.mult_mod then effects.mult_mod = effects.mult_mod * G.GAME.lobc_hod_modifier end
+        if effects.chip_mod then effects.chip_mod = effects.chip_mod * G.GAME.lobc_hod_modifier end
+        if effects.Xmult_mod then 
+            if effects.Xmult_mod < 1 then effects.Xmult_mod = effects.Xmult_mod * G.GAME.lobc_hod_modifier
+            else effects.Xmult_mod = 1 + (effects.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+        end
+    end
+    return eval_thisref(_card, effects)
 end
 
 --=============== OBSERVATION ===============--
@@ -1839,7 +1854,7 @@ SMODS.Booster({
     atlas = "LobotomyCorp_Booster",
     config = {extra = 3, choose = 1},
     create_card = function(self, card)
-        return create_card("Abnormality", G.pack_cards, nil, nil, true, true, nil, 'abn')
+        return { set = 'Abnormality', area = G.pack_cards, skip_materialize = true, soulable = true, key_append = 'abn' }
     end,
     ease_background_colour = function(self)
         ease_background_colour_blind(G.STATES.PLANET_PACK)
@@ -1889,14 +1904,15 @@ SMODS.current_mod.credits_tab = function()
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_1'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
         }},
+
+        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
+        }},
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
             {n = G.UIT.T, config = { text = localize('lobc_credits_pm'), scale = 0.5, colour = G.C.DARK_EDITION}},
         }},
 
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
-        }},
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.T, config = { text = localize('lobc_credits_full_list'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
         }},
@@ -1911,29 +1927,19 @@ SMODS.current_mod.credits_tab = function()
             {n = G.UIT.T, config = { text = localize('lobc_credits_5'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
             {n = G.UIT.T, config = { text = localize('lobc_credits_opp'), scale = 0.3, colour = G.C.DARK_EDITION}},
         }},
+        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_8'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_sam'), scale = 0.3, colour = G.C.DARK_EDITION}},
+        }},
+        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_6'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_lym'), scale = 0.3, colour = G.C.DARK_EDITION}},
+        }},
+        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_7'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_sil'), scale = 0.3, colour = G.C.DARK_EDITION}},
+        }},
     }}
-end
-
-local game_update = Game.update
-function Game.update(self, dt)
-    game_update(self, dt)
-    -- borrowed from jimball, might need optimization?
-    if lobc_isaac then
-        lobc_isaac_dt = lobc_isaac_dt + dt
-        if lobc_isaac_dt > 0.01666 then
-            lobc_isaac_dt = 0
-            if (lobc_isaac_x == 11 and lobc_isaac_y == 19) then
-                lobc_isaac_x = 0
-                lobc_isaac_y = 0
-            elseif (lobc_isaac_x < 22) then
-                lobc_isaac_x = lobc_isaac_x + 1
-            elseif (lobc_isaac_y < 19) then
-                lobc_isaac_x = 0
-                lobc_isaac_y = lobc_isaac_y + 1
-            end
-            lobc_isaac:set_sprite_pos({ x = lobc_isaac_x, y = lobc_isaac_y })
-        end
-    end
 end
 
 --=============== STEAMODDED OBJECTS 2 ===============--
@@ -1981,6 +1987,12 @@ SMODS.Atlas({
     py = 95
 })
 SMODS.Atlas({
+    key = "LobotomyCorp_yes_no",
+    path = "LobotomyCorp_yes_no.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
     key = "LobotomyCorp_jokersbald",
     path = "LobotomyCorp_jokersbald.png",
     px = 71,
@@ -1997,6 +2009,28 @@ SMODS.Atlas({
     path = "LobotomyCorp_consumable.png",
     px = 71,
     py = 95
+})
+SMODS.Atlas({
+    key = "LobotomyCorp_cutscenes",
+    path = "LobotomyCorp_cutscenes.png",
+    px = 1024,
+    py = 654
+})
+SMODS.Atlas({
+    key = "Erlking_Heathcliff", 
+    atlas_table = "ANIMATION_ATLAS", 
+    path = "Erlking_Heathcliff.png", 
+    px = 1435, 
+    py = 1042,
+    frames = 1,
+})
+SMODS.Atlas({ 
+    key = "LobotomyCorp_ApocBird", 
+    atlas_table = "ANIMATION_ATLAS", 
+    path = "LobotomyCorp_ApocBird.png", 
+    px = 34, 
+    py = 34,
+    frames = 21,
 })
 
 -- ConsumableType (guh)

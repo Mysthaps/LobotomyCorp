@@ -88,4 +88,49 @@ if (SMODS.Mods.TWEWY or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'j_twewy_playmateBeam'})
 end
 
+-- Atlases and Shaders not affected by Pixelation (Yesod)
+local blacklist_atlas = {
+    "cards_1",
+    "cards_2",
+    "ui_1",
+    "ui_2",
+    "balatro",
+    "gamepad_ui",
+    "icons",
+    "centers",
+}
+local blacklist_shader = {
+    "lobc_pixelation",
+    "vortex",
+    "flame",
+    "splash",
+    "flash",
+    "background",
+}
+
+-- Apply Pixelation shader
+local draw_shaderref = Sprite.draw_shader
+function Sprite.draw_shader(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+    local check = G.GAME and G.GAME.modifiers.lobc_yesod
+    for _, v in ipairs(blacklist_atlas) do if self.atlas == G.ASSET_ATLAS[v] then check = false end end
+    if self.atlas == G.ANIMATION_ATLAS["shop_sign"] then check = false end
+    for _, v in ipairs(blacklist_shader) do if _shader == v then check = false end end
+    draw_shaderref(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+    if check then draw_shaderref(self, "lobc_pixelation", _shadow_height, nil, nil, other_obj, ms, mr, mx, my) end
+end
+
+-- Remove blank font when appropriate
+local overlay_menuref = G.FUNCS.overlay_menu
+function G.FUNCS.overlay_menu(args)
+    if G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font end
+    overlay_menuref(args)
+end
+
+-- No editions
+local set_editionref = Card.set_edition
+function Card.set_edition(self, edition, immediate, silent)
+    if G.GAME.modifiers.lobc_yesod then return end
+    set_editionref(self, edition, immediate, silent)
+end
+
 return chal

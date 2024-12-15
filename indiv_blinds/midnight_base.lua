@@ -13,6 +13,7 @@ local blind = {
         "midnight_violet",
         "midnight_amber"
     },
+    boss = {min = 1, max = 10},
     loc_txt = {}
 }
 

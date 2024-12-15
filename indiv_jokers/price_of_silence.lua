@@ -134,7 +134,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
@@ -146,6 +148,35 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
                 }}
             }}
         }
+    end
+end
+
+-- The Price of Silence amplification
+local amplified_values = {
+    "mult",
+    "h_mult",
+    "h_x_mult",
+    "h_chips",
+    "h_dollars",
+    "p_dollars",
+    "t_mult",
+    "t_chips",
+    "x_mult",
+    "h_size",
+    "d_size",
+    "bonus",
+}
+function Card:lobc_check_amplified()
+    if self.ability.price_of_silence_amplified then
+        for _, v in ipairs(amplified_values) do
+            if self.ability[v] and self.config.center.config[v] then
+                self.ability[v] = self.ability[v] + self.config.center.config[v]
+            end
+        end
+        -- glass card moment
+        if self.ability.x_mult and self.config.center.config.Xmult then
+            self.ability.x_mult = self.ability.x_mult + self.config.center.config.Xmult
+        end
     end
 end
 

@@ -8,7 +8,14 @@ local blind = {
     mult = 1.5, 
     vars = {}, 
     debuff = {},
-    loc_txt = {}
+    loc_txt = {},
+    passives = {
+        "psv_lobc_harmony"
+    }
 }
+
+blind.defeat = function(self)
+    if G.GAME.blind.lobc_original_blind ~= "bl_lobc_noon_crimson" then ease_hands_played(1) end
+end
 
 return blind

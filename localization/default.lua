@@ -69,9 +69,9 @@ return {
             und_j_lobc_wall_gazer = {
                 name = "F-01-18",
                 text = {
-                    "\"Over time, her unbearable sorrow",
+                    "Over time, her unbearable sorrow",
                     "grew into a mournful obsession,",
-                    "covered in countless, lengthy hairs.\"",
+                    "covered in countless, lengthy hairs.",
                 }
             },
             und_j_lobc_nothing_there = {
@@ -117,10 +117,10 @@ return {
             und_j_lobc_child_galaxy = {
                 name = "O-01-55",
                 text = {
-                    "\"A teardrop fell from the child's dewy",
+                    "A teardrop fell from the child's dewy",
                     "eyes, as stars showered from the sky.",
                     "The world falls into a slumber,",
-                    "trapped in an ecstatic lullaby.\""
+                    "trapped in an ecstatic lullaby."
                 }
             },
             und_j_lobc_punishing_bird = {
@@ -130,6 +130,14 @@ return {
                     "sins since long ago.",
                     "\"Why do they commit sins,",
                     "knowing it's wrong?\""
+                }
+            },
+            und_j_lobc_judgement_bird = {
+                name = "O-02-62",
+                text = {
+                    "Its scale would never",
+                    "neglect the weight of",
+                    "even the smallest sin.",
                 }
             },
             und_j_lobc_price_of_silence = {
@@ -197,10 +205,10 @@ return {
             und_j_lobc_censored = {
                 name = "O-03-89",
                 text = {
-                    "\"If a flaw in the system disables",
+                    "If a flaw in the system disables",
                     "the censors covering the Abnormality,",
                     "we will once again have to sincerely",
-                    "consider how to dispose of the manager.\"",
+                    "consider how to dispose of the manager.",
                 }
             },
             und_j_lobc_shy_look = {
@@ -208,6 +216,15 @@ return {
                 text = {
                     "It's a good day!",
                     "Are you still shy today?",
+                }
+            },
+            und_j_lobc_you_must_be_happy = {
+                name = "T-09-94",
+                text = {
+                    "Many of those who underwent",
+                    "an operation inside the machine",
+                    "have found themselves",
+                    "rested and healthy again."
                 }
             },
             und_j_lobc_old_faith = {
@@ -225,6 +242,14 @@ return {
                     "Friend... A being more special",
                     "than any other, calling and",
                     "greeting each other by name...",
+                }
+            },
+            und_j_lobc_jolliest_jester = {
+                name = "M-01-13",
+                text = {
+                    "The most exhilirating feelings",
+                    "of joy can be described",
+                    "with only a single letter.",
                 }
             },
             und_j_lobc_youre_bald = {
@@ -440,7 +465,7 @@ return {
                 text = {
                     "{X:mult,C:white} X#1# {} Mult",
                     "{s:0.15} {}",
-                    "If score is at least {X:mult,C:white} X5 {} of {C:attention}Blind{},",
+                    "If score is at least {X:mult,C:white} X3 {} of {C:attention}Blind{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
                     "{s:0.15} {}",
                     "At {X:mult,C:white} X1 {} Mult,",
@@ -513,7 +538,7 @@ return {
                     "When {C:attention}Blind{} is selected, forces",
                     "{C:attention}2{} cards to always be selected",
                     "{s:0.15} {}",
-                    "Destroys scored cards with",
+                    "Destroys scoring cards with",
                     "{C:chips}100{} or more bonus Chips"
                 }
             },
@@ -697,8 +722,8 @@ return {
             dis_j_lobc_big_bird_2 = {
                 name = "O-02-40",
                 text = {
-                    "At the start of the {C:attention}Blind{},",
-                    "{V:1}Enchants{} a random playing card",
+                    "When Blind starts, {V:1}Enchants{}",
+                    "a random playing card",
                     "{C:attention}(#4#/4){} ...",
                     "{C:attention}(#5#/6){} ..."
                 }
@@ -706,23 +731,23 @@ return {
             dis_j_lobc_big_bird_3 = {
                 name = "O-02-40",
                 text = {
-                    "At the start of the {C:attention}Blind{},",
-                    "{V:1}Enchants{} a random playing card",
+                    "When Blind starts, {V:1}Enchants{}",
+                    "a random playing card",
                     "{s:0.15} {}",
-                    "Scored {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "Scoring {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
                     "{C:attention}(#5#/6){} ..."
                 }
             },
             j_lobc_big_bird = {
                 name = "Big Bird",
                 text = {
-                    "At the start of the {C:attention}Blind{},",
-                    "{V:1}Enchants{} a random playing card",
+                    "When round begins, {V:1}Enchants{}",
+                    "a random playing card",
                     "{s:0.15} {}",
-                    "Scored {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "Scoring {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
                     "{s:0.15} {}",
-                    "If no {V:1}Enchanted{} cards were scored,",
-                    "when {C:attention}Blind{} is defeated, destroy",
+                    "When round ends, if no {V:1}Enchanted{}",
+                    "cards were scored this round, destroy",
                     "them and lose {C:money}$#2#{} per card"
                 }
             },
@@ -872,7 +897,7 @@ return {
                 text = {
                     "{C:attention}(#3#/2){} ...",
                     "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/8){} ...",
+                    "{C:attention}(#5#/6){} ...",
                 }
             },
             dis_j_lobc_punishing_bird_2 = {
@@ -880,7 +905,7 @@ return {
                 text = {
                     "{C:mult}+#1#{} Mult",
                     "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/8){} ...",
+                    "{C:attention}(#5#/6){} ...",
                 }
             },
             dis_j_lobc_punishing_bird_3 = {
@@ -890,7 +915,7 @@ return {
                     "{s:0.15} {}",
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
-                    "{C:attention}(#5#/8){} ...",
+                    "{C:attention}(#5#/6){} ...",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
                 }
             },
@@ -905,6 +930,65 @@ return {
                     "If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
+                }
+            },
+            j_lobc_punishing_bird_2 = {
+                name = "Punishing Bird",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
+                    "This Abnormality gains",
+                    "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
+                    "{s:0.15} {}",
+                    "If this Abnormality is {C:attention}sold{}, encounter",
+                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"
+                }
+            },
+
+            dis_j_lobc_judgement_bird_1 = {
+                name = "O-02-52",
+                text = {
+                    "{C:attention}(#2#/3){} ...",
+                    "{C:attention}(#3#/5){} ...",
+                    "{C:attention}(#4#/7){} ...",
+                }
+            },
+            dis_j_lobc_judgement_bird_2 = {
+                name = "Long Bird",
+                text = {
+                    "Increase score by {C:attention}#1#%{} Blind Size per",
+                    "{C:attention}Enhancement{}, {C:blue}Seal{} and {C:dark_edition}Edition{}",
+                    "on destroyed cards",
+                    "{C:attention}(#3#/5){} ...",
+                    "{C:attention}(#4#/7){} ...",
+                }
+            },
+            dis_j_lobc_judgement_bird_3 = {
+                name = "Long Bird",
+                text = {
+                    "Increase score by {C:attention}#1#%{} Blind Size per",
+                    "{C:attention}Enhancement{}, {C:blue}Seal{} and {C:dark_edition}Edition{}",
+                    "on destroyed cards",
+                    "{s:0.15} {}",
+                    "At {C:attention}2{} or more hands left,",
+                    "drawn cards with an {C:attention}Enhancement{},",
+                    "{C:blue}Seal{} or {C:dark_edition}Edition{} are destroyed",
+                    "{C:attention}(#4#/7){} ...",
+                }
+            },
+            j_lobc_judgement_bird = {
+                name = "Judgement Bird",
+                text = {
+                    "Increase score by {C:attention}#1#%{} Blind Size per",
+                    "{C:attention}Enhancement{}, {C:blue}Seal{} and {C:dark_edition}Edition{}",
+                    "on destroyed cards",
+                    "{s:0.15} {}",
+                    "At {C:attention}2{} or more hands left,",
+                    "drawn cards with an {C:attention}Enhancement{},",
+                    "{C:blue}Seal{} or {C:dark_edition}Edition{} are destroyed",
+                    "{s:0.15} {}",
+                    "{C:blue}-1{} hand and {C:red}-1{} discard",
+                    "for each card destroyed this way",
                 }
             },
 
@@ -973,7 +1057,7 @@ return {
                     "non-{C:attention}marked{}, scoring cards to hand",
                     "{s:0.15} {}",
                     "If no {C:hearts}Hearts{} are scored,",
-                    "destroys all scored cards",
+                    "destroys all scoring cards",
                     "{C:attention}(#3#/8){} ..."
                 }
             },
@@ -984,7 +1068,7 @@ return {
                     "non-{C:attention}marked{}, scoring cards to hand",
                     "{s:0.15} {}",
                     "If no {C:hearts}Hearts{} are scored,",
-                    "destroys all scored cards",
+                    "destroys all scoring cards",
                     "{s:0.15} {}",
                     "When this Abnormality is removed,",
                     "{C:attention}permanently{} {C:red}debuffs{} all {C:attention}marked{} cards"
@@ -1138,7 +1222,8 @@ return {
                     "random shop item's price to {C:money}$#1#{}",
                     "{C:inactive}(except Vouchers)",
                     "{s:0.15} {}",
-                    "Buying a different item {C:attention}destroys{}",
+                    "Buying a different item or rerolling",
+                    "the affected item {C:red}destroys{}",
                     "all shop items and {C:attention}locks rerolls{}",
                 }
             },
@@ -1241,9 +1326,9 @@ return {
                 text = {
                     "Removes all other descriptions",
                     "{s:0.15} {}",
-                    "Each Joker gives {C:mult}+#1#{} Mult",
-                    "Each held consumable gives {X:mult,C:white} X#2# {} Mult",
-                    "Each playing card in hand gives {C:chips}+#3#{} chips",
+                    "Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
+                    "consumable gives {X:mult,C:white} X#2# {} Mult, and",
+                    "card in hand gives {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
                     "{C:attention}(#6#/8){} ...",
                 }
@@ -1253,10 +1338,11 @@ return {
                 text = {
                     "Removes all other descriptions",
                     "{s:0.15} {}",
-                    "Each Joker gives {C:mult}+#1#{} Mult",
-                    "Each held consumable gives {X:mult,C:white} X#2# {} Mult",
-                    "Each playing card in hand gives {C:chips}+#3#{} chips",
+                    "Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
+                    "consumable gives {X:mult,C:white} X#2# {} Mult, and",
+                    "card in hand gives {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
+                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
                     "After each hand, {C:red}[CENSORED]{} a random card",
                     "{C:inactive}(Joker, consumable or playing card)",
                 }
@@ -1295,6 +1381,49 @@ return {
                     "The face changes every {C:attention}#1#{} seconds",
                     "{s:0.15} {}",
                     "Happier faces give more Chips and Mult",
+                }
+            },
+
+            dis_j_lobc_you_must_be_happy_1 = {
+                name = "T-09-94",
+                text = {
+                    "{C:attention}(#5#/2){} ...",
+                    "{C:attention}(#6#/4){} ...",
+                    "{C:attention}(#7#/5){} ...",
+                }
+            },
+            dis_j_lobc_you_must_be_happy_2 = {
+                name = "T-09-94",
+                text = {
+                    "When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
+                    "sources for this Ante by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}",
+                    "{C:attention}(#6#/4){} ...",
+                    "{C:attention}(#7#/5){} ...",
+                }
+            },
+            dis_j_lobc_you_must_be_happy_3 = {
+                name = "T-09-94",
+                text = {
+                    "When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
+                    "sources for this Ante by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}",
+                    "{s:0.15} {}",
+                    "After each round, multiply values by",
+                    "{X:blue,C:white} X#3# {} and {X:red,C:white} X#4# {}, then reduces delay",
+                    "{C:attention}(#7#/5){} ...",
+                }
+            },
+            j_lobc_you_must_be_happy = {
+                name = "You Must Be Happy",
+                text = {
+                    "When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
+                    "sources for this {C:attention}Ante{} by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}",
+                    "{s:0.15} {}",
+                    "After each round, multiply values by",
+                    "{X:blue,C:white} X#3# {} and {X:red,C:white} X#4# {}, then reduces delay",
+                    "{s:0.15} {}",
+                    "After {C:attention}6{} rounds held, destroys itself",
+                    "and activates the {C:red}NO{} effect when sold",
+                    "{C:inactive}(Currently {C:attention}#8#{C:inactive} Round(s))"
                 }
             },
 
@@ -1349,7 +1478,7 @@ return {
                     "When round starts, plays {C:attention}5{}",
                     "random cards from your hand",
                     "{s:0.15} {}",
-                    "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
+                    "Scoring cards this way give {X:mult,C:white} X#1# {} Mult",
                     "{C:attention}(#4#/7){} ...",
                 }
             },
@@ -1359,10 +1488,25 @@ return {
                     "When round starts, plays {C:attention}5{}",
                     "random cards from your hand",
                     "{s:0.15} {}",
-                    "Scored cards this way give {X:mult,C:white} X#1# {} Mult",
+                    "Scoring cards this way give {X:mult,C:white} X#1# {} Mult",
                     "{s:0.15} {}",
                     "If {C:attention}three{} hands played this way are",
                     "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}",
+                }
+            },
+
+            dis_j_lobc_jolliest_jester = {
+                name = "M-01-13",
+                text = {
+                    "{C:attention}(#1#/3){} ...",
+                    "{C:attention}(#2#/6){} ...",
+                    "{C:attention}(#3#/8){} ...",
+                }
+            },
+            j_lobc_jolliest_jester = {
+                name = "The Jolliest Jester",
+                text = {
+                    "???",
                 }
             },
 
@@ -1375,7 +1519,7 @@ return {
             j_lobc_youre_bald = {
                 name = "You're Bald...",
                 text = {
-                    "All future Jokers",
+                    "Future Jokers may",
                     "become {C:attention}bald{}",
                 }
             },
@@ -1385,8 +1529,65 @@ return {
             bl_lobc_whitenight = {
                 name = "WhiteNight",
                 text = {
-                    "Played Apostles reduce",
+                    "Destroyed Apostles reduce",
                     "blind size by 5X Base",
+                }
+            },
+            bl_lobc_apocalypse_bird = {
+                name = "Apocalypse Bird",
+                text = {
+                    "\"It's the monster!",
+                    "Big, terrible monster",
+                    "lives in the dark,",
+                    "black forest!\""
+                }
+            },
+            bl_lobc_apocalypse_bird_effect = {
+                name = "Apocalypse Bird",
+                text = {
+                    "Multiply hand's score by X0.5",
+                    "Increase value by X0.1 per",
+                    "played #1#, decreases value",
+                    "by X0.2 per played #2#"
+                }
+            },
+            bl_lobc_ab_beak = {
+                name = "Small Beak",
+                text = {
+                    "???",
+                }
+            },
+            bl_lobc_ab_beak_effect = {
+                name = "Small Beak",
+                text = {
+                    "No repeat hands",
+                    "this blind",
+                }
+            },
+            bl_lobc_ab_eyes = {
+                name = "Big Eyes",
+                text = {
+                    "???",
+                }
+            },
+            bl_lobc_ab_eyes_effect = {
+                name = "Big Eyes",
+                text = {
+                    "Enchants leftmost unenchanted",
+                    "playing card each hand",
+                }
+            },
+            bl_lobc_ab_arms = {
+                name = "Long Arms",
+                text = {
+                    "???",
+                }
+            },
+            bl_lobc_ab_arms_effect = {
+                name = "Long Arms",
+                text = {
+                    "Each unique rank in",
+                    "played hand gains +1 Sin",
                 }
             },
 
@@ -1533,6 +1734,11 @@ return {
                 }
             },
 
+            bl_lobc_erlking_heathcliff = {
+                name = "Erlking Heathcliff",
+                text = {}
+            },
+
             -- The Red Mist
             bl_lobc_red_mist = {
                 name = "The Red Mist",
@@ -1580,7 +1786,7 @@ return {
                 "at the start of each Phase",
                 "Refresh Discards"
             }},
-            bl_lobc_red_mist_effect_12 = { text = {
+            bl_lobc_red_mist_effect_17 = { text = {
                 "No hands allowed until",
                 "no consumables left",
             }},
@@ -1598,7 +1804,7 @@ return {
             bl_lobc_red_mist_effect_16 = { text = {
                 "Must play 5 cards",
             }},
-            bl_lobc_red_mist_effect_17 = { text = {
+            bl_lobc_red_mist_effect_12 = { text = {
                 "Debuff 1-3 random Jokers",
             }},
             bl_lobc_red_mist_effect_18 = { text = {
@@ -1685,6 +1891,229 @@ return {
                     "per {C:attention}Ante{} skipped"
                 }
             }
+        },
+        Passive = {
+            -- General
+            psv_lobc_fixed_encounter = {
+                name = "{C:attention}Fixed Encounter",
+                text = {
+                    "This {C:attention}Blind{} cannot be {C:red}disabled{}",
+                    "Abnormalities' effects cannot directly add",
+                    "score to this {C:attention}Blind{}"
+                }
+            },
+            psv_lobc_final_battle = {
+                name = "{C:attention}Final Battle",
+                text = {
+                    "{C:blue}+1{} hand when hand is played"
+                }
+            },
+            psv_lobc_suppression = {
+                name = "{C:attention}Abnormality Suppression",
+                text = {
+                    "When this {C:attention}Blind{} is suppressed,",
+                    "create a special {C:attention}Abnormality{} card"
+                }
+            },
+            -- Crimson Noon & Crimson Dusk
+            psv_lobc_harmony = {
+                name = "{C:red}Harmony",
+                text = {
+                    "When {C:attention}Blind{} is defeated, {C:blue}+1{} hand",
+                }
+            },
+            -- WhiteNight
+            psv_lobc_the_time_has_come = {
+                name = "{C:white}The time has come.",
+                text = {
+                    "Convert all {C:attention}Blessed{} cards into {C:red}Apostles{}",
+                    "All {C:red}Apostles{} are {C:red}debuffed{}",
+                }
+            },
+            psv_lobc_rise_and_serve_me = {
+                name = "{C:white}Rise and serve me.",
+                text = {
+                    "Before scoring, destroy all played {C:red}Apostles{}",
+                    "Up to {C:attention}12{} {C:red}Apostles{} can be destroyed"
+                }
+            },
+            -- The Red Mist
+            psv_lobc_kali = {
+                name = "{C:red}Kali",
+                text = {
+                    "After score exceeds Blind Size,",
+                    "reset {C:red}discards{}, return all cards to deck",
+                    "and moves to the next phase"
+                }
+            },
+            psv_lobc_the_strongest = {
+                name = "{C:red}The Strongest",
+                text = {
+                    "Score is capped at {C:attention}15%{} Blind Size",
+                }
+            },
+            psv_lobc_the_red_mist = {
+                name = "{C:red}The Red Mist",
+                text = {
+                    "Blind effect changes after scoring",
+                    "Possible effects change each phase"
+                }
+            },
+            psv_lobc_ego_manifestation = {
+                name = "{C:red}E.G.O Manifestation",
+                text = {
+                    "Active after Phase 3",
+                    "{C:red}+1{} card destroyed before each hand",
+                    "Increase score cap to {C:attention}25%{} Blind Size"
+                }
+            },
+            -- Apocalypse Bird
+            psv_lobc_the_three_birds = {
+                name = "{C:purple}The Three Birds",
+                text = {
+                    "When {C:attention}Blind{} starts, fight against",
+                    "{C:attention}Big Eyes{}, {C:red}Small Beak{} and {C:purple}Long Arms{}",
+                    "in order before {C:dark_edition}Apocalypse Bird{}",
+                }
+            },
+            psv_lobc_cracking_eggs = {
+                name = "{C:white}Cracking Eggs",
+                text = {
+                    "When {C:attention}Blind{} is defeated, {C:blue}+1{} hand, reset",
+                    "{C:red}discards{}, and return all cards to deck",
+                    "When {C:purple}Long Arms{} is defeated, resets hands",
+                }
+            },
+            psv_lobc_monster_of_the_forest = {
+                name = "{C:purple}The Monster of the Forest",
+                text = {
+                    "When phase changes, chosen suits change",
+                    "When phase changes, removes a {C:dark_edition}[Persistent]{}",
+                    "effect from {C:attention}Big Eyes{}, {C:red}Small Beak{}",
+                    "and {C:purple}Long Arms{}",
+                    "When phase changes, {C:blue}+1{} hand",
+                }
+            },
+            psv_lobc_eternal_peace = {
+                name = "{C:white}Eternal Peace/Tranquility/Silence",
+                text = {
+                    "Score does not go above {C:attention}25{}/{C:attention}50{}/{C:attention}75%{}",
+                    "Blind Size the first time",
+                }
+            },
+            psv_lobc_misdeeds = {
+                name = "{C:white}Misdeeds Not Allowed!",
+                text = {
+                    "{C:dark_edition}[Persistent]",
+                    "No repeating hands played during {C:red}Small Beak{}",
+                }
+            },
+            psv_lobc_lamp = {
+                name = "{C:white}A Lamp that Burns Forever",
+                text = {
+                    "{C:dark_edition}[Persistent]",
+                    "{C:attention}Enchanted{} is not removed after each blind",
+                    "No hands with {C:attention}2{} or more {C:attention}Enchanted{} cards"
+                }
+            },
+            psv_lobc_judgement = {
+                name = "{C:white}Ceaseless Judgement",
+                text = {
+                    "{C:dark_edition}[Persistent]",
+                    "Each card in played hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
+                    "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
+                    "If {C:attention}3{} or more {C:red}debuffed{} cards are played",
+                    "at once, destroy all {C:red}debuffed{} cards in play",
+                    "and in hand before scoring",
+                }
+            },
+
+            -- Erlking Heathcliff
+            psv_lobc_erlking_1 = {
+                name = "{C:white}Self-loathing",
+                text = {
+                    "All Skills target Heathcliff.",
+                    "Wins Encounter if Heathcliff dies.",
+                }
+            },
+            psv_lobc_erlking_2 = {
+                name = "{C:white}Explosive Emotions",
+                text = {
+                    "When this unit has 'Explosive' Affinity effects:",
+                    "become weaker to the corresponding Affinities and",
+                    "become stronger against every other Affinity;",
+                    "gain a special effect when hit.",
+                }
+            },
+            psv_lobc_erlking_3 = {
+                name = "{C:white}Spreading Emotions",
+                text = {
+                    "When an ally with the same Affinity to this",
+                    "unit's Explosive Emotions effect is defeated:",
+                    "lose Explosive Emotions effect on self, kill all",
+                    "other allies, and gain {C:purple}Deep Bereavement{} next turn.",
+                    "All Sinners gain the effects of the",
+                    "corresponding Explosive Emotions effect, and",
+                    "protection against the corresponding Affinity."
+                }
+            },
+            psv_lobc_erlking_4 = {
+                name = "{C:white}Amalgamated Resentment",
+                text = {
+                    "When this unit has an Explosive Emotions effect,",
+                    "all Skill Affinities are replaced with",
+                    "the corresponding Affinity.",
+                    "Even after the Explosive Emotions effect expires,",
+                    "the changed Skill Affinities remain changed",
+                    "for the rest of the Phase.",
+                }
+            },
+            psv_lobc_erlking_5 = {
+                name = "{C:white}Continuing Revenge",
+                text = {
+                    "Gains a new pattern at 75% and 35% or max HP.",
+                    "When this unit gains a new pattern,",
+                    "halve the Potency and Count of",
+                    "every negative effect on self",
+                }
+            },
+            psv_lobc_erlking_6 = {
+                name = "{C:white}Antagonism",
+                text = {
+                    "If the target's current HP is higher than this unit's,",
+                    "Clash Power +2 and deal +20% more damage",
+                }
+            },
+            psv_lobc_erlking_7 = {
+                name = "{C:white}Long-awaited Moment",
+                text = {
+                    "Clash Win: Heal 5 SP on self",
+                    "Clash Lose against Heathcliff: Lose 5 SP",
+                    "and gain 2 {C:attention}Bind{} next turn. (Once per turn)",
+                    "If this unit did not land a single hit against",
+                    "Heathcliff this turn, lose 5 SP at Turn End"
+                }
+            },
+            psv_lobc_erlking_8 = {
+                name = "{C:white}Heart of Vengeance",
+                text = {
+                    "Turn Start: If not at -45 SP, heal 15 SP.",
+                    "Turn End: If Panicked, recover from Panic",
+                    "at the next Turn Start and reset SP to 0.",
+                    "Turn End: If this unit recovers from Panic",
+                    "gain 2 {C:red}Attack Power Up{} at the next Turn Start",
+                }
+            },
+            psv_lobc_erlking_9 = {
+                name = "{C:white}Fixed Panic",
+                text = {
+                    "This unit's Panic Type does not change when",
+                    "inflicted with an effect that changes Panic Types.",
+                    "Instead, this unit is inflicted with the effect",
+                    "that is inflicted against targets without SP.",
+                }
+            },
         }
     },
     misc = {
@@ -1771,6 +2200,7 @@ return {
             k_lobc_inactive = "inactive",
             k_lobc_punishing_bird = "Punishing Bird",
             k_lobc_iron_maiden = "We Can Change Anything",
+            k_lobc_rank_sin = "Rank's Sin: ",
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
 
@@ -1789,14 +2219,20 @@ return {
 
             ---- Credits ----
             lobc_credits_1 = "Art and SFX from Lobotomy Corporation and Library of Ruina",
-            lobc_credits_2 = "Several tracks used from Lobotomy Corporation and Limbus Company",
+            lobc_credits_2 = "Music from Lobotomy Corporation, Library of Ruina and Limbus Company",
             lobc_credits_full_list = "The full list can be found in the \"music.txt\" file",
             lobc_credits_4 = "Nameless Fetus, The Lady Facing the Wall, All-Around Helper effects: ",
             lobc_credits_5 = "Initial JokerDisplay for All-Around Helper, One Sin and Hundreds of Good Deeds: ",
+            lobc_credits_6 = "Apocalypse Bird blind sprites: ",
+            lobc_credits_7 = "Amplification, Blessed, Censored modifier sprites: ",
+            lobc_credits_8 = "Energy Production concept: ",
             lobc_credits_by = "by ",
             lobc_credits_pm = "Project Moon",
             lobc_credits_twi = "Twilight & Sunset",
             lobc_credits_opp = "OppositeWolf770",
+            lobc_credits_lym = "Lyman",
+            lobc_credits_sil = "SilverSnow",
+            lobc_credits_sam = "Samario",
 
             ---- First time text ----
             k_lobc_first_time_1 = "Manager, welcome to Lobotomy Corporation. Remember to take a look at the mod's settings.",
@@ -1949,6 +2385,44 @@ return {
             k_lobc_whitenight_11 = "Those who endure until the end will be able to proceed.",
             k_lobc_whitenight_12 = "Accept my grace, and I shall bury your errors in the past.",
 
+            ---- Big Eyes ----
+            k_lobc_big_eyes_1 = "No one has to worry. You'll be safe as long as I'm here.",
+            k_lobc_big_eyes_2 = "Let's brighten the road ahead, so I can have a good view of the lives I must save.",
+            k_lobc_big_eyes_3 = "I should do something for the safety of creatures in the forest.",
+            k_lobc_big_eyes_4 = "A big, scary monster lives in this forest! Be careful.",
+            k_lobc_big_eyes_5 = "I'll be sad if you got hurt. I'll protect you.",
+            k_lobc_big_eyes_6 = "I always roam the forest. Who knows, maybe there are children out there who need my help?",
+
+            ---- Small Beak ----
+            k_lobc_small_beak_1 = "Why do they commit sins when they know it's wrong?",
+            k_lobc_small_beak_2 = "If I punish people for their misdeeds, the world will become a peaceful place!",
+            k_lobc_small_beak_3 = "They must be doing bad things because there's no one to scold them.",
+            k_lobc_small_beak_4 = "My flutters might be what it takes to change the world!",
+            k_lobc_small_beak_5 = "Let's fly high. Let's hope that the world will change for the better.",
+            k_lobc_small_beak_6 = "There's no point in forgiving. A misdeed is a misdeed.",
+
+            ---- Long Arms ----
+            k_lobc_long_arms_1 = "Beasts will ransack this forest... I can't let anyone be eaten by them...",
+            k_lobc_long_arms_2 = "The forest will return to peace... We should make it happen...",
+            k_lobc_long_arms_3 = "My scales always show clear verdict; I can make sound judgement with it...",
+            k_lobc_long_arms_4 = "Let me weigh your sins...",
+            k_lobc_long_arms_5 = "I'll protect this forest with the creatures living with us...",
+            k_lobc_long_arms_6 = "I will pass fair judgement upon all, marking out the misdeeds...",
+
+            ---- Apocalypse Bird ----
+            k_lobc_apocalypse_bird_1 = "With just one simple act, I'll give you a permanent and comfortable rest...",
+            k_lobc_apocalypse_bird_2 = "We are punished for our sins, but it's clear that yet more will sprout from the roots of sin.",
+            k_lobc_apocalypse_bird_3 = "There will never be a day when this scale of justice does not tilt...",
+            k_lobc_apocalypse_bird_4 = "I can't let evil take all these precious things away.",
+            k_lobc_apocalypse_bird_5 = "I have to hurry up and find them. I can't have the beast destroy this place...",
+            k_lobc_apocalypse_bird_6 = "We hope for a world where pitiful lives can live in comfort.",
+            k_lobc_apocalypse_bird_7 = "To protect this place we love more than anyone.",
+            k_lobc_apocalypse_bird_8 = "When you reach the end, there will be no such thing as fear...",
+            k_lobc_apocalypse_bird_9 = "Those who endure the fear will attain peace...",
+            k_lobc_apocalypse_bird_10 = "Let's be free before we have to face that fear...",
+            k_lobc_apocalypse_bird_11 = "I whisper, without cessation...",
+            k_lobc_apocalypse_bird_12 = "I condemn you, but you will still commit more sin without end...",
+
             ---- The Price of Silence ----
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
             k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
@@ -2093,7 +2567,7 @@ return {
             ach_lobc_penitence = "Confess to One Sin and Hundreds of Good Deeds and defeat WhiteNight",
             ach_lobc_love_and_hate = "Have The Queen of Hatred for 9 rounds in one game without going into Hysteria",
             ach_lobc_bear_paws = "Upgrade the same hand type using Happy Teddy Bear 10 times in one game without resetting it",
-            ach_lobc_solitude = "Reach -50 Mult or below on Old Lady",
+            ach_lobc_solitude = "Reach -50 Mult or lower on Old Lady",
             ach_lobc_bless = "Have not I chosen you twelve, and one of you is a devil?",
             ach_lobc_paradise_lost = "Fully observe WhiteNight",
             ach_lobc_our_galaxy = "Reach X4 or higher on Child of the Galaxy",
@@ -2121,5 +2595,5 @@ return {
             ach_lobc_briah = "Beat \"Briah\"",
             ach_lobc_atziluth = "Beat \"Atziluth\"",
         }
-    }
+    },
 }

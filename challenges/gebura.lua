@@ -1,20 +1,10 @@
-local config = SMODS.current_mod.config
-local omeganum_check = nil
-if Talisman and Talisman.config_file and Talisman.config_file.break_infinity == "omeganum" then
-    omeganum_check = true
-end
-
 local chal = {
     rules = {
         custom = {
             {id = "lobc_gebura"},
             {id = "lobc_gebura_2"},
             {id = "lobc_fast_ante_1"},
-            omeganum_check and {id = "lobc_gebura_omeganum"},
         },
-    },
-    consumeables = {
-        {id = 'c_lobc_tt2', eternal = true, edition = 'negative'},
     },
     deck = {
         type = "Challenge Deck",

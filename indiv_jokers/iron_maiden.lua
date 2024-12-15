@@ -4,7 +4,7 @@ local joker = {
         blind_gain = 5, hands_loss = 0.02, 
         loss_increase = 0.02, interval = 10, 
         elapsed = 0, seconds = 0
-    }}, rarity = 1, cost = 6,
+    }}, rarity = 1, cost = 5,
     pos = {x = 7, y = 5}, 
     blueprint_compat = false, 
     eternal_compat = true,
@@ -16,7 +16,7 @@ local joker = {
 }
 
 joker.update = function(self, card, dt)
-    if card.area == G.jokers and G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and not card.debuff then
+    if card.area == G.jokers and G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND and not card.debuff and not (G.GAME.blind and find_passive("psv_lobc_fixed_encounter")) then
         card.ability.extra.elapsed = card.ability.extra.elapsed + (dt / G.SETTINGS.GAMESPEED)
         if card.ability.extra.elapsed >= 1 then
             card.ability.extra.elapsed = card.ability.extra.elapsed - 1
@@ -49,6 +49,7 @@ joker.update = function(self, card, dt)
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
                 card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2
                 card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase
+                card.ability.extra.hands_loss = math.floor(card.ability.extra.hands_loss*100)/100
                 card.ability.extra.seconds = card.ability.extra.seconds - card.ability.extra.interval
                 -- Update JokerDisplay text
                 if card.joker_display_values then
@@ -58,6 +59,11 @@ joker.update = function(self, card, dt)
             end
         end
     end
+end
+
+joker.set_ability = function(self, card, initial, delay_sprites)
+    card.ability.extra.blind_gain = card.ability.extra.blind_gain * 2^(G.GAME.round_resets.ante-1)
+    card.ability.extra.hands_loss = card.ability.extra.hands_loss + card.ability.extra.loss_increase*(G.GAME.round_resets.ante-1)
 end
 
 joker.calculate = function(self, card, context)
@@ -81,11 +87,13 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-        local check = (G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND)
+        local check = (G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND) and not (G.GAME.blind and find_passive("psv_lobc_fixed_encounter"))
         desc_nodes[#desc_nodes+1] = {
             {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
                 {n=G.UIT.C, config={ref_table = self, align = "m", colour = check and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={

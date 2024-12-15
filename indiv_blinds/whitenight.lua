@@ -7,7 +7,12 @@ local blind = {
     debuff = {},
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('D41C25'),
-    loc_txt = {}
+    loc_txt = {},
+    passives = {
+        "psv_lobc_the_time_has_come",
+        "psv_lobc_rise_and_serve_me",
+        "psv_lobc_suppression"
+    }
 }
 
 blind.set_blind = function(self, reset, silent)
@@ -84,12 +89,14 @@ end
 blind.press_play = function(self)
     local proc = false
     local base_chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.starting_params.ante_scaling
+    local destroyed_cards = {}
     G.E_MANAGER:add_event(Event({
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.ability and v.ability.plague_doctor_baptism then
                     if G.GAME.blind.chips > base_chips*6.66 then
                         proc = true
+                        destroyed_cards[#destroyed_cards+1] = v
                         v:start_dissolve() 
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
@@ -104,6 +111,10 @@ blind.press_play = function(self)
                         }))
                     end
                 end
+            end
+            delay(0.2)
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
             end
             return true 
         end 

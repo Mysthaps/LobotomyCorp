@@ -123,6 +123,29 @@ return {
         end,
     },
 
+    -- Roland01, Roland02, Roland03: Apocalypse Bird
+    {
+        key = "music_roland1",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.apoc_music == 1) and 5 or false
+        end,
+    },
+    {
+        key = "music_roland2",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.apoc_music == 2) and 5 or false
+        end,
+    },
+    {
+        key = "music_roland3",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME and G.GAME.apoc_music == 3) and 5 or false
+        end,
+    },
+
     -- Third Warning: WhiteNight
     {
         key = "music_third_warning",
@@ -139,9 +162,6 @@ return {
             if config.no_music then return false end
             for _, v in pairs({"malkuth", "yesod", "hod", "netzach", "tiphereth"}) do
                 if G.GAME and G.GAME.modifiers["lobc_"..v] and G.GAME.round_resets.ante <= 3 then return 10 end
-            end
-            for _, v in pairs({"gebura"}) do
-                if G.GAME and G.GAME.modifiers["lobc_"..v] and not G.GAME.blind.lobc_current_effect then return 10 end
             end
             if G.GAME.blind and G.GAME.blind.config.blind.phases and G.GAME.current_round.lobc_phases_beaten == 0 then return 10 end
             return (G.GAME and G.GAME.blind and 

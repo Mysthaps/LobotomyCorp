@@ -3,13 +3,22 @@ local blind = {
     name = "The Red Mist",
     pos = {x = 0, y = 19},
     dollars = 0, 
-    mult = 8, 
+    mult = 4, 
     phases = 4, 
     vars = {}, 
     debuff = {},
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('C71F1F'),
-    loc_txt = {}
+    loc_txt = {},
+    passives = {
+        "psv_lobc_fixed_encounter",
+        "psv_lobc_final_battle",
+        "psv_lobc_kali",
+        "psv_lobc_the_strongest",
+        "psv_lobc_the_red_mist",
+        "psv_lobc_ego_manifestation",
+    },
+    phase_refresh = true
 }
 
 local function destroy_cards(cardarea, min, max)
@@ -18,6 +27,7 @@ local function destroy_cards(cardarea, min, max)
         trigger = 'immediate',
         func = function()
             local available_cards = {}
+            local destroyed_cards = {}
             for _, v in ipairs(cardarea.cards) do
                 if not v.highlighted then available_cards[#available_cards+1] = v end
             end
@@ -25,9 +35,14 @@ local function destroy_cards(cardarea, min, max)
                 if #available_cards <= 0 then break end
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_"..G.GAME.blind.lobc_current_effect))
                 table.remove(available_cards, chosen_card_key)
+                destroyed_cards[#destroyed_cards+1] = chosen_card
                 chosen_card:start_dissolve() 
-                play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
+                if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
                 first = nil
+            end
+            delay(0.2)
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
             end
         return true
         end
@@ -46,7 +61,7 @@ end
 
 blind.set_blind = function(self, reset, silent)
     G.GAME.current_round.lobc_phases_beaten = 0
-    G.GAME.blind.lobc_current_effect = 1
+    G.GAME.blind.lobc_current_effect = pseudorandom("red_mist_phase_1", 2, 8)
     G.GAME.blind.lobc_score_cap = 0.15
     G.GAME.blind:set_text()
     G.GAME.blind.prepped = nil
@@ -87,6 +102,7 @@ blind.press_play = function(self)
         local loss = (G.GAME.blind.lobc_current_effect == 3) and 1 or 3
         local current_dollars = G.GAME.dollars
         local first = true
+        local destroyed_cards = {}
         G.E_MANAGER:add_event(Event({
             func = function()
                 for _, v in ipairs(G.play.cards) do
@@ -95,15 +111,20 @@ blind.press_play = function(self)
                         ease_dollars(-loss) 
                         current_dollars = current_dollars - loss
                     else
+                        destroyed_cards[#destroyed_cards+1] = v
                         v:start_dissolve() 
-                        play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
+                        if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
                         first = nil
                     end
                     delay(0.23)
                 end
+                delay(0.2)
+                for i = 1, #G.jokers.cards do
+                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
+                end
             return true 
             end 
-        })) 
+        }))
         G.GAME.blind.triggered = true
         return true
     end
@@ -135,6 +156,7 @@ blind.press_play = function(self)
     if G.GAME.blind.lobc_current_effect == 15 then
         local current_dollars = G.GAME.dollars
         local first = true
+        local destroyed_cards = {}
         G.E_MANAGER:add_event(Event({
             func = function()
                 for _, v in ipairs(G.hand.cards) do
@@ -143,11 +165,16 @@ blind.press_play = function(self)
                         ease_dollars(-2) 
                         current_dollars = current_dollars - 2
                     else
+                        destroyed_cards[#destroyed_cards+1] = v
                         v:start_dissolve() 
-                        play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
+                        if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
                         first = nil
                     end
                     delay(0.23)
+                end
+                delay(0.2)
+                for i = 1, #G.jokers.cards do
+                    G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
                 end
             return true 
             end 
@@ -172,8 +199,8 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             return true
         end
     end
-    -- [12] No hands until all consumables used
-    if G.GAME.blind.lobc_current_effect == 12 then
+    -- [17] No hands until all consumables used
+    if G.GAME.blind.lobc_current_effect == 17 then
         if #G.consumeables.cards > 0 then
             G.GAME.blind.triggered = true
             return true
@@ -299,10 +326,11 @@ blind.drawn_to_hand = function(self)
                 {min = 2, max = 7},
             }
             local phase = G.GAME.current_round.lobc_phases_beaten
+            if phase >= 2 then G.GAME.blind.lobc_score_cap = 0.25 end
             local effect_selected = nil
 
             local function additional_check(eff)
-                if eff == 12 then return (#G.consumeables.cards == 0) end
+                if eff == 17 then return (#G.consumeables.cards == 0) end
                 if eff == 22 then return (#G.jokers.cards == 0) end
                 if eff == 34 then return (#G.jokers.cards <= 5 or #get_available_jokers() == 0) end
             end
@@ -328,15 +356,15 @@ blind.drawn_to_hand = function(self)
         G.GAME.lobc_hod_modifier = 1
         G.GAME.blind.lobc_has_sold_joker = false
 
-        -- [17] Debuff 1-3 random Jokers
-        if G.GAME.blind.lobc_current_effect == 17 then
+        -- [12] Debuff 1-3 random Jokers
+        if G.GAME.blind.lobc_current_effect == 12 then
             local available_cards = {}
             for _, v in ipairs(G.jokers.cards) do
                 if not v.ability.perma_debuff and not v.ability.lobc_gebura_debuff then available_cards[#available_cards+1] = v end
             end
-            for i = 1, pseudorandom("gebura_effect_17", 1, 3) do
+            for i = 1, pseudorandom("gebura_effect_12", 1, 3) do
                 if #available_cards <= 0 then break end
-                local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_17"))
+                local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_12"))
                 table.remove(available_cards, chosen_card_key)
                 chosen_card.ability.lobc_gebura_debuff = true
                 chosen_card:juice_up()
@@ -446,6 +474,17 @@ end
 -- [1] Caps score, using Cryptid's The Tax function
 blind.cry_cap_score = function(self, score)
     return math.floor(math.min(G.GAME.blind.lobc_score_cap*G.GAME.blind.chips,score)+0.5)
+end
+
+-- [34] Selling card
+local sell_cardref = Card.sell_card
+function Card.sell_card(self)
+    if self.ability.set == 'Joker' and G.GAME.blind then
+        if G.GAME.blind.config.blind.key == "bl_lobc_red_mist" then
+            G.GAME.blind.lobc_has_sold_joker = true
+        end
+    end
+    sell_cardref(self)
 end
 
 return blind

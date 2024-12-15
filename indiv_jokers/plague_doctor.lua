@@ -107,30 +107,7 @@ joker.calculate = function(self, card, context)
             if card.ability.extra.apostles >= 12 and not G.GAME.modifiers.lobc_all_whitenight then
                 for _, v in ipairs(G.jokers.cards) do
                     if v.config.center.key == "j_lobc_plague_doctor" then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after', 
-                            delay = 1*G.SETTINGS.GAMESPEED,
-                            func = function()
-                                play_sound('tarot1')
-                                v.T.r = -0.2
-                                v:juice_up(0.3, 0.4)
-                                v.states.drag.is = true
-                                v.children.center.pinch.x = true
-                                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                    func = function()
-                                        G.jokers:remove_card(v)
-                                        v:remove()
-                                        v = nil
-                                    return true 
-                                    end
-                                })) 
-                                return true
-                            end
-                        }))
-                        SMODS.eval_this(v, {
-                            message = localize('k_lobc_breached'),
-                            colour = G.C.FILTER
-                        })
+                        abno_breach(v, 1)
                     end
                 end
                 G.GAME.pool_flags["plague_doctor_breach"] = true
@@ -180,7 +157,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'lobc_plague_doctor_debuffed', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}

@@ -29,6 +29,7 @@ cons.use = function(self, card, area, copier)
     ease_ante(7 - temp)
 
     local first = true
+    local destroyed_cards = {}
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
@@ -40,9 +41,14 @@ cons.use = function(self, card, area, copier)
                 if #available_cards <= 0 then break end
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("tt2_proto"))
                 table.remove(available_cards, chosen_card_key)
+                destroyed_cards[#destroyed_cards+1] = chosen_card
                 chosen_card:start_dissolve() 
-                play_sound("lobc_gebura_slash", math.random(90, 110)/100, first and 0.5 or 0)
+                if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
                 first = nil
+            end
+            delay(0.2)
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
             end
         return true
         end

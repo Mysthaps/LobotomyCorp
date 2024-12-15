@@ -73,33 +73,9 @@ joker.calculate = function(self, card, context)
         G.GAME.servant_triggered = false
 
         if card.ability.extra.counter >= 3 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.5
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.3,
-                        blockable = false,
-                        func = function()
-                            G.jokers:remove_card(card)
-                            card:remove()
-                            card = nil
-                        return true;
-                        end
-                    }))
-                return true
-                end
-            }))
+            G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.5
+            abno_breach(v, 1)
             G.GAME.pool_flags["servant_of_wrath_breach"] = true
-            return {
-                message = localize('k_lobc_breached'),
-                colour = G.C.FILTER
-            }
         end
     end
 
@@ -130,7 +106,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
     
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}

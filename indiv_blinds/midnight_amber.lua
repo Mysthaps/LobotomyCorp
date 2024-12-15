@@ -27,20 +27,24 @@ blind.set_blind = function(self, reset, silent)
 end
 
 blind.press_play = function(self)
-    local proc = false
+    local destroyed_cards = {}
     G.E_MANAGER:add_event(Event({
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.debuff then
-                    proc = true
+                    destroyed_cards[#destroyed_cards+1] = card
                     v:start_dissolve() 
                 end
             end
             return true 
         end 
     }))
-    if proc then G.GAME.blind:wiggle() end
-    return proc
+    delay(0.2)
+    for i = 1, #G.jokers.cards do
+        G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destriyed_cards})
+    end
+    if #destroyed_cards > 0 then G.GAME.blind:wiggle() end
+    return #destroyed_cards > 0
 end
 
 blind.defeat = function(self)

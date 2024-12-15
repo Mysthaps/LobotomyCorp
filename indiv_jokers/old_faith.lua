@@ -1,6 +1,6 @@
 local joker = {
     name = "Old Faith and Promise",
-    config = {extra = 4}, rarity = 1, cost = 4,
+    config = {extra = 4}, rarity = 1, cost = 6,
     pos = {x = 9, y = 6}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -53,7 +53,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}

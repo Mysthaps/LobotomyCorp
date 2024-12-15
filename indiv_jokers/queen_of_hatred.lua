@@ -1,6 +1,6 @@
 local joker = {
     name = "The Queen of Hatred",
-    config = {extra = {x_mult = 5, loss = 0.5, hysteria = false, round_count = 0}}, rarity = 3, cost = 8,
+    config = {extra = {x_mult = 3, loss = 0.25, hysteria = false, round_count = 0}}, rarity = 3, cost = 7,
     pos = {x = 3, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = false,
@@ -25,9 +25,9 @@ joker.calculate = function(self, card, context)
 
         local chips_check = false
         if to_big then
-            chips_check = (to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) * 5)
+            chips_check = (to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) * 3)
         else
-            chips_check = (G.GAME.chips >= G.GAME.blind.chips * 5)
+            chips_check = (G.GAME.chips >= G.GAME.blind.chips * 3)
         end
 
         if chips_check then
@@ -92,11 +92,22 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if specific_vars and specific_vars.debuffed then
+    if not self.discovered and card.area ~= G.jokers then
+        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
+    elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
         localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
     end
+end
+
+-- Remove Queen of Hatred's sell button
+local can_sell_cardref = Card.can_sell_card
+function Card.can_sell_card(self, context)
+    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
+        return false
+    end
+    return can_sell_cardref(self, context)
 end
 
 if JokerDisplay then
