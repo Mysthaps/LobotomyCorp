@@ -1,6 +1,6 @@
 local joker = {
     name = "Old Lady",
-    config = {extra = {mult = 0, gain = 1, loss = 10}}, rarity = 1, cost = 4,
+    config = {extra = {mult = 0, gain = 1, loss = 5}}, rarity = 1, cost = 4,
     pos = {x = 7, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -77,7 +77,7 @@ function Card.add_to_deck(self, from_debuff)
                         return true
                     end
                 }))
-                if v.ability.extra.mult <= -50 then
+                if v.ability.extra.mult <= -20 then
                     check_for_unlock({type = "lobc_solitude"})
                 end
             end
