@@ -2,7 +2,7 @@ local joker = {
     name = "You Must Be Happy",
     config = {extra = {
         pos = 1.2, neg = 0.85, state = true,
-        elapsed = 0, held = 4, is_sold = false, is_bought = true
+        elapsed = 0, held = 0, is_sold = false, is_bought = true
     }}, rarity = 1, cost = 6,
     pos = {x = 6, y = 6}, 
     blueprint_compat = false, 
