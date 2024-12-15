@@ -1,6 +1,6 @@
 local joker = {
     name = "Punishing Bird",
-    config = {extra = {mult = 12, rounds_played = 0, start_apoc = false}}, rarity = 1, cost = 5,
+    config = {extra = {mult = 15, rounds_played = 0, start_apoc = false}}, rarity = 1, cost = 5,
     pos = {x = 0, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = false,
