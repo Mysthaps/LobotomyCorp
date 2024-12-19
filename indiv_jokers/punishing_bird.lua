@@ -73,6 +73,14 @@ joker.add_to_deck = function(self, card, from_debuff)
     end
 end
 
+local card_hoverref = Card.hover
+function Card.hover(self)
+    if self.config.center.key == "j_lobc_punishing_bird" and self.area == G.jokers and self.children.alert then
+        self.children.alert = nil
+    end
+    card_hoverref(self)
+end
+
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card.ability.extra.mult, card.ability.extra.rounds_played, card:check_rounds(2), card:check_rounds(4), card:check_rounds(6) }
     local desc_key = self.key
