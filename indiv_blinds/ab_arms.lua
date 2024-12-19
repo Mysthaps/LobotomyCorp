@@ -37,40 +37,6 @@ blind.drawn_to_hand = function(self)
     end
 end
 
-blind.press_play = function(self)
-    local destroyed_cards = {}
-    local count = 0
-    for _, v in ipairs(G.play.cards) do
-        if v.debuff then count = count + 1 end
-    end
-    if count >= 3 then
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                for _, v in ipairs(G.play.cards) do
-                    if v.debuff then
-                        destroyed_cards[#destroyed_cards+1] = card
-                        v:start_dissolve() 
-                    end
-                end
-                for _, v in ipairs(G.hand.cards) do
-                    if v.debuff then
-                        destroyed_cards[#destroyed_cards+1] = card
-                        v:start_dissolve() 
-                    end
-                end
-                return true 
-            end 
-        }))
-
-        delay(0.2)
-        for i = 1, #G.jokers.cards do
-            G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-        end
-        if #destroyed_cards > 0 then G.GAME.blind:wiggle() end
-        return #destroyed_cards > 0
-    end
-end
-
 blind.defeat = function(self)
     G.GAME.apoc_music = 3
     play_sound("lobc_dice_roll", 1, 0.8)
@@ -96,14 +62,18 @@ blind.recalc_debuff = function(self, card, from_blind)
     end
 end
 
+local lamped = false
+local beaked = false
 blind.debuff_hand = function(self, cards, hand, handname, check)
     local count = 0
     local temp_ranks = {}
     for _, v in ipairs(cards) do
         if v.ability.big_bird_enchanted then count = count + 1 end
     end
-    if count >= 2 then return true end
-    if G.GAME.lobc_small_beak[handname] then return true end
+    if count >= 2 then lamped = true; return true 
+    else lamped = false end
+    if G.GAME.lobc_small_beak and G.GAME.lobc_small_beak[handname] then beaked = handname; return true
+    else beaked = false end
     if not check then 
         for _, v in ipairs(cards) do
             local id = v:get_id()
@@ -115,6 +85,11 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             end
         end
     end
+end
+
+blind.get_loc_debuff_text = function(self)
+    if lamped then return localize("k_lobc_lamp") end
+    if beaked then return localize("k_lobc_misdeeds").." ("..localize(beaked, 'poker_hands')..')' end
 end
 
 return blind

@@ -41,22 +41,6 @@ if not blind_choice.config.color and not G.GAME.modifiers.lobc_netzach then
 end'''
 match_indent = true
 
-# Override Steamodded's challenges unlock all
-[[patches]]
-[patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = "challenge_list[#challenge_list+1] ="
-position = "before"
-payload = '''
-if v.mod and v.mod.id == "LobotomyCorp" then
-    if v.unlocked and type(v.unlocked) == 'function' then
-        challenge_unlocked = v:unlocked()
-    elseif type(v.unlocked) == 'boolean' then
-        challenge_unlocked = v.unlocked
-    end
-end'''
-match_indent = true
-
 # Fix background crashing for non-bosses
 [[patches]]
 [patches.pattern]
@@ -109,23 +93,6 @@ payload = '''
 end'''
 match_indent = true
 
-# Patch G.LANG so i can change the font at will
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "self.LANG = self.LANGUAGES[self.SETTINGS.language] or self.LANGUAGES['en-us']"
-position = "at"
-payload = "self.LANG = copy_table(self.LANGUAGES[self.SETTINGS.language] or self.LANGUAGES['en-us'])"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value = 'chips_text', lang = G.LANGUAGES['en-us'], scale = 0.85, colour = G.C.WHITE, id = 'chip_UI_count', func = 'chip_UI_set', shadow = true}}"
-position = "at"
-payload = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value = 'chips_text', font = (G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6) and G.FONTS['blank'] or G.LANGUAGES['en-us'].font, scale = 0.85, colour = G.C.WHITE, id = 'chip_UI_count', func = 'chip_UI_set', shadow = true}}"
-match_indent = true
-
 # Patches lifted straight from Cryptid (The Tax effect)
 [[patches]]
 [patches.pattern]
@@ -158,3 +125,5 @@ pattern = "self.hands_sub = G.GAME.round_resets.hands - 1"
 position = 'at'
 match_indent = true
 payload = '''self.hands_sub = G.GAME.current_round.hands_left - 1'''
+
+# Modify hand debuffed text

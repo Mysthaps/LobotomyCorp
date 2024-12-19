@@ -48,39 +48,6 @@ end
 
 blind.press_play = function(self)
     G.GAME.blind.prepped = true
-    if find_passive("psv_lobc_judgement") then
-        local destroyed_cards = {}
-        local count = 0
-        for _, v in ipairs(G.play.cards) do
-            if v.debuff then count = count + 1 end
-        end
-        if count >= 3 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    for _, v in ipairs(G.play.cards) do
-                        if v.debuff then
-                            destroyed_cards[#destroyed_cards+1] = card
-                            v:start_dissolve() 
-                        end
-                    end
-                    for _, v in ipairs(G.hand.cards) do
-                        if v.debuff then
-                            destroyed_cards[#destroyed_cards+1] = card
-                            v:start_dissolve() 
-                        end
-                    end
-                    return true 
-                end 
-            }))
-
-            delay(0.2)
-            for i = 1, #G.jokers.cards do
-                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-            end
-            if #destroyed_cards > 0 then G.GAME.blind:wiggle() end
-            return #destroyed_cards > 0
-        end
-    end
 end
 
 blind.drawn_to_hand = function(self)
@@ -149,15 +116,19 @@ blind.defeat = function(self)
     G.GAME.pool_flags["apocalypse_bird_defeated"] = true
 end
 
+local lamped = false
+local beaked = false
 blind.debuff_hand = function(self, cards, hand, handname, check)
     if find_passive("psv_lobc_lamp") then
         local count = 0
         for _, v in ipairs(cards) do
             if v.ability.big_bird_enchanted then count = count + 1 end
         end
-        if count >= 2 then return true end
+        if count >= 2 then lamped = true; return true 
+        else lamped = false end
     end
-    if G.GAME.lobc_small_beak and G.GAME.lobc_small_beak[handname] then return true end
+    if G.GAME.lobc_small_beak and G.GAME.lobc_small_beak[handname] then beaked = handname; return true
+    else beaked = false end
     if find_passive("psv_lobc_judgement") and not check then
         for _, v in ipairs(cards) do
             local id = v:get_id()
@@ -165,6 +136,11 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             G.GAME.lobc_long_arms[id] = G.GAME.lobc_long_arms[id] + 1
         end
     end
+end
+
+blind.get_loc_debuff_text = function(self)
+    if lamped then return localize("k_lobc_lamp") end
+    if beaked then return localize("k_lobc_misdeeds").." ("..localize(beaked, 'poker_hands')..')' end
 end
 
 blind.cry_cap_score = function(self, score)

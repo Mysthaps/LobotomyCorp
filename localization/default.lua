@@ -2023,9 +2023,6 @@ return {
                     "Each card in played hand adds {C:attention}+1 {C:red}Sin",
                     "to all playing cards of that rank",
                     "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
-                    "If {C:attention}3{} or more {C:red}debuffed{} cards are played",
-                    "at once, destroy all {C:red}debuffed{} cards in play",
-                    "and in hand before scoring",
                 }
             },
 
@@ -2203,6 +2200,9 @@ return {
             k_lobc_rank_sin = "Rank's Sin: ",
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
+
+            k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
+            k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
 
             lobc_show_art_undiscovered = "Show Abnormality Art when Undiscovered",
             lobc_disable_ordeals = "Disable Random Ordeals",

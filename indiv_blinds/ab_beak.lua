@@ -40,14 +40,23 @@ blind.defeat = function(self)
     }))
 end
 
+local lamped = false
+local beaked = false
 blind.debuff_hand = function(self, cards, hand, handname, check)
     local count = 0
     for _, v in ipairs(cards) do
         if v.ability.big_bird_enchanted then count = count + 1 end
     end
-    if count >= 2 then return true end
-    if G.GAME.lobc_small_beak[handname] then return true end
+    if count >= 2 then lamped = true; return true 
+    else lamped = false end
+    if G.GAME.lobc_small_beak and G.GAME.lobc_small_beak[handname] then beaked = handname; return true
+    else beaked = false end
     if not check then G.GAME.lobc_small_beak[handname] = true end
+end
+
+blind.get_loc_debuff_text = function(self)
+    if lamped then return localize("k_lobc_lamp") end
+    if beaked then return localize("k_lobc_misdeeds").." ("..localize(beaked, 'poker_hands')..')' end
 end
 
 return blind

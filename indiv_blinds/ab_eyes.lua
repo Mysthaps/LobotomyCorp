@@ -46,12 +46,14 @@ blind.defeat = function(self)
     }))
 end
 
+local lamped = false
 blind.debuff_hand = function(self, cards, hand, handname, check)
     local count = 0
     for _, v in ipairs(cards) do
         if v.ability.big_bird_enchanted then count = count + 1 end
     end
-    if count >= 2 then return true end
+    if count >= 2 then lamped = true; return true 
+    else lamped = false end
     if not check then
         G.E_MANAGER:add_event(Event({
             trigger = "after",
@@ -76,7 +78,10 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
             end 
         })) 
     end
-    
+end
+
+blind.get_loc_debuff_text = function(self)
+    if lamped then return localize("k_lobc_lamp") end
 end
 
 return blind

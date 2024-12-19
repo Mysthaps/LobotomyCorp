@@ -136,8 +136,6 @@ function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped
                 return true
                 end
             }))
-            print(e_card.area == G.deck and "deck" or "not deck")
-            print(e_card.area == G.discard and "discard" or "not discard")
             return draw_cardref(e_card.area, G.hand, percent, dir, sort, e_card, delay, mute, stay_flipped, vol, discarded_only)
         end
     end

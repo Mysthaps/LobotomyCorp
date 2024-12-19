@@ -510,7 +510,7 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
-    if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
+    --[[if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
     if G.GAME.modifiers.lobc_production then
         local ante = G.GAME.round_resets.ante
         if ante <= 2 then return "bl_lobc_dawn_base" end
@@ -527,7 +527,8 @@ function get_new_boss()
     while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do -- does this work?
         new_boss = get_new_bossref()
     end
-    return new_boss
+    return new_boss]]--
+    return "bl_lobc_apocalypse_bird"
 end
 
 -- Overwrite blind select for Ordeals
