@@ -88,10 +88,10 @@ function CardArea.emplace(self, card, location, stay_flipped)
         G.E_MANAGER:add_event(Event({
             trigger = "after",
             func = function()
-                if G.GAME.current_round.hands_left > 1 then
+                if G.GAME.current_round.discards_left >= 1 then
                     card:start_dissolve({G.C.GOLD})
-                    ease_hands_played(-1, true)
-                    if G.GAME.current_round.discards_left > 0 then ease_discard(-1, true) end
+                    ease_discard(-1, true)
+                    G.FUNCS.draw_from_deck_to_hand(1)
                     delay(0.15*G.SETTINGS.GAMESPEED)
                     for i = 1, #G.jokers.cards do
                         G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = {card}})

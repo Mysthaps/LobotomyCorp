@@ -987,8 +987,8 @@ return {
                     "drawn cards with an {C:attention}Enhancement{},",
                     "{C:blue}Seal{} or {C:dark_edition}Edition{} are destroyed",
                     "{s:0.15} {}",
-                    "{C:blue}-1{} hand and {C:red}-1{} discard",
-                    "for each card destroyed this way",
+                    "{C:red}-1{} discard for each",
+                    "card destroyed this way",
                 }
             },
 
