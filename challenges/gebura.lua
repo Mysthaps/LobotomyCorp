@@ -1,3 +1,4 @@
+local config = SMODS.current_mod.config
 local chal = {
     rules = {
         custom = {
