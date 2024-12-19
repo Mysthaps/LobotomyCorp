@@ -288,9 +288,7 @@ end
 -- Load challenges
 for _, v in ipairs(challenge_list) do
     local chal = SMODS.load_file("challenges/" .. v .. ".lua")()
-
     chal.key = v
-    chal.loc_txt = ""
     local chal_obj = SMODS.Challenge(chal)
 end
 
