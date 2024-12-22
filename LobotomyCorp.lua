@@ -119,6 +119,7 @@ local sound_list = {
     music_tiphereth_2 = "Dark Fantasy Scene",
     music_gebura_1 = "Distorted Night",
     music_gebura_2 = "Insignia Decay",
+    music_tpov = "Through Patches of Violet",
 
     meltdown_start = "Boss_StartButton",
     overload_alert = "OverloadAlert3",
@@ -937,6 +938,7 @@ end
 
 --=============== BLIND PASSIVE UI ===============--
 function info_from_passive(passive)
+    local width = G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff" and 7.5 or 6
     local desc_nodes = {}
     localize{type = 'descriptions', key = passive, set = "Passive", nodes = desc_nodes, vars = {}}
     local desc = {}
@@ -946,7 +948,7 @@ function info_from_passive(passive)
     return 
     {n=G.UIT.R, config={align = "cl", colour = lighten(G.C.GREY, 0.4), r = 0.1, padding = 0.05}, nodes={
         {n=G.UIT.R, config={align = "cl", padding = 0.05, r = 0.1}, nodes = localize{type = 'name', key = passive, set = "Passive", name_nodes = {}, vars = {}}},
-        {n=G.UIT.R, config={align = "cl", minw = 6, minh = 0.4, r = 0.1, padding = 0.05, colour = desc_nodes.background_colour or G.C.WHITE}, nodes={{n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=desc}}}
+        {n=G.UIT.R, config={align = "cl", minw = width, minh = 0.4, r = 0.1, padding = 0.05, colour = desc_nodes.background_colour or G.C.WHITE}, nodes={{n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=desc}}}
     }}
 end
 

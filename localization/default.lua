@@ -2050,29 +2050,28 @@ return {
                     "unit's Explosive Emotions effect is defeated:",
                     "lose Explosive Emotions effect on self, kill all",
                     "other allies, and gain {C:purple}Deep Bereavement{} next turn.",
-                    "All Sinners gain the effects of the",
-                    "corresponding Explosive Emotions effect, and",
-                    "protection against the corresponding Affinity."
+                    "All Sinners gain the effects of the corresponding",
+                    "Explosive Emotions effect, and protection",
+                    "against the corresponding Affinity."
                 }
             },
             psv_lobc_erlking_4 = {
                 name = "{C:white}Amalgamated Resentment",
                 text = {
                     "When this unit has an Explosive Emotions effect,",
-                    "all Skill Affinities are replaced with",
-                    "the corresponding Affinity.",
+                    "all Skill Affinities are replaced with the",
+                    "corresponding Affinity.",
                     "Even after the Explosive Emotions effect expires,",
-                    "the changed Skill Affinities remain changed",
-                    "for the rest of the Phase.",
+                    "the changed Skill Affinities remain changed for the",
+                    "rest of the Phase.",
                 }
             },
             psv_lobc_erlking_5 = {
                 name = "{C:white}Continuing Revenge",
                 text = {
-                    "Gains a new pattern at 75% and 35% or max HP.",
-                    "When this unit gains a new pattern,",
-                    "halve the Potency and Count of",
-                    "every negative effect on self",
+                    "Gains a new pattern at 75% and 35% of max HP.",
+                    "When this unit gains a new pattern, halve the",
+                    "Potency and Count of every negative effect on self",
                 }
             },
             psv_lobc_erlking_6 = {
@@ -2086,8 +2085,8 @@ return {
                 name = "{C:white}Long-awaited Moment",
                 text = {
                     "Clash Win: Heal 5 SP on self",
-                    "Clash Lose against Heathcliff: Lose 5 SP",
-                    "and gain 2 {C:attention}Bind{} next turn. (Once per turn)",
+                    "Clash Lose against Heathcliff: Lose 5 SP and gain 2",
+                    "{C:attention}Bind{} next turn. (Once per turn)",
                     "If this unit did not land a single hit against",
                     "Heathcliff this turn, lose 5 SP at Turn End"
                 }
@@ -2096,10 +2095,10 @@ return {
                 name = "{C:white}Heart of Vengeance",
                 text = {
                     "Turn Start: If not at -45 SP, heal 15 SP.",
-                    "Turn End: If Panicked, recover from Panic",
-                    "at the next Turn Start and reset SP to 0.",
-                    "Turn End: If this unit recovers from Panic",
-                    "gain 2 {C:red}Attack Power Up{} at the next Turn Start",
+                    "Turn End: If Panicked, recover from Panic at the",
+                    "next Turn Start and reset SP to 0.",
+                    "Turn End: If this unit recovers from Panic, gain",
+                    "2 {C:red}Attack Power Up{} at the next Turn Start",
                 }
             },
             psv_lobc_erlking_9 = {

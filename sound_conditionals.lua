@@ -123,6 +123,15 @@ return {
         end,
     },
 
+    -- Through Patches of Violet: ???
+    {
+        key = "music_tpov",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff") and 644 or false
+        end,
+    },
+
     -- Roland01, Roland02, Roland03: Apocalypse Bird
     {
         key = "music_roland1",
