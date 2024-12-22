@@ -14,7 +14,8 @@ local blind = {
         "midnight_amber"
     },
     boss = {min = 1, max = 10},
-    loc_txt = {}
+    loc_txt = {},
+    no_collection = true,
 }
 
 return blind

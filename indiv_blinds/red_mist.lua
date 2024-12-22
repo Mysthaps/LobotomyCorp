@@ -18,7 +18,8 @@ local blind = {
         "psv_lobc_the_red_mist",
         "psv_lobc_ego_manifestation",
     },
-    phase_refresh = true
+    phase_refresh = true,
+    no_collection = true,
 }
 
 local function destroy_cards(cardarea, min, max)

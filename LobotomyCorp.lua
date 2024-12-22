@@ -90,6 +90,8 @@ local blind_list = {
     "midnight_green",
     "midnight_violet",
     "midnight_amber",
+
+    "erlking_heathcliff"
 }
 local sound_list = {
     music_first_warning = "Emergency1",
@@ -281,6 +283,7 @@ for k, v in pairs(sound_list) do
         if k == vv.key then
             sound.select_music_track = vv.select_music_track
             sound.sync = vv.sync
+            sound.pitch = 0.7
         end
     end
 end
@@ -522,7 +525,7 @@ function get_new_boss()
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     if G.GAME.modifiers.lobc_placeholder or 
     (G.GAME.pool_flags["apocalypse_bird_event"] and not G.GAME.pool_flags["apocalypse_bird_defeated"]) then return "bl_lobc_apocalypse_bird" end
-    --if string.lower(G.PROFILES[G.SETTINGS.profile].name) == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
+    if string.lower(G.PROFILES[G.SETTINGS.profile].name) == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
     local new_boss = get_new_bossref() 
     while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do -- does this work?
         new_boss = get_new_bossref()

@@ -14,7 +14,8 @@ local blind = {
         "dawn_amber",
         "dawn_violet",
     },
-    loc_txt = {}
+    loc_txt = {},
+    no_collection = true,
 }
 
 return blind
