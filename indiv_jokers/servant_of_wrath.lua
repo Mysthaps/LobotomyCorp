@@ -74,7 +74,7 @@ joker.calculate = function(self, card, context)
 
         if card.ability.extra.counter >= 3 then
             G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.5
-            abno_breach(v, 1)
+            abno_breach(card, 1)
             G.GAME.pool_flags["servant_of_wrath_breach"] = true
         end
     end
