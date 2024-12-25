@@ -180,7 +180,10 @@ function Card.set_sprites(self, _center, _front)
         self.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
         self.children.center:set_sprite_pos({x = 9, y = 0})
         self.children.front = nil
-        self.children.floating_sprite = nil
+        if self.children.floating_sprite then
+            self.children.floating_sprite.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
+            self.children.floating_sprite:set_sprite_pos({x = 9, y = 0})
+        end
     end
 end
 
