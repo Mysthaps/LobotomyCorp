@@ -777,7 +777,7 @@ function Blind.alert_debuff(self, first)
                             self.block_play = false
                             self.chips = 0
                             self.chip_text = number_format(self.chips)
-                            self.dollars = 0
+                            self.dollars = to_big(0)
                             G.E_MANAGER:add_event(Event({
                                 trigger = 'after',
                                 delay = 1,

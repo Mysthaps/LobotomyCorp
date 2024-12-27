@@ -125,5 +125,3 @@ pattern = "self.hands_sub = G.GAME.round_resets.hands - 1"
 position = 'at'
 match_indent = true
 payload = '''self.hands_sub = G.GAME.current_round.hands_left - 1'''
-
-# Modify hand debuffed text

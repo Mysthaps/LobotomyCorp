@@ -100,14 +100,14 @@ blind.press_play = function(self)
     end
     -- [3], [27] Lose $1/$3 per played card, destroy it if cannot afford
     if G.GAME.blind.lobc_current_effect == 3 or G.GAME.blind.lobc_current_effect == 27 then
-        local loss = (G.GAME.blind.lobc_current_effect == 3) and 1 or 3
+        local loss = (G.GAME.blind.lobc_current_effect == 3) and to_big(1) or to_big(3)
         local current_dollars = G.GAME.dollars
         local first = true
         local destroyed_cards = {}
         G.E_MANAGER:add_event(Event({
             func = function()
                 for _, v in ipairs(G.play.cards) do
-                    if current_dollars - loss >= 0 then 
+                    if current_dollars - loss >= to_big(0) then 
                         G.E_MANAGER:add_event(Event({func = function() v:juice_up(); return true end })) 
                         ease_dollars(-loss) 
                         current_dollars = current_dollars - loss
