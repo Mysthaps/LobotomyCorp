@@ -274,9 +274,9 @@ return {
                 name = "Hysteria",
                 text = {
                     "This Abnormality",
-                    "loses {X:mult,C:white} X0.5 {} Mult",
+                    "loses {X:mult,C:white} X0.25 {} Mult",
                     "after each blind",
-                    "and cannot be sold",
+                    "and {C:red}cannot{} be sold",
                 }
             },
             lobc_magical_girl = {
@@ -455,7 +455,7 @@ return {
                 text = {
                     "{X:mult,C:white} X#1# {} Mult",
                     "{s:0.15} {}",
-                    "If score is at least {X:mult,C:white} X5 {} of {C:attention}Blind{},",
+                    "If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
                     "{C:attention}(#4#/7){} ...",
                 }
@@ -465,7 +465,7 @@ return {
                 text = {
                     "{X:mult,C:white} X#1# {} Mult",
                     "{s:0.15} {}",
-                    "If score is at least {X:mult,C:white} X3 {} of {C:attention}Blind{},",
+                    "If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
                     "this Abnormality enters {C:attention}Hysteria{}",
                     "{s:0.15} {}",
                     "At {X:mult,C:white} X1 {} Mult,",
@@ -1428,14 +1428,14 @@ return {
             },
 
             dis_j_lobc_old_faith_1 = {
-                name = "T-09-91",
+                name = "T-09-97",
                 text = {
                     "{C:attention}(#3#/2){} ...",
                     "{C:attention}(#4#/4){} ...",
                 }
             },
             dis_j_lobc_old_faith_2 = {
-                name = "T-09-91",
+                name = "T-09-97",
                 text = {
                     "When {C:attention}Blind{} is selected, add",
                     "an {C:dark_edition}edition{} to a random card",
@@ -1530,7 +1530,7 @@ return {
                 name = "WhiteNight",
                 text = {
                     "Destroyed Apostles reduce",
-                    "blind size by 5X Base",
+                    "Blind Size by 5X Base",
                 }
             },
             bl_lobc_apocalypse_bird = {
@@ -1648,7 +1648,7 @@ return {
             bl_lobc_noon_indigo = {
                 name = "Indigo Noon",
                 text = {
-                    "Increase blind size by X0.1",
+                    "Increase Blind Size by X0.1",
                     "Base per card discarded"
                 }
             },
