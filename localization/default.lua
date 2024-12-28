@@ -1898,7 +1898,7 @@ return {
                 name = "{C:attention}Fixed Encounter",
                 text = {
                     "This {C:attention}Blind{} cannot be {C:red}disabled{}",
-                    "Abnormalities' effects cannot directly add",
+                    "Abnormality effects cannot directly add",
                     "score to this {C:attention}Blind{}"
                 }
             },
@@ -2236,6 +2236,8 @@ return {
             ---- First time text ----
             k_lobc_first_time_1 = "Manager, welcome to Lobotomy Corporation. Remember to take a look at the mod's settings.",
             k_lobc_first_time_2 = "(Open the mod in the in-game mod list. This message will only appear once.)",
+            k_lobc_first_time_passive_1 = "Manager, the current Blind has Passive Effects. Hover over the Blind to see them.",
+            k_lobc_first_time_passive_2 = "(Note: There is no Controller support. This message will only appear once.)",
 
             ---- Ordeals ----
 

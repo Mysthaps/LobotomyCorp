@@ -4,6 +4,7 @@ return {
     show_art_undiscovered = false,
     disable_ordeals = false,
     first_time = false,
+    first_time_passive = false,
     disable_meltdown_color = false,
     disable_unsettling_sfx = false,
     discover_all = false,

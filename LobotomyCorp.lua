@@ -625,6 +625,7 @@ function Blind.set_blind(self, blind, reset, silent)
                     parent = self
                 }
             }
+            first_time_passive()
         else
             self.children.alert = nil
         end
@@ -1209,7 +1210,7 @@ function Game.start_run(self, args)
             lobc_screen_text({
                 text = localize('k_lobc_first_time_1'),
                 scale = 0.35, 
-                hold = 15*G.SETTINGS.GAMESPEED,
+                hold = 10*G.SETTINGS.GAMESPEED,
                 major = G.play,
                 align = 'cm',
                 offset = {x = 0.3, y = -3.5},
@@ -1219,7 +1220,7 @@ function Game.start_run(self, args)
             lobc_screen_text({
                 text = localize('k_lobc_first_time_2'),
                 scale = 0.35, 
-                hold = 15*G.SETTINGS.GAMESPEED,
+                hold = 10*G.SETTINGS.GAMESPEED,
                 major = G.play,
                 align = 'cm',
                 offset = {x = 0.3, y = -3.1},
@@ -1732,6 +1733,38 @@ function SMODS.eval_this(_card, effects)
         end
     end
     return eval_thisref(_card, effects)
+end
+
+-- First time against a Boss Blind with passives
+function first_time_passive()
+    if not config.first_time_passive then
+        config.first_time_passive = true
+        SMODS.save_mod_config(current_mod)
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            lobc_screen_text({
+                text = localize('k_lobc_first_time_passive_1'),
+                scale = 0.35, 
+                hold = 10*G.SETTINGS.GAMESPEED,
+                major = G.play,
+                align = 'cm',
+                offset = {x = 0.3, y = -3.5},
+                noisy = false,
+                float = false,
+            })
+            lobc_screen_text({
+                text = localize('k_lobc_first_time_passive_2'),
+                scale = 0.35, 
+                hold = 10*G.SETTINGS.GAMESPEED,
+                major = G.play,
+                align = 'cm',
+                offset = {x = 0.3, y = -3.1},
+                noisy = false,
+                float = false,
+            })
+            return true 
+            end 
+        }))
+    end
 end
 
 --=============== OBSERVATION ===============--
