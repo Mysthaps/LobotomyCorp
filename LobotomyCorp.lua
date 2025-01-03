@@ -49,6 +49,7 @@ local joker_list = {
 
     --- Legendary
     "whitenight",
+    "apocalypse_bird",
 
     --- Crossovers
     --"jolliest_jester",
@@ -195,6 +196,11 @@ local badge_colors = {
 local get_badge_colourref = get_badge_colour
 function get_badge_colour(key)
     return badge_colors[key] or get_badge_colourref(key)
+end
+-- Localization colors
+local loc_colourref = loc_colour
+function loc_colour(_c, _default)
+    return (_c and badge_colors['lobc_'.._c]) or loc_colourref(_c, _default)
 end
 
 -- Load all jokers
@@ -388,9 +394,11 @@ function lobc_screen_text(args)
                     timer = "REAL",
                     func = function()
                         if args.AT then args.AT:remove() end
+                    return true
                     end
                 }))
             end
+        return true
         end
     }))
 end
@@ -746,7 +754,7 @@ function Blind.defeat(self, silent)
     -- Clear Enchanted from cards
     if not find_passive("psv_lobc_lamp") then
         for _, v in ipairs(G.playing_cards) do
-            if v.ability.big_bird_enchanted then
+            if v.ability.big_bird_enchanted and not v.ability.permanent_enchanted then
                 v.ability.big_bird_enchanted = nil
             end
             if v.ability.big_bird_enchanted then
@@ -938,6 +946,7 @@ function display_cutscene(pos)
 end
 
 --=============== BLIND PASSIVE UI ===============--
+
 function info_from_passive(passive)
     local width = G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff" and 7.5 or 6
     local desc_nodes = {}
@@ -1076,7 +1085,7 @@ function Blind.drawn_to_hand(self)
                 available_cards[#available_cards + 1] = v
             end
         end
-        for i = 1, 4 * #children_of_the_galaxy do
+        for i = 1, 5 * #children_of_the_galaxy do
             if #available_cards > 0 then
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("random_card"))
                 chosen_card.ability.child_galaxy_pebble = true
@@ -1599,10 +1608,18 @@ function new_round()
 end
 
 local play_soundref = play_sound
+local played_enchanted = false
 function play_sound(sound_code, per, vol)
     if sound_code and sound_code:find('lobc') then
         -- No SFX toggle
         if config.no_sfx then return end
+        if sound_code == "lobc_big_bird_attract" then
+            if played_enchanted then return end
+            played_enchanted = true
+            G.E_MANAGER:add_event(Event({trigger = 'after', blocking = false, func = function()
+                played_enchanted = false
+            return true end }))
+        end
         return play_soundref(sound_code, per, vol * 0.8)
     end
     return play_soundref(sound_code, per, vol)

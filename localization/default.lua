@@ -722,7 +722,7 @@ return {
             dis_j_lobc_big_bird_2 = {
                 name = "O-02-40",
                 text = {
-                    "When Blind starts, {V:1}Enchants{}",
+                    "When Blind starts, {C:enchanted}Enchants{}",
                     "a random playing card",
                     "{C:attention}(#4#/4){} ...",
                     "{C:attention}(#5#/6){} ..."
@@ -731,22 +731,22 @@ return {
             dis_j_lobc_big_bird_3 = {
                 name = "O-02-40",
                 text = {
-                    "When Blind starts, {V:1}Enchants{}",
+                    "When Blind starts, {C:enchanted}Enchants{}",
                     "a random playing card",
                     "{s:0.15} {}",
-                    "Scoring {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
                     "{C:attention}(#5#/6){} ..."
                 }
             },
             j_lobc_big_bird = {
                 name = "Big Bird",
                 text = {
-                    "When round begins, {V:1}Enchants{}",
+                    "When round begins, {C:enchanted}Enchants{}",
                     "a random playing card",
                     "{s:0.15} {}",
-                    "Scoring {V:1}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
                     "{s:0.15} {}",
-                    "When round ends, if no {V:1}Enchanted{}",
+                    "When round ends, if no {C:enchanted}Enchanted{}",
                     "cards were scored this round, destroy",
                     "them and lose {C:money}$#2#{} per card"
                 }
@@ -861,8 +861,8 @@ return {
             dis_j_lobc_child_galaxy_2 = {
                 name = "O-01-55",
                 text = {
-                    "Gives {X:purple,C:white} X#1# {} of played {C:attention}poker hand{}'s",
-                    "base {C:chips}Chips{} and {C:mult}Mult{}",
+                    "At the start of each hand, gives",
+                    "{C:attention}Pebble{} to {C:attention}5{} random cards in hand",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/6){} ...",
                 }
@@ -870,24 +870,24 @@ return {
             dis_j_lobc_child_galaxy_3 = {
                 name = "O-01-55",
                 text = {
+                    "At the start of each hand, gives",
+                    "{C:pebble}Pebble{} to {C:attention}5{} random cards in hand",
+                    "{s:0.15} {}",
                     "Gives {X:purple,C:white} X#1# {} of played {C:attention}poker hand{}'s",
                     "base {C:chips}Chips{} and {C:mult}Mult{}",
-                    "{s:0.15} {}",
-                    "At the start of each hand, gives",
-                    "{C:attention}Pebble{} to {C:attention}4{} random cards in hand",
-                    "{C:attention}(#6#/7){} ...",
+                    "{C:attention}(#6#/6){} ...",
                 }
             },
             j_lobc_child_galaxy = {
                 name = "Child of the Galaxy",
                 text = {
+                    "At the start of each hand, gives",
+                    "{C:pebble}Pebble{} to {C:attention}5{} random cards in hand",
+                    "{s:0.15} {}",
                     "Gives {X:purple,C:white} X#1# {} of played {C:attention}poker hand{}'s",
                     "base {C:chips}Chips{} and {C:mult}Mult{}",
                     "{s:0.15} {}",
-                    "At the start of each hand, gives",
-                    "{C:attention}Pebble{} to {C:attention}4{} random cards in hand",
-                    "{s:0.15} {}",
-                    "Gains {X:purple,C:white} X#2# {} per scoring card with {C:attention}Pebble{},",
+                    "Gains {X:purple,C:white} X#2# {} per scoring card with {C:pebble}Pebble{},",
                     "and loses {X:purple,C:white} X#3# {} per scoring card without",
                 }
             },
@@ -992,6 +992,47 @@ return {
                 }
             },
 
+            dis_j_lobc_apocalypse_bird_1 = {
+                name = "O-02-63",
+                text = {
+                    "{C:attention}(#3#/?){} ...",
+                    "{C:attention}(#3#/3){} ...",
+                    "{C:attention}(#4#/6){} ..."
+                }
+            },
+            dis_j_lobc_apocalypse_bird_2 = {
+                name = "O-02-63",
+                text = {
+                    "{C:dark_edition}+1{} Joker Slot",
+                    "{C:red}+15{} Mult",
+                    "{C:attention}(#3#/3){} ...",
+                    "{C:attention}(#4#/6){} ..."
+                }
+            },
+            dis_j_lobc_apocalypse_bird_3 = {
+                name = "O-02-63",
+                text = {
+                    "{C:dark_edition}+1{} Joker Slot",
+                    "{s:0.15} {}",
+                    "When round begins, {C:attention}permanently{} {C:enchanted}Enchants{}",
+                    "leftmost {C:enchanted}unenchanted{} scored card,",
+                    "then it gains {C:dark_edition}Negative{}",
+                    "{C:attention}(#4#/6){} ..."
+                }
+            },
+            j_lobc_apocalypse_bird = {
+                name = "Apocalypse Bird",
+                text = {
+                    "{C:dark_edition}+1{} Joker Slot",
+                    "{s:0.15} {}",
+                    "When round begins, {C:attention}permanently{} {C:enchanted}Enchants{}",
+                    "leftmost {C:enchanted}unenchanted{} scored card,",
+                    "then it gains {C:dark_edition}Negative{}",
+                    "{s:0.15} {}",
+                    "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                }
+            },
+
             dis_j_lobc_price_of_silence_1 = {
                 name = "O-05-65",
                 text = {
@@ -1015,7 +1056,7 @@ return {
                     "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card",
                     "{s:0.15} {}",
-                    "The converted card becomes {V:1}Amplified{}",
+                    "The converted card becomes {C:amplified}Amplified{}",
                     "{C:attention}(#3#/6){} ...",
                 }
             },
@@ -1025,7 +1066,7 @@ return {
                     "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card",
                     "{s:0.15} {}",
-                    "The converted card becomes {V:1}Amplified{}",
+                    "The converted card becomes {C:amplified}Amplified{}",
                     "{s:0.15} {}",
                     "After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys",
                     "a random {C:attention}other{} Joker and becomes {C:red}inactive{}",
@@ -2012,8 +2053,8 @@ return {
                 name = "{C:white}A Lamp that Burns Forever",
                 text = {
                     "{C:dark_edition}[Persistent]",
-                    "{C:attention}Enchanted{} is not removed after each blind",
-                    "No hands with {C:attention}2{} or more {C:attention}Enchanted{} cards"
+                    "{C:enchanted}Enchanted{} is not removed after each blind",
+                    "No hands with {C:attention}2{} or more {C:enchanted}Enchanted{} cards"
                 }
             },
             psv_lobc_judgement = {
