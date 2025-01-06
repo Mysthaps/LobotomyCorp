@@ -34,12 +34,12 @@ joker.calculate = function(self, card, context)
         local mult = G.GAME.hands[context.scoring_name].mult * card.ability.extra.per
         
         if card.ability.extra.per > 0 then
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize{type = 'variable', key = 'a_chips', vars = {number_format(chips)}},
                 chip_mod = chips, 
                 colour = G.C.CHIPS
             })
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize{type = 'variable', key = 'a_mult', vars = {number_format(mult)}},
                 mult_mod = mult, 
                 colour = G.C.MULT
@@ -47,12 +47,12 @@ joker.calculate = function(self, card, context)
         end
 
         if card.ability.extra.per < 0 then
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize{type = 'variable', key = 'a_chips_minus', vars = {number_format(-chips)}},
                 chip_mod = chips, 
                 colour = G.C.CHIPS
             })
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize{type = 'variable', key = 'a_mult_minus', vars = {number_format(-mult)}},
                 mult_mod = mult, 
                 colour = G.C.MULT

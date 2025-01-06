@@ -34,7 +34,7 @@ joker.calculate = function(self, card, context)
         card.ability.extra.has_played_enchanted = true
         return {
             x_mult = card.ability.extra.x_mult,
-            card = card
+            card = context.blueprint_card or card,
         }
     end
 

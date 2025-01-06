@@ -16,7 +16,7 @@ joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
         return {
             mult = card.ability.extra.mult,
-            card = card
+            card = context.blueprint_card or card,
         }
     end
 end

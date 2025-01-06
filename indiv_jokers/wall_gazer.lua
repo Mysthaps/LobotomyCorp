@@ -30,7 +30,7 @@ joker.calculate = function(self, card, context)
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,
-                card = card
+                card = context.blueprint_card or card,
             }
         end
     end

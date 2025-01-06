@@ -49,7 +49,7 @@ joker.calculate = function(self, card, context)
             if not G.GAME.modifiers.lobc_netzach then
                 G.GAME.lobc_no_hands_reset = false
             end
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize('k_reset')
             })
         end

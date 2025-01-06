@@ -55,7 +55,7 @@ joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and G.GAME.current_round.hands_played == 0 then
         return {
             x_mult = card.ability.extra.x_mult,
-            card = card
+            card = context.blueprint_card or card,
         }
     end
 
@@ -63,7 +63,7 @@ joker.calculate = function(self, card, context)
         if context.scoring_name == "High Card" then
             card.ability.extra.counter = card.ability.extra.counter + 1
             if card.ability.extra.counter < 3 then
-                SMODS.eval_this(card, {
+                SMODS.eval_this((context.blueprint_card or card), {
                     message = (card.ability.extra.counter..'/3'),
                     colour = G.C.FILTER
                 })

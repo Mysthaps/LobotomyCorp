@@ -27,7 +27,7 @@ joker.calculate = function(self, card, context)
                 end
                 G.GAME.nameless_hand_type = pseudorandom_element(_poker_hands, pseudoseed('fetus_reset'))
 
-                SMODS.eval_this(card, {
+                SMODS.eval_this((context.blueprint_card or card), {
                     message = localize("k_reset")
                 })
             end

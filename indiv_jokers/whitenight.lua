@@ -23,13 +23,13 @@ joker.calculate = function(self, card, context)
             return {
                 message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
                 mult = card.ability.extra.mult,
-                card = card
+                card = context.blueprint_card or card,
             }
         elseif context.repetition then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,
-                card = card
+                card = context.blueprint_card or card,
             }
         end
     end

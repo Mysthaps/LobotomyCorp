@@ -49,7 +49,7 @@ joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and context.other_card.ability.big_bird_enchanted then
         return {
             x_mult = card.ability.extra.x_mult,
-            card = card
+            card = context.blueprint_card or card,
         }
     end
 end

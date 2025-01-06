@@ -25,13 +25,13 @@ joker.calculate = function(self, card, context)
 
     if context.joker_main then
         if card.ability.extra.mult > 0 then
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
                 mult_mod = card.ability.extra.mult, 
                 colour = G.C.MULT
             })
         else
-            SMODS.eval_this(card, {
+            SMODS.eval_this((context.blueprint_card or card), {
                 message = localize{type = 'variable', key = 'a_mult_minus', vars = {-card.ability.extra.mult}},
                 mult_mod = card.ability.extra.mult, 
                 colour = G.C.MULT
