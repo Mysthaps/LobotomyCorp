@@ -1,8 +1,8 @@
 local suits = {
-    {"Spades", "Hearts"},
-    {"Clubs", "Diamonds"},
-    {"Hearts", "Spades"},
-    {"Diamonds", "Clubs"}
+    "Spades",
+    "Clubs",
+    "Hearts",
+    "Diamonds"
 }
 
 local blind = {
@@ -23,14 +23,14 @@ local blind = {
         "psv_lobc_lamp",
         "psv_lobc_misdeeds",
         "psv_lobc_judgement",
-        --"psv_lobc_suppression", --doesn't have one yet
+        "psv_lobc_suppression",
     }
 }
 
 blind.loc_vars = function(self)
     if not G.GAME.blind or not G.GAME.blind.hands_sub then return end
     local suit = suits[G.GAME.blind.hands_sub]
-    return {vars = {localize(suit[1], 'suits_plural'), localize(suit[2], 'suits_plural')}}
+    return {vars = {localize(suit, 'suits_plural')}}
 end
 
 blind.set_blind = function(self, blind, reset, silent)
@@ -114,6 +114,17 @@ end
 blind.defeat = function(self)
     G.GAME.apoc_music = nil
     G.GAME.pool_flags["apocalypse_bird_defeated"] = true
+    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        func = function() 
+            local card = create_card('Abnormality', G.jokers, nil, 0, nil, nil, "j_lobc_apocalypse_bird", 'ab')
+            card:add_to_deck()
+            G.jokers:emplace(card)
+            card:start_materialize()
+            G.GAME.joker_buffer = 0
+            return true
+        end
+    }))
 end
 
 local lamped = false
@@ -144,12 +155,11 @@ blind.get_loc_debuff_text = function(self)
 end
 
 blind.cry_cap_score = function(self, score)
-    local final_mult = 0.5
+    local final_mult = 1
     local proc = false
     for _, v in ipairs(G.play.cards) do
-        if v:is_suit(suits[G.GAME.blind.hands_sub][1], true) then final_mult = final_mult + 0.1 end
-        if v:is_suit(suits[G.GAME.blind.hands_sub][2], true) then 
-            final_mult = final_mult - 0.2 
+        if v:is_suit(suits[G.GAME.blind.hands_sub], true) then 
+            final_mult = final_mult - 0.3
             proc = true
         end
     end

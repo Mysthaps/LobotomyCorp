@@ -14,7 +14,9 @@ if self.config.center.abno and not self.config.center.discovered and self.area ~
 if self.ability.laetitia_gift then badges[#badges + 1] = 'lobc_gift' end
 if self.ability.price_of_silence_amplified then badges[#badges + 1] = 'lobc_amplified' end
 if self.ability.child_galaxy_pebble then badges[#badges + 1] = 'lobc_pebble' end
-if self.ability.big_bird_enchanted then badges[#badges + 1] = 'lobc_enchanted' end
+if self.ability.big_bird_enchanted then 
+    badges[#badges + 1] = self.ability.permanent_enchanted and 'lobc_perma_enchanted' or 'lobc_enchanted' 
+end
 if self.ability.plague_doctor_baptism then 
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
         badges[#badges + 1] = 'lobc_apostle'
@@ -48,6 +50,7 @@ if v == 'lobc_enchanted' then
     local count = lobc_get_usage_count("j_lobc_big_bird")
     info_queue[#info_queue+1] = {key = 'lobc_enchanted'..(count < 2 and '_1' or ''), set = 'Other'}
 end
+if v == 'lobc_perma_enchanted' then info_queue[#info_queue+1] = {key = 'lobc_perma_enchanted', set = 'Other'} end
 if v == 'lobc_blessed' then info_queue[#info_queue+1] = {key = 'lobc_blessed', set = 'Other'} end
 if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_wn', set = 'Other'} end
 if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end'''

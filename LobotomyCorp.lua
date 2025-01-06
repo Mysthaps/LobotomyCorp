@@ -179,6 +179,7 @@ local badge_colors = {
     lobc_amplified = HEX("004d00"),
     lobc_pebble = HEX("AAAAAA"),
     lobc_enchanted = HEX("C8831B"),
+    lobc_perma_enchanted = HEX("C8831B"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -740,6 +741,12 @@ function Game.update_new_round(self, dt)
 
     if G.STATE ~= G.STATES.DRAW_TO_HAND then
         update_new_roundref(self, dt)
+        for _, v in ipairs(G.playing_cards) do
+            if v.ability.big_bird_enchanted and v.children.lobc_big_bird_particles then
+                v.children.lobc_big_bird_particles:remove()
+                v.children.lobc_big_bird_particles = nil
+            end
+        end
     end
 end
 
@@ -756,9 +763,6 @@ function Blind.defeat(self, silent)
         for _, v in ipairs(G.playing_cards) do
             if v.ability.big_bird_enchanted and not v.ability.permanent_enchanted then
                 v.ability.big_bird_enchanted = nil
-            end
-            if v.ability.big_bird_enchanted then
-                v.children.lobc_big_bird_particles = nil
             end
         end
     end
@@ -1655,102 +1659,102 @@ function Game.update(self, dt)
 end
 
 -- Reduce return values for card evals
-local eval_cardref = eval_card
-function eval_card(card, context)
-    local eval = eval_cardref(card, context)
-    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
-        if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
-        if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
-        if eval.x_mult then 
-            if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
-            else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
-        end
-        if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
-        if eval.h_x_mult then 
-            if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
-            else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval
-end
+-- local eval_cardref = eval_card
+-- function eval_card(card, context)
+--     local eval = eval_cardref(card, context)
+--     if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+--         if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
+--         if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
+--         if eval.x_mult then 
+--             if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
+--             else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
+--         end
+--         if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
+--         if eval.h_x_mult then 
+--             if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
+--             else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+--         end
+--     end
+--     return eval
+-- end
 
-local calculate_jokerref = Card.calculate_joker
-function Card.calculate_joker(self, context)
-    if context.callback then
-        local callbackref = context.callback
-        context.callback = function(self, eval, the_j)
-            if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
-                if eval then 
-                    if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
-                    if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
-                    if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
-                    if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
-                    if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
-                    if eval.h_x_mult then
-                        if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
-                        else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
-                    end
-                    if eval.Xmult_mod then
-                        if eval.Xmult_mod < 1 then eval.Xmult_mod = eval.Xmult_mod * G.GAME.lobc_hod_modifier
-                        else eval.Xmult_mod = 1 + (eval.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
-                    end
-                    if eval.x_mult then
-                        if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
-                        else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
-                    end
-                end
-                if eval.jokers then
-                    if eval.jokers.chips then eval.jokers.chips = eval.jokers.chips * G.GAME.lobc_hod_modifier end
-                    if eval.jokers.mult then eval.jokers.mult = eval.jokers.mult * G.GAME.lobc_hod_modifier end
-                    if eval.jokers.mult_mod then eval.jokers.mult_mod = eval.jokers.mult_mod * G.GAME.lobc_hod_modifier end
-                    if eval.jokers.chip_mod then eval.jokers.chip_mod = eval.jokers.chip_mod * G.GAME.lobc_hod_modifier end
-                    if eval.jokers.h_mult then eva.jokersl.h_mult = eval.jokers.h_mult * G.GAME.lobc_hod_modifier end
-                    if eval.jokers.h_x_mult then
-                        if eval.jokers.h_x_mult < 1 then eval.jokers.h_x_mult = eval.jokers.h_x_mult * G.GAME.lobc_hod_modifier
-                        else eval.jokers.h_x_mult = 1 + (eval.jokers.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
-                    end
-                    if eval.jokers.Xmult_mod then
-                        if eval.jokers.Xmult_mod < 1 then eval.jokers.Xmult_mod = eval.jokers.Xmult_mod * G.GAME.lobc_hod_modifier
-                        else eval.jokers.Xmult_mod = 1 + (eval.jokers.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
-                    end
-                    if eval.jokers.x_mult then
-                        if eval.jokers.x_mult < 1 then eval.jokers.x_mult = eval.jokers.x_mult * G.GAME.lobc_hod_modifier
-                        else eval.jokers.x_mult = 1 + (eval.jokers.x_mult - 1) * G.GAME.lobc_hod_modifier end
-                    end
-                end
-            end
-            callbackref(self, eval, the_j)
-        end
-    end
-    return calculate_jokerref(self, context)
-end
+-- local calculate_jokerref = Card.calculate_joker
+-- function Card.calculate_joker(self, context)
+--     if context.callback then
+--         local callbackref = context.callback
+--         context.callback = function(self, eval, the_j)
+--             if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+--                 if eval then 
+--                     if eval.chips then eval.chips = eval.chips * G.GAME.lobc_hod_modifier end
+--                     if eval.mult then eval.mult = eval.mult * G.GAME.lobc_hod_modifier end
+--                     if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
+--                     if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
+--                     if eval.h_mult then eval.h_mult = eval.h_mult * G.GAME.lobc_hod_modifier end
+--                     if eval.h_x_mult then
+--                         if eval.h_x_mult < 1 then eval.h_x_mult = eval.h_x_mult * G.GAME.lobc_hod_modifier
+--                         else eval.h_x_mult = 1 + (eval.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+--                     end
+--                     if eval.Xmult_mod then
+--                         if eval.Xmult_mod < 1 then eval.Xmult_mod = eval.Xmult_mod * G.GAME.lobc_hod_modifier
+--                         else eval.Xmult_mod = 1 + (eval.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+--                     end
+--                     if eval.x_mult then
+--                         if eval.x_mult < 1 then eval.x_mult = eval.x_mult * G.GAME.lobc_hod_modifier
+--                         else eval.x_mult = 1 + (eval.x_mult - 1) * G.GAME.lobc_hod_modifier end
+--                     end
+--                 end
+--                 if eval.jokers then
+--                     if eval.jokers.chips then eval.jokers.chips = eval.jokers.chips * G.GAME.lobc_hod_modifier end
+--                     if eval.jokers.mult then eval.jokers.mult = eval.jokers.mult * G.GAME.lobc_hod_modifier end
+--                     if eval.jokers.mult_mod then eval.jokers.mult_mod = eval.jokers.mult_mod * G.GAME.lobc_hod_modifier end
+--                     if eval.jokers.chip_mod then eval.jokers.chip_mod = eval.jokers.chip_mod * G.GAME.lobc_hod_modifier end
+--                     if eval.jokers.h_mult then eva.jokersl.h_mult = eval.jokers.h_mult * G.GAME.lobc_hod_modifier end
+--                     if eval.jokers.h_x_mult then
+--                         if eval.jokers.h_x_mult < 1 then eval.jokers.h_x_mult = eval.jokers.h_x_mult * G.GAME.lobc_hod_modifier
+--                         else eval.jokers.h_x_mult = 1 + (eval.jokers.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+--                     end
+--                     if eval.jokers.Xmult_mod then
+--                         if eval.jokers.Xmult_mod < 1 then eval.jokers.Xmult_mod = eval.jokers.Xmult_mod * G.GAME.lobc_hod_modifier
+--                         else eval.jokers.Xmult_mod = 1 + (eval.jokers.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+--                     end
+--                     if eval.jokers.x_mult then
+--                         if eval.jokers.x_mult < 1 then eval.jokers.x_mult = eval.jokers.x_mult * G.GAME.lobc_hod_modifier
+--                         else eval.jokers.x_mult = 1 + (eval.jokers.x_mult - 1) * G.GAME.lobc_hod_modifier end
+--                     end
+--                 end
+--             end
+--             callbackref(self, eval, the_j)
+--         end
+--     end
+--     return calculate_jokerref(self, context)
+-- end
 
-local get_editionref = Card.get_edition
-function Card.get_edition(self)
-    local eval = get_editionref(self)
-    if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
-        if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
-        if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
-        if eval.x_mult_mod then 
-            if eval.x_mult_mod < 1 then eval.x_mult_mod = eval.x_mult_mod * G.GAME.lobc_hod_modifier
-            else eval.x_mult_mod = 1 + (eval.x_mult_mod - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval
-end
+-- local get_editionref = Card.get_edition
+-- function Card.get_edition(self)
+--     local eval = get_editionref(self)
+--     if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+--         if eval.mult_mod then eval.mult_mod = eval.mult_mod * G.GAME.lobc_hod_modifier end
+--         if eval.chip_mod then eval.chip_mod = eval.chip_mod * G.GAME.lobc_hod_modifier end
+--         if eval.x_mult_mod then 
+--             if eval.x_mult_mod < 1 then eval.x_mult_mod = eval.x_mult_mod * G.GAME.lobc_hod_modifier
+--             else eval.x_mult_mod = 1 + (eval.x_mult_mod - 1) * G.GAME.lobc_hod_modifier end
+--         end
+--     end
+--     return eval
+-- end
 
-local eval_thisref = SMODS.eval_this
-function SMODS.eval_this(_card, effects)
-    if effects and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
-        if effects.mult_mod then effects.mult_mod = effects.mult_mod * G.GAME.lobc_hod_modifier end
-        if effects.chip_mod then effects.chip_mod = effects.chip_mod * G.GAME.lobc_hod_modifier end
-        if effects.Xmult_mod then 
-            if effects.Xmult_mod < 1 then effects.Xmult_mod = effects.Xmult_mod * G.GAME.lobc_hod_modifier
-            else effects.Xmult_mod = 1 + (effects.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
-        end
-    end
-    return eval_thisref(_card, effects)
-end
+-- local eval_thisref = SMODS.eval_this
+-- function SMODS.eval_this(_card, effects)
+--     if effects and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
+--         if effects.mult_mod then effects.mult_mod = effects.mult_mod * G.GAME.lobc_hod_modifier end
+--         if effects.chip_mod then effects.chip_mod = effects.chip_mod * G.GAME.lobc_hod_modifier end
+--         if effects.Xmult_mod then 
+--             if effects.Xmult_mod < 1 then effects.Xmult_mod = effects.Xmult_mod * G.GAME.lobc_hod_modifier
+--             else effects.Xmult_mod = 1 + (effects.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+--         end
+--     end
+--     return eval_thisref(_card, effects)
+-- end
 
 -- First time against a Boss Blind with passives
 function first_time_passive()
@@ -1813,12 +1817,12 @@ function Card.update(self, dt)
     end
 
     -- Restore Enchanted particles on reload (Big Bird)
-    if self.ability.big_bird_enchanted and not self.children.lobc_big_bird_particles then
+    if self.ability.big_bird_enchanted and not self.children.lobc_big_bird_particles and G.GAME.blind and G.GAME.blind.in_blind then
         self.children.lobc_big_bird_particles = Particles(0, 0, 0,0, {
-            timer = 0.3,
-            scale = 0.45,
+            timer = self.ability.permanent_enchanted and 0.4 or 0.3,
+            scale = self.ability.permanent_enchanted and 0.3 or 0.45,
             speed = 0.3,
-            lifespan = 4,
+            lifespan = self.ability.permanent_enchanted and 3 or 4,
             attach = self,
             colours = {darken(G.C.MONEY, 0.1), darken(G.C.MONEY, 0.3), darken(G.C.MONEY, 0.5)},
             fill = true

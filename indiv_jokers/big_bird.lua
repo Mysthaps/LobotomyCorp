@@ -15,12 +15,8 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.setting_blind and not context.getting_sliced then
-        local available_cards = {}
-        for _, v in ipairs(G.playing_cards) do
-            if not v.ability.big_bird_enchanted then available_cards[#available_cards+1] = v end
-        end
-        if #available_cards <= 0 then return true end
-        local chosen_card = pseudorandom_element(available_cards, pseudoseed("lobc_big_bird"))
+        local chosen_card, chosen_key = pseudorandom_element(G.deck.cards, pseudoseed("lobc_big_bird"))
+        G.deck.cards[#G.deck.cards], G.deck.cards[chosen_key] = G.deck.cards[chosen_key], G.deck.cards[#G.deck.cards]
         chosen_card.ability.big_bird_enchanted = true
         chosen_card.children.lobc_big_bird_particles = Particles(0, 0, 0,0, {
             timer = 0.3,
@@ -128,7 +124,7 @@ function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped
         if #enchanted > 0 then
             local e_card = pseudorandom_element(enchanted, pseudoseed("enchanted_draw"))
             e_card.ability.big_bird_enchanted_marked_for_draw = true
-            play_sound("lobc_big_bird_attract", 1, 0.6)
+            play_sound("lobc_big_bird_attract", 1, 0.8)
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
@@ -143,7 +139,39 @@ function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped
 end
 
 if JokerDisplay then
-    -- tba
+    JokerDisplay.Definitions.j_lobc_big_bird = {
+        text = {
+            {
+                border_nodes = {
+                    { text = "X" },
+                    { ref_table = "card.joker_display_values", ref_value = "x_mult" }
+                }
+            }
+        },
+        calc_function = function(card)
+            local x_mult = 1
+            local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+            local _, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
+
+            for i = 1, #scoring_hand do
+                if scoring_hand[i].ability.big_bird_enchanted and not scoring_hand[i].debuff then
+                    x_mult = x_mult * card.ability.extra.x_mult
+                end
+            end
+
+            card.joker_display_values.x_mult = x_mult
+        end,
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(4) >= 4
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
 end
 
 return joker

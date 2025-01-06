@@ -125,3 +125,23 @@ pattern = "self.hands_sub = G.GAME.round_resets.hands - 1"
 position = 'at'
 match_indent = true
 payload = '''self.hands_sub = G.GAME.current_round.hands_left - 1'''
+
+# Enchanted cards
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "hand_space = n"
+position = 'before'
+match_indent = true
+payload = '''
+for i = n+1, #G.deck.cards-1 do
+    local card = G.deck.cards[#G.deck.cards-i]
+    if card.edition and card.edition.card_limit and card.ability.big_bird_enchanted then
+        n = n + 1
+    end
+end
+for _, v in ipairs(G.discard.cards) do
+    if v.edition and v.edition.card_limit and v.ability.big_bird_enchanted then
+        n = n + 1
+    end
+end'''

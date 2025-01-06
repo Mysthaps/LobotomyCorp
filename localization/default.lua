@@ -376,6 +376,13 @@ return {
                     "end of the {C:attention}Blind{}",
                 }
             },
+            lobc_perma_enchanted = {
+                name = "Enchanted",
+                text = {
+                    "Always drawn to hand",
+                    "Returns after {C:blue}play{} or {C:red}discard{}",
+                }
+            },
             lobc_enchanted_1 = {
                 name = "Enchanted",
                 text = {
@@ -731,7 +738,7 @@ return {
             dis_j_lobc_big_bird_3 = {
                 name = "O-02-40",
                 text = {
-                    "When Blind starts, {C:enchanted}Enchants{}",
+                    "When Blind starts, {C:enchanted}enchants{}",
                     "a random playing card",
                     "{s:0.15} {}",
                     "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
@@ -741,7 +748,7 @@ return {
             j_lobc_big_bird = {
                 name = "Big Bird",
                 text = {
-                    "When round begins, {C:enchanted}Enchants{}",
+                    "When round begins, {C:enchanted}enchants{}",
                     "a random playing card",
                     "{s:0.15} {}",
                     "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
@@ -1013,10 +1020,11 @@ return {
                 name = "O-02-63",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
+                    "{C:red}+15{} Mult",
                     "{s:0.15} {}",
-                    "When round begins, {C:attention}permanently{} {C:enchanted}Enchants{}",
-                    "leftmost {C:enchanted}unenchanted{} scored card,",
-                    "then it gains {C:dark_edition}Negative{}",
+                    "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
+                    "{C:enchanted}unenchanted{} scoring card,",
+                    "and it gains {C:dark_edition}Negative{}",
                     "{C:attention}(#4#/6){} ..."
                 }
             },
@@ -1024,10 +1032,11 @@ return {
                 name = "Apocalypse Bird",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
+                    "{C:red}+15{} Mult",
                     "{s:0.15} {}",
-                    "When round begins, {C:attention}permanently{} {C:enchanted}Enchants{}",
-                    "leftmost {C:enchanted}unenchanted{} scored card,",
-                    "then it gains {C:dark_edition}Negative{}",
+                    "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
+                    "{C:enchanted}unenchanted{} scoring card,",
+                    "and it gains {C:dark_edition}Negative{}",
                     "{s:0.15} {}",
                     "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
                 }
@@ -1586,10 +1595,8 @@ return {
             bl_lobc_apocalypse_bird_effect = {
                 name = "Apocalypse Bird",
                 text = {
-                    "Multiply hand's score by X0.5",
-                    "Increase value by X0.1 per",
-                    "played #1#, decreases value",
-                    "by X0.2 per played #2#"
+                    "Hand scores X0.3 less",
+                    "for each #1# played",
                 }
             },
             bl_lobc_ab_beak = {
@@ -2162,6 +2169,7 @@ return {
             lobc_amplified = "Amplified",
             lobc_pebble = "Pebble",
             lobc_enchanted = "Enchanted",
+            lobc_perma_enchanted = "Enchanted",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
