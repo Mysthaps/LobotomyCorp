@@ -9,7 +9,7 @@ I see that you've been slacking off while playing a few rounds of cards during o
 I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have "fun" while still generating precious energy to meet the daily quota. 
 This may hinder your playing experience, but I am sure you will do just fine.</i></h5>
 
-## Note: The latest version is 1.0.0-pre4, which can be found in the [releases tab](https://github.com/Mysthaps/LobotomyCorp/releases). The full 1.0.0 is still being worked on, sorry for the inconvenience!
+## Note: The latest version is 1.0.0-pre4, which can be found in the [releases tab](https://github.com/Mysthaps/LobotomyCorp/releases), and can only be played on the [old-calc](https://github.com/Steamodded/smods/archive/refs/tags/old-calc.zip) branch of Steamodded. The full 1.0.0 is still being worked on, sorry for the inconvenience!
 
 # Features
 ## Abnormalities, as Jokers
