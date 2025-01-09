@@ -26,10 +26,7 @@ joker.calculate = function(self, card, context)
                     if v.visible and k ~= G.GAME.nameless_hand_type then _poker_hands[#_poker_hands + 1] = k end
                 end
                 G.GAME.nameless_hand_type = pseudorandom_element(_poker_hands, pseudoseed('fetus_reset'))
-
-                SMODS.eval_this((context.blueprint_card or card), {
-                    message = localize("k_reset")
-                })
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("k_reset"), colour = G.C.RED})
             end
             card.ability.extra.proc = false
         end
@@ -43,14 +40,14 @@ joker.calculate = function(self, card, context)
     if context.joker_main then
         if context.scoring_name == G.GAME.nameless_hand_type then
             return {
-                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult
+                x_mult = card.ability.extra.x_mult,
+                card = context.blueprint_card or card,
             }
         else
             if not config.disable_unsettling_sfx then play_sound("lobc_nameless_cry", 1, 0.6) end
             return {
-                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult_penalty}},
-                Xmult_mod = card.ability.extra.x_mult_penalty
+                x_mult = card.ability.extra.x_mult_penalty,
+                card = context.blueprint_card or card,
             }
         end
     end

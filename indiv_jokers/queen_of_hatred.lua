@@ -15,12 +15,12 @@ local joker = {
 joker.calculate = function(self, card, context)
     if context.joker_main then
         return {
-            message = localize{type= 'variable', key='a_xmult', vars={card.ability.extra.x_mult}},
-            Xmult_mod = card.ability.extra.x_mult
+            x_mult = card.ability.extra.x_mult,
+            card = context.blueprint_card or card,
         }
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_scoring then
         card.ability.extra.round_count = card.ability.extra.round_count + 1
 
         local chips_check = false

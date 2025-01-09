@@ -34,34 +34,10 @@ joker.calculate = function(self, card, context)
             card.ability.extra.achievement_check = 0
         end
 
-        if card.ability.extra.chips > 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
-            })
-        else
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_chips_minus', vars = {-card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
-            })
-        end
-
-        if card.ability.extra.mult > 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
-            })
-        else
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult_minus', vars = {-card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
-            })
-        end
-        --return {}
+        return {
+            chips = card.ability.extra.chips,
+            mult = card.ability.extra.mult
+        }
     end
 end
 

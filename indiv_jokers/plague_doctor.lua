@@ -140,7 +140,7 @@ joker.add_to_deck = function(self, card, from_debuff)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card:check_rounds(2), card:check_rounds(4), card:check_rounds(666) }
+    local vars = { card.ability.extra.mult, card:check_rounds(2), card:check_rounds(4), card:check_rounds(666), card.ability.extra.apostles }
     local desc_key = self.key
     if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'

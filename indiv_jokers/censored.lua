@@ -24,49 +24,37 @@ joker.calculate = function(self, card, context)
                 card = context.other_card,
             }
         else
-            SMODS.eval_this(context.other_card, {
-                message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
-            })
-            return nil, true
+            return {
+                chips = card.ability.extra.chips, 
+                card = context.other_card
+            }, true
         end
     end
 
-    if context.joker_main then
-        for _, v in ipairs(G.jokers.cards) do
-            if v.ability.lobc_censored then
-                if v.debuff then
-                    SMODS.eval_this(v, {
-                        message = localize('k_debuffed'),
-                        colour = G.C.RED,
-                    })
-                else
-                    SMODS.eval_this(v, {
-                        message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-                        mult_mod = card.ability.extra.mult, 
-                        colour = G.C.MULT
-                    })
-                end
+    if context.other_joker and card ~= context.other_joker and context.other_joker.ability.lobc_censored then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                context.other_joker:juice_up(0.5, 0.5)
+                return true
             end
-        end
-        for _, v in ipairs(G.consumeables.cards) do
-            if v.ability.lobc_censored then
-                if v.debuff then
-                    SMODS.eval_this(v, {
-                        message = localize('k_debuffed'),
-                        colour = G.C.RED,
-                    })
-                else
-                    SMODS.eval_this(v, {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}},
-                        Xmult_mod = card.ability.extra.x_mult, 
-                        colour = G.C.MULT
-                    })
-                end
+        })) 
+        return {
+            mult = card.ability.extra.mult, 
+            card = context.other_joker
+        }
+    end
+
+    if context.other_consumeable and card ~= context.other_consumeable and context.other_consumeable.ability.lobc_censored then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                context.other_consumeable:juice_up(0.5, 0.5)
+            return true
             end
-        end
-        return nil, true
+        })) 
+        return {
+            x_mult = card.ability.extra.x_mult, 
+            card = context.other_consumeable
+        }
     end
 
     if context.after and context.cardarea == G.jokers and not context.blueprint then
@@ -86,11 +74,9 @@ joker.calculate = function(self, card, context)
             func = function()
                 if #available_cards > 0 then
                     local selected_card = pseudorandom_element(available_cards, pseudoseed("censored_select"))
-        
                     selected_card.ability.lobc_censored = true
                     selected_card:set_sprites(selected_card.config.center)
                     selected_card:juice_up()
-        
                     play_sound("lobc_censored", 1, 0.3)
                 end
             return true 

@@ -524,6 +524,10 @@ end
 local get_new_bossref = get_new_boss
 function get_new_boss()
     if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
+    if G.GAME.modifiers.lobc_all_whitenight or 
+    (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
+    if G.GAME.modifiers.lobc_placeholder or 
+    (G.GAME.pool_flags["apocalypse_bird_event"] and not G.GAME.pool_flags["apocalypse_bird_defeated"]) then return "bl_lobc_apocalypse_bird" end
     if G.GAME.modifiers.lobc_production then
         local ante = G.GAME.round_resets.ante
         if ante <= 2 then return "bl_lobc_dawn_base" end
@@ -531,10 +535,6 @@ function get_new_boss()
         if ante <= 6 then return "bl_lobc_dusk_base" end
         return "bl_lobc_midnight_base"
     end
-    if G.GAME.modifiers.lobc_all_whitenight or 
-    (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
-    if G.GAME.modifiers.lobc_placeholder or 
-    (G.GAME.pool_flags["apocalypse_bird_event"] and not G.GAME.pool_flags["apocalypse_bird_defeated"]) then return "bl_lobc_apocalypse_bird" end
     if string.lower(G.PROFILES[G.SETTINGS.profile].name) == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
     local new_boss = get_new_bossref() 
     while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do -- does this work?

@@ -63,10 +63,7 @@ joker.calculate = function(self, card, context)
         if context.scoring_name == "High Card" then
             card.ability.extra.counter = card.ability.extra.counter + 1
             if card.ability.extra.counter < 3 then
-                SMODS.eval_this((context.blueprint_card or card), {
-                    message = (card.ability.extra.counter..'/3'),
-                    colour = G.C.FILTER
-                })
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = (card.ability.extra.counter..'/3'), colour = G.C.FILTER})
             end
         end
         
@@ -79,7 +76,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.end_of_round and not context.repetition and not context.individual then
+    if context.end_of_round and context.main_scoring then
         if G.GAME.current_round.hands_played == 1 then
             card.ability.extra.round_count = card.ability.extra.round_count + 1 
         else

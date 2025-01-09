@@ -39,13 +39,12 @@ joker.calculate = function(self, card, context)
 
     if context.joker_main then
         return {
-            message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
-            chip_mod = card.ability.extra.chips, 
-            colour = G.C.CHIPS
+            chips = card.ability.extra.chips,
+            card = context.blueprint_card or card,
         }
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_scoring then
         card.ability.extra.hands_played = 0
         for _, v in ipairs(G.playing_cards) do
             v.ability.theresia_debuff = nil

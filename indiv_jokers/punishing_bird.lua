@@ -15,14 +15,14 @@ local joker = {
 joker.calculate = function(self, card, context)
     if context.joker_main then
         return {
-            message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-            mult_mod = card.ability.extra.mult,
+            mult = card.ability.extra.mult,
+            card = context.blueprint_card or card,
         }
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_scoring then
         card.ability.extra.rounds_played = card.ability.extra.rounds_played + 1
-        if card.ability.extra.rounds_played >= 6 then
+        if card.ability.extra.rounds_played >= 9 then
             if not card.edition or (card.edition and not card.edition.negative) then
                 card:set_edition("e_negative")
             end

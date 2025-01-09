@@ -38,7 +38,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.repetition and not context.individual then
+    if context.end_of_round and context.main_scoring then
         if not card.ability.extra.has_played_enchanted then
             local destroyed_cards = {}
             G.E_MANAGER:add_event(Event({

@@ -12,7 +12,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and not context.individual then
+    if context.end_of_round and context.main_scoring then
         if G.GAME.current_round.hands_played == 1 then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.gain
             card.ability.extra.counter = card.ability.extra.counter + 1

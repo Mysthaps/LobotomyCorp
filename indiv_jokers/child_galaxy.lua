@@ -1,6 +1,6 @@
 local joker = {
     name = "Child of the Galaxy",
-    config = {extra = {per = 0, gain = 0.15, loss = 0.1}}, rarity = 2, cost = 8,
+    config = {extra = {per = 0, gain = 0.3, loss = 0.2}}, rarity = 2, cost = 8,
     pos = {x = 9, y = 2}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -26,39 +26,17 @@ joker.calculate = function(self, card, context)
         if card.ability.extra.per >= 4 then
             check_for_unlock({type = "lobc_our_galaxy"})
         end
-        return nil, true
     end
 
     if context.joker_main then
         local chips = G.GAME.hands[context.scoring_name].chips * card.ability.extra.per
         local mult = G.GAME.hands[context.scoring_name].mult * card.ability.extra.per
         
-        if card.ability.extra.per > 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_chips', vars = {number_format(chips)}},
-                chip_mod = chips, 
-                colour = G.C.CHIPS
-            })
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult', vars = {number_format(mult)}},
-                mult_mod = mult, 
-                colour = G.C.MULT
-            })
-        end
-
-        if card.ability.extra.per < 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_chips_minus', vars = {number_format(-chips)}},
-                chip_mod = chips, 
-                colour = G.C.CHIPS
-            })
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult_minus', vars = {number_format(-mult)}},
-                mult_mod = mult, 
-                colour = G.C.MULT
-            })
-        end
-        return nil, true
+        return {
+            chips = chips,
+            mult = mult,
+            card = context.blueprint_card or card,
+        }
     end
 end
 

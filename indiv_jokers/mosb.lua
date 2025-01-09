@@ -52,21 +52,11 @@ joker.calculate = function(self, card, context)
     end
 
     if context.joker_main then
-        if card.ability.extra.chips > 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
-            })
-        end
-        if card.ability.extra.mult > 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
-            })
-        end
-        return nil, true
+        return {
+            chips = card.ability.extra.chips,
+            mult = card.ability.extra.mult,
+            card = context.blueprint_card or card,
+        }
     end
 end
 

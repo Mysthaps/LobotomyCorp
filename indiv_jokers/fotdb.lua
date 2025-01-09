@@ -12,7 +12,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and not context.individual and G.GAME.blind.boss then
+    if context.end_of_round and context.main_scoring and G.GAME.blind.boss then
         local available_cards = {}
         for _, v in ipairs(G.jokers.cards) do
             if v.config.center.eternal_compat and not v.ability.eternal and not v.ability.perishable then 

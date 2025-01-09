@@ -822,7 +822,8 @@ return {
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
                     "{s:0.15} {}",
                     "After {C:attention}12{} cards are {C:attention}blessed{},",
-                    "{C:attention}breach{}."
+                    "{C:attention}breach{}.",
+                    "{C:inactive}(Currently #5#)"
                 }
             },
 
@@ -921,7 +922,7 @@ return {
                     "{C:mult}+#1#{} Mult",
                     "{s:0.15} {}",
                     "This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
+                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
                     "{C:attention}(#5#/6){} ...",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
                 }
@@ -1366,6 +1367,7 @@ return {
             dis_j_lobc_censored_2 = {
                 name = "O-03-89",
                 text = {
+                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
                     "Removes all other descriptions",
                     "{C:attention}(#5#/5){} ...",
                     "{C:attention}(#6#/8){} ...",
@@ -1374,6 +1376,7 @@ return {
             dis_j_lobc_censored_3 = {
                 name = "O-03-89",
                 text = {
+                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
                     "Removes all other descriptions",
                     "{s:0.15} {}",
                     "Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
@@ -1386,13 +1389,13 @@ return {
             j_lobc_censored = {
                 name = "CENSORED",
                 text = {
+                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
                     "Removes all other descriptions",
                     "{s:0.15} {}",
                     "Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
                     "consumable gives {X:mult,C:white} X#2# {} Mult, and",
                     "card in hand gives {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
-                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
                     "After each hand, {C:red}[CENSORED]{} a random card",
                     "{C:inactive}(Joker, consumable or playing card)",
                 }
@@ -2203,7 +2206,7 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
 
             -- Energy Production
-            ch_c_lobc_production = {"After each {C:attention}Ante{}, open an unskippable {C:attention}Extraction Pack"},
+            ch_c_lobc_production = {"After each {C:attention}Ante{}, open an {C:attention}Extraction Pack"},
             ch_c_lobc_production_2 = {"All {C:attention}Boss Blinds{} are replaced with {C:attention}Ordeals{}"},
 
             -- Malkuth

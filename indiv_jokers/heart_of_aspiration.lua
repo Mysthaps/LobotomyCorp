@@ -1,6 +1,6 @@
 local joker = {
     name = "The Heart of Aspiration",
-    config = {extra = {reset = 0, x_mult = 0, gain = 1.5, round_count = 0}}, rarity = 2, cost = 6,
+    config = {extra = {reset = 0, x_mult = 1, gain = 1, round_count = 0}}, rarity = 2, cost = 6,
     pos = {x = 9, y = 4}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -27,13 +27,13 @@ joker.calculate = function(self, card, context)
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
         return {
-            message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}},
-            Xmult_mod = card.ability.extra.x_mult, 
-            colour = G.C.MULT
+            x_mult = card.ability.extra.x_mult, 
+            colour = G.C.MULT,
+            card = context.blueprint_card or card,
         }
     end
 
-    if context.end_of_round and not context.repetition and not context.individual then
+    if context.end_of_round and context.main_scoring then
         if G.GAME.current_round.hands_left <= 4 then 
             card.ability.extra.round_count = card.ability.extra.round_count + 1 
         else
@@ -49,9 +49,10 @@ joker.calculate = function(self, card, context)
             if not G.GAME.modifiers.lobc_netzach then
                 G.GAME.lobc_no_hands_reset = false
             end
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize('k_reset')
-            })
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
     end
 end

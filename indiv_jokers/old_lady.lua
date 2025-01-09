@@ -24,20 +24,10 @@ joker.calculate = function(self, card, context)
     end
 
     if context.joker_main then
-        if card.ability.extra.mult > 0 then
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
-            })
-        else
-            SMODS.eval_this((context.blueprint_card or card), {
-                message = localize{type = 'variable', key = 'a_mult_minus', vars = {-card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
-            })
-        end
-        return nil, true
+        return {
+            mult = card.ability.extra.mult,
+            card = context.blueprint_card or card,
+        }
     end
 end
 
@@ -72,7 +62,7 @@ function Card.add_to_deck(self, from_debuff)
                     trigger = "after",
                     delay = 0.1,
                     func = function()
-                        SMODS.eval_this(v, { message = localize('k_lobc_downgrade') })
+                        card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize("k_lobc_downgrade")})
                         play_sound('lobc_old_lady_downgrade', 1, 0.6)
                         return true
                     end

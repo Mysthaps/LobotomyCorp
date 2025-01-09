@@ -3,7 +3,6 @@ local chal = {
     rules = {
         custom = {
             { id = "no_shop_jokers" },
-            { id = "all_eternal" },
             { id = "lobc_production" },
             { id = "lobc_production_2" },
         },
@@ -73,7 +72,6 @@ function Game.update_shop(self, dt)
         trigger = 'after',
         func = function()
             if G.STATE_COMPLETE then
-                G.GAME.lobc_no_pack_skip = true
                 local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
                 G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS["p_lobc_extraction_normal"], {bypass_discovery_center = true, bypass_discovery_ui = true})
                 card.cost = 0
@@ -83,20 +81,6 @@ function Game.update_shop(self, dt)
             end
         end
     }))
-end
-
--- Disable Skipping
-local can_skip_boosterref = G.FUNCS.can_skip_booster
-function G.FUNCS.can_skip_booster(e)
-    if G.pack_cards and G.pack_cards.cards[1] and not G.pack_cards.cards[1].config.center.abno then
-        G.GAME.lobc_no_pack_skip = false
-    end
-    if G.GAME.lobc_no_pack_skip then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    else
-        can_skip_boosterref(e)
-    end
 end
 
 return chal

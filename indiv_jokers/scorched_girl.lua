@@ -1,6 +1,6 @@
 local joker = {
     name = "Scorched Girl",
-    config = {extra = 20}, rarity = 2, cost = 5,
+    config = {extra = 30}, rarity = 2, cost = 5,
     pos = {x = 1, y = 0}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -40,7 +40,7 @@ joker.calculate = function(self, card, context)
             end
         }))
     end
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_scoring then
         for _, v in ipairs(G.playing_cards) do
             v.ability.scorched_girl_debuff = nil
         end

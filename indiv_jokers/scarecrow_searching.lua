@@ -71,7 +71,7 @@ joker.calculate = function(self, card, context)
         return nil, true
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_scoring then
         play_sound('timpani')
         for i = 1, math.min(2, G.consumeables.config.card_limit - #G.consumeables.cards) do
             local _card = create_card('EGO_Gift', G.consumeables, nil, nil, nil, nil, 'c_lobc_wisdom', 'scarecrow')
