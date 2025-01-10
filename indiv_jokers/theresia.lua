@@ -22,18 +22,23 @@ joker.calculate = function(self, card, context)
                 card = card
             }
         elseif context.after and card.ability.extra.hands_played >= 3 then
-            play_sound('card1', 1)
-            for _, v in ipairs(G.hand.cards) do
-                v.ability.theresia_debuff = true
-                if not v.debuff then
-                    v:set_debuff(true)
-                    v:juice_up()
-                end
-            end
-            for _, v in ipairs(G.deck.cards) do
-                v.ability.theresia_debuff = true
-                v:set_debuff(true)
-            end
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    play_sound('card1', 1)
+                    for _, v in ipairs(G.hand.cards) do
+                        if not v.debuff then
+                            SMODS.debuff_card(v, true, 'theresia_debuff')
+                            v:juice_up()
+                        end
+                    end
+                    for _, v in ipairs(G.deck.cards) do
+                        SMODS.debuff_card(v, true, 'theresia_debuff')
+                        v:set_debuff(true)
+                    end
+                return true 
+                end 
+            }))
         end
     end
 
@@ -44,17 +49,20 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.blueprint and context.main_scoring then
+    if context.end_of_round then 
+        print("what the fuck") 
+    end
+    if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
         card.ability.extra.hands_played = 0
         for _, v in ipairs(G.playing_cards) do
-            v.ability.theresia_debuff = nil
+            SMODS.debuff_card(v, false, 'theresia_debuff')
         end
     end
 end
 
 joker.remove_from_deck = function(self, card, from_debuff)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.theresia_debuff = nil
+        SMODS.debuff_card(v, false, 'theresia_debuff')
     end
 end
 

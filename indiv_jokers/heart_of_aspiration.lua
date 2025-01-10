@@ -33,7 +33,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and context.main_scoring then
+    if context.end_of_round and not context.repetition and not context.individual then
         if G.GAME.current_round.hands_left <= 4 then 
             card.ability.extra.round_count = card.ability.extra.round_count + 1 
         else

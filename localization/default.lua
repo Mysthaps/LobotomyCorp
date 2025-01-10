@@ -563,7 +563,7 @@ return {
                     "This Abnormality gains",
                     "{C:chips}+#2#{} Chips each hand",
                     "{C:attention}(#4#/4){} ...",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
                 }
             },
             j_lobc_theresia = {
@@ -574,7 +574,7 @@ return {
                     "{s:0.15} {}",
                     "After the third hand played,",
                     "{C:red}debuffs{} all {C:attention}playing cards{}",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)"
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
                 }
             },
 
@@ -823,7 +823,7 @@ return {
                     "{s:0.15} {}",
                     "After {C:attention}12{} cards are {C:attention}blessed{},",
                     "{C:attention}breach{}.",
-                    "{C:inactive}(Currently #5#)"
+                    "{C:inactive}(Currently {C:attention}#5#{C:inactive})"
                 }
             },
 
@@ -933,7 +933,7 @@ return {
                     "{C:mult}+#1#{} Mult",
                     "{s:0.15} {}",
                     "This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
+                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
                     "{s:0.15} {}",
                     "If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
@@ -1149,7 +1149,7 @@ return {
                     "{s:0.15} {}",
                     "Gives {X:mult,C:white} X#2# {} per {C:dark_edition}Eternal{} Joker",
                     "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently gives {X:mult,C:white} X#1# {C:inactive})",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                 }
             },
             j_lobc_fotdb = {
@@ -1161,7 +1161,7 @@ return {
                     "{s:0.15} {}",
                     "When {C:attention}Boss Blind{} is defeated,",
                     "adds {C:dark_edition}Eternal{} to a random Joker",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                 }
             },
 
@@ -1232,7 +1232,7 @@ return {
                     "This Abnormality gains {X:mult,C:white} X#2# {}",
                     "Mult after each hand",
                     "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})"
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"
                 }
             },
             j_lobc_heart_of_aspiration = {
@@ -1246,7 +1246,7 @@ return {
                     "{s:0.15} {}",
                     "Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
                     "after defeating {C:attention}Boss Blind{}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive})"
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"
                 }
             },
 
