@@ -1,6 +1,6 @@
 local joker = {
     name = "The Servant of Wrath",
-    config = {extra = {counter = 0, x_mult = 1.75, round_count = 0}}, rarity = 3, cost = 8,
+    config = {extra = {counter = 0, x_mult = 2, round_count = 0}}, rarity = 3, cost = 8,
     pos = {x = 4, y = 8}, 
     blueprint_compat = true, 
     eternal_compat = false,
