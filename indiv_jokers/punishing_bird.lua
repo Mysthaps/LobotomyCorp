@@ -90,8 +90,9 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         desc_key = 'dis_'..desc_key..'_2'
     elseif card:check_rounds(6) < 6 then
         desc_key = 'dis_'..desc_key..'_3'
-    elseif card.ability.extra.start_apoc then
-        desc_key = desc_key..'_2'
+    end
+    if card.ability.extra.start_apoc then
+        desc_key = desc_key..'_apoc'
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}

@@ -908,12 +908,30 @@ return {
                     "{C:attention}(#5#/6){} ...",
                 }
             },
+            dis_j_lobc_punishing_bird_1_apoc = {
+                name = "O-02-56",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/4){} ...",
+                    "When this Abnormality is {C:attention}sold{}, encounter",
+                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"
+                }
+            },
             dis_j_lobc_punishing_bird_2 = {
                 name = "Small Bird",
                 text = {
                     "{C:mult}+#1#{} Mult",
                     "{C:attention}(#4#/4){} ...",
                     "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_punishing_bird_2_apoc = {
+                name = "Small Bird",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "{C:attention}(#4#/4){} ...",
+                    "When this Abnormality is {C:attention}sold{}, encounter",
+                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"
                 }
             },
             dis_j_lobc_punishing_bird_3 = {
@@ -924,7 +942,19 @@ return {
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
                     "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
+                }
+            },
+            dis_j_lobc_punishing_bird_3_apoc = {
+                name = "Small Bird",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
+                    "This Abnormality gains",
+                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
+                    "When this Abnormality is {C:attention}sold{}, encounter",
+                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
                 }
             },
             j_lobc_punishing_bird = {
@@ -937,10 +967,10 @@ return {
                     "{s:0.15} {}",
                     "If this Abnormality is {C:attention}sold{},",
                     "immediately {C:attention}lose{} the game",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} Round(s)){}"
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
                 }
             },
-            j_lobc_punishing_bird_2 = {
+            j_lobc_punishing_bird_apoc = {
                 name = "Punishing Bird",
                 text = {
                     "{C:mult}+#1#{} Mult",
@@ -948,8 +978,9 @@ return {
                     "This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
                     "{s:0.15} {}",
-                    "If this Abnormality is {C:attention}sold{}, encounter",
-                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"
+                    "When this Abnormality is {C:attention}sold{}, encounter",
+                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
                 }
             },
 
