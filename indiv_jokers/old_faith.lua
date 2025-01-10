@@ -28,7 +28,7 @@ joker.calculate = function(self, card, context)
             local selected_card = pseudorandom_element(available_cards, pseudoseed("old_faith_select"))
 
             if pseudorandom('old_faith_debuff') < G.GAME.probabilities.normal/card.ability.extra then
-                selected_card.debuff = true
+                SMODS.debuff_card(selected_card, true, 'old_faith_perma_debuff')
                 selected_card.ability.perma_debuff = true
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
                     play_sound('tarot2', 0.76, 0.4);return true end}))

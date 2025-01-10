@@ -19,8 +19,7 @@ blind.press_play = function(self)
 
     for i = 1, math.min(4, math.ceil(#available_cards)) do
         local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("amber_dawn"))
-        chosen_card:set_debuff(true)
-        chosen_card.ability.amber_debuff = true
+        SMODS.debuff_card(chosen_card, true, 'amber_debuff')
         table.remove(available_cards, chosen_card_key)
     end
 
@@ -29,13 +28,13 @@ end
 
 blind.defeat = function(self)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.amber_debuff = nil
+        SMODS.debuff_card(v, false, 'amber_debuff')
     end
 end
 
 blind.disable = function(self)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.amber_debuff = nil
+        SMODS.debuff_card(v, false, 'amber_debuff')
     end
 end
 

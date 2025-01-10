@@ -143,7 +143,7 @@ blind.press_play = function(self)
                 for _, v in ipairs(G.play.cards) do
                     if v.config.center ~= G.P_CENTERS.c_base then 
                         proc = true
-                        v:set_debuff(true)
+                        SMODS.debuff_card(v, true, 'gebura_perma_debuff')
                         v.ability.perma_debuff = true
                     end
                 end
@@ -295,10 +295,6 @@ blind.recalc_debuff = function(self, card, from_blind)
             return true
         end
     end
-    -- Universal debuff effect
-    if card.ability.lobc_gebura_debuff then
-        return true
-    end
 end
 
 blind.modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
@@ -349,12 +345,12 @@ blind.drawn_to_hand = function(self)
 
         -- Reset debuffs
         for _, v in ipairs(G.jokers.cards) do
-            v.ability.lobc_gebura_debuff = nil
+            SMODS.debuff_card(v, false, 'gebura_debuff')
         end
         for _, v in ipairs(G.playing_cards) do
-            v.ability.lobc_gebura_debuff = nil
+            SMODS.debuff_card(v, false, 'gebura_debuff')
         end
-        G.GAME.lobc_hod_modifier = 1
+        G.GAME.lobc_hod_modifier = (G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier or 1) / G.GAME.gebura_remove_hod_modifier
         G.GAME.blind.lobc_has_sold_joker = false
 
         -- [12] Debuff 1-3 random Jokers
@@ -367,7 +363,7 @@ blind.drawn_to_hand = function(self)
                 if #available_cards <= 0 then break end
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("geb_random_card_12"))
                 table.remove(available_cards, chosen_card_key)
-                chosen_card.ability.lobc_gebura_debuff = true
+                SMODS.debuff_card(chosen_card, true, 'gebura_debuff')
                 chosen_card:juice_up()
             end
             G.GAME.blind:wiggle()
@@ -390,7 +386,7 @@ blind.drawn_to_hand = function(self)
             end
             for _, v in ipairs(G.jokers.cards) do
                 if v.config.center.rarity == highest then 
-                    v.ability.lobc_gebura_debuff = true
+                    SMODS.debuff_card(v, true, 'gebura_debuff')
                     v:juice_up()
                 end
             end
@@ -398,9 +394,11 @@ blind.drawn_to_hand = function(self)
         end
         -- [25], [36] All cards give 25%/50% less chips, Mult and XMult
         if G.GAME.blind.lobc_current_effect == 25 then
-            G.GAME.lobc_hod_modifier = 0.75
+            G.GAME.lobc_hod_modifier = (G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier or 1) * 0.75
+            G.GAME.gebura_remove_hod_modifier = 0.75
         elseif G.GAME.blind.lobc_current_effect == 36 then
-            G.GAME.lobc_hod_modifier = 0.5
+            G.GAME.lobc_hod_modifier = (G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier or 1) * 0.5
+            G.GAME.gebura_remove_hod_modifier = 0.5
         end
         -- [33] Debuff all [most owned rarity] Jokers
         if G.GAME.blind.lobc_current_effect == 33 then
@@ -418,7 +416,7 @@ blind.drawn_to_hand = function(self)
                 if v == highest and v > 0 then 
                     for _, vv in ipairs(G.jokers.cards) do
                         if vv.config.center.rarity == k then
-                            vv.ability.lobc_gebura_debuff = true
+                            SMODS.debuff_card(vv, true, 'gebura_debuff')
                             vv:juice_up()
                         end
                     end

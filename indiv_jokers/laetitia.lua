@@ -63,7 +63,7 @@ joker.remove_from_deck = function(self, card, from_debuff)
     if not from_debuff then
         for _, v in ipairs(G.playing_cards) do
             if v.ability.laetitia_gift then
-                v:set_debuff(true)
+                SMODS.debuff_card(v, true, 'laetitia_perma_debuff')
                 v.ability.perma_debuff = true
             end
         end

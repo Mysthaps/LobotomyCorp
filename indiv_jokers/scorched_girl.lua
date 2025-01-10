@@ -33,8 +33,7 @@ joker.calculate = function(self, card, context)
         G.E_MANAGER:add_event(Event({
             func = function() 
                 for _, v in ipairs(G.hand.cards) do
-                    v.ability.scorched_girl_debuff = true
-                    v:set_debuff(true)
+                    SMODS.debuff_card(v, true, 'scorched_girl_debuff')
                 end
             return true
             end
@@ -42,14 +41,14 @@ joker.calculate = function(self, card, context)
     end
     if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
         for _, v in ipairs(G.playing_cards) do
-            v.ability.scorched_girl_debuff = nil
+            SMODS.debuff_card(v, false, 'scorched_girl_debuff')
         end
     end
 end
 
 joker.remove_from_deck = function(self, card, from_debuff)
     for _, v in ipairs(G.playing_cards) do
-        v.ability.scorched_girl_debuff = nil
+        SMODS.debuff_card(v, false, 'scorched_girl_debuff')
     end
 end
 

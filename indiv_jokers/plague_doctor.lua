@@ -122,7 +122,7 @@ joker.add_to_deck = function(self, card, from_debuff)
     local found_dupe = false
     for _, v in ipairs(G.jokers.cards) do
         if v ~= card and v.config.center.key == "j_lobc_plague_doctor" then
-            card.debuff = true
+            SMODS.debuff_card(v, true, 'plague_doctor_perma_debuff')
             card.ability.perma_debuff = true
             card.ability.eternal = false
             found_dupe = true
