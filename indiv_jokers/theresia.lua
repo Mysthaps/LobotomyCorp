@@ -49,9 +49,6 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round then 
-        print("what the fuck") 
-    end
     if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
         card.ability.extra.hands_played = 0
         for _, v in ipairs(G.playing_cards) do
