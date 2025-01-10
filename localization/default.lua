@@ -1506,7 +1506,7 @@ return {
                     "{X:blue,C:white} X#3# {} and {X:red,C:white} X#4# {}, then reduces delay",
                     "{s:0.15} {}",
                     "After {C:attention}6{} rounds held, destroys itself",
-                    "and activates the {C:red}NO{} effect when sold",
+                    "and activates the {C:red}NO{} effect",
                     "{C:inactive}(Currently {C:attention}#8#{C:inactive} Round(s))"
                 }
             },
