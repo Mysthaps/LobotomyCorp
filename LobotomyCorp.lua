@@ -1806,8 +1806,30 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
     --create the pool
     G.ARGS.TEMP_POOL = EMPTY(G.ARGS.TEMP_POOL)
     local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality', 0
-    for _, v in ipairs(joker_list) do
-        _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
+    -- Increased chance to get birds when you get a bird
+    local bird = false
+    local birds = {}
+    for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
+        local birbs = SMODS.find_card(birb)
+        if next(birbs) then
+            bird = true
+            birds[birb] = #birbs
+        end
+    end
+    local roll = pseudorandom("birb_chance")
+    if bird and roll < 0.1 and not G.GAME.pool_flags.apocalypse_bird_event then
+        for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
+            if not birds[birb] then
+                _starting_pool[#_starting_pool+1] = G.P_CENTERS[birb]
+            end
+            bird = false
+        end
+    end
+
+    if #_starting_pool == 0 then
+        for _, v in ipairs(joker_list) do
+            _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
+        end
     end
 
     --cull the pool
