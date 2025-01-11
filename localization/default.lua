@@ -193,6 +193,15 @@ return {
                     "be just fine.",
                 }
             },
+            und_j_lobc_express_train = {
+                name = "T-09-86",
+                text = {
+                    "When the time comes,",
+                    "the train will chug down",
+                    "the tracks and sound",
+                    "its mighty horn."
+                }
+            },
             und_j_lobc_scarecrow_searching = {
                 name = "F-01-87",
                 text = {
@@ -976,7 +985,7 @@ return {
                     "{C:mult}+#1#{} Mult",
                     "{s:0.15} {}",
                     "This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}6{} rounds",
+                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
                     "{s:0.15} {}",
                     "When this Abnormality is {C:attention}sold{}, encounter",
                     "an {C:attention}Abnormality{} next {C:attention}Boss Blind",
@@ -1343,6 +1352,49 @@ return {
                     "After {C:attention}#3#{} seconds, {C:attention}doubles{}",
                     "score gain and increase",
                     "hands loss by {C:blue}#4#{}"
+                }
+            },
+
+            dis_j_lobc_express_train_1 = {
+                name = "T-09-86",
+                text = {
+                    "{C:attention}(#5#/2){} ...",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/5){} ...",
+                }
+            },
+            dis_j_lobc_express_train_2 = {
+                name = "T-09-86",
+                text = {
+                    "Every second, gain {C:attention}#1# score",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/5){} ...",
+                }
+            },
+            dis_j_lobc_express_train_3 = {
+                name = "T-09-86",
+                text = {
+                    "Every second, gain {C:attention}#1# score",
+                    "and temporary {C:blue}-#2#{} hands",
+                    "{C:attention}(#7#/5){} ...",
+                }
+            },
+            j_lobc_express_train = {
+                name = "Express Train to Hell",
+                text = {
+                    "At {C:attention}1{} or more lights, selling does not",
+                    "remove this Abnormality or give {C:money}money{}",
+                    "{s:0.15} {}",
+                    "Every {C:attention}15{} seconds when in control,",
+                    "a light will be {C:enchanted}illuminated{}",
+                    "{s:0.15} {}",
+                    "Sell this Abnormality to give {C:mult}XMult{}",
+                    "and {C:money}money{} when playing the next hand",
+                    "based on {C:enchanted}illuminated{} lights, then resets lights",
+                    "{s:0.15} {}",
+                    "When {C:attention}4{} lights are lit up and another",
+                    "is {C:enchanted}illuminated{}, randomly {C:red}destroys{} half of",
+                    "owned Jokers and resets lights"
                 }
             },
 
