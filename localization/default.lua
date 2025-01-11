@@ -1358,43 +1358,58 @@ return {
             dis_j_lobc_express_train_1 = {
                 name = "T-09-86",
                 text = {
-                    "{C:attention}(#5#/2){} ...",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/5){} ...",
+                    "At {C:attention}1{} or more lights, selling does not",
+                    "remove this Abnormality or give {C:money}money{}",
+                    "{C:attention}(#4#/2){} ...",
+                    "{C:attention}(#5#/4){} ...",
+                    "{C:attention}(#6#/6){} ...",
                 }
             },
             dis_j_lobc_express_train_2 = {
                 name = "T-09-86",
                 text = {
-                    "Every second, gain {C:attention}#1# score",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/5){} ...",
+                    "At {C:attention}1{} or more lights, selling does not",
+                    "remove this Abnormality or give {C:money}money{}",
+                    "{s:0.15} {}",
+                    "Every {C:attention}#3#{} seconds when in control,",
+                    "a light will be {C:enchanted}illuminated{}",
+                    "{C:attention}(#5#/4){} ...",
+                    "{C:attention}(#6#/6){} ...",
                 }
             },
             dis_j_lobc_express_train_3 = {
                 name = "T-09-86",
                 text = {
-                    "Every second, gain {C:attention}#1# score",
-                    "and temporary {C:blue}-#2#{} hands",
-                    "{C:attention}(#7#/5){} ...",
+                    "At {C:attention}1{} or more lights, {C:money}selling{} does not",
+                    "remove this Abnormality nor give {C:money}money{}",
+                    "{s:0.15} {}",
+                    "Every {C:attention}#3#{} seconds when in control,",
+                    "a light will be {C:enchanted}illuminated{}",
+                    "{s:0.15} {}",
+                    "Sell this Abnormality to give {C:mult}XMult{}",
+                    "and {C:money}money{} next hand based on",
+                    "{C:enchanted}illuminated{} lights, then resets lights",
+                    "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})",
+                    "{C:attention}(#6#/6){} ...",
                 }
             },
             j_lobc_express_train = {
                 name = "Express Train to Hell",
                 text = {
-                    "At {C:attention}1{} or more lights, selling does not",
-                    "remove this Abnormality or give {C:money}money{}",
+                    "At {C:attention}1{} or more lights, {C:money}selling{} does not",
+                    "remove this Abnormality nor give {C:money}money{}",
                     "{s:0.15} {}",
-                    "Every {C:attention}15{} seconds when in control,",
+                    "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
                     "{s:0.15} {}",
                     "Sell this Abnormality to give {C:mult}XMult{}",
-                    "and {C:money}money{} when playing the next hand",
-                    "based on {C:enchanted}illuminated{} lights, then resets lights",
+                    "and {C:money}money{} next hand based on",
+                    "{C:enchanted}illuminated{} lights, then resets lights",
+                    "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})",
                     "{s:0.15} {}",
                     "When {C:attention}4{} lights are lit up and another",
                     "is {C:enchanted}illuminated{}, randomly {C:red}destroys{} half of",
-                    "owned Jokers and resets lights"
+                    "owned Jokers and resets lights",
                 }
             },
 

@@ -33,7 +33,7 @@ local joker_list = {
     "big_bird",
     "fotdb", -- Funeral of the Dead Butterflies
     "heart_of_aspiration",
-    "scarecrow_searching",
+    "scarecrow_searching", -- Scarecrow Searching for Wisdom
 
     --- Rare
     "queen_of_hatred",
@@ -42,6 +42,7 @@ local joker_list = {
     "price_of_silence",
     "laetitia",
     "mosb", -- The Mountain of Smiling Bodies
+    "express_train", -- Express Train to Hell
     "censored",
     "servant_of_wrath",
 
@@ -137,6 +138,8 @@ local sound_list = {
     censored = "Censored_Atk",
     big_bird_attract = "Bigbird_Attract",
     big_bird_destroy = "Bigbird_HeadCut",
+    train_sell = "Train_Sell",
+    train_start = "Train_Start",
 
     gebura_slash = "Gebura_Phase2_Atk1",
     dice_roll = "Dice_Roll",
@@ -1026,7 +1029,7 @@ function Card.set_cost(self)
     if self.ability.lobc_fairy_festival and self.cost > 0 then self.cost = 0 end
 end
 
--- Front sprites thing (Today's Shy Look / You Must Be Happy)
+-- Front sprites thing (Today's Shy Look / You Must Be Happy / Express Train to Hell)
 local alignref = Card.align
 function Card.align(self)  
     if self.children.mood then 
@@ -1042,6 +1045,7 @@ local sprite_drawref = Sprite.draw
 function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_yes_no"] then return end
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_lights"] then return end
     sprite_drawref(self, overlay)
 end
 
@@ -2009,6 +2013,12 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = "LobotomyCorp_yes_no",
     path = "LobotomyCorp_yes_no.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "LobotomyCorp_lights",
+    path = "LobotomyCorp_lights.png",
     px = 71,
     py = 95
 })
