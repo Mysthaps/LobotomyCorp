@@ -38,5 +38,8 @@ self.lobc_shared_modifiers = {
     price_of_silence_amplified = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 1, y = 0}),
     plague_doctor_baptism = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 2, y = 0}),
     child_galaxy_pebble = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 3, y = 0}),
-}'''
+}
+
+-- Late patches
+G.UIDEF.card_h_popup = lobc_card_h_popup'''
 match_indent = true

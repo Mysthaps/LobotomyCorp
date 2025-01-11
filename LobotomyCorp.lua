@@ -4,8 +4,6 @@ local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 local folder = string.match(mod_path, "[Mm]ods.*")
--- Since Cryptid completely overrides create_card, make sure it is only patched later, and only when needed
-create_card_late_patched = false
 
 --=============== STEAMODDED OBJECTS ===============--
 
@@ -1110,7 +1108,7 @@ end
 
 -- Card popup UI effects
 local card_h_popupref = G.UIDEF.card_h_popup
-function G.UIDEF.card_h_popup(card)
+function lobc_card_h_popup(card)
     local t = card_h_popupref(card)
     -- Yesod remove UI
     if G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 then

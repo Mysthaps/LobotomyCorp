@@ -1,6 +1,6 @@
 local joker = {
     name = "Child of the Galaxy",
-    config = {extra = {per = 0, gain = 0.3, loss = 0.2}}, rarity = 2, cost = 8,
+    config = {extra = {per = 0, gain = 2, loss = 2}}, rarity = 2, cost = 8,
     pos = {x = 9, y = 2}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -17,20 +17,19 @@ joker.calculate = function(self, card, context)
             if v.ability.child_galaxy_pebble then
                 card.ability.extra.per = card.ability.extra.per + card.ability.extra.gain
             else
-                if card.ability.extra.per >= -1 then
+                if card.ability.extra.per >= -10 then
                     card.ability.extra.per = card.ability.extra.per - card.ability.extra.loss
                 end
             end
-            card.ability.extra.per = math.floor(card.ability.extra.per*100)/100
         end
-        if card.ability.extra.per >= 4 then
+        if card.ability.extra.per >= 40 then
             check_for_unlock({type = "lobc_our_galaxy"})
         end
     end
 
     if context.joker_main then
-        local chips = G.GAME.hands[context.scoring_name].chips * card.ability.extra.per
-        local mult = G.GAME.hands[context.scoring_name].mult * card.ability.extra.per
+        local chips = G.GAME.hands[context.scoring_name].chips * (card.ability.extra.per / 10)
+        local mult = G.GAME.hands[context.scoring_name].mult * (card.ability.extra.per / 10)
         
         return {
             chips = chips,
@@ -42,7 +41,7 @@ end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { 
-        card.ability.extra.per, card.ability.extra.gain, card.ability.extra.loss, 
+        card.ability.extra.per/10, card.ability.extra.gain/10, card.ability.extra.loss/10, 
         card:check_rounds(2), card:check_rounds(4), card:check_rounds(7)
     }
     local desc_key = self.key
