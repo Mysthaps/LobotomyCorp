@@ -99,6 +99,14 @@ return {
                     "people are running away...",
                 }
             },
+            und_j_lobc_spider_bud = {
+                name = "T-02-43",
+                text = {
+                    "Unsurprisingly, not a single employee",
+                    "volunteered to retrieve the corpse",
+                    "of their cocooned colleague.",
+                }
+            },
             und_j_lobc_plague_doctor = {
                 name = "O-01-45",
                 text = {
@@ -795,6 +803,33 @@ return {
                     "{s:0.15} {}",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
                     "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"
+                }
+            },
+
+            dis_j_lobc_spider_bud_1 = {
+                name = "T-02-43",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/5){} ...",
+                }
+            },
+            dis_j_lobc_spider_bud_2 = {
+                name = "T-02-43",
+                text = {
+                    "Draw {C:attention}#1#{} more card(s)",
+                    "on {C:blue}play{} or {C:red}discard{}",
+                    "{C:attention}(#4#/5){} ...",
+                }
+            },
+            j_lobc_spider_bud = {
+                name = "Spider Bud",
+                text = {
+                    "Draw {C:attention}#1#{} more card(s)",
+                    "on {C:blue}play{} or {C:red}discard{}",
+                    "{s:0.15} {}",
+                    "{C:red}Destroys{} the first card each {C:red}discard{}",
+                    "to increase cards drawn by {C:attention}#2#{},",
+                    "resets when {C:attention}Blind{} is defeated",
                 }
             },
 

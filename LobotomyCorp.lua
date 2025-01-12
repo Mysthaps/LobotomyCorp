@@ -29,6 +29,7 @@ local joker_list = {
     "red_shoes",
     "nameless_fetus",
     "all_around_helper",
+    "spider_bud",
     "child_galaxy", -- Child of the Galaxy
     "big_bird",
     "fotdb", -- Funeral of the Dead Butterflies
