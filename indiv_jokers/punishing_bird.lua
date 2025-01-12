@@ -8,7 +8,6 @@ local joker = {
     abno = true,
     risk = "teth",
     discover_rounds = 6,
-    loc_txt = {},
     no_pool_flag = "apocalypse_bird_event",
 }
 

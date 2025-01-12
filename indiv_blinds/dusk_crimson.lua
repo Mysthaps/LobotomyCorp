@@ -9,7 +9,6 @@ local blind = {
     vars = {}, 
     debuff = {},
     boss = {min = 1, max = 10},
-    loc_txt = {},
     passives = {
         "psv_lobc_harmony"
     }

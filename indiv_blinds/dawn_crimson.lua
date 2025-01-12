@@ -7,7 +7,6 @@ local blind = {
     mult = 0.8, 
     vars = {}, 
     debuff = {},
-    loc_txt = {},
 }
 
 blind.set_blind = function(self)

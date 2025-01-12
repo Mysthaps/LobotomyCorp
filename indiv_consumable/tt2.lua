@@ -3,7 +3,6 @@ local cons = {
     config = {},
     cost = 10,
     pos = {x = 1, y = 0},
-    loc_txt = {},
     no_doe = true,
 }
 

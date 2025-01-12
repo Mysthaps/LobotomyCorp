@@ -10,7 +10,6 @@ local joker = {
     abno = true,
     risk = "he",
     discover_rounds = 6,
-    loc_txt = {},
 }
 
 joker.update = function(self, card, dt)

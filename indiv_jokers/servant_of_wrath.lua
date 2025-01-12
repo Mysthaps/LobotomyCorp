@@ -9,7 +9,6 @@ local joker = {
     risk = "waw",
     discover_rounds = 7,
     no_pool_flag = "servant_of_wrath_breach",
-    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -11,7 +11,6 @@ local joker = {
     abno = true,
     risk = "zayin",
     discover_rounds = 5,
-    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -8,7 +8,6 @@ local blind = {
     mult = 1.5, 
     vars = {}, 
     debuff = {},
-    loc_txt = {},
     passives = {
         "psv_lobc_harmony"
     }

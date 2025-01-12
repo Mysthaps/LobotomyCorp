@@ -9,7 +9,6 @@ local blind = {
     debuff = {},
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('C71F1F'),
-    loc_txt = {},
     passives = {
         "psv_lobc_fixed_encounter",
         "psv_lobc_final_battle",

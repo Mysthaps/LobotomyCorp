@@ -8,7 +8,6 @@ local joker = {
     abno = true,
     risk = "teth",
     discover_rounds = 4,
-    loc_txt = {},
 }
 
 joker.calculate = function(self, card, context)

@@ -9,7 +9,6 @@ local joker = {
     risk = "aleph",
     discover_rounds = 6,
     yes_pool_flag = "apocalypse_bird_defeated",
-    loc_txt = {},
 }
 
 joker.in_pool = function(self, args)

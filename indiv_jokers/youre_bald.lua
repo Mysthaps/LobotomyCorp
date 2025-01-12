@@ -5,12 +5,14 @@ local joker = {
     blueprint_compat = false, 
     eternal_compat = true,
     perishable_compat = true,
-    yes_pool_flag = "allow_abnormalities_in_shop",
     abno = true,
     risk = "zayin",
     discover_rounds = 3,
-    loc_txt = {},
 }
+
+joker.in_pool = function(self, args)
+    return false
+end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { card:check_rounds(3) }

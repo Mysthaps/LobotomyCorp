@@ -8,7 +8,6 @@ local blind = {
     debuff = {},
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('C8831B'),
-    loc_txt = {},
     passives = {
         "psv_lobc_fixed_encounter",
         "psv_lobc_cracking_eggs",
