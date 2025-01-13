@@ -525,7 +525,7 @@ return {
                     "Upgrade level of played",
                     "{C:attention}poker hand #1#{} time",
                     "{s:0.15} {}",
-                    "If {C:attention}consecutive{} hands have",
+                    "If {C:attention}consecutive{} hands are",
                     "the same {C:attention}poker hand{},",
                     "reduce its level to {C:attention}0{}",
                     "{C:inactive}(Last hand played: {C:attention}#2#{}{C:inactive}){}"

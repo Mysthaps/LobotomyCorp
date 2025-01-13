@@ -62,17 +62,19 @@ joker.add_to_deck = function(self, card, from_debuff)
     end
 end
 
-local sell_cardref = Card.sell_card
-function Card.sell_card(self)
-    if self.config.center.key == "j_lobc_express_train" and self.ability.extra.light > 0 then
+local funcs_sell_cardref = G.FUNCS.sell_card
+function G.FUNCS.sell_card(e)
+    local card = e.config.ref_table
+    if card.config.center.key == "j_lobc_express_train" and card.ability.extra.light > 0 then
         stop_use()
-        if self.children.sell_button then self.children.sell_button:remove(); self.children.sell_button = nil end
+        if card.children.sell_button then card.children.sell_button:remove(); card.children.sell_button = nil end
         
-        self:calculate_joker{selling_self = true}
-        self.area:remove_from_highlighted(self)
-    else
-        sell_cardref(self)
+        local eval, post = eval_card(card, {selling_self = true})
+        SMODS.trigger_effects({eval, post}, card)
+        card.area:remove_from_highlighted(card)
+        return
     end
+    funcs_sell_cardref(e)
 end
 
 joker.set_sprites = function(self, card, front)
@@ -163,7 +165,7 @@ if JokerDisplay then
                     { ref_table = "card.joker_display_values", ref_value = "x_mult" }
                 }
             },
-            { text = " " },
+            { text = " $", colour = G.C.MONEY },
             { ref_table = "card.joker_display_values", ref_value = "dollars", colour = G.C.MONEY }
         },
         calc_function = function(card)

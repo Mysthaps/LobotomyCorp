@@ -11,7 +11,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.selling_card and not context.blueprint and not context.card.ability.rudolta_created and context.card.sell_cost > 0 then
+    if context.selling_card and not context.blueprint and context.card ~= card and not context.card.ability.rudolta_created and context.card.sell_cost > 0 then
         context.card.ability.rudolta_created = true
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
             ease_dollars(-(context.card.sell_cost * card.ability.extra))
