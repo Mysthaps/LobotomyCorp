@@ -30,6 +30,7 @@ local joker_list = {
     "nameless_fetus",
     "all_around_helper",
     "spider_bud",
+    --"rudolta", -- Rudolta of the Sleigh
     "child_galaxy", -- Child of the Galaxy
     "big_bird",
     "fotdb", -- Funeral of the Dead Butterflies
@@ -239,6 +240,13 @@ for _, v in ipairs(joker_list) do
                 card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
             end
             card.children.center:set_sprite_pos(card.config.center.pos)
+        end
+    end
+
+    if not joker.in_pool then
+        joker_obj.in_pool = function(self, args)
+            if args.source == "lobc_rudolta" then return false end
+            return true
         end
     end
 
@@ -1808,7 +1816,7 @@ end
 local function get_abno_pool(_type, _rarity, legendary, key_append)
     --create the pool
     G.ARGS.TEMP_POOL = EMPTY(G.ARGS.TEMP_POOL)
-    local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality', 0
+    local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality'..(_rarity or ''), 0
     -- Increased chance to get birds when you get a bird
     local bird = false
     local birds = {}
@@ -1820,7 +1828,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         end
     end
     local roll = pseudorandom("birb_chance")
-    if bird and roll < 0.1 and not G.GAME.pool_flags.apocalypse_bird_event then
+    if not _rarity and bird and roll < 0.1 and not G.GAME.pool_flags.apocalypse_bird_event then
         for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
             if not birds[birb] then
                 _starting_pool[#_starting_pool+1] = G.P_CENTERS[birb]
@@ -1831,7 +1839,9 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
 
     if #_starting_pool == 0 then
         for _, v in ipairs(joker_list) do
-            _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
+            if (_rarity and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity then 
+                _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
+            end
         end
     end
 
@@ -1867,6 +1877,7 @@ end
 local get_current_poolref = get_current_pool
 function get_current_pool(_type, _rarity, _legendary, _append)
     if _type == "Abnormality" then return get_abno_pool(_type, _rarity, _legendary, _append) end
+    if _append == "lobc_rudolta" then _rarity = ({"Common", "Uncommon", "Rare", "Legendary"})[_rarity] or _rarity end
     return get_current_poolref(_type, _rarity, _legendary, _append)
 end
 

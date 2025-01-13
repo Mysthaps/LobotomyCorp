@@ -1,5 +1,6 @@
 local config = SMODS.current_mod.config
 local chal = {
+    name = "Energy Production",
     rules = {
         custom = {
             { id = "no_shop_jokers" },

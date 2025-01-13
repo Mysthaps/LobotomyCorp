@@ -1,5 +1,6 @@
 local config = SMODS.current_mod.config
 local chal = {
+    name = "Dark Days",
     rules = {
         custom = {
             {id = "lobc_all_whitenight"},

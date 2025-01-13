@@ -122,6 +122,13 @@ return {
                     "Rise and serve me.",
                 }
             },
+            und_j_lobc_rudolta = {
+                name = "F-02-49",
+                text = {
+                    "With my infinite hatred,",
+                    "I give you this gift.",
+                }
+            },
             und_j_lobc_child_galaxy = {
                 name = "O-01-55",
                 text = {
@@ -899,6 +906,38 @@ return {
                     "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
                     "{s:0.15} {}",
                     "Retrigger {C:attention}blessed{} cards {C:attention}#2#{} times",
+                }
+            },
+
+            dis_j_lobc_rudolta_1 = {
+                name = "F-02-49",
+                text = {
+                    "{C:attention}(#1#/3){} ...",
+                    "{C:attention}(#2#/6){} ...",
+                }
+            },
+            dis_j_lobc_rudolta_2 = {
+                name = "F-02-49",
+                text = {
+                    "When a card is sold, lose {C:attention}money{}",
+                    "equals to {X:money,C:white} X#3# {} its sell cost,",
+                    "then creates a card of the same",
+                    "{C:attention}type{} and/or {C:attention}rarity{}",
+                    "{C:inactive}(For Abnormalities, same Risk Level)",
+                    "{C:attention}(#2#/6){} ...",
+                }
+            },
+            j_lobc_rudolta = {
+                name = "Rudolta of the Sleigh",
+                text = {
+                    "When a card is sold, lose {C:attention}money{}",
+                    "equals to {X:money,C:white} X#3# {} its sell cost,",
+                    "then creates a card of the same",
+                    "{C:attention}type{} and/or {C:attention}rarity{}",
+                    "{C:inactive}(For Abnormalities, same Risk Level)",
+                    "{s:0.15} {}",
+                    "Does not activate on cards created",
+                    "by this Abnormality",
                 }
             },
 

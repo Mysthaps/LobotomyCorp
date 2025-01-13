@@ -1,4 +1,5 @@
 local chal = {
+    name = "Control",
     rules = {
         custom = {
             {id = "lobc_malkuth"},

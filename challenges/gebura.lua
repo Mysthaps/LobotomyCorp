@@ -1,5 +1,6 @@
 local config = SMODS.current_mod.config
 local chal = {
+    name = "Discipline",
     rules = {
         custom = {
             {id = "lobc_gebura"},

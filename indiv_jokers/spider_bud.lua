@@ -60,3 +60,5 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
 end
 
 return joker
+
+-- why does lobotomy e.g.o::red eyes & penitence ryoshu's kit have NO BIND in it

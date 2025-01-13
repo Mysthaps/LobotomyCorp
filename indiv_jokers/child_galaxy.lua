@@ -78,8 +78,8 @@ if JokerDisplay then
             local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
             local text, _, _ = JokerDisplay.evaluate_hand(hand)
 
-            local chips = text and G.GAME.hands[text] and G.GAME.hands[text].chips * card.ability.extra.per or 0
-            local mult = text and G.GAME.hands[text] and G.GAME.hands[text].mult * card.ability.extra.per or 0
+            local chips = text and G.GAME.hands[text] and G.GAME.hands[text].chips * (card.ability.extra.per / 10) or 0
+            local mult = text and G.GAME.hands[text] and G.GAME.hands[text].mult * (card.ability.extra.per / 10) or 0
 
             card.joker_display_values.sign = card.ability.extra.per >= 0 and "+" or ""
             card.joker_display_values.chips = number_format(chips)

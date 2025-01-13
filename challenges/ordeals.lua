@@ -1,4 +1,5 @@
 local chal = {
+    name = "Increased Ordeals",
     rules = {
         custom = {
             {id = "lobc_ordeals"},

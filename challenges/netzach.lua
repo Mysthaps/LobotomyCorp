@@ -1,4 +1,5 @@
 local chal = {
+    name = "Safety",
     rules = {
         modifiers = {
             {id = 'hands', value = 7},

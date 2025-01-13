@@ -1,4 +1,5 @@
 local chal = {
+    name = "Training",
     rules = {
         custom = {
             {id = "lobc_hod"},

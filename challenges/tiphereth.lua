@@ -1,5 +1,6 @@
 local config = SMODS.current_mod.config
 local chal = {
+    name = "Central Command",
     rules = {
         custom = {
             {id = "lobc_tiphereth"},
