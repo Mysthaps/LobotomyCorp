@@ -129,6 +129,13 @@ return {
                     "I give you this gift.",
                 }
             },
+            und_j_lobc_wellcheers = {
+                name = "F-05-52",
+                text = {
+                    "Somewhere in the distance,",
+                    "you can hear seagulls.",
+                }
+            },
             und_j_lobc_child_galaxy = {
                 name = "O-01-55",
                 text = {
@@ -941,6 +948,49 @@ return {
                 }
             },
 
+            dis_j_lobc_wellcheers_1 = {
+                name = "F-05-52",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/5){} ...",
+                }
+            },
+            dis_j_lobc_wellcheers_2 = {
+                name = "WellCheers",
+                text = {
+                    "On {C:blue}play{} or {C:red}discard{},",
+                    "changes the displayed can's color",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/5){} ...",
+                }
+            },
+            dis_j_lobc_wellcheers_3 = {
+                name = "WellCheers",
+                text = {
+                    "On {C:blue}play{} or {C:red}discard{},",
+                    "changes the displayed can's color",
+                    "{s:0.15} {}",
+                    "Drinking a {C:blue}blue{} can gives {C:chips}+#2#{} chips",
+                    "Drinking a {C:red}red{} can gives {C:mult}+#1#{} Mult",
+                    "{C:attention}(#5#/5){} ...",
+                }
+            },
+            j_lobc_wellcheers = {
+                name = "Opened Can of WellCheers",
+                text = {
+                    "On {C:blue}play{} or {C:red}discard{},",
+                    "changes the displayed can's color",
+                    "{s:0.15} {}",
+                    "Drinking a {C:blue}blue{} can gives {C:chips}+#2#{} chips",
+                    "Drinking a {C:red}red{} can gives {C:mult}+#1#{} Mult",
+                    "{s:0.15} {}",
+                    "If someone offers you an already",
+                    "opened can of {C:purple}grape-flavored soda{},",
+                    "you most definitely should not drink it."
+                }
+            },
+
             dis_j_lobc_child_galaxy_1 = {
                 name = "O-01-55",
                 text = {
@@ -1433,7 +1483,7 @@ return {
                 name = "T-09-86",
                 text = {
                     "At {C:attention}1{} or more lights, selling",
-                    "only activates this Abnormality's effects",
+                    "this Abnormality only activates its effects",
                     "{C:attention}(#4#/2){} ...",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/6){} ...",
@@ -1443,7 +1493,7 @@ return {
                 name = "T-09-86",
                 text = {
                     "At {C:attention}1{} or more lights, selling",
-                    "only activates this Abnormality's effects",
+                    "this Abnormality only activates its effects",
                     "{s:0.15} {}",
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
@@ -1455,7 +1505,7 @@ return {
                 name = "T-09-86",
                 text = {
                     "At {C:attention}1{} or more lights, selling",
-                    "only activates this Abnormality's effects",
+                    "this Abnormality only activates its effects",
                     "{s:0.15} {}",
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
@@ -1471,7 +1521,7 @@ return {
                 name = "Express Train to Hell",
                 text = {
                     "At {C:attention}1{} or more lights, selling",
-                    "only activates this Abnormality's effects",
+                    "this Abnormality only activates its effects",
                     "{s:0.15} {}",
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",

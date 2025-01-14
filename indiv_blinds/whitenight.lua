@@ -112,9 +112,7 @@ blind.press_play = function(self)
                 end
             end
             delay(0.2)
-            for i = 1, #G.jokers.cards do
-                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-            end
+            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
             return true 
         end 
     }))

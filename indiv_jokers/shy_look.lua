@@ -12,7 +12,7 @@ local joker = {
         chips = 30, mult = 15, face = 1,
         elapsed = 0, interval = 2,
         achievement_check = 0
-    }}, rarity = 1, cost = 4,
+    }}, rarity = 1, cost = 5,
     pos = {x = 4, y = 6}, 
     blueprint_compat = true, 
     eternal_compat = true,

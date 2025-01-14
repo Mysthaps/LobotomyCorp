@@ -15,6 +15,7 @@ local joker_list = {
     "old_lady",
     "wall_gazer", -- The Lady Facing the Wall
     "plague_doctor",
+    "wellcheers", -- Opened Can of WellCheers
     "punishing_bird",
     "shy_look", -- Today's Shy Look
     "fairy_festival",
@@ -1038,7 +1039,7 @@ function Card.set_cost(self)
     if self.ability.lobc_fairy_festival and self.cost > 0 then self.cost = 0 end
 end
 
--- Front sprites thing (Today's Shy Look / You Must Be Happy / Express Train to Hell)
+-- Front sprites thing (Today's Shy Look / You Must Be Happy / Express Train to Hell / Opened Can of WellCheers)
 local alignref = Card.align
 function Card.align(self)  
     if self.children.mood then 
@@ -1055,6 +1056,7 @@ function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_yes_no"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_lights"] then return end
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_wellcheers"] then return end
     sprite_drawref(self, overlay)
 end
 
@@ -1082,9 +1084,7 @@ function Blind.drawn_to_hand(self)
                 first = nil
             end
             delay(0.2)
-            for i = 1, #G.jokers.cards do
-                G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = {chosen_card}})
-            end
+            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
         end
     end
 
@@ -2031,6 +2031,12 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = "LobotomyCorp_lights",
     path = "LobotomyCorp_lights.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "LobotomyCorp_wellcheers",
+    path = "LobotomyCorp_wellcheers.png",
     px = 71,
     py = 95
 })

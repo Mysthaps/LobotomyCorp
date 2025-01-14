@@ -92,9 +92,7 @@ function CardArea.emplace(self, card, location, stay_flipped)
                     ease_discard(-1, true)
                     G.FUNCS.draw_from_deck_to_hand(1)
                     delay(0.15*G.SETTINGS.GAMESPEED)
-                    for i = 1, #G.jokers.cards do
-                        G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = {card}})
-                    end
+                    SMODS.calculate_context({remove_playing_cards = true, removed = {card}})
                 end
             return true
             end
