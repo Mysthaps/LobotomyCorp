@@ -1432,8 +1432,8 @@ return {
             dis_j_lobc_express_train_1 = {
                 name = "T-09-86",
                 text = {
-                    "At {C:attention}1{} or more lights, selling does not",
-                    "remove this Abnormality or give {C:money}money{}",
+                    "At {C:attention}1{} or more lights, selling",
+                    "only activates this Abnormality's effects",
                     "{C:attention}(#4#/2){} ...",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/6){} ...",
@@ -1442,8 +1442,8 @@ return {
             dis_j_lobc_express_train_2 = {
                 name = "T-09-86",
                 text = {
-                    "At {C:attention}1{} or more lights, selling does not",
-                    "remove this Abnormality or give {C:money}money{}",
+                    "At {C:attention}1{} or more lights, selling",
+                    "only activates this Abnormality's effects",
                     "{s:0.15} {}",
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
@@ -1454,8 +1454,8 @@ return {
             dis_j_lobc_express_train_3 = {
                 name = "T-09-86",
                 text = {
-                    "At {C:attention}1{} or more lights, {C:money}selling{} does not",
-                    "remove this Abnormality nor give {C:money}money{}",
+                    "At {C:attention}1{} or more lights, selling",
+                    "only activates this Abnormality's effects",
                     "{s:0.15} {}",
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
@@ -1470,8 +1470,8 @@ return {
             j_lobc_express_train = {
                 name = "Express Train to Hell",
                 text = {
-                    "At {C:attention}1{} or more lights, {C:money}selling{} does not",
-                    "remove this Abnormality nor give {C:money}money{}",
+                    "At {C:attention}1{} or more lights, selling",
+                    "only activates this Abnormality's effects",
                     "{s:0.15} {}",
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
@@ -1483,7 +1483,7 @@ return {
                     "{s:0.15} {}",
                     "When {C:attention}4{} lights are lit up and another",
                     "is {C:enchanted}illuminated{}, randomly {C:red}destroys{} half of",
-                    "owned Jokers and resets lights",
+                    "owned Jokers, then resets lights",
                 }
             },
 
