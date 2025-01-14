@@ -1165,11 +1165,11 @@ end
 
 -- Remove the topleft message when CENSORED/Yesod is active
 local generate_UIBox_ability_tableref = Card.generate_UIBox_ability_table
-function Card.generate_UIBox_ability_table(self)
+function Card.generate_UIBox_ability_table(self, ...)
     if (next(SMODS.find_card("j_lobc_censored", true)) and self.config.center.key ~= "j_lobc_censored") 
     or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3) 
     or (self.ability and self.ability.lobc_censored) then return end
-    return generate_UIBox_ability_tableref(self)
+    return generate_UIBox_ability_tableref(self, ...)
 end
 
 -- JokerDisplay text replacements
