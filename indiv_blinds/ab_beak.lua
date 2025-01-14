@@ -21,6 +21,7 @@ local blind = {
 
 blind.set_blind = function(self, reset, silent)
     ease_hands_played(1)
+    ease_discard(1)
     G.GAME.lobc_small_beak = {}
     local eval_func = function()
         return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_ab_beak'

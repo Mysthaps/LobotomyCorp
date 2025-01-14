@@ -722,11 +722,10 @@ function Game.update_new_round(self, dt)
                     return true
                     end
                 }))
-                
-                ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
 
                 if G.GAME.blind.config.blind.key == "bl_lobc_red_mist" then 
                     G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 5 
+                    ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
                     if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
                 end
                 G.GAME.blind.prepped = nil
@@ -1159,6 +1158,7 @@ function lobc_card_h_popup(card)
                 }}
             }}
         )
+
     end
     return t
 end
@@ -1169,7 +1169,16 @@ function Card.generate_UIBox_ability_table(self, ...)
     if (next(SMODS.find_card("j_lobc_censored", true)) and self.config.center.key ~= "j_lobc_censored") 
     or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3) 
     or (self.ability and self.ability.lobc_censored) then return end
-    return generate_UIBox_ability_tableref(self, ...)
+
+    -- Add "Sin" info_queue
+    local full_UI_table = generate_UIBox_ability_tableref(self, ...)
+    if self.playing_card then
+        local id = self:get_id()
+        if G.GAME.lobc_long_arms[id] then
+            generate_card_ui({key = 'lobc_sin', set = 'Other'}, full_UI_table)
+        end
+    end
+    return full_UI_table
 end
 
 -- JokerDisplay text replacements
@@ -1483,13 +1492,6 @@ function Game.init_game_object(self)
         G.bosses_used["bl_lobc_"..v] = 1e300
     end
 
-    -- Nameless Fetus
-    G.nameless_hand_type = nil
-    -- Production last pack Ante
-    G.production_last_pack = 1
-    -- Effect multi
-    G.lobc_hod_modifier = 1
-
     -- Yesod font
     self.FONTS["blank"] = {
         file = folder.."assets/fonts/AdobeBlank.ttf", 
@@ -1503,6 +1505,26 @@ function Game.init_game_object(self)
     }
 
     return G
+end
+
+-- Global vars, end of round effect
+function current_mod.reset_game_globals(start_run)
+    if start_run then
+        -- Nameless Fetus
+        G.GAME.nameless_hand_type = nil
+        -- Production last pack Ante
+        G.GAME.production_last_pack = 1
+        -- Effect multi
+        G.GAME.lobc_hod_modifier = 1
+        -- Rank's Sin
+        G.GAME.lobc_long_arms = {}
+    else
+        for k, _ in pairs(G.GAME.lobc_long_arms) do
+            if G.GAME.lobc_long_arms[k] >= 10 then G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] / 2 end
+            G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] - 1
+            if G.GAME.lobc_long_arms[k] < 0 then G.GAME.lobc_long_arms[k] = nil end
+        end
+    end
 end
 
 -- i am NOT implementing a none hand myself. yell at me if this fucks up anything

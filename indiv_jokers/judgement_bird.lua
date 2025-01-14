@@ -1,10 +1,10 @@
 local joker = {
     name = "Judgement Bird",
-    config = {extra = 10}, rarity = 3, cost = 7,
+    config = {extra = {x_mult = 1, x_mult_gain = 0.05}}, rarity = 3, cost = 8,
     pos = {x = 5, y = 3}, 
-    blueprint_compat = false, 
-    eternal_compat = false,
-    perishable_compat = true,
+    blueprint_compat = true, 
+    eternal_compat = true,
+    perishable_compat = false,
     abno = true,
     risk = "waw",
     discover_rounds = 7,
@@ -12,51 +12,41 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.card_destroyed and not context.blueprint and G.GAME.blind and G.GAME.blind.in_blind and not find_passive("psv_lobc_fixed_encounter") then
-        local incr = 0
-        for _, v in ipairs(context.glass_shattered) do
-            if v.config.center ~= G.P_CENTERS.c_base then incr = incr + 1 end
-            if v.seal then incr = incr + 1 end
-            if v.edition then incr = incr + 1 end
-        end
-
-        if incr > 0 then
-            local chips = (G.GAME.blind.chips * (card.ability.extra / 100)) * incr
-            if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
-            G.GAME.chips = G.GAME.chips + chips
-            G.GAME.chips_text = number_format(G.GAME.chips)
-            G.hand_text_area.game_chips.config.scale = math.min(0.8, scale_number(G.GAME.chips, 1.1))
-            card:juice_up()
-
-            local chips_check = (to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips))
-            if chips_check and G.STATE == G.STATES.SELECTING_HAND then
-                G.STATE = G.STATES.NEW_ROUND
-                G.STATE_COMPLETE = false
+    if context.remove_playing_cards and not context.blueprint then
+        local sins = 0
+        for _, v in ipairs(context.removed) do
+            local id = v:get_id()
+            if G.GAME.lobc_long_arms[id] then
+                sins = sins + G.GAME.lobc_long_arms[id]
             end
+        end
+        card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain * sins
+        if sins > 0 then
+            return {
+                message = localize("k_upgrade_ex")
+            }
         end
     end
 
-    if context.remove_playing_cards and not context.blueprint and G.GAME.blind and G.GAME.blind.in_blind and not find_passive("psv_lobc_fixed_encounter") then
-        local incr = 0
-        for _, v in ipairs(context.removed) do
-            if v.config.center ~= G.P_CENTERS.c_base then incr = incr + 1 end
-            if v.seal then incr = incr + 1 end
-            if v.edition then incr = incr + 1 end
+    if context.joker_main then
+        return {
+            x_mult = card.ability.extra.x_mult,
+            card = context.blueprint_card or card,
+        }
+    end
+
+    if context.after and context.cardarea == G.jokers and not context.blueprint then
+        for _, v in ipairs(context.full_hand) do
+            local id = v:get_id()
+            G.GAME.lobc_long_arms[id] = G.GAME.lobc_long_arms[id] or 0
+            G.GAME.lobc_long_arms[id] = G.GAME.lobc_long_arms[id] + 1
         end
+    end
 
-        if incr > 0 then
-            local chips = (G.GAME.blind.chips * (card.ability.extra / 100)) * incr
-            if type(chips) == 'table' then chips:ceil() else chips = math.ceil(chips) end
-            G.GAME.chips = G.GAME.chips + chips
-            G.GAME.chips_text = number_format(G.GAME.chips)
-            G.hand_text_area.game_chips.config.scale = math.min(0.8, scale_number(G.GAME.chips, 1.1))
-            card:juice_up()
-
-            local chips_check = (to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips))
-            if chips_check and G.STATE == G.STATES.SELECTING_HAND then
-                G.STATE = G.STATES.NEW_ROUND
-                G.STATE_COMPLETE = false
-            end
+    if context.destroying_card and not context.blueprint and not context.destroying_card.ability.eternal then
+        local id = context.destroying_card:get_id()
+        if G.GAME.lobc_long_arms[id] and G.GAME.lobc_long_arms[id] >= 5 then
+            return true
         end
     end
 end
@@ -79,36 +69,18 @@ joker.add_to_deck = function(self, card, from_debuff)
     end
 end
 
--- Destroy drawn cards
-local cardarea_emplaceref = CardArea.emplace
-function CardArea.emplace(self, card, location, stay_flipped)
-    cardarea_emplaceref(self, card, location, stay_flipped)
-    if next(SMODS.find_card("j_lobc_judgement_bird")) and self == G.hand and G.GAME.blind and G.GAME.blind.in_blind and (card.config.center ~= G.P_CENTERS.c_base or card.seal or card.edition) then
-        G.E_MANAGER:add_event(Event({
-            trigger = "after",
-            func = function()
-                if G.GAME.current_round.discards_left >= 1 then
-                    card:start_dissolve({G.C.GOLD})
-                    ease_discard(-1, true)
-                    G.FUNCS.draw_from_deck_to_hand(1)
-                    delay(0.15*G.SETTINGS.GAMESPEED)
-                    SMODS.calculate_context({remove_playing_cards = true, removed = {card}})
-                end
-            return true
-            end
-        }))
-    end
-end
-
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra, card:check_rounds(3), card:check_rounds(5), card:check_rounds(7) }
+    local vars = { card.ability.extra.x_mult_gain, card.ability.extra.x_mult, card:check_rounds(2), card:check_rounds(4), card:check_rounds(7) }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
+    if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(5) < 5 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(7) < 7 then
-        desc_key = 'dis_'..desc_key..'_3'
+    else
+        info_queue[#info_queue+1] = {key = 'lobc_sin', set = 'Other'}
+        if card:check_rounds(4) < 4 then
+            desc_key = 'dis_'..desc_key..'_2'
+        elseif card:check_rounds(7) < 7 then
+            desc_key = 'dis_'..desc_key..'_3'
+        end
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}

@@ -427,6 +427,14 @@ return {
                     "can be manually activated",
                     "via the {C:red}USE{} button"
                 }
+            },
+            lobc_sin = {
+                name = "Sin",
+                text = {
+                    "When {C:attention}Blind{} is defeated,",
+                    "decays by {C:attention}1{}",
+                    "plus {C:attention}half{} at {C:attention}10+ {C:red}Sin",
+                }
             }
         },
         Joker = {
@@ -1128,47 +1136,42 @@ return {
             dis_j_lobc_judgement_bird_1 = {
                 name = "O-02-52",
                 text = {
-                    "{C:attention}(#2#/3){} ...",
-                    "{C:attention}(#3#/5){} ...",
-                    "{C:attention}(#4#/7){} ...",
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/4){} ...",
+                    "{C:attention}(#5#/7){} ...",
                 }
             },
             dis_j_lobc_judgement_bird_2 = {
                 name = "Long Bird",
                 text = {
-                    "Increase score by {C:attention}#1#%{} Blind Size per",
-                    "{C:attention}Enhancement{}, {C:blue}Seal{} and {C:dark_edition}Edition{}",
-                    "on destroyed cards",
-                    "{C:attention}(#3#/5){} ...",
-                    "{C:attention}(#4#/7){} ...",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
+                    "{C:attention}(#4#/4){} ...",
+                    "{C:attention}(#5#/7){} ...",
                 }
             },
             dis_j_lobc_judgement_bird_3 = {
                 name = "Long Bird",
                 text = {
-                    "Increase score by {C:attention}#1#%{} Blind Size per",
-                    "{C:attention}Enhancement{}, {C:blue}Seal{} and {C:dark_edition}Edition{}",
-                    "on destroyed cards",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
                     "{s:0.15} {}",
-                    "At {C:attention}2{} or more hands left,",
-                    "drawn cards with an {C:attention}Enhancement{},",
-                    "{C:blue}Seal{} or {C:dark_edition}Edition{} are destroyed",
+                    "Destroys scoring cards with {C:attention}5+ {C:red}Sin",
+                    "{s:0.15} {}",
                     "{C:attention}(#4#/7){} ...",
                 }
             },
             j_lobc_judgement_bird = {
                 name = "Judgement Bird",
                 text = {
-                    "Increase score by {C:attention}#1#%{} Blind Size per",
-                    "{C:attention}Enhancement{}, {C:blue}Seal{} and {C:dark_edition}Edition{}",
-                    "on destroyed cards",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
                     "{s:0.15} {}",
-                    "At {C:attention}2{} or more hands left,",
-                    "drawn cards with an {C:attention}Enhancement{},",
-                    "{C:blue}Seal{} or {C:dark_edition}Edition{} are destroyed",
+                    "Destroys scoring cards with {C:attention}5+ {C:red}Sin",
                     "{s:0.15} {}",
-                    "{C:red}-1{} discard for each",
-                    "card destroyed this way",
+                    "This Abnormality gains {X:mult,C:white} X#1# {} Mult for each",
+                    "{C:red}Sin{} in destroyed cards from any source",
+                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
                 }
             },
 
@@ -1184,7 +1187,8 @@ return {
                 name = "O-02-63",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
-                    "{C:red}+15{} Mult",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
                     "{C:attention}(#3#/3){} ...",
                     "{C:attention}(#4#/6){} ..."
                 }
@@ -1193,7 +1197,8 @@ return {
                 name = "O-02-63",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
-                    "{C:red}+15{} Mult",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
                     "{s:0.15} {}",
                     "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
                     "{C:enchanted}unenchanted{} scoring card,",
@@ -1205,13 +1210,16 @@ return {
                 name = "Apocalypse Bird",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
-                    "{C:red}+15{} Mult",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank",
                     "{s:0.15} {}",
                     "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
                     "{C:enchanted}unenchanted{} scoring card,",
                     "and it gains {C:dark_edition}Negative{}",
                     "{s:0.15} {}",
                     "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
+                    "{s:0.15} {}",
+                    "Scoring cards give {X:mult,C:white} +X#5# {} Mult for each {C:red}Sin{}",
                 }
             },
 
@@ -2250,15 +2258,16 @@ return {
             psv_lobc_cracking_eggs = {
                 name = "{C:white}Cracking Eggs",
                 text = {
-                    "When {C:attention}Blind{} is defeated, {C:blue}+1{} hand, reset",
-                    "{C:red}discards{}, and return all cards to deck",
-                    "When {C:purple}Long Arms{} is defeated, resets hands",
+                    "When {C:attention}Blind{} is defeated, {C:blue}+1{} hand, {C:red}+1{} discards",
+                    "and return all cards to deck",
+                    "When {C:purple}Long Arms{} is defeated, reset {C:blue}hands{}",
+                    "and {C:red}discards{}"
                 }
             },
             psv_lobc_monster_of_the_forest = {
                 name = "{C:purple}The Monster of the Forest",
                 text = {
-                    "When phase changes, chosen suits change",
+                    "When phase changes, chosen suit changes",
                     "When phase changes, removes a {C:dark_edition}[Persistent]{}",
                     "effect from {C:attention}Big Eyes{}, {C:red}Small Beak{}",
                     "and {C:purple}Long Arms{}",
@@ -2283,7 +2292,6 @@ return {
                 name = "{C:white}A Lamp that Burns Forever",
                 text = {
                     "{C:dark_edition}[Persistent]",
-                    "{C:enchanted}Enchanted{} is not removed after each blind",
                     "No hands with {C:attention}2{} or more {C:enchanted}Enchanted{} cards"
                 }
             },
@@ -2291,7 +2299,7 @@ return {
                 name = "{C:white}Ceaseless Judgement",
                 text = {
                     "{C:dark_edition}[Persistent]",
-                    "Each card in played hand adds {C:attention}+1 {C:red}Sin",
+                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
                     "to all playing cards of that rank",
                     "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
                 }

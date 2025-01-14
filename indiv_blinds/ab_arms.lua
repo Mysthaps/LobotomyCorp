@@ -22,7 +22,7 @@ local blind = {
 
 blind.set_blind = function(self)
     ease_hands_played(1)
-    G.GAME.lobc_long_arms = {}
+    ease_discard(1)
     if not G.GAME.lobc_small_beak then G.GAME.lobc_small_beak = {} end
     local eval_func = function()
         return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_ab_arms'

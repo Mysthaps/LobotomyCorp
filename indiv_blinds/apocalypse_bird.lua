@@ -34,6 +34,7 @@ end
 
 blind.set_blind = function(self, blind, reset, silent)
     ease_hands_played(math.max(0, G.GAME.round_resets.hands + G.GAME.round_bonus.next_hands) - G.GAME.current_round.hands_left)
+    ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
     G.GAME.blind.prepped = nil
     G.GAME.blind.hands_sub = 1
     G.GAME.blind:set_text()
@@ -97,7 +98,6 @@ blind.drawn_to_hand = function(self)
                     G.GAME.blind.hands_sub = 4
                     G.GAME.blind:set_text()
                     table.remove(G.GAME.blind.passives, k)
-                    G.GAME.lobc_long_arms = nil
                 end
             end
         end
