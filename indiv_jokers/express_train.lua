@@ -40,16 +40,6 @@ joker.calculate = function(self, card, context)
             dollars = light.dollars
         }
     end
-    if context.selling_self and not context.blueprint then
-        if card.ability.extra.active_light < card.ability.extra.light then
-            card.ability.extra.active_light = card.ability.extra.light
-        end
-        card.ability.extra.light = 0
-        card.ability.extra.elapsed = 0
-        card.children.mood:set_sprite_pos({x = 0, y = 0})
-        card:juice_up()
-        play_sound("lobc_train_sell", 1, 0.6)
-    end
 end
 
 joker.add_to_deck = function(self, card, from_debuff)
@@ -62,19 +52,19 @@ joker.add_to_deck = function(self, card, from_debuff)
     end
 end
 
-local funcs_sell_cardref = G.FUNCS.sell_card
-function G.FUNCS.sell_card(e)
-    local card = e.config.ref_table
-    if card.config.center.key == "j_lobc_express_train" and card.ability.extra.light > 0 then
-        stop_use()
-        if card.children.sell_button then card.children.sell_button:remove(); card.children.sell_button = nil end
-        
-        local eval, post = eval_card(card, {selling_self = true})
-        SMODS.trigger_effects({eval, post}, card)
-        card.area:remove_from_highlighted(card)
-        return
+joker.lobc_active = function(self, card)
+    if card.ability.extra.active_light < card.ability.extra.light then
+        card.ability.extra.active_light = card.ability.extra.light
     end
-    funcs_sell_cardref(e)
+    card.ability.extra.light = 0
+    card.ability.extra.elapsed = 0
+    card.children.mood:set_sprite_pos({x = 0, y = 0})
+    card:juice_up()
+    play_sound("lobc_train_sell", 1, 0.6)
+end
+
+joker.lobc_can_use_active = function(self, card)
+    return card.ability.extra.light > 0
 end
 
 joker.set_sprites = function(self, card, front)
@@ -145,6 +135,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     elseif card:check_rounds(6) < 6 then
         desc_key = 'dis_'..desc_key..'_3'
     end
+    info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     if not self.discovered and card.area ~= G.jokers then
@@ -187,4 +178,6 @@ end
 
 return joker
 
--- hod realization reading comprehension
+-- that fucking train that i hate
+-- that fucking train that i hate
+-- that fucking train that i hate
