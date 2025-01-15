@@ -31,7 +31,7 @@ local joker_list = {
     "nameless_fetus",
     "all_around_helper",
     "spider_bud",
-    --"rudolta", -- Rudolta of the Sleigh
+    "rudolta", -- Rudolta of the Sleigh
     "child_galaxy", -- Child of the Galaxy
     "big_bird",
     "fotdb", -- Funeral of the Dead Butterflies
