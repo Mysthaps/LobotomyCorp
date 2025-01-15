@@ -1216,7 +1216,7 @@ end
 local use_and_sell_buttonsref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
     local t = use_and_sell_buttonsref(card)
-    if card.config.center.lobc_active and type(card.config.center.lobc_active) == "function" then
+    if t and t.nodes[1] and t.nodes[1].nodes[2] and card.config.center.lobc_active and type(card.config.center.lobc_active) == "function" then
         table.insert(t.nodes[1].nodes[2].nodes, 
             {n=G.UIT.C, config={align = "cr"}, nodes={
                 {n=G.UIT.C, config={ref_table = card, align = "cr", maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'lobc_active_ability', func = 'lobc_can_use_active'}, nodes={
