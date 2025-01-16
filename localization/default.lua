@@ -2487,8 +2487,6 @@ return {
             k_lobc_extraction_pack = "Extraction Pack",
             k_lobc_active = "active",
             k_lobc_inactive = "inactive",
-            k_lobc_punishing_bird = "Punishing Bird",
-            k_lobc_iron_maiden = "We Can Change Anything",
             k_lobc_rank_sin = "Rank's Sin: ",
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
