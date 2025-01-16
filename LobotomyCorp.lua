@@ -1174,7 +1174,7 @@ function Card.generate_UIBox_ability_table(self, ...)
     local full_UI_table = generate_UIBox_ability_tableref(self, ...)
     if self.playing_card then
         local id = self:get_id()
-        if G.GAME.lobc_long_arms[id] then
+        if G.GAME.lobc_long_arms and G.GAME.lobc_long_arms[id] then
             generate_card_ui({key = 'lobc_sin', set = 'Other'}, full_UI_table)
         end
     end
