@@ -1472,7 +1472,7 @@ return {
                 text = {
                     "{C:dark_edition}[Active Ability]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
-                    "this gains {C:chips}+#3#{} chips until hand is played",
+                    "this Abnormality gains {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
                     "{C:attention}(#8#/3){} ...",
                     "{C:attention}(#9#/5){} ...",
@@ -1484,11 +1484,10 @@ return {
                 text = {
                     "{C:dark_edition}[Active Ability]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
-                    "this gains {C:chips}+#3#{} chips until hand is played",
+                    "this Abnormality gains {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
-                    "Every {C:attention}10{} times this gains Chips,",
-                    "increases hands loss by {C:blue}-#4#{} and chips gain",
-                    "by {C:chips}+#5# {C:inactive}(up to {C:attention}twice{C:inactive}){}, and {C:attention}halves{} delay",
+                    "Every {C:attention}5{} times this gains Chips, increases",
+                    "hands loss by {C:blue}-#4#{} and {C:attention}halves{} delay",
                     "{C:attention}(#9#/5){} ...",
                     "{C:inactive}(Currently {C:chips}+#6#{C:inactive})"
                 }
