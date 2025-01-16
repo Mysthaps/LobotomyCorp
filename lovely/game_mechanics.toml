@@ -7,9 +7,14 @@ priority = 1
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+pattern = "G.STATE = G.STATES.NEW_ROUND"
 position = "at"
-payload = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left <= 0 then"
+payload = '''
+if not G.GAME.lobc_maiden_active then
+    G.STATE = G.STATES.NEW_ROUND
+else
+    G.STATE = G.STATES.DRAW_TO_HAND
+end'''
 match_indent = true
 
 # Patches taken from Cryptid

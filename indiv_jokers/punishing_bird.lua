@@ -43,7 +43,7 @@ joker.calculate = function(self, card, context)
                     return true
                 end
             }))
-            G.GAME.lobc_death_text = localize("k_lobc_punishing_bird")
+            G.GAME.lobc_death_text = "punishing_bird"
             check_for_unlock({type = "lobc_beak"})
             G.STATE = G.STATES.GAME_OVER
             if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 

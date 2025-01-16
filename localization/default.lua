@@ -1462,36 +1462,50 @@ return {
             dis_j_lobc_iron_maiden_1 = {
                 name = "T-09-85",
                 text = {
-                    "{C:attention}(#5#/2){} ...",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/5){} ...",
+                    "{C:attention}(#7#/1){} ...",
+                    "{C:attention}(#8#/3){} ...",
+                    "{C:attention}(#9#/5){} ...",
                 }
             },
             dis_j_lobc_iron_maiden_2 = {
                 name = "T-09-85",
                 text = {
-                    "Every second, gain {C:attention}#1# score",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/5){} ...",
+                    "{C:dark_edition}[Active Ability]",
+                    "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
+                    "this gains {C:chips}+#3#{} chips until hand is played",
+                    "{s:0.15} {}",
+                    "{C:attention}(#8#/3){} ...",
+                    "{C:attention}(#9#/5){} ...",
+                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive})"
                 }
             },
             dis_j_lobc_iron_maiden_3 = {
                 name = "T-09-85",
                 text = {
-                    "Every second, gain {C:attention}#1# score",
-                    "and temporary {C:blue}-#2#{} hands",
-                    "{C:attention}(#7#/5){} ...",
+                    "{C:dark_edition}[Active Ability]",
+                    "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
+                    "this gains {C:chips}+#3#{} chips until hand is played",
+                    "{s:0.15} {}",
+                    "Every {C:attention}10{} times this gains Chips,",
+                    "increases hands loss by {C:blue}-#4#{} and chips gain",
+                    "by {C:chips}+#5# {C:inactive}(up to {C:attention}twice{C:inactive}){}, and {C:attention}halves{} delay",
+                    "{C:attention}(#9#/5){} ...",
+                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive})"
                 }
             },
             j_lobc_iron_maiden = {
                 name = "We Can Change Anything",
                 text = {
-                    "Every second, gain {C:attention}#1#{} score",
-                    "and temporary {C:blue}-#2#{} hands",
+                    "{C:dark_edition}[Active Ability]",
+                    "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
+                    "this Abnormality gains {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
-                    "After {C:attention}#3#{} seconds, {C:attention}doubles{}",
-                    "score gain and increase",
-                    "hands loss by {C:blue}#4#{}"
+                    "Every {C:attention}5{} times this gains Chips, increases",
+                    "hands loss by {C:blue}-#4#{} and {C:attention}halves{} delay",
+                    "{s:0.15} {}",
+                    "When hand is played, becomes {C:red}inactive{}",
+                    "and resets {C:red}all{} values",
+                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive} chips)"
                 }
             },
 

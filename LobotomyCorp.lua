@@ -1213,6 +1213,10 @@ end
 
 --=============== ACTIVES ===============--
 
+-- Implements the following functions:
+-- center.lobc_can_use_active(center, card): If true, the USE button will become active
+-- center.lobc_active(center, card): The USE button is only present when the center has this function. Called when the USE button is pressed
+
 local use_and_sell_buttonsref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
     local t = use_and_sell_buttonsref(card)
@@ -1236,7 +1240,7 @@ G.FUNCS.lobc_can_use_active = function(e)
     (G.CONTROLLER.locked) or
     (G.GAME.STOP_USE and G.GAME.STOP_USE > 0))) and
     G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT and
-    card.area == G.jokers and
+    card.area == G.jokers and not card.debuff and
     (not card.config.center.lobc_can_use_active or card.config.center:lobc_can_use_active(card))
     if can_use then 
         e.config.colour = G.C.RED

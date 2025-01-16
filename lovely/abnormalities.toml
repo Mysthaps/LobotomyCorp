@@ -3,6 +3,35 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
+# Abnormality death text
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "local label_scale = 0.5"
+position = "before"
+payload = '''
+if score == 'defeated_by' and G.GAME.lobc_death_text then 
+    local center = G.P_CENTERS["j_lobc_"..G.GAME.lobc_death_text]
+    local sprite = Sprite(0, 0, 1.4*(71/95), 1.4, G.ASSET_ATLAS["lobc_LobotomyCorp_"..(center.discovered and "Jokers" or "Undiscovered")], center.pos)
+    sprite:define_draw_steps({
+        {shader = 'dissolve', shadow_height = 0.05},
+        {shader = 'dissolve'}
+    })
+
+    score_tab[1].nodes[1].config.object:remove()
+    score_tab[2].nodes[1].config.object:remove()
+    score_tab = {
+        {n=G.UIT.R, config={align = "cm", minh = 0.6}, nodes={
+            {n=G.UIT.O, config={object = DynaText({string = localize("k_lobc_"..G.GAME.lobc_death_text), colours = {G.C.WHITE},shadow = true, float = true,maxw = 2.2, scale = 0.45})}}
+        }},
+        {n=G.UIT.R, config={align = "cm", padding = 0.1}, nodes={
+            {n=G.UIT.O, config={object = sprite}}
+        }},
+    }
+end'''
+match_indent = true
+
+
 # Fairy Festival
 [[patches]]
 [patches.pattern]
