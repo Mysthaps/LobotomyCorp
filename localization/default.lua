@@ -162,6 +162,15 @@ return {
                     "even the smallest sin.",
                 }
             },
+            und_j_lobc_apocalypse_bird = {
+                name = "O-02-63",
+                text = {
+                    "Then, in the middle of all the",
+                    "chaotic cries, someone shouted:",
+                    "\"It's the monster! Big, terrible monster",
+                    "lives in the dark, black forest!\"",
+                }
+            },
             und_j_lobc_price_of_silence = {
                 name = "O-05-65",
                 text = {
@@ -2190,8 +2199,6 @@ return {
                 name = "{C:attention}Fixed Encounter",
                 text = {
                     "This {C:attention}Blind{} cannot be {C:red}disabled{}",
-                    "Abnormality effects cannot directly add",
-                    "score to this {C:attention}Blind{}"
                 }
             },
             psv_lobc_final_battle = {
