@@ -1894,6 +1894,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
     --create the pool
     G.ARGS.TEMP_POOL = EMPTY(G.ARGS.TEMP_POOL)
     local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality'..(_rarity or ''), 0
+    
     -- Increased chance to get birds when you get a bird
     local bird = false
     local birds = {}
