@@ -9,8 +9,6 @@ I see that you've been slacking off while playing a few rounds of cards during o
 I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have "fun" while still generating precious energy to meet the daily quota. 
 This may hinder your playing experience, but I am sure you will do just fine.</i></h5>
 
-## Note: The latest version is 1.0.0-pre4, which can be found in the [releases tab](https://github.com/Mysthaps/LobotomyCorp/releases), and can only be played on the [old-calc](https://github.com/Steamodded/smods/archive/refs/tags/old-calc.zip) branch of Steamodded. The full 1.0.0 is still being worked on, sorry for the inconvenience!
-
 # Features
 ## Abnormalities, as Jokers
 Each added Abnormality have different Observation Levels that unlock more of their Information. 
@@ -55,12 +53,5 @@ Please check the mod's configurations after installation.
 ### **[Library of Ruina](https://store.steampowered.com/app/1256670/Library_Of_Ruina/)**
 ### **[Limbus Company](https://store.steampowered.com/app/1973530/Limbus_Company/)** 
 
-Most art, music and sound effects are taken from **Lobotomy Corporation**.  
-Some abnormalities are based on those of **Library of Ruina**.  
 All music used are listed in the ``music.txt`` file, found [here](https://github.com/Mysthaps/LobotomyCorp/blob/main/music.txt).
-
-<details>
-    <summary><b>Slight Mod Spoilers!</b></summary>
-    Nameless Fetus, The Lady Facing the Wall, All-Around Helper: <b>Twilight & Sunset</b><br>
-    Initial JokerDisplay support for All-Around Helper, One Sin and Hundreds of Good Deeds: <b>OppositeWolf770</b>
-</details><br>
+Other credits can be found in the **Credits** tab in the mod's menu
