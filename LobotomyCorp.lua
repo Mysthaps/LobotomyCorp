@@ -9,51 +9,44 @@ local folder = string.match(mod_path, "[Mm]ods.*")
 
 -- To disable any object, comment it out by adding -- at the start of the line.
 local joker_list = {
-    --- Common
-    "one_sin",
-    "theresia",
-    "old_lady",
-    "wall_gazer", -- The Lady Facing the Wall
-    "plague_doctor",
-    "wellcheers", -- Opened Can of WellCheers
-    "punishing_bird",
-    "shy_look", -- Today's Shy Look
-    "fairy_festival",
-    "iron_maiden", -- We Can Change Anything
-    "you_must_be_happy",
-    "old_faith", -- Old Faith and Promise
-    "youre_bald",
-
-    --- Uncommon
+    --- Project Moon Abnos
     "scorched_girl",
+    "one_sin",
+    "queen_of_hatred",
     "happy_teddy_bear",
     "red_shoes",
+    "theresia",
+    "old_lady",
     "nameless_fetus",
+    "wall_gazer", -- The Lady Facing the Wall
+    --"nothing_there",
+    "big_bird",
     "all_around_helper",
     "spider_bud",
+    "plague_doctor",
+    "whitenight",
     "rudolta", -- Rudolta of the Sleigh
+    "wellcheers", -- Opened Can of WellCheers
     "child_galaxy", -- Child of the Galaxy
-    "big_bird",
-    "fotdb", -- Funeral of the Dead Butterflies
-    "heart_of_aspiration",
-    "scarecrow_searching", -- Scarecrow Searching for Wisdom
-
-    --- Rare
-    "queen_of_hatred",
-    --"nothing_there",
+    "punishing_bird",
     "judgement_bird",
+    "apocalypse_bird",
     "price_of_silence",
     "laetitia",
+    "fotdb", -- Funeral of the Dead Butterflies
     "mosb", -- The Mountain of Smiling Bodies
+    "heart_of_aspiration",
+    "fairy_festival",
+    "iron_maiden", -- We Can Change Anything
     "express_train", -- Express Train to Hell
+    "scarecrow_searching", -- Scarecrow Searching for Wisdom
     "censored",
+    "shy_look", -- Today's Shy Look
+    "you_must_be_happy",
+    "old_faith", -- Old Faith and Promise
     "servant_of_wrath",
-
-    --- Legendary
-    "whitenight",
-    "apocalypse_bird",
-
-    --- Crossovers
+    "youre_bald",
+    --- Fanmade / Mod Crossover Abnos
     --"jolliest_jester",
 }
 local blind_list = {
@@ -63,37 +56,32 @@ local blind_list = {
     "ab_beak",
     "ab_eyes",
     "ab_arms",
-
     -- Meltdowns
     "red_mist",
     --"an_arbiter",
-
     -- Dawn Ordeals
     "dawn_base",
     "dawn_green",
     "dawn_crimson",
     "dawn_amber",
     "dawn_violet",
-    
     -- Noon Ordeals
     "noon_base",
     "noon_green",
     "noon_crimson",
     "noon_indigo",
     "noon_violet",
-
     -- Dusk Ordeals
     "dusk_base",
     "dusk_green",
     "dusk_crimson",
     "dusk_amber",
-
     -- Midnight Ordeals
     "midnight_base",
     "midnight_green",
     "midnight_violet",
     "midnight_amber",
-
+    -- ???
     "erlking_heathcliff"
 }
 local sound_list = {
