@@ -12,7 +12,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and context.other_card.ability.plague_doctor_baptism then
+    if context.individual and context.cardarea == G.play and context.other_card and context.other_card.ability.plague_doctor_baptism then
         return {
             mult = card.ability.extra.mult,
             card = context.blueprint_card or card,
