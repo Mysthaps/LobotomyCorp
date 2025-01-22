@@ -1,6 +1,6 @@
 local joker = {
     name = "The Heart of Aspiration",
-    config = {extra = {reset = 0, x_mult = 1, gain = 1, round_count = 0}}, rarity = 2, cost = 6,
+    config = {extra = {x_mult = 1, gain = 1, round_count = 0}}, rarity = 2, cost = 6,
     pos = {x = 9, y = 4}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -44,7 +44,7 @@ joker.calculate = function(self, card, context)
         end
 
         if G.GAME.blind.boss then
-            card.ability.extra.x_mult = card.ability.extra.reset
+            card.ability.extra.x_mult = 1
             if not G.GAME.modifiers.lobc_netzach then
                 G.GAME.lobc_no_hands_reset = false
             end
