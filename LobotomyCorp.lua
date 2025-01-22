@@ -1514,7 +1514,7 @@ function current_mod.reset_game_globals(start_run)
         for k, _ in pairs(G.GAME.lobc_long_arms) do
             if G.GAME.lobc_long_arms[k] >= 10 then G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] / 2 end
             G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] - 1
-            if G.GAME.lobc_long_arms[k] < 0 then G.GAME.lobc_long_arms[k] = nil end
+            if G.GAME.lobc_long_arms[k] <= 0 then G.GAME.lobc_long_arms[k] = nil end
         end
     end
 end
