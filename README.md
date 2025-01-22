@@ -38,8 +38,8 @@ Good luck, Manager. You will need it.
 </details><br>
 
 # Requirements
-Requires the latest version **Steamodded** 1.0.0-ALPHA.  
-Instructions can be found [here](https://github.com/Steamopollys/Steamodded/wiki/01.-Getting-started).
+Requires the latest version of **Steamodded** 1.0.0-ALPHA.  
+Instructions can be found [here](https://github.com/Steamodded/smods/wiki).
 
 # Installation
 Head to the mod's *[Releases](https://github.com/Mysthaps/LobotomyCorp/releases/latest)* page and download the latest version.  
