@@ -11,7 +11,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and 
+    if context.individual and context.cardarea == G.play and context.other_card and 
        context.other_card:is_suit("Hearts") and card.ability.extra.all_hearts and 
        not context.other_card.ability.laetitia_gift then
         G.E_MANAGER:add_event(Event({
