@@ -17,7 +17,7 @@ joker.in_pool = function(self, args)
 end
 
 joker.calculate = function(self, card, context)
-    if context.cardarea == G.play and context.other_card.ability.plague_doctor_baptism then
+    if context.cardarea == G.play and context.other_card and context.other_card.ability.plague_doctor_baptism then
         if context.individual then
             return {
                 message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
@@ -31,6 +31,14 @@ joker.calculate = function(self, card, context)
                 card = context.blueprint_card or card,
             }
         end
+    end
+
+    if context.cardarea == G.hand and context.other_card and context.repetition and context.other_card.ability.plague_doctor_baptism and (next(context.card_effects[1]) or #context.card_effects > 1) then
+        return {
+            message = localize('k_again_ex'),
+            repetitions = card.ability.extra.retriggers,
+            card = context.blueprint_card or card,
+        }
     end
 
     if context.cardarea == G.jokers and not context.blueprint then
