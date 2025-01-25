@@ -201,7 +201,6 @@ for _, v in ipairs(joker_list) do
     local joker = SMODS.load_file("indiv_jokers/" .. v .. ".lua")()
 
     --joker.discovered = true
-    if joker.dependency and not (SMODS.Mods[joker.dependency] or {}).can_load then goto continue end
     joker.key = v
     joker.atlas = "LobotomyCorp_Jokers"
     --[[if not joker.yes_pool_flag then
@@ -234,6 +233,7 @@ for _, v in ipairs(joker_list) do
 
     if not joker.in_pool then
         joker_obj.in_pool = function(self, args)
+            if not args then return true end
             if args.source == "lobc_rudolta" then return false end
             return true
         end
@@ -248,7 +248,6 @@ for _, v in ipairs(joker_list) do
             end
         end
     end
-    ::continue::
 end
 
 -- Load all blinds

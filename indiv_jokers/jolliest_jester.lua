@@ -8,7 +8,9 @@ local joker = {
     abno = true,
     risk = "he",
     discover_rounds = 8,
-    dependency = "Cryptid",
+    dependencies = {
+        "Cryptid"
+    }
 }
 
 return joker
