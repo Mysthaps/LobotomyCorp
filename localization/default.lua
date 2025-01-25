@@ -1917,7 +1917,7 @@ return {
             bl_lobc_dawn_crimson = {
                 name = "Crimson Dawn",
                 text = {
-                    "If 2 or more hands",
+                    "If 4 or more hands",
                     "played this round, all",
                     "cards debuffed until",
                     "a Joker is sold"

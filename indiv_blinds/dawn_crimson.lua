@@ -4,13 +4,13 @@ local blind = {
     time = "dawn",
     pos = {x = 0, y = 8},
     dollars = 3, 
-    mult = 0.8, 
+    mult = 1, 
     vars = {}, 
     debuff = {},
 }
 
 blind.set_blind = function(self)
-    if G.GAME.current_round.hands_played >= 2 then
+    if G.GAME.current_round.hands_played >= 4 then
         G.GAME.blind.hands_sub = 1
         for _, v in ipairs(G.playing_cards) do
             v.ability.lobc_dawn_crimson = true
@@ -29,7 +29,7 @@ blind.recalc_debuff = function(self, card)
 end
 
 blind.drawn_to_hand = function(self)
-    if G.GAME.current_round.hands_played >= 2 and G.GAME.blind.hands_sub == 0 then
+    if G.GAME.current_round.hands_played >= 4 and G.GAME.blind.hands_sub == 0 then
         G.GAME.blind.hands_sub = 1
         for _, v in ipairs(G.playing_cards) do
             v.ability.lobc_dawn_crimson = true
