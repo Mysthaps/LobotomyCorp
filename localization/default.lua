@@ -2196,19 +2196,19 @@ return {
         Passive = {
             -- General
             psv_lobc_fixed_encounter = {
-                name = "{C:attention}Fixed Encounter",
+                name = "Fixed Encounter",
                 text = {
                     "This {C:attention}Blind{} cannot be {C:red}disabled{}",
                 }
             },
             psv_lobc_final_battle = {
-                name = "{C:attention}Final Battle",
+                name = "Final Battle",
                 text = {
                     "{C:blue}+1{} hand when hand is played"
                 }
             },
             psv_lobc_suppression = {
-                name = "{C:attention}Abnormality Suppression",
+                name = "Abnormality Suppression",
                 text = {
                     "When this {C:attention}Blind{} is suppressed,",
                     "create a special {C:attention}Abnormality{} card"
@@ -2216,21 +2216,28 @@ return {
             },
             -- Crimson Noon & Crimson Dusk
             psv_lobc_harmony = {
-                name = "{C:red}Harmony",
+                name = "Harmony",
                 text = {
                     "When {C:attention}Blind{} is defeated, {C:blue}+1{} hand",
                 }
             },
+            -- Green Ordeals
+            psv_lobc_irresponsible = {
+                name = "Irresponsible",
+                text = {
+                    "Hand levels can be reduced to to {C:attention}0{}",
+                }
+            },
             -- WhiteNight
             psv_lobc_the_time_has_come = {
-                name = "{C:white}The time has come.",
+                name = "The time has come.",
                 text = {
                     "Convert all {C:attention}Blessed{} cards into {C:red}Apostles{}",
                     "All {C:red}Apostles{} are {C:red}debuffed{}",
                 }
             },
             psv_lobc_rise_and_serve_me = {
-                name = "{C:white}Rise and serve me.",
+                name = "Rise and serve me.",
                 text = {
                     "Before scoring, destroy all played {C:red}Apostles{}",
                     "Up to {C:attention}12{} {C:red}Apostles{} can be destroyed"
@@ -2238,7 +2245,7 @@ return {
             },
             -- The Red Mist
             psv_lobc_kali = {
-                name = "{C:red}Kali",
+                name = "Kali",
                 text = {
                     "After score exceeds Blind Size,",
                     "reset {C:red}discards{}, return all cards to deck",
@@ -2246,20 +2253,20 @@ return {
                 }
             },
             psv_lobc_the_strongest = {
-                name = "{C:red}The Strongest",
+                name = "The Strongest",
                 text = {
                     "Score is capped at {C:attention}15%{} Blind Size",
                 }
             },
             psv_lobc_the_red_mist = {
-                name = "{C:red}The Red Mist",
+                name = "The Red Mist",
                 text = {
                     "Blind effect changes after scoring",
                     "Possible effects change each phase"
                 }
             },
             psv_lobc_ego_manifestation = {
-                name = "{C:red}E.G.O Manifestation",
+                name = "E.G.O Manifestation",
                 text = {
                     "Active after Phase 3",
                     "{C:red}+1{} card destroyed before each hand",
@@ -2268,7 +2275,7 @@ return {
             },
             -- Apocalypse Bird
             psv_lobc_the_three_birds = {
-                name = "{C:purple}The Three Birds",
+                name = "The Three Birds",
                 text = {
                     "When {C:attention}Blind{} starts, fight against",
                     "{C:attention}Big Eyes{}, {C:red}Small Beak{} and {C:purple}Long Arms{}",
@@ -2276,7 +2283,7 @@ return {
                 }
             },
             psv_lobc_cracking_eggs = {
-                name = "{C:white}Cracking Eggs",
+                name = "Cracking Eggs",
                 text = {
                     "When {C:attention}Blind{} is defeated, {C:blue}+1{} hand, {C:red}+1{} discards",
                     "and return all cards to deck",
@@ -2285,7 +2292,7 @@ return {
                 }
             },
             psv_lobc_monster_of_the_forest = {
-                name = "{C:purple}The Monster of the Forest",
+                name = "The Monster of the Forest",
                 text = {
                     "When phase changes, chosen suit changes",
                     "When phase changes, removes a {C:dark_edition}[Persistent]{}",
@@ -2295,28 +2302,28 @@ return {
                 }
             },
             psv_lobc_eternal_peace = {
-                name = "{C:white}Eternal Peace/Tranquility/Silence",
+                name = "Eternal Peace/Tranquility/Silence",
                 text = {
                     "Score does not go above {C:attention}25{}/{C:attention}50{}/{C:attention}75%{}",
                     "Blind Size the first time",
                 }
             },
             psv_lobc_misdeeds = {
-                name = "{C:white}Misdeeds Not Allowed!",
+                name = "Misdeeds Not Allowed!",
                 text = {
                     "{C:dark_edition}[Persistent]",
                     "No repeating hands played during {C:red}Small Beak{}",
                 }
             },
             psv_lobc_lamp = {
-                name = "{C:white}A Lamp that Burns Forever",
+                name = "A Lamp that Burns Forever",
                 text = {
                     "{C:dark_edition}[Persistent]",
                     "No hands with {C:attention}2{} or more {C:enchanted}Enchanted{} cards"
                 }
             },
             psv_lobc_judgement = {
-                name = "{C:white}Ceaseless Judgement",
+                name = "Ceaseless Judgement",
                 text = {
                     "{C:dark_edition}[Persistent]",
                     "Each card in full hand adds {C:attention}+1 {C:red}Sin",
@@ -2327,14 +2334,14 @@ return {
 
             -- Erlking Heathcliff
             psv_lobc_erlking_1 = {
-                name = "{C:white}Self-loathing",
+                name = "Self-loathing",
                 text = {
                     "All Skills target Heathcliff.",
                     "Wins Encounter if Heathcliff dies.",
                 }
             },
             psv_lobc_erlking_2 = {
-                name = "{C:white}Explosive Emotions",
+                name = "Explosive Emotions",
                 text = {
                     "When this unit has 'Explosive' Affinity effects:",
                     "become weaker to the corresponding Affinities and",
@@ -2343,7 +2350,7 @@ return {
                 }
             },
             psv_lobc_erlking_3 = {
-                name = "{C:white}Spreading Emotions",
+                name = "Spreading Emotions",
                 text = {
                     "When an ally with the same Affinity to this",
                     "unit's Explosive Emotions effect is defeated:",
@@ -2355,7 +2362,7 @@ return {
                 }
             },
             psv_lobc_erlking_4 = {
-                name = "{C:white}Amalgamated Resentment",
+                name = "Amalgamated Resentment",
                 text = {
                     "When this unit has an Explosive Emotions effect,",
                     "all Skill Affinities are replaced with the",
@@ -2366,7 +2373,7 @@ return {
                 }
             },
             psv_lobc_erlking_5 = {
-                name = "{C:white}Continuing Revenge",
+                name = "Continuing Revenge",
                 text = {
                     "Gains a new pattern at 75% and 35% of max HP.",
                     "When this unit gains a new pattern, halve the",
@@ -2374,14 +2381,14 @@ return {
                 }
             },
             psv_lobc_erlking_6 = {
-                name = "{C:white}Antagonism",
+                name = "Antagonism",
                 text = {
                     "If the target's current HP is higher than this unit's,",
                     "Clash Power +2 and deal +20% more damage",
                 }
             },
             psv_lobc_erlking_7 = {
-                name = "{C:white}Long-awaited Moment",
+                name = "Long-awaited Moment",
                 text = {
                     "Clash Win: Heal 5 SP on self",
                     "Clash Lose against Heathcliff: Lose 5 SP and gain 2",
@@ -2391,7 +2398,7 @@ return {
                 }
             },
             psv_lobc_erlking_8 = {
-                name = "{C:white}Heart of Vengeance",
+                name = "Heart of Vengeance",
                 text = {
                     "Turn Start: If not at -45 SP, heal 15 SP.",
                     "Turn End: If Panicked, recover from Panic at the",
@@ -2401,7 +2408,7 @@ return {
                 }
             },
             psv_lobc_erlking_9 = {
-                name = "{C:white}Fixed Panic",
+                name = "Fixed Panic",
                 text = {
                     "This unit's Panic Type does not change when",
                     "inflicted with an effect that changes Panic Types.",

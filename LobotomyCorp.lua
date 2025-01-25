@@ -177,12 +177,12 @@ local badge_colors = {
     lobc_he = HEX("FFF900"),
     lobc_waw = HEX("7B2BF3"),
     lobc_aleph = HEX("FF0000"),
-    lobc_green = HEX("008000"),
-    lobc_amber = HEX("FFA500"),
-    lobc_crimson = HEX("DC143C"),
-    lobc_violet = HEX("800080"),
-    lobc_indigo = HEX("1E90FF"),
-    lobc_base = HEX('C4C4C4'),
+    lobc_o_green = HEX("008000"),
+    lobc_o_amber = HEX("FFA500"),
+    lobc_o_crimson = HEX("DC143C"),
+    lobc_o_violet = HEX("800080"),
+    lobc_o_indigo = HEX("1E90FF"),
+    lobc_o_base = HEX('C4C4C4'),
     EGO_Gift = HEX('DD4930'),
 }
 -- Badge colors
@@ -262,7 +262,7 @@ for _, v in ipairs(blind_list) do
     end
     --blind.discovered = true
     if blind.color then
-        blind.boss_colour = badge_colors["lobc_" .. blind.color]
+        blind.boss_colour = badge_colors["lobc_o_" .. blind.color]
     end
 
     local blind_obj = SMODS.Blind(blind)

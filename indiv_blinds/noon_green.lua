@@ -7,7 +7,9 @@ local blind = {
     mult = 1.5, 
     vars = {}, 
     debuff = {},
-    boss_bcolour = HEX("008000"),
+    passives = {
+        "psv_lobc_irresponsible",
+    },
 }
 
 blind.debuff_hand = function(self, cards, hand, handname, check)
