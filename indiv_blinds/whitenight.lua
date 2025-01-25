@@ -38,6 +38,9 @@ blind.set_blind = function(self, reset, silent)
         return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_whitenight'
     end
     if not next(SMODS.find_card("j_lobc_one_sin", true)) then lobc_abno_text("whitenight", eval_func, 2, 12) end
+    G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
+        lobc_restart_music()
+    return true end }))
 end
 
 blind.recalc_debuff = function(self, card, from_blind)

@@ -516,6 +516,18 @@ function abno_breach(card, delay)
     }))
 end
 
+-- Restart music
+function lobc_restart_music()
+    if config.disable_music then return end
+    G.ARGS.push = G.ARGS.push or {}
+    G.ARGS.push.type = 'restart_music'
+    if G.F_SOUND_THREAD then
+        G.SOUND_MANAGER.channel:push(G.ARGS.push)
+    else
+        RESTART_MUSIC(G.ARGS.push)
+    end
+end
+
 --=============== BLINDS ===============--
 
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
@@ -606,6 +618,7 @@ function Blind.set_blind(self, blind, reset, silent)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     func = function()
+                        lobc_restart_music()
                         display_cutscene({x = 0, y = 0})
                     return true 
                     end 
@@ -651,7 +664,7 @@ function Game.update_new_round(self, dt)
             -- Reset to the original blind's values
             if G.GAME.blind.lobc_original_blind ~= G.GAME.blind.config.blind.key then
                 G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.lobc_original_blind])
-                G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*G.P_BLINDS[G.GAME.blind.lobc_original_blind].mult*G.GAME.starting_params.ante_scaling
+                G.GAME.blind.chips = -1 -- force win blind
                 G.GAME.blind.children.alert = nil
             end
             -- Apocalypse Bird death cutscene
@@ -714,6 +727,9 @@ function Game.update_new_round(self, dt)
                     G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 5 
                     ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
                     if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
+                    G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
+                        if G.GAME.current_round.lobc_phases_beaten ~= 2 then lobc_restart_music() end
+                    return true end }))
                 end
                 G.GAME.blind.prepped = nil
                 G.GAME.blind.hands_sub = 0
@@ -840,6 +856,7 @@ function Blind.save(self)
     blindTable.lobc_original_blind = self.lobc_original_blind
     blindTable.lobc_current_effect = self.lobc_current_effect
     blindTable.lobc_has_sold_joker = self.lobc_has_sold_joker
+    blindTable.passives = self.passives
     return blindTable
 end
 

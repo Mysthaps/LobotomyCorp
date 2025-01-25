@@ -63,6 +63,7 @@ blind.set_blind = function(self, reset, silent)
     G.GAME.blind.lobc_score_cap = 0.15
     G.GAME.blind:set_text()
     G.GAME.blind.prepped = nil
+    G.GAME.gebura_remove_hod_modifier = 1
     -- this keeps track of the score
     G.GAME.blind.hands_sub = to_big(0)
 
@@ -83,6 +84,9 @@ blind.set_blind = function(self, reset, silent)
             v:start_dissolve()
         end
     end
+    G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
+        lobc_restart_music()
+    return true end }))
 end
 
 blind.press_play = function(self)
@@ -344,6 +348,7 @@ blind.drawn_to_hand = function(self)
             SMODS.debuff_card(v, false, 'gebura_debuff')
         end
         G.GAME.lobc_hod_modifier = (G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier or 1) / G.GAME.gebura_remove_hod_modifier
+        G.GAME.gebura_remove_hod_modifier = 1
         G.GAME.blind.lobc_has_sold_joker = false
 
         -- [12] Debuff 1-3 random Jokers

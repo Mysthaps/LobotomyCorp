@@ -14,7 +14,7 @@ local blind = {
 }
 
 blind.defeat = function(self)
-    if G.GAME.blind.lobc_original_blind ~= "bl_lobc_noon_crimson" then ease_hands_played(1) end
+    if G.GAME.facing_blind then ease_hands_played(1) end
 end
 
 return blind

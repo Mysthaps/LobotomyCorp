@@ -29,13 +29,7 @@ end
 blind.defeat = function(self)
     G.GAME.apoc_music = 2
     play_sound("lobc_dice_roll", 1, 0.8)
-    G.ARGS.push = G.ARGS.push or {}
-    G.ARGS.push.type = 'restart_music'
-    if G.F_SOUND_THREAD then
-        G.SOUND_MANAGER.channel:push(G.ARGS.push)
-    else
-        RESTART_MUSIC(G.ARGS.push)
-    end
+    lobc_restart_music()
     G.E_MANAGER:add_event(Event({
         trigger = 'before',
         func = function()

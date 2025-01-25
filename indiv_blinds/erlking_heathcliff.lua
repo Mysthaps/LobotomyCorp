@@ -26,6 +26,9 @@ blind.set_blind = function(self)
     G.GAME.blind.children.animatedSprite.scale = {x = 1435, y = 1042}
     G.GAME.blind.children.animatedSprite.scale_mag = 1042/1.5
     G.GAME.blind.children.animatedSprite:reset()
+    G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
+        lobc_restart_music()
+    return true end }))
 end
 
 blind.defeat = function(self)
