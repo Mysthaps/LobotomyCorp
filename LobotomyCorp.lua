@@ -650,7 +650,12 @@ function Blind.set_blind(self, blind, reset, silent)
             self.children.alert = nil
         end
     end
-    return set_blindref(self, blind, reset, silent)
+    set_blindref(self, blind, reset, silent)
+    if not reset and blind and (blind.time == "dusk" or blind.time == "midnight") then
+        G.E_MANAGER:add_event(Event({trigger = 'before', func = function()
+            lobc_restart_music()
+        return true end }))
+    end
 end
 
 -- Phase bosses
@@ -865,6 +870,7 @@ function Blind.load(self, blindTable)
     self.lobc_original_blind = blindTable.lobc_original_blind
     self.lobc_current_effect = blindTable.lobc_current_effect
     self.lobc_has_sold_joker = blindTable.lobc_has_sold_joker
+    self.passives = blindTable.passives
     blind_loadref(self, blindTable)
 end
 
