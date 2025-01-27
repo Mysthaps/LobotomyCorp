@@ -67,7 +67,7 @@ end
 local buy_from_shopref = G.FUNCS.buy_from_shop
 function G.FUNCS.buy_from_shop(e)
     local card = e.config.ref_table
-    if card then
+    if card and ((e.config.id ~= 'buy_and_use' and G.FUNCS.check_for_buy_space(card)) or e.config.id == 'buy_and_use') then
         fairy_check(card)
     end
     buy_from_shopref(e)
