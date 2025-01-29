@@ -5,7 +5,7 @@ return {
             und_j_lobc_scorched_girl = {
                 name = "F-01-02",
                 text = {
-                    "I'm coming for you.",
+                    "I am coming to you.",
                     "You, who will be reduced",
                     "to ashes like me."
                 }
