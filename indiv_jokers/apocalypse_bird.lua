@@ -3,7 +3,7 @@ local joker = {
     config = {extra = {x_mult = 2, x_mult_sin = 0.1}}, rarity = 4, cost = 20,
     pos = {x = 6, y = 3}, 
     blueprint_compat = true, 
-    eternal_compat = false,
+    eternal_compat = true,
     perishable_compat = false,
     abno = true,
     risk = "aleph",

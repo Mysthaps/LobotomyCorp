@@ -14,6 +14,16 @@ local achievements = {
     beak = {
         hidden_text = true,
     },
+    -- Twilight & Through the Dark Twilight / Apocalypse Bird
+    twilight = {
+        hidden_text = true,
+    },
+    through_the_dark_twilight = {
+        hidden_text = true,
+        unlock_condition = function(self, args)
+            return (args.type == "lobc_observe_abno" and args.card.config.center.key == "j_lobc_apocalypse_bird")
+        end
+    },
     -- Laetitia / Laetitia
     laetitia = {
         unlock_condition = function(self, args)
@@ -108,18 +118,36 @@ local achievements = {
 }
 
 local achievement_list = {
+    --"fourth_match_flame",
     "penitence",
     "love_and_hate",
     "bear_paws",
+    --"sanguine_desire",
     "solitude",
+    --"syrinx",
+    --"screaming_wedge",
+    --"mimicry",
+    "lamp",
+    "grinder_mk4",
+    "red_eyes",
+    "red_eyes_open",
     "bless",
     "paradise_lost",
+    --"christmas",
+    --"soda",
     "our_galaxy",
     "beak",
+    --"justitia",
+    "twilight",
+    "through_the_dark_twilight",
     "dead_silence",
     "laetitia",
+    "solemn_lament",
     "smile",
     "aspiration",
+    "wingbeat",
+    --"harvest",
+    --"censored",
     "todays_expression",
     "tough",
     "blind_rage",

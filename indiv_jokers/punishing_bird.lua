@@ -69,6 +69,7 @@ joker.add_to_deck = function(self, card, from_debuff)
                 parent = card
             }
         }
+        check_for_unlock({type = "lobc_through_the_dark_twilight"})
     end
 end
 

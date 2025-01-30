@@ -29,6 +29,26 @@ joker.calculate = function(self, card, context)
         chosen_card:juice_up()
     end
 
+    if context.cardarea == G.jokers and not context.blueprint then
+        if context.before then
+            for _, v in ipairs(context.scoring_hand) do
+                if not v.ability.big_bird_counted then
+                    v.ability.big_bird_counter = (v.ability.big_bird_counter or 0) + 1
+                    v.ability.big_bird_counted = true
+                end
+                if v.ability.big_bird_counter >= 3 then
+                    check_for_unlock({type = "lobc_lamp"})
+                end
+            end
+        end
+
+        if context.after then
+            for _, v in ipairs(context.scoring_hand) do
+                v.ability.big_bird_counted = nil
+            end
+        end
+    end
+
     if context.individual and context.cardarea == G.play and context.other_card.ability.big_bird_enchanted then
         card.ability.extra.has_played_enchanted = true
         return {
@@ -37,7 +57,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.repetition and not context.individual then
+    if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
         if not card.ability.extra.has_played_enchanted then
             local destroyed_cards = {}
             G.E_MANAGER:add_event(Event({
@@ -61,6 +81,10 @@ joker.calculate = function(self, card, context)
                 end
             }))
         end
+
+        for _, v in ipairs(G.playing_cards) do
+            if v.ability.big_bird_counter then v.ability.big_bird_counter = nil end
+        end
     end
 end
 
@@ -79,6 +103,7 @@ joker.add_to_deck = function(self, card, from_debuff)
                 }
             }
         end
+        check_for_unlock({type = "lobc_through_the_dark_twilight"})
     end
 end
 

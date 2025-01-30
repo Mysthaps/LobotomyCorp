@@ -24,6 +24,16 @@ joker.calculate = function(self, card, context)
             selected_card:set_eternal(true)
             selected_card:juice_up()
             play_sound("lobc_butterfly_attack", 1, 0.2)
+
+            local eternal = 0
+            local negative = 0
+            for _, v in ipairs(G.jokers.cards) do
+                if v.edition and v.edition.negative then negative = negative + 1 end
+                if (not v.edition or (v.edition and not v.edition.negative)) and v.ability.eternal then eternal = eternal + 1 end
+            end
+            if G.jokers.config.card_limit - negative == eternal then
+                check_for_unlock({type = "lobc_solemn_lament"})
+            end
         end
 
         return nil, true

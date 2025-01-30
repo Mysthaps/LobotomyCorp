@@ -14,6 +14,9 @@ joker.calculate = function(self, card, context)
     if context.end_of_round and not context.repetition and not context.individual then
         if G.GAME.current_round.hands_played == 1 then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.gain
+            if card.ability.extra.x_mult >= 5 then
+                check_for_unlock({type = "lobc_grinder_mk4"})
+            end
             card.ability.extra.counter = card.ability.extra.counter + 1
             if card.ability.extra.counter >= 4 then
                 local available_cards = {}

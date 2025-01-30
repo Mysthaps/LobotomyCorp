@@ -37,6 +37,10 @@ local function fairy_check(card)
         card.ability.lobc_fairy_festival = nil
         card.children.lobc_fairy_particles:remove()
         card.children.lobc_fairy_particles = nil
+        G.GAME.fairy_festival_counter = (G.GAME.fairy_festival_counter or 0) + 1
+        if G.GAME.fairy_festival_counter >= 8 then
+            check_for_unlock({type = "lobc_wingbeat"})
+        end
     else
         local shop_items = {}
         local destroy_others = false
@@ -59,6 +63,7 @@ local function fairy_check(card)
             end
             G.GAME.lobc_fairy_lock_reroll = true
             G.GAME.current_round.voucher = nil
+            G.GAME.fairy_festival_counter = nil
         end
     end
 end

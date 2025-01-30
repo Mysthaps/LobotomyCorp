@@ -1,6 +1,6 @@
 local joker = {
     name = "Spider Bud",
-    config = {extra = {cards = 0, card_gain = 1, first = true}}, rarity = 2, cost = 6,
+    config = {extra = {cards = 0, card_gain = 1, first = true, counter = 0}}, rarity = 2, cost = 6,
     pos = {x = 9, y = 1}, 
     blueprint_compat = false, 
     eternal_compat = true,
@@ -21,6 +21,13 @@ joker.calculate = function(self, card, context)
                 context.other_card:start_dissolve()
             return true end}))
             card.ability.extra.cards = card.ability.extra.cards + card.ability.extra.card_gain
+            if card.ability.extra.cards >= 5 then
+                check_for_unlock({type = "lobc_red_eyes"})
+            end
+            card.ability.extra.counter = card.ability.extra.counter + 1
+            if card.ability.extra.counter >= 20 then
+                check_for_unlock({type = "lobc_red_eyes_open"})
+            end
             card.ability.extra.first = false
         end
     end
