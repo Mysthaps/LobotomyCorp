@@ -14,11 +14,12 @@ joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and context.other_card and 
        context.other_card:is_suit("Hearts") and card.ability.extra.all_hearts and 
        not context.other_card.ability.laetitia_gift then
+        local to_copy = context.other_card
         G.E_MANAGER:add_event(Event({
             func = function()
                 -- Cryptid's effect
                 G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                local _card = copy_card(context.other_card, nil, nil, G.playing_card)
+                local _card = copy_card(to_copy, nil, nil, G.playing_card)
                 _card.ability.laetitia_gift = true
                 _card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
