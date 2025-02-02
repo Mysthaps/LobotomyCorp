@@ -1161,10 +1161,10 @@ return {
             dis_j_lobc_fragment_universe_2 = {
                 name = "O-03-60",
                 text = {
-                    "Whenever {C:attention}4{} unique {C:attention}base Suits{} are scored,",
-                    "create a random {C:planet}Planet{} card",
+                    "If {C:attention}poker hand{} contains {C:attention}4{}",
+                    "different suits, {C:green}#1# in #2#{} chance to",
+                    "create a random {C:dark_edition}Perishable {C:planet}Planet{} card",
                     "{C:attention}(#5#/5){} ...",
-                    "{C:inactive}(Currently {C:attention}#1#{C:inactive} suits)",
                     "{C:inactive}(Must have room)"
                 }
             },
