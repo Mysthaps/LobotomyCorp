@@ -154,6 +154,22 @@ return {
                     "knowing it's wrong?\""
                 }
             },
+            und_j_lobc_little_red = {
+                name = "F-01-57",
+                text = {
+                    "I’ll hang his head over my bed.",
+                    "Only then can I get up in",
+                    "the morning without having a nightmare.",
+                }
+            },
+            und_j_lobc_big_bad_wolf = {
+                name = "F-02-58",
+                text = {
+                    "Still, it didn’t matter to him.",
+                    "After all, he was \"destined\"",
+                    "to be a big bad wolf.",
+                }
+            },
             und_j_lobc_fragment_universe = {
                 name = "O-03-60",
                 text = {
@@ -1148,6 +1164,95 @@ return {
                     "When this Abnormality is {C:attention}sold{}, encounter",
                     "an {C:attention}Abnormality{} next {C:attention}Boss Blind",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
+                }
+            },
+
+            dis_j_lobc_little_red_1 = {
+                name = "F-01-57",
+                text = {
+                    "{C:attention}(#5#/1){} ...",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/7){} ...",
+                }
+            },
+            dis_j_lobc_little_red_2 = {
+                name = "F-01-57",
+                text = {
+                    "Whenever there are no {C:marked}Marked{} cards,",
+                    "a random playing card becomes {C:marked}Marked{}",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/7){} ...",
+                }
+            },
+            dis_j_lobc_little_red_3 = {
+                name = "F-01-57",
+                text = {
+                    "Whenever there are no {C:marked}Marked{} cards,",
+                    "a random playing card becomes {C:marked}Marked{}",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
+                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "{C:attention}(#7#/7){} ...",
+                }
+            },
+            j_lobc_little_red = {
+                name = "Little Red Riding Hooded Mercenary",
+                text = {
+                    "Whenever there are no {C:marked}Marked{} cards,",
+                    "a random playing card becomes {C:marked}Marked{}",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
+                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "{s:0.15} {}",
+                    "When a {C:marked}Marked{} card is destroyed, gives {C:money}$#1#{},",
+                    "and this Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
+                }
+            },
+            dis_j_lobc_little_red_1_alt = {
+                name = "F-01-57",
+                text = {
+                    "{C:attention}(#5#/1){} ...",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/7){} ...",
+                }
+            },
+            dis_j_lobc_little_red_2_alt = {
+                name = "F-01-57",
+                text = {
+                    "{C:marked}Marks{} {C:attention}#8#{}",
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/7){} ...",
+                }
+            },
+            dis_j_lobc_little_red_3_alt = {
+                name = "F-01-57",
+                text = {
+                    "{C:marked}Marks{} {C:attention}#8#{}",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
+                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "{C:attention}(#7#/7){} ...",
+                }
+            },
+            j_lobc_little_red_alt = {
+                name = "Little Red Riding Hooded Mercenary",
+                text = {
+                    "{C:marked}Marks{} {C:attention}#8#{}",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
+                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "{s:0.15} {}",
+                    "When a {C:marked}Marked{} card is destroyed, gives {C:money}$#1#{} ,",
+                    "and this Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "If the {C:marked}Marked{} card is sold or not destroyed by",
+                    "this Abnormality, permanently gives {X:mult,C:white} X0.25 {} Mult",
+                    "and becomes {C:dark_edition}Eternal{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
             },
 
@@ -2307,9 +2412,9 @@ return {
             psv_lobc_ego_manifestation = {
                 name = "E.G.O Manifestation",
                 text = {
-                    "Active after Phase 3",
+                    "Active on Phases 3 and 4",
                     "{C:red}+1{} card destroyed before each hand",
-                    "Increase score cap to {C:attention}25%{} Blind Size"
+                    "Increase score cap to {C:attention}20%{} Blind Size"
                 }
             },
             -- Apocalypse Bird

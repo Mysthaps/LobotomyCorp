@@ -29,6 +29,7 @@ local joker_list = {
     "wellcheers", -- Opened Can of WellCheers
     "child_galaxy", -- Child of the Galaxy
     "punishing_bird",
+    --"little_red", -- Little Red Riding Hooded Mercenary
     "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",
@@ -173,6 +174,7 @@ local badge_colors = {
     lobc_pebble = HEX("AAAAAA"),
     lobc_enchanted = HEX("C8831B"),
     lobc_perma_enchanted = HEX("C8831B"),
+    lobc_marked = HEX("C3181B"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -462,7 +464,7 @@ function lobc_abno_text(key, eval_func, delay, quips)
         blockable = false, 
         timer = 'REAL',
         func = function() 
-            if eval_func() then 
+            if eval_func() and key and chosen_quip then 
                 lobc_screen_text({scale = 0.6, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5*G.SETTINGS.GAMESPEED, align = 'cm', offset = offset, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.25, pop_out = 0.1*G.SETTINGS.GAMESPEED})
                 lobc_abno_text(key, eval_func, math.random(2, 10), quips) 
             end 

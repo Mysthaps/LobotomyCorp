@@ -320,7 +320,7 @@ blind.drawn_to_hand = function(self)
                 {min = 2, max = 7},
             }
             local phase = G.GAME.current_round.lobc_phases_beaten
-            if phase >= 2 then G.GAME.blind.lobc_score_cap = 0.25 end
+            if phase >= 2 then G.GAME.blind.lobc_score_cap = 0.2 end
             local effect_selected = nil
 
             local function additional_check(eff)
@@ -367,14 +367,14 @@ blind.drawn_to_hand = function(self)
             G.GAME.blind:wiggle()
         end
         -- [21], [31] At the start of every (other) hand, destroy a card held in hand
-        if G.GAME.current_round.lobc_phases_beaten >= 2 then
+        --[[if G.GAME.current_round.lobc_phases_beaten >= 2 then
             G.GAME.blind.discards_sub = G.GAME.blind.discards_sub or 0
             G.GAME.blind.discards_sub = G.GAME.blind.discards_sub + 1
             if G.GAME.blind.discards_sub % 2 == 0 or G.GAME.current_round.lobc_phases_beaten >= 3 then
                 G.GAME.blind:wiggle()
                 destroy_cards(G.hand, 1, 1)
             end
-        end
+        end]]--
         -- [22], [32] Debuff all [highest owned rarity] Jokers
         if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
             local highest = 1
