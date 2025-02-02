@@ -154,6 +154,15 @@ return {
                     "knowing it's wrong?\""
                 }
             },
+            und_j_lobc_fragment_universe = {
+                name = "O-03-60",
+                text = {
+                    "You see a song",
+                    "in front of you.",
+                    "It's approaching, becoming more",
+                    "colorful by the second.",
+                }
+            },
             und_j_lobc_judgement_bird = {
                 name = "O-02-62",
                 text = {
@@ -1142,8 +1151,38 @@ return {
                 }
             },
 
+            dis_j_lobc_fragment_universe_1 = {
+                name = "O-03-60",
+                text = {
+                    "{C:attention}(#4#/2){} ...",
+                    "{C:attention}(#5#/5){} ...",
+                }
+            },
+            dis_j_lobc_fragment_universe_2 = {
+                name = "O-03-60",
+                text = {
+                    "Whenever {C:attention}4{} unique {C:attention}base Suits{} are scored,",
+                    "create a random {C:planet}Planet{} card",
+                    "{C:attention}(#5#/5){} ...",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive} suits)",
+                    "{C:inactive}(Must have room)"
+                }
+            },
+            j_lobc_fragment_universe = {
+                name = "Fragment of the Universe",
+                text = {
+                    "If {C:attention}poker hand{} contains {C:attention}4{}",
+                    "different suits, {C:green}#1# in #2#{} chance to",
+                    "create a random {C:dark_edition}Perishable {C:planet}Planet{} card",
+                    "{s:0.15} {}",
+                    "{C:green}#1# in #3#{} chance to create a",
+                    "random {C:dark_edition}Eternal {C:spectral}Spectral{} card",
+                    "{C:inactive}(Must have room)"
+                }
+            },
+
             dis_j_lobc_judgement_bird_1 = {
-                name = "O-02-52",
+                name = "O-02-62",
                 text = {
                     "{C:attention}(#3#/2){} ...",
                     "{C:attention}(#4#/4){} ...",

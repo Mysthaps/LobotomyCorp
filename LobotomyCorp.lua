@@ -29,6 +29,7 @@ local joker_list = {
     "wellcheers", -- Opened Can of WellCheers
     "child_galaxy", -- Child of the Galaxy
     "punishing_bird",
+    "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",
     "price_of_silence",
@@ -1760,6 +1761,7 @@ end
 local eval_cardref = eval_card
 function eval_card(card, context)
     local eval, post_trig = eval_cardref(card, context)
+    if type(eval) ~= "table" then return eval, post_trig end
     if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
         for _, v in pairs(eval) do
             if v.chips then v.chips = v.chips * G.GAME.lobc_hod_modifier end
