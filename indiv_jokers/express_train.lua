@@ -37,7 +37,8 @@ joker.calculate = function(self, card, context)
         card.ability.extra.active_light = 0
         return {
             x_mult = light.x_mult,
-            dollars = light.dollars
+            dollars = light.dollars,
+            card = context.blueprint_card or card
         }
     end
 end
