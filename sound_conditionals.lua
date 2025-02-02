@@ -117,7 +117,7 @@ return {
         select_music_track = function()
             if config.no_music then return false end
             for _, v in pairs(G.lobc_global_meltdowns) do
-                if G.GAME and G.GAME.modifiers["lobc_"..v] then return false end
+                if v ~= "gebura" and G.GAME and G.GAME.modifiers["lobc_"..v] then return false end
             end
             return (G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER.config.center.group_key == "k_lobc_extraction_pack") and 1e4 or false
         end,
