@@ -1,8 +1,8 @@
 local lights = {
-    {x_mult = 1.25, dollars = 2},
-    {x_mult = 1.5, dollars = 4},
-    {x_mult = 2, dollars = 8},
-    {x_mult = 3, dollars = 15}
+    {x_mult = 1.25, dollars = 1},
+    {x_mult = 1.5, dollars = 2},
+    {x_mult = 2, dollars = 4},
+    {x_mult = 3, dollars = 8}
 }
 
 local joker = {
