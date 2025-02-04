@@ -270,10 +270,8 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
     if G.GAME.blind.lobc_current_effect == 37 then
         G.GAME.blind.triggered = true
         local hand_level = G.GAME.hands[handname].level
-        local to_remove = hand_level
-        if type(hand_level) == "table" then to_remove:ceil() else to_remove = math.ceil(to_remove) end
         if not check then
-            level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -to_remove)
+            level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -hand_level)
             G.GAME.blind:wiggle()
         end
     end

@@ -23,7 +23,7 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
     if G.GAME.hands[handname].level == highest_level then
         G.GAME.blind.triggered = true
         if not check then
-            level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -1)
+            level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, to_big(-1))
             G.GAME.blind:wiggle()
         end
     end

@@ -16,7 +16,7 @@ local blind = {
 blind.debuff_hand = function(self, cards, hand, handname, check)
     G.GAME.blind.triggered = true
     if not check then
-        level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -2)
+        level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, to_big(-2))
         G.GAME.blind:wiggle()
     end
 end
