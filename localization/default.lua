@@ -2632,7 +2632,7 @@ return {
             ch_c_lobc_netzach_4 = {"All {C:attention}Blinds{} cannot be skipped"},
 
             -- Tiphereth
-            ch_c_lobc_tiphereth = {"{C:dark_edition}Midnight Ordeals{} appear every Ante after Ante {C:attention}8{}"},
+            ch_c_lobc_tiphereth = {"A {C:dark_edition}Midnight Ordeal{} appears on Ante {C:attention}8{}"},
 
             -- Gebura
             ch_c_lobc_gebura = {"{C:red}The Red Mist{} makes her return."},

@@ -596,7 +596,7 @@ function reset_blinds()
         end
 
         if (G.GAME.round_resets.ante % 8 == 0 and G.GAME.round_resets.ante > 0) or
-           (G.GAME.round_resets.ante >= 8 and G.GAME.modifiers.lobc_tiphereth) then
+           (G.GAME.round_resets.ante == 10 and G.GAME.modifiers.lobc_tiphereth) then
             if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 0.125 or G.GAME.modifiers.lobc_tiphereth then
                 G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] = G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] - 1
                 G.GAME.round_resets.blind_choices.Boss = 'bl_lobc_midnight_base'

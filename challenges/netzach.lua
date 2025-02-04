@@ -10,7 +10,6 @@ local chal = {
             {id = "lobc_netzach_2"},
             {id = "lobc_netzach_3"},
             {id = "lobc_netzach_4"},
-            {id = "lobc_ordeals"},
             {id = "lobc_fast_ante_1"},
         },
     },
@@ -21,10 +20,6 @@ local chal = {
         banned_cards = {
             {id = 'j_burglar'},
             {id = 'j_lobc_heart_of_aspiration'},
-            {id = 'j_luchador'},
-            {id = 'j_chicot'},
-            {id = 'v_directors_cut'},
-            {id = 'v_retcon'},
             {id = 'v_hieroglyph'},
             {id = 'v_petroglyph'},
         },

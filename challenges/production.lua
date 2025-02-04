@@ -61,6 +61,16 @@ if (SMODS.Mods.Cryptid or {}).can_load then
         end
     end
 end
+if (SMODS.Mods.MoreJokerPacks or {}).can_load then
+    local packs = {
+        'p_mjp_common_buffoon_pack', 'p_mjp_uncommon_buffoon_pack', 'p_mjp_rare_buffoon_pack', 'p_mjp_legendary_buffoon_pack'
+    }
+    if (SMODS.Mods.Cryptid or {}).can_load then
+        table.insert(packs, 'p_mjp_epic_buffoon_pack')
+        table.insert(packs, 'p_mjp_exotic_buffoon_pack')
+    end
+    table.insert(chal.restrictions.banned_cards, {id = 'p_mjp_common_buffoon_pack', ids = packs})
+end
 
 -- Open an Extraction Pack after each Ante
 local update_shopref = Game.update_shop

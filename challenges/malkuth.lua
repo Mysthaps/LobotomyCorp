@@ -5,20 +5,10 @@ local chal = {
             {id = "lobc_malkuth"},
             {id = "lobc_malkuth_2"},
             {id = "lobc_malkuth_3"},
-            {id = "lobc_ordeals"},
             {id = "lobc_fast_ante_1"},
         },
     },
     restrictions = {
-        banned_tags = {
-            {id = 'tag_boss'}
-        },
-        banned_cards = {
-            {id = 'j_luchador'},
-            {id = 'j_chicot'},
-            {id = 'v_directors_cut'},
-            {id = 'v_retcon'},
-        },
         banned_other = {
             {id = 'bl_final_acorn', type = 'blind'},
         }

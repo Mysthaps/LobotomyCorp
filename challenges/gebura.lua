@@ -34,13 +34,6 @@ local chal = {
             {id = 'v_retcon'},
         },
     },
-    unlocked = function(self)
-        local count = 0
-        for _, v in pairs({"malkuth", "yesod", "netzach", "hod"}) do
-            if G.PROFILES[G.SETTINGS.profile].challenge_progress.completed["c_lobc_"..v] then count = count + 1 end
-        end
-        return count >= 3 or config.unlock_challenges
-    end
 }
 
 if (SMODS.Mods.Bunco or {}).can_load then
