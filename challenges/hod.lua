@@ -9,6 +9,9 @@ local chal = {
         },
     },
     restrictions = {
+        banned_cards = {
+            {id = 'j_lobc_you_must_be_happy' }
+        },
     },
     unlocked = function(self)
         return true
