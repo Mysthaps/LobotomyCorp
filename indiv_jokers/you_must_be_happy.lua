@@ -14,7 +14,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_eval then
         card:juice_up()
         card.ability.extra.held = card.ability.extra.held + 1
         if card.ability.extra.held > 5 then

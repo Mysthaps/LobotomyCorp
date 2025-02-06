@@ -48,7 +48,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.blueprint then
         card.ability.extra.hands_played = 0
         for _, v in ipairs(G.playing_cards) do
             SMODS.debuff_card(v, false, 'theresia_debuff')

@@ -32,7 +32,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_eval then
         card.ability.extra.cards = 0
     end
 end

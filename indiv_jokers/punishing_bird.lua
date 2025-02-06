@@ -19,7 +19,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_eval then
         card.ability.extra.rounds_played = card.ability.extra.rounds_played + 1
         if card.ability.extra.rounds_played >= 9 then
             if not card.edition or (card.edition and not card.edition.negative) then

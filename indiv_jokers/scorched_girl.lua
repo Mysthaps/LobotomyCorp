@@ -38,7 +38,7 @@ joker.calculate = function(self, card, context)
             end
         }))
     end
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_eval then
         for _, v in ipairs(G.playing_cards) do
             SMODS.debuff_card(v, false, 'scorched_girl_debuff')
         end

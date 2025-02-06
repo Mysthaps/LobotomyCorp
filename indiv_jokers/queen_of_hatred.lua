@@ -19,7 +19,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+    if context.end_of_round and not context.blueprint and context.main_eval then
         card.ability.extra.round_count = card.ability.extra.round_count + 1
 
         local chips_check = false
