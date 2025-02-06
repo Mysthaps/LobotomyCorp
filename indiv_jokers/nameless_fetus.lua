@@ -33,7 +33,9 @@ joker.calculate = function(self, card, context)
 
     if context.destroying_card and not context.blueprint and #context.full_hand == 1 and 
        not context.full_hand[1].ability.eternal and G.GAME.current_round.hands_played == 0 then
-        return true
+        return {
+            remove = true
+        }
     end
 
     if context.joker_main then

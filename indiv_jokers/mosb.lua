@@ -17,7 +17,9 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.destroying_card and not context.blueprint and not context.destroying_card.ability.eternal then
-        return true
+        return {
+            remove = true
+        }
     end
 
     if context.cardarea == G.jokers and not context.blueprint then

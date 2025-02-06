@@ -63,7 +63,9 @@ joker.calculate = function(self, card, context)
             return true
             end
         }))
-        return true
+        return {
+            remove = true
+        }
     end
 end
 

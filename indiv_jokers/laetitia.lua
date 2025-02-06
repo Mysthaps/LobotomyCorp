@@ -55,7 +55,9 @@ joker.calculate = function(self, card, context)
 
     if context.destroying_card and not context.blueprint and 
        card.ability.extra.not_hearts and not context.destroying_card.ability.eternal then
-        return true
+        return {
+            remove = true
+        }
     end
 end
 
