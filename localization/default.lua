@@ -469,6 +469,12 @@ return {
                     "decays by {C:attention}1{}",
                     "plus {C:attention}half{} at {C:attention}10+ {C:red}Sin",
                 }
+            },
+            lobc_marked = {
+                name = "Marked",
+                text = {
+                    "Marked by {C:attention}F-01-57"
+                }
             }
         },
         Joker = {
@@ -1192,7 +1198,7 @@ return {
                     "{s:0.15} {}",
                     "{C:dark_edition}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
-                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "Increases cost by {C:money}$#9#{} when using this effect",
                     "{C:attention}(#7#/7){} ...",
                 }
             },
@@ -1204,11 +1210,11 @@ return {
                     "{s:0.15} {}",
                     "{C:dark_edition}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
-                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "Increases cost by {C:money}$#9#{} when using this effect",
                     "{s:0.15} {}",
                     "When a {C:marked}Marked{} card is destroyed, gives {C:money}$#1#{},",
-                    "and this Abnormality gains {X:mult,C:white} X#2# {} Mult",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
+                    "and this Abnormality gains {C:mult}+#2#{} Mult",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
                 }
             },
             dis_j_lobc_little_red_1_alt = {
@@ -1234,7 +1240,7 @@ return {
                     "{s:0.15} {}",
                     "{C:dark_edition}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
-                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "Increases cost by {C:money}$#9#{} when using this effect",
                     "{C:attention}(#7#/7){} ...",
                 }
             },
@@ -1245,14 +1251,14 @@ return {
                     "{s:0.15} {}",
                     "{C:dark_edition}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
-                    "Increases cost by {C:money}$#4#{} when using this effect",
+                    "Increases cost by {C:money}$#9#{} when using this effect",
                     "{s:0.15} {}",
-                    "When a {C:marked}Marked{} card is destroyed, gives {C:money}$#1#{} ,",
-                    "and this Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "When a {C:marked}Marked{} card is destroyed, gives {C:money}$#1#{},",
+                    "and this Abnormality gains {C:mult}+#2#{} Mult",
                     "If the {C:marked}Marked{} card is sold or not destroyed by",
-                    "this Abnormality, permanently gives {X:mult,C:white} X0.25 {} Mult",
+                    "this Abnormality, it loses {C:mult}200{} Mult",
                     "and becomes {C:dark_edition}Eternal{}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
                 }
             },
 
@@ -2572,6 +2578,7 @@ return {
             lobc_pebble = "Pebble",
             lobc_enchanted = "Enchanted",
             lobc_perma_enchanted = "Enchanted",
+            lobc_marked = "Marked",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
