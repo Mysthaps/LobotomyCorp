@@ -20,15 +20,13 @@ local function mark_card()
         selected_card.children.lobc_prey.role.major = selected_card
         selected_card.children.lobc_prey.states.hover.can = false
         selected_card.children.lobc_prey.states.click.can = false
-        G.GAME.lobc_little_red_marked_card = selected_card
     end
-    sendDebugMessage(G.GAME.lobc_little_red_marked_card.base.value..G.GAME.lobc_little_red_marked_card.base.suit, "LobotomyCorp")
 end
 
 local joker = {
     name = "Little Red Riding Hooded Mercenary",
     config = {extra = {
-        money = 5, cost = 5, mult = 0, mult_gain = 10, cost_increase = 10
+        money = 7, cost = 7, mult = 0, mult_gain = 15, cost_increase = 7
     }}, rarity = 3, cost = 7,
     pos = {x = 1, y = 3}, 
     blueprint_compat = true, 
@@ -65,26 +63,40 @@ joker.calculate = function(self, card, context)
 end
 
 joker.lobc_can_use_active = function(self, card)
-    return G.GAME.dollars >= card.ability.extra.cost
+    local can_use = false
+    for _, v in ipairs(G.hand.cards) do
+        if v.ability.little_red_marked then can_use = true end
+    end
+    return can_use and G.GAME.dollars >= card.ability.extra.cost
 end
 
 joker.lobc_active = function(self, card)
     ease_dollars(-card.ability.extra.cost)
     card.ability.extra.cost = card.ability.extra.cost + card.ability.extra.cost_increase
+    local _card = nil
+    for _, v in ipairs(G.hand.cards) do
+        if v.ability.little_red_marked then _card = v end
+    end
+    play_sound("lobc_littlered_gun", 1, 0.6)
+    delay(0.2*G.SETTINGS.GAMESPEED)
     G.E_MANAGER:add_event(Event({
         func = function()
-            G.GAME.lobc_little_red_marked_card:start_dissolve()
+            _card:start_dissolve()
             delay(0.2)
-            SMODS.calculate_context({ remove_playing_cards = true, removed = { G.GAME.lobc_little_red_marked_card } })
-            G.GAME.lobc_little_red_marked_card = nil
+            SMODS.calculate_context({ remove_playing_cards = true, removed = { _card } })
             return true
         end
     }))
+    G.FUNCS.draw_from_deck_to_hand(1)
 end
 
 joker.update = function(self, card, dt)
     if G.STAGE == G.STAGES.RUN and card.area == G.jokers and not card.debuff and not G.GAME.lobc_little_red_marked_card then
-        if not G.GAME.lobc_little_red_marked_card then mark_card() end
+        local has_prey = nil
+        for _, v in ipairs(G.playing_cards) do
+            if v.ability.little_red_marked then has_prey = true; break; end
+        end
+        if not has_prey then mark_card() end
     end
 end
 
@@ -92,12 +104,11 @@ end
 local card_updateref = Card.update
 function Card.update(self, dt)
     card_updateref(self, dt)
-    if G.GAME and (not G.GAME.lobc_little_red_marked_card or G.GAME.lobc_little_red_marked_card == '"MANUAL_REPLACE"') and self.ability.little_red_marked and not self.children.lobc_prey then
+    if self.ability.little_red_marked and not self.children.lobc_prey then
         self.children.lobc_prey = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 4, y = 0})
-        self.children.lobc_prey.role.major = selected_card
+        self.children.lobc_prey.role.major = self
         self.children.lobc_prey.states.hover.can = false
         self.children.lobc_prey.states.click.can = false
-        G.GAME.lobc_little_red_marked_card = self
     end
 end
 
@@ -110,10 +121,13 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     local desc_key = self.key
     if card:check_rounds(1) < 1 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(7) < 7 then
-        desc_key = 'dis_'..desc_key..'_3'
+    else
+        info_queue[#info_queue+1] = {key = 'lobc_marked', set = 'Other'}
+        if card:check_rounds(3) < 3 then
+            desc_key = 'dis_'..desc_key..'_2'
+        elseif card:check_rounds(7) < 7 then
+            desc_key = 'dis_'..desc_key..'_3'
+        end
     end
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}

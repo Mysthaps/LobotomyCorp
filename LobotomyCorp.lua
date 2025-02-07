@@ -133,6 +133,7 @@ local sound_list = {
     big_bird_destroy = "Bigbird_HeadCut",
     train_sell = "Train_Sell",
     train_start = "Train_Start",
+    littlered_gun = "RedHood_Gun",
 
     gebura_slash = "Gebura_Phase2_Atk1",
     dice_roll = "Dice_Roll",
