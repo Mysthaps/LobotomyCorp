@@ -77,7 +77,11 @@ end
 -- Face for Lobotomy Corporation jokers
 if self.children.mood then
     self.children.mood.role.draw_major = self
-    self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
-    self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+    self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, nil, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL), nil, 0.6)
+    self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, nil, nil)
+end
+if self.children.lobc_prey then
+    self.children.lobc_prey:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2, nil, 0.6)
+    self.children.lobc_prey:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2)
 end'''
 match_indent = true

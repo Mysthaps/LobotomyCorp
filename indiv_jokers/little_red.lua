@@ -15,18 +15,13 @@ local function mark_card()
 
     if #available_cards > 0 then
         local selected_card = pseudorandom_element(available_cards, pseudoseed("little_red_card"))
+        selected_card.ability.little_red_marked = true
+        selected_card.children.lobc_prey = Sprite(selected_card.T.x, selected_card.T.y, selected_card.T.w, selected_card.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 4, y = 0})
+        selected_card.children.lobc_prey.role.major = selected_card
+        selected_card.children.lobc_prey.states.hover.can = false
+        selected_card.children.lobc_prey.states.click.can = false
+        selected_card.ability.big_bird_enchanted = true
         G.GAME.lobc_little_red_marked_card = selected_card
-        G.GAME.lobc_little_red_marked_card.ability.little_red_marked = true
-        -- temporary
-        G.GAME.lobc_little_red_marked_card.children.lobc_little_red_particles = Particles(0, 0, 0,0, {
-            timer = 0.3,
-            scale = 0.45,
-            speed = 0.3,
-            lifespan = 4,
-            attach = G.GAME.lobc_little_red_marked_card,
-            colours = {darken(G.C.RED, 0.1), darken(G.C.RED, 0.3), darken(G.C.RED, 0.5)},
-            fill = true
-        })
     end
     print(G.GAME.lobc_little_red_marked_card.base.value..G.GAME.lobc_little_red_marked_card.base.suit)
 end
@@ -104,7 +99,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     local vars = { card.ability.extra.money, card.ability.extra.mult_gain, 
                 card.ability.extra.mult, card.ability.extra.cost,
                 card:check_rounds(1), card:check_rounds(3), card:check_rounds(7),
-                "F-02-58", card.ability.extra.cost_increase
+                "F-02-58", card.ability.extra.cost_increase, "+"
             }
     local desc_key = self.key
     if card:check_rounds(1) < 1 then

@@ -1060,6 +1060,12 @@ function Card.align(self)
         self.children.mood.T.r = self.T.r
     end
 
+    if self.children.lobc_prey then 
+        self.children.lobc_prey.T.y = self.T.y
+        self.children.lobc_prey.T.x = self.T.x
+        self.children.lobc_prey.T.r = self.T.r
+    end
+
     alignref(self)
 end
 
@@ -1069,6 +1075,7 @@ function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_yes_no"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_lights"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_wellcheers"] then return end
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 4 and self.sprite_pos.y == 0 then return end
     sprite_drawref(self, overlay)
 end
 
