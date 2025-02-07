@@ -53,4 +53,18 @@ function Card.flip(self)
     card_flipref(self)
 end
 
+-- Card flipped
+local card_updateref = Card.update
+function Card.update(self, dt)
+    card_updateref(self, dt)
+    if G.GAME and G.GAME.modifiers.lobc_malkuth then
+        if (self.ability.consumeable and G.GAME.round_resets.ante > 3) or
+           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
+            self.facing = 'back'
+            self.sprite_facing = 'back'
+            self.pinch.x = false
+        end
+    end
+end
+
 return chal

@@ -1857,29 +1857,6 @@ function Card.update(self, dt)
     end
 
     card_updateref(self, dt)
-
-    -- Card flipped (Malkuth)
-    if G.GAME and G.GAME.modifiers.lobc_malkuth then
-        if (self.ability.consumeable and G.GAME.round_resets.ante > 3) or
-           (self.ability.set == "Joker" and G.GAME.round_resets.ante > 6) then
-            self.facing = 'back'
-            self.sprite_facing = 'back'
-            self.pinch.x = false
-        end
-    end
-
-    -- Restore Enchanted particles on reload (Big Bird)
-    if self.ability.big_bird_enchanted and not self.children.lobc_big_bird_particles and G.GAME.blind and G.GAME.blind.in_blind then
-        self.children.lobc_big_bird_particles = Particles(0, 0, 0,0, {
-            timer = self.ability.permanent_enchanted and 0.4 or 0.3,
-            scale = self.ability.permanent_enchanted and 0.3 or 0.45,
-            speed = 0.3,
-            lifespan = self.ability.permanent_enchanted and 3 or 4,
-            attach = self,
-            colours = {darken(G.C.MONEY, 0.1), darken(G.C.MONEY, 0.3), darken(G.C.MONEY, 0.5)},
-            fill = true
-        })
-    end
 end
 
 -- Update round count for abnos
