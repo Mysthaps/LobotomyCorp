@@ -29,7 +29,7 @@ local joker_list = {
     "wellcheers", -- Opened Can of WellCheers
     "child_galaxy", -- Child of the Galaxy
     "punishing_bird",
-    --"little_red", -- Little Red Riding Hooded Mercenary
+    "little_red", -- Little Red Riding Hooded Mercenary
     "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",

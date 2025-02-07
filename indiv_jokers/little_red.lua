@@ -20,10 +20,9 @@ local function mark_card()
         selected_card.children.lobc_prey.role.major = selected_card
         selected_card.children.lobc_prey.states.hover.can = false
         selected_card.children.lobc_prey.states.click.can = false
-        selected_card.ability.big_bird_enchanted = true
         G.GAME.lobc_little_red_marked_card = selected_card
     end
-    print(G.GAME.lobc_little_red_marked_card.base.value..G.GAME.lobc_little_red_marked_card.base.suit)
+    sendDebugMessage(G.GAME.lobc_little_red_marked_card.base.value..G.GAME.lobc_little_red_marked_card.base.suit, "LobotomyCorp")
 end
 
 local joker = {
@@ -85,13 +84,20 @@ end
 
 joker.update = function(self, card, dt)
     if G.STAGE == G.STAGES.RUN and card.area == G.jokers and not card.debuff and not G.GAME.lobc_little_red_marked_card then
-        for _, v in ipairs(G.playing_cards) do
-            if v.ability.little_red_marked then G.GAME.lobc_little_red_marked_card = v end
-        end
-        for _, v in ipairs(G.jokers.cards) do
-            if v.ability.little_red_marked then G.GAME.lobc_little_red_marked_card = v end
-        end
         if not G.GAME.lobc_little_red_marked_card then mark_card() end
+    end
+end
+
+-- Restore Marked on reload
+local card_updateref = Card.update
+function Card.update(self, dt)
+    card_updateref(self, dt)
+    if G.GAME and (not G.GAME.lobc_little_red_marked_card or G.GAME.lobc_little_red_marked_card == '"MANUAL_REPLACE"') and self.ability.little_red_marked and not self.children.lobc_prey then
+        self.children.lobc_prey = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 4, y = 0})
+        self.children.lobc_prey.role.major = selected_card
+        self.children.lobc_prey.states.hover.can = false
+        self.children.lobc_prey.states.click.can = false
+        G.GAME.lobc_little_red_marked_card = self
     end
 end
 
