@@ -1,6 +1,6 @@
 local joker = {
     name = "Judgement Bird",
-    config = {extra = {x_mult = 1, x_mult_gain = 0.05}}, rarity = 3, cost = 8,
+    config = {extra = {x_mult = 1, x_mult_gain = 0.1}}, rarity = 3, cost = 8,
     pos = {x = 5, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = true,
