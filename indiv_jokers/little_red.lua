@@ -67,7 +67,7 @@ joker.lobc_can_use_active = function(self, card)
     for _, v in ipairs(G.hand.cards) do
         if v.ability.little_red_marked then can_use = true end
     end
-    return can_use and G.GAME.dollars >= card.ability.extra.cost
+    return can_use and G.GAME.dollars >= to_big(card.ability.extra.cost)
 end
 
 joker.lobc_active = function(self, card)
