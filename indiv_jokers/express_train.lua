@@ -65,7 +65,7 @@ joker.lobc_active = function(self, card)
 end
 
 joker.lobc_can_use_active = function(self, card)
-    return card.ability.extra.light > 0 and not card.ability.extra.active_light
+    return card.ability.extra.light > 0 and card.ability.extra.active_light == 0
 end
 
 joker.set_sprites = function(self, card, front)
