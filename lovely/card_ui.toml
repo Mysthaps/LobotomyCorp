@@ -66,7 +66,7 @@ pattern = "elseif self.sprite_facing == 'back' then"
 position = "before"
 payload = '''
 -- Lobotomy Corporation card modifiers
-for _, v in ipairs(G.lobc_global_modifiers) do
+for _, v in ipairs(G.lobc_global_modifiers or {}) do
     if self.ability[v] then
         G.lobc_shared_modifiers[v].role.draw_major = self
         G.lobc_shared_modifiers[v]:draw_shader('dissolve', nil, nil, nil, self.children.center)
