@@ -96,7 +96,7 @@ return {
         key = "music_gebura_1",
         select_music_track = function()
             if config.no_music then return false end
-            local phase = G.GAME.current_round.lobc_phases_beaten
+            local phase = G.GAME.current_round.phases_beaten
             return (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and (phase == 1 or phase == 2)) and 1e5 or false
         end,
     },
@@ -106,7 +106,7 @@ return {
         key = "music_gebura_2",
         select_music_track = function()
             if config.no_music then return false end
-            local phase = G.GAME.current_round.lobc_phases_beaten
+            local phase = G.GAME.current_round.phases_beaten
             return (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and phase >= 3) and 1e5 or false
         end,
     },
@@ -172,7 +172,7 @@ return {
             for _, v in pairs({"malkuth", "yesod", "hod", "netzach", "tiphereth"}) do
                 if G.GAME and G.GAME.modifiers["lobc_"..v] and G.GAME.round_resets.ante <= 3 then return 1e5 end
             end
-            if G.GAME.blind and G.GAME.blind.config.blind.phases and G.GAME.current_round.lobc_phases_beaten == 0 then return 1e5 end
+            if G.GAME.blind and G.GAME.blind.config.blind.phases and G.GAME.current_round.phases_beaten == 0 then return 1e5 end
             return (G.GAME and G.GAME.blind and 
             ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight") or
             (config.lobcorp_music and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown))) and 1e4 or false
@@ -186,7 +186,7 @@ return {
             if config.no_music then return false end
             return (G.GAME and G.GAME.blind and 
             ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") or
-            (G.GAME.blind.lobc_original_blind and G.GAME.blind.lobc_original_blind == "bl_lobc_dusk_crimson") or
+            (G.GAME.blind.original_blind and G.GAME.blind.original_blind == "bl_lobc_dusk_crimson") or
             (config.lobcorp_music and G.GAME.blind.config.blind.boss and not G.GAME.blind.config.blind.boss.showdown))) and 1e3 or false
         end,
     },

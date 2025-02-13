@@ -58,7 +58,7 @@ local function get_available_jokers()
 end
 
 blind.set_blind = function(self, reset, silent)
-    G.GAME.current_round.lobc_phases_beaten = 0
+    G.GAME.current_round.phases_beaten = 0
     G.GAME.blind.lobc_current_effect = pseudorandom("red_mist_phase_1", 2, 8)
     G.GAME.blind.lobc_score_cap = 0.15
     G.GAME.blind:set_text()
@@ -317,7 +317,7 @@ blind.drawn_to_hand = function(self)
                 {min = 2, max = 7},
                 {min = 2, max = 7},
             }
-            local phase = G.GAME.current_round.lobc_phases_beaten
+            local phase = G.GAME.current_round.phases_beaten
             if phase >= 2 then G.GAME.blind.lobc_score_cap = 0.2 end
             local effect_selected = nil
 
@@ -364,15 +364,6 @@ blind.drawn_to_hand = function(self)
             end
             G.GAME.blind:wiggle()
         end
-        -- [21], [31] At the start of every (other) hand, destroy a card held in hand
-        --[[if G.GAME.current_round.lobc_phases_beaten >= 2 then
-            G.GAME.blind.discards_sub = G.GAME.blind.discards_sub or 0
-            G.GAME.blind.discards_sub = G.GAME.blind.discards_sub + 1
-            if G.GAME.blind.discards_sub % 2 == 0 or G.GAME.current_round.lobc_phases_beaten >= 3 then
-                G.GAME.blind:wiggle()
-                destroy_cards(G.hand, 1, 1)
-            end
-        end]]--
         -- [22], [32] Debuff all [highest owned rarity] Jokers
         if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
             local highest = 1
@@ -469,6 +460,16 @@ end
 -- [1] Caps score, using Cryptid's The Tax function
 blind.cry_cap_score = function(self, score)
     return math.floor(math.min(G.GAME.blind.lobc_score_cap*G.GAME.blind.chips,score)+0.5)
+end
+
+blind.phase_change = function(self)
+    ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
+    if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
+    G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
+        if G.GAME.current_round.phases_beaten ~= 2 then lobc_restart_music() end
+    return true end }))
+    G.GAME.blind.hands_sub = -1
+    G.GAME.blind.prepped = true
 end
 
 -- [34] Selling card

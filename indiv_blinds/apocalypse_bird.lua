@@ -110,6 +110,16 @@ blind.recalc_debuff = function(self, card, from_blind)
     end
 end
 
+blind.pre_defeat = function(self)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        func = function()
+            display_cutscene({x = 3, y = 1})
+        return true 
+        end 
+    }))
+end
+
 blind.defeat = function(self)
     G.GAME.apoc_music = nil
     G.GAME.pool_flags["apocalypse_bird_defeated"] = true

@@ -4,6 +4,7 @@ local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 local folder = string.match(mod_path, "[Mm]ods.*")
+SMODS.load_file("blindexpander.lua")()
 
 --=============== STEAMODDED OBJECTS ===============--
 
@@ -406,17 +407,6 @@ function lobc_screen_text(args)
     }))
 end
 
--- copied from cryptid's cry_deep_copy
-function lobc_deep_copy(obj, seen)
-    if type(obj) ~= 'table' then return obj end
-    if seen and seen[obj] then return seen[obj] end
-    local s = seen or {}
-    local res = setmetatable({}, getmetatable(obj))
-    s[obj] = res
-    for k, v in pairs(obj) do res[lobc_deep_copy(k, s)] = lobc_deep_copy(v, s) end
-    return res
-end
-
 -- on-screen text that's present in like every project moon game
 function lobc_abno_text(key, eval_func, delay, quips)
     if config.disable_abno_text then return end
@@ -445,7 +435,7 @@ function lobc_abno_text(key, eval_func, delay, quips)
         end
 
         for k, v in ipairs(quips) do
-            if (v.phase and G.GAME.current_round.lobc_phases_beaten == v.phase) or 
+            if (v.phase and G.GAME.current_round.phases_beaten == v.phase) or 
                (v.min_ante and G.GAME.round_resets.ante >= v.min_ante and G.GAME.round_resets.ante <= v.max_ante) then
                 for i = 1, v.amount do
                     all_quips[#all_quips+1] = k.."_"..i
@@ -483,16 +473,6 @@ end
 function Card:check_rounds(comp)
     local val = lobc_get_usage_count(self.config.center_key)
     return math.min(val, comp)
-end
-
--- Find a specific passive key
-function find_passive(key)
-    if G.GAME.blind and G.GAME.blind.passives then
-        for _, v in ipairs(G.GAME.blind.passives) do
-            if v == key then return true end
-        end
-    end
-    return false
 end
 
 -- Make Abnos breach
@@ -606,7 +586,7 @@ function reset_blinds()
     end
 end
 
--- Ordeals / Passives
+-- Ordeals
 local set_blindref = Blind.set_blind
 function Blind.set_blind(self, blind, reset, silent)
     if not reset then
@@ -615,8 +595,8 @@ function Blind.set_blind(self, blind, reset, silent)
             return self:set_blind(G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
         end
         if blind and blind.key == "bl_lobc_apocalypse_bird" then
-            if not G.GAME.blind.lobc_original_blind then
-                G.GAME.blind.lobc_original_blind = "bl_lobc_apocalypse_bird"
+            if not G.GAME.blind.original_blind then
+                G.GAME.blind.original_blind = "bl_lobc_apocalypse_bird"
                 G.GAME.apoc_music = 1
                 play_sound("lobc_dice_roll", 1, 0.8)
                 G.E_MANAGER:add_event(Event({
@@ -637,22 +617,6 @@ function Blind.set_blind(self, blind, reset, silent)
                 return true end }))
             end
         end
-        self.passives = blind and lobc_deep_copy(blind.passives)
-        if self.passives then
-            self.children.alert = UIBox{
-                definition = create_UIBox_card_alert(), 
-                config = {
-                    align = "tri",
-                    offset = {
-                        x = 0.1, y = 0
-                    },
-                    parent = self
-                }
-            }
-            first_time_passive()
-        else
-            self.children.alert = nil
-        end
     end
     set_blindref(self, blind, reset, silent)
     if not reset and blind and (blind.time == "dusk" or blind.time == "midnight") then
@@ -662,121 +626,11 @@ function Blind.set_blind(self, blind, reset, silent)
     end
 end
 
--- Phase bosses
-local update_new_roundref = Game.update_new_round
-function Game.update_new_round(self, dt)
-    if self.buttons then self.buttons:remove(); self.buttons = nil end
-    if self.shop then self.shop:remove(); self.shop = nil end
-
-    if not G.STATE_COMPLETE and not G.GAME.blind.disabled and (G.GAME.blind.config.blind.summon or G.GAME.blind.config.blind.phases or G.GAME.blind.lobc_original_blind) then
-        if G.GAME.blind.lobc_original_blind and not G.GAME.blind.config.blind.summon then -- Triggers if blind is not the original blind
-            -- Reset to the original blind's values
-            if G.GAME.blind.lobc_original_blind ~= G.GAME.blind.config.blind.key then
-                G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.lobc_original_blind])
-                G.GAME.blind.chips = -1 -- force win blind
-                G.GAME.blind.children.alert = nil
-            end
-            -- Apocalypse Bird death cutscene
-            if G.GAME.blind.lobc_original_blind == "bl_lobc_apocalypse_bird" and G.GAME.chips >= G.GAME.blind.chips then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    func = function()
-                        display_cutscene({x = 3, y = 1})
-                    return true 
-                    end 
-                }))
-            end
-        else
-            if G.GAME.current_round.hands_left <= 0 and G.GAME.chips < G.GAME.blind.chips then 
-                G.GAME.blind.lobc_original_blind = nil
-                G.STATE_COMPLETE = true
-                end_round()
-                return
-            else
-                G.GAME.current_round.lobc_phases_beaten = G.GAME.current_round.lobc_phases_beaten + 1
-            end
-            
-            if G.GAME.blind.config.blind.phases and G.GAME.current_round.lobc_phases_beaten >= G.GAME.blind.config.blind.phases then
-                return update_new_roundref(self, dt)
-            end
-            
-            G.STATE = G.STATES.DRAW_TO_HAND
-            G.E_MANAGER:add_event(Event({
-                trigger = 'ease',
-                blocking = false,
-                ref_table = G.GAME,
-                ref_value = 'chips',
-                ease_to = 0,
-                delay = 0.5 * G.SETTINGS.GAMESPEED,
-                func = (function(t) return math.floor(t) end)
-            }))
-
-            if G.GAME.blind.config.blind.phase_refresh then 
-                -- Refresh deck
-                G.FUNCS.draw_from_discard_to_deck()
-                G.FUNCS.draw_from_hand_to_deck()
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 1,
-                    blockable = false,
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'immediate',
-                            func = function()
-                                G.deck:shuffle(G.GAME.blind.config.blind.key..'_refresh')
-                                G.deck:hard_set_T()
-                            return true
-                            end
-                        }))
-                    return true
-                    end
-                }))
-
-                if G.GAME.blind.config.blind.key == "bl_lobc_red_mist" then 
-                    G.GAME.blind.lobc_current_effect = G.GAME.current_round.lobc_phases_beaten * 10 + 5 
-                    ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
-                    if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
-                    G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
-                        if G.GAME.current_round.lobc_phases_beaten ~= 2 then lobc_restart_music() end
-                    return true end }))
-                end
-                G.GAME.blind.prepped = nil
-                G.GAME.blind.hands_sub = 0
-                G.GAME.blind:set_text()
-                SMODS.juice_up_blind()
-            end
-
-            if G.GAME.blind.config.blind.summon then
-                local obj = G.GAME.blind.config.blind
-                G.P_BLINDS[obj.key].discovered = true
-                if obj.defeat and type(obj.defeat) == 'function' then
-                    obj:defeat()
-                end
-                G.GAME.blind.lobc_original_blind = G.GAME.blind.lobc_original_blind or G.GAME.blind.config.blind.key
-                G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.summon])
-                G.GAME.blind.dollars = G.P_BLINDS[G.GAME.blind.lobc_original_blind].dollars
-                G.GAME.blind.boss = G.P_BLINDS[G.GAME.blind.lobc_original_blind].boss
-                G.GAME.current_round.dollars_to_be_earned = G.GAME.blind.dollars > 0 and (string.rep(localize('$'), G.GAME.blind.dollars)..'') or ('')
-            end
-        end
-    end
-
-    if G.STATE ~= G.STATES.DRAW_TO_HAND then
-        update_new_roundref(self, dt)
-        for _, v in ipairs(G.playing_cards) do
-            if v.ability.big_bird_enchanted and v.children.lobc_big_bird_particles then
-                v.children.lobc_big_bird_particles:remove()
-                v.children.lobc_big_bird_particles = nil
-            end
-        end
-    end
-end
-
 local defeatref = Blind.defeat
 function Blind.defeat(self, silent)
     -- Reset music when a LobotomyCorp boss is defeated
-    if self.lobc_original_blind and self.lobc_original_blind == self.config.blind.key then
-        self.lobc_original_blind = nil
+    if self.original_blind and self.original_blind == self.config.blind.key then
+        self.original_blind = nil
         G.apoc_music = nil
     end
     defeatref(self, silent)
@@ -862,19 +716,17 @@ end
 local blind_saveref = Blind.save
 function Blind.save(self)
     local blindTable = blind_saveref(self)
-    blindTable.lobc_original_blind = self.lobc_original_blind
+    blindTable.lobc_score_cap = self.lobc_score_cap
     blindTable.lobc_current_effect = self.lobc_current_effect
     blindTable.lobc_has_sold_joker = self.lobc_has_sold_joker
-    blindTable.passives = self.passives
     return blindTable
 end
 
 local blind_loadref = Blind.load
 function Blind.load(self, blindTable)
-    self.lobc_original_blind = blindTable.lobc_original_blind
+    self.lobc_score_cap = blindTable.lobc_score_cap
     self.lobc_current_effect = blindTable.lobc_current_effect
     self.lobc_has_sold_joker = blindTable.lobc_has_sold_joker
-    self.passives = blindTable.passives
     blind_loadref(self, blindTable)
 end
 
@@ -889,7 +741,7 @@ function Blind.set_text(self)
         	loc_vars = res.vars or {}
         end
         local loc_key = self.config.blind.key.."_effect"
-        if self.lobc_current_effect and self.config.blind.phases and G.GAME.current_round.lobc_phases_beaten < self.config.blind.phases then
+        if self.lobc_current_effect and self.config.blind.phases and G.GAME.current_round.phases_beaten < self.config.blind.phases then
             loc_key = loc_key.."_"..self.lobc_current_effect
         end
         local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or self.config.blind.vars}
@@ -973,73 +825,9 @@ function display_cutscene(pos)
     }
 end
 
---=============== BLIND PASSIVE UI ===============--
-
-function info_from_passive(passive)
-    local width = G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff" and 7.5 or 6
-    local desc_nodes = {}
-    localize{type = 'descriptions', key = passive, set = "Passive", nodes = desc_nodes, vars = {}}
-    local desc = {}
-    for _, v in ipairs(desc_nodes) do
-        desc[#desc+1] = {n=G.UIT.R, config={align = "cl"}, nodes=v}
-    end
-    return 
-    {n=G.UIT.R, config={align = "cl", colour = lighten(G.C.GREY, 0.4), r = 0.1, padding = 0.05}, nodes={
-        {n=G.UIT.R, config={align = "cl", padding = 0.05, r = 0.1}, nodes = localize{type = 'name', key = passive, set = "Passive", name_nodes = {}, vars = {}}},
-        {n=G.UIT.R, config={align = "cl", minw = width, minh = 0.4, r = 0.1, padding = 0.05, colour = desc_nodes.background_colour or G.C.WHITE}, nodes={{n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=desc}}}
-    }}
-end
-
-function create_UIBox_blind_passive(blind)
-    local passive_lines = {}
-    for _, v in ipairs(blind.passives) do
-        passive_lines[#passive_lines+1] = info_from_passive(v)
-    end
-    return
-    {n=G.UIT.ROOT, config = {align = 'cm', colour = lighten(G.C.JOKER_GREY, 0.5), r = 0.1, emboss = 0.05, padding = 0.05}, nodes={
-        {n=G.UIT.R, config={align = "cm", emboss = 0.05, r = 0.1, minw = 2.5, padding = 0.05, colour = G.C.GREY}, nodes={
-            {n=G.UIT.C, config = {align = "lm", padding = 0.1}, nodes = passive_lines}
-        }}
-    }}
-end
-
-local blind_hoverref = Blind.hover
-function Blind.hover(self)
-    if not G.CONTROLLER.dragging.target or G.CONTROLLER.using_touch then 
-        if not self.hovering and self.states.visible and self.children.animatedSprite.states.visible then
-            if self.passives then
-                G.blind_passive = UIBox{
-                    definition = create_UIBox_blind_passive(self),
-                    config = {
-                        major = self,
-                        parent = nil,
-                        offset = {
-                            x = 0.15,
-                            y = 0.2 + 0.38*#self.passives,
-                        },  
-                        type = "cr",
-                    }
-                }
-                G.blind_passive.attention_text = true
-                G.blind_passive.states.collide.can = false
-                G.blind_passive.states.drag.can = false
-                if self.children.alert then
-                    self.children.alert:remove()
-                    self.children.alert = nil
-                end
-            end
-        end
-    end
-    blind_hoverref(self)
-end
-
-local blind_stop_hoverref = Blind.stop_hover
-function Blind.stop_hover(self)
-    if G.blind_passive then
-        G.blind_passive:remove()
-        G.blind_passive = nil
-    end
-    blind_stop_hoverref(self)
+-- Blind passive UI size
+function current_mod.passive_ui_size()
+    return G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff" and 7.5 or 6
 end
 
 --=============== JOKERS ===============--
@@ -1095,7 +883,7 @@ function Blind.drawn_to_hand(self)
             if not v.highlighted then available_cards[#available_cards+1] = v end
         end
         if #available_cards > 0 then
-            for i = 1, (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and G.GAME.current_round.lobc_phases_beaten >= 2) and 2 or 1 do
+            for i = 1, (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and G.GAME.current_round.phases_beaten >= 2) and 2 or 1 do
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("lobc_gebura_destroy"))
                 table.remove(available_cards, chosen_card_key)
                 destroyed_cards[#destroyed_cards+1] = chosen_card
@@ -1414,7 +1202,7 @@ function ease_background_colour_blind(state, blind_override)
         if G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
             ease_background_colour({new_colour = darken(HEX("FFFFFF"), 0.2), special_colour = darken(HEX("FFFFFF"), 0.4), contrast = 0.7})
             return
-        elseif G.GAME.blind.lobc_original_blind == "bl_lobc_apocalypse_bird" then
+        elseif G.GAME.blind.original_blind == "bl_lobc_apocalypse_bird" then
             ease_background_colour({new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1})
             return
         end
@@ -1699,9 +1487,6 @@ end
 local new_roundref = new_round
 function new_round()
     new_roundref()
-    -- Reset hands for on death summon bosses
-    G.GAME.current_round.lobc_hands_given = 0
-    G.GAME.current_round.lobc_phases_beaten = 0
     -- Reset death text if any
     G.GAME.lobc_death_text = nil
 
