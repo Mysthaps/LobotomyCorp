@@ -11,25 +11,16 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.pre_discard and not context.blueprint then
-        card.ability.extra.first = true
-    end
-
-    if context.discard and not context.blueprint then
-        if card.ability.extra.first then
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                context.other_card:start_dissolve()
-            return true end}))
-            card.ability.extra.cards = card.ability.extra.cards + card.ability.extra.card_gain
-            if card.ability.extra.cards >= 5 then
-                check_for_unlock({type = "lobc_red_eyes"})
-            end
-            card.ability.extra.counter = card.ability.extra.counter + 1
-            if card.ability.extra.counter >= 20 then
-                check_for_unlock({type = "lobc_red_eyes_open"})
-            end
-            card.ability.extra.first = false
+    if context.discard and not context.blueprint and context.other_card and context.other_card == context.full_hand[1] then
+        card.ability.extra.cards = card.ability.extra.cards + card.ability.extra.card_gain
+        if card.ability.extra.cards >= 5 then
+            check_for_unlock({type = "lobc_red_eyes"})
         end
+        card.ability.extra.counter = card.ability.extra.counter + 1
+        if card.ability.extra.counter >= 20 then
+            check_for_unlock({type = "lobc_red_eyes_open"})
+        end
+        return {remove = true}
     end
 
     if context.end_of_round and not context.blueprint and context.main_eval then
