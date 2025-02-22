@@ -31,8 +31,8 @@ joker.calculate = function(self, card, context)
         local mult = G.GAME.hands[context.scoring_name].mult * (card.ability.extra.per / 10)
         
         return {
-            chips = chips,
-            mult = mult,
+            chips = chips:to_number(),
+            mult = mult:to_number(),
             card = context.blueprint_card or card,
         }
     end
