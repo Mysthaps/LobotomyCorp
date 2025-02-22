@@ -36,7 +36,7 @@ joker.calculate = function(self, card, context)
                     v.ability.big_bird_counter = (v.ability.big_bird_counter or 0) + 1
                     v.ability.big_bird_counted = true
                 end
-                if v.ability.big_bird_counter >= 3 then
+                if v.ability.big_bird_counter and v.ability.big_bird_counter >= 3 then
                     check_for_unlock({type = "lobc_lamp"})
                 end
             end
