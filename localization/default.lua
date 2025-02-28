@@ -475,6 +475,14 @@ return {
                 text = {
                     "Marked by {C:attention}F-01-57"
                 }
+            },
+            lobc_devoured = {
+                name = "Devoured",
+                text = {
+                    "Devoured by {C:attention}F-02-58",
+                    "Removed from Joker Slots",
+                    "and becomes {C:red}debuffed"
+                }
             }
         },
         Joker = {
@@ -1228,7 +1236,7 @@ return {
             dis_j_lobc_little_red_2_alt = {
                 name = "F-01-57",
                 text = {
-                    "{C:marked}Marks{} {C:attention}#8#{}",
+                    "{C:marked}Marks{} {C:attention}F-02-58{}",
                     "{C:attention}(#6#/3){} ...",
                     "{C:attention}(#7#/7){} ...",
                 }
@@ -1236,7 +1244,7 @@ return {
             dis_j_lobc_little_red_3_alt = {
                 name = "F-01-57",
                 text = {
-                    "{C:marked}Marks{} {C:attention}#8#{}",
+                    "{C:marked}Marks{} {C:attention}F-02-58{}",
                     "{s:0.15} {}",
                     "{C:dark_edition}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{}",
@@ -1247,7 +1255,7 @@ return {
             j_lobc_little_red_alt = {
                 name = "Little Red Riding Hooded Mercenary",
                 text = {
-                    "{C:marked}Marks{} {C:attention}#8#{}",
+                    "{C:marked}Marks{} {C:attention}F-02-58{}",
                     "{s:0.15} {}",
                     "{C:dark_edition}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
@@ -1255,10 +1263,97 @@ return {
                     "{s:0.15} {}",
                     "When the {C:marked}Prey{} is destroyed, earn {C:money}$#1#{},",
                     "and this Abnormality gains {C:mult}+#2#{} Mult",
-                    "If the {C:marked}Prey{} is removed in any other way",
+                    "If the {C:marked}Prey{} is removed in any other way,",
                     "this Abnormality loses {C:mult}200{} Mult and",
                     "becomes {C:dark_edition}Eternal{}",
                     "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
+                }
+            },
+
+            dis_j_lobc_big_bad_wolf_1 = {
+                name = "F-02-58",
+                text = {
+                    "{C:attention}(#3#/1){} ...",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_big_bad_wolf_2 = {
+                name = "F-02-58",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours{} a random Joker",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_big_bad_wolf_3 = {
+                name = "F-02-58",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours{} a random Joker",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Returns the {C:devoured}devoured{} Joker",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            j_lobc_big_bad_wolf = {
+                name = "Big and Will be Bad Wolf",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours{} a random Joker",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Returns the {C:devoured}devoured{} Joker",
+                    "{s:0.15} {}",
+                    "When {C:attention}Blind{} is defeated,",
+                    "if a Joker is {C:devoured}devoured{}, {C:red}destroy{} it for",
+                    "this Abnormality to gain {C:chips}+#1#{} chips",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} chips)",
+                }
+            },
+            dis_j_lobc_big_bad_wolf_1_alt = {
+                name = "F-02-58",
+                text = {
+                    "{C:attention}(#3#/1){} ...",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_big_bad_wolf_2_alt = {
+                name = "F-02-58",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours {C:attention}F-01-57",
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_big_bad_wolf_3_alt = {
+                name = "F-02-58",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours {C:attention}F-01-57",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Returns the {C:devoured}devoured{} Joker",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            j_lobc_big_bad_wolf_alt = {
+                name = "Big and Will be Bad Wolf",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours {C:attention}F-01-57",
+                    "{s:0.15} {}",
+                    "{C:dark_edition}[Active Ability]",
+                    "Returns the {C:devoured}devoured{} Joker",
+                    "{s:0.15} {}",
+                    "When {C:attention}Blind{} is defeated,",
+                    "if {C:attention}F-01-57{} is {C:devoured}devoured{}, {C:red}destroy{} it for",
+                    "this Abnormality to gain {C:chips}+#1#{} chips",
+                    "{C:inactive}(Currently {C:chips}+#2#{} chips)",
                 }
             },
 
@@ -2578,6 +2673,7 @@ return {
             lobc_pebble = "Pebble",
             lobc_enchanted = "Enchanted",
             lobc_perma_enchanted = "Enchanted",
+            lobc_devoured = "Devoured",
             lobc_marked = "Prey",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",

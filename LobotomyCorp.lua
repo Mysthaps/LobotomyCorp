@@ -31,6 +31,7 @@ local joker_list = {
     "child_galaxy", -- Child of the Galaxy
     "punishing_bird",
     "little_red", -- Little Red Riding Hooded Mercenary
+    "big_bad_wolf",
     "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",
@@ -135,6 +136,9 @@ local sound_list = {
     train_sell = "Train_Sell",
     train_start = "Train_Start",
     littlered_gun = "RedHood_Gun",
+    wolf_bite = "Wolf_Bite",
+    wolf_out = "Wolf_EatOut",
+    wolf_scratch = "Wolf_Scratch",
 
     gebura_slash = "Gebura_Phase2_Atk1",
     dice_roll = "Dice_Roll",
@@ -177,6 +181,7 @@ local badge_colors = {
     lobc_enchanted = HEX("C8831B"),
     lobc_perma_enchanted = HEX("C8831B"),
     lobc_marked = HEX("C3181B"),
+    lobc_devoured = HEX("174D7D"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
