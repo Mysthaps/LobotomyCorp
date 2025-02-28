@@ -129,6 +129,14 @@ return {
                     "I give you this gift.",
                 }
             },
+            und_j_lobc_forsaken_murderer = {
+                name = "T-01-54",
+                text = {
+                    "\"What's really pitiful is",
+                    "people like you dying",
+                    "to the likes of me.\""
+                }
+            },
             und_j_lobc_wellcheers = {
                 name = "F-05-52",
                 text = {
@@ -1009,6 +1017,31 @@ return {
                     "{s:0.15} {}",
                     "Does not activate on cards created",
                     "by this Abnormality",
+                }
+            },
+
+            dis_j_lobc_forsaken_murderer_1 = {
+                name = "T-01-54",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#3#/4){} ...",
+                }
+            },
+            dis_j_lobc_forsaken_murderer_2 = {
+                name = "T-01-54",
+                text = {
+                    "First scoring card",
+                    "gives {X:mult,C:white} X#1# {} Mult",
+                    "{C:attention}(#3#/4){} ...",
+                }
+            },
+            j_lobc_forsaken_murderer = {
+                name = "Forsaken Murderer",
+                text = {
+                    "First scoring card",
+                    "gives {X:mult,C:white} X#1# {} Mult",
+                    "{s:0.15} {}",
+                    "{C:red}Debuffs{} last scoring card",
                 }
             },
 
@@ -3095,6 +3128,7 @@ return {
             ach_lobc_red_eyes_open = "Red Eyes (Open)",
             ach_lobc_bless = "Bless",
             ach_lobc_paradise_lost = "Paradise Lost",
+            ach_lobc_regret = "Regret",
             ach_lobc_our_galaxy = "Our Galaxy",
             ach_lobc_beak = "Beak",
             ach_lobc_twilight = "Twilight",
@@ -3135,6 +3169,7 @@ return {
             ach_lobc_red_eyes_open = "Destroy 20 cards in one game with Spider Bud",
             ach_lobc_bless = "Have not I chosen you twelve, and one of you is a devil?",
             ach_lobc_paradise_lost = "Fully observe WhiteNight",
+            ach_lobc_regret = "With Forsaken Murderer, play a High Card",
             ach_lobc_our_galaxy = "Reach X4 or higher on Child of the Galaxy",
             ach_lobc_beak = "Be punished by Punishing Bird",
             ach_lobc_twilight = "Have Punishing Bird, Big Bird and Judgement Bird at the same time",

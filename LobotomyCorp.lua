@@ -27,6 +27,7 @@ local joker_list = {
     "plague_doctor",
     "whitenight",
     "rudolta", -- Rudolta of the Sleigh
+    "forsaken_murderer",
     "wellcheers", -- Opened Can of WellCheers
     "child_galaxy", -- Child of the Galaxy
     "punishing_bird",
