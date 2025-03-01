@@ -15,8 +15,13 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    -- leftmost joker, copied from Brainstorm
-    local left_joker = G.jokers.cards[1]
+    local pos = -1
+    -- check for Nothing There's position
+    for k, v in ipairs(G.jokers.cards) do
+        if v == card then pos = k end
+    end
+
+    local left_joker = G.jokers.cards[pos-1]
     if left_joker and left_joker ~= card and left_joker ~= card.ability.extra.copying then
         context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
         context.blueprint_card = context.blueprint_card or card
@@ -25,7 +30,7 @@ joker.calculate = function(self, card, context)
         if left_joker_ret then
             left_joker_ret.card = context.blueprint_card or card
             left_joker_ret.colour = G.C.RED
-            SMODS.eval_this(card, left_joker_ret)
+            SMODS.trigger_effects(left_joker_ret, card)
         end
     end
 
@@ -38,7 +43,7 @@ joker.calculate = function(self, card, context)
         if right_joker_ret then
             right_joker_ret.card = context.blueprint_card or card
             right_joker_ret.colour = G.C.RED
-            SMODS.eval_this(card, right_joker_ret)
+            SMODS.trigger_effects(right_joker_ret, card)
         end
     end
 end

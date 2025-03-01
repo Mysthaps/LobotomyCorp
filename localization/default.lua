@@ -810,14 +810,15 @@ return {
             j_lobc_nothing_there = {
                 name = "Nothing There",
                 text = {
-                    "Copies the abilities of leftmost",
-                    "and rightmost {C:attention}Jokers{}",
+                    "Copies the abilities of adjacent {C:attention}Jokers{}",
                     "{s:0.15} {}",
-                    "When Blind is selected, flips and shuffles",
-                    "all Jokers for the first hand, then",
-                    "takes the appearance of another Joker",
+                    "When {C:attention}Blind{} is defeated, moves to",
+                    "a random Joker Slot",
                     "{s:0.15} {}",
-                    "Cannot copy Jokers of selected type"
+                    "{C:red}Destroys{} Jokers copied last round and",
+                    "take its skin if this Abnormality",
+                    "is adjacent to one",
+                    "{C:inactive}(once per round)"
                 }
             },
 
