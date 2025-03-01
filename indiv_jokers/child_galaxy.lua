@@ -29,10 +29,12 @@ joker.calculate = function(self, card, context)
     if context.joker_main then
         local chips = G.GAME.hands[context.scoring_name].chips * (card.ability.extra.per / 10)
         local mult = G.GAME.hands[context.scoring_name].mult * (card.ability.extra.per / 10)
+        if type(chips) == "table" then chips = chips:to_number() end
+        if type(mult) == "table" then mult = mult:to_number() end
         
         return {
-            chips = chips:to_number(),
-            mult = mult:to_number(),
+            chips = chips,
+            mult = mult,
             card = context.blueprint_card or card,
         }
     end
