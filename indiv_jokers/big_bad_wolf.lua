@@ -51,6 +51,7 @@ joker.calculate = function(self, card, context)
 
         if #available_cards > 0 then
             local selected_card = pseudorandom_element(available_cards, pseudoseed("bbw_select"))
+            selected_card:remove_from_deck(true)
             selected_card.area:remove_card(selected_card)
             selected_card.being_devoured = true
             selected_card.getting_sliced = true
@@ -98,6 +99,7 @@ joker.lobc_active = function(self, card)
             _card.getting_sliced = nil
             SMODS.debuff_card(_card, false, "big_bad_wolf")
             card.children.lobc_devoured:remove_card(_card)
+            _card:add_to_deck(true)
             G.jokers:emplace(_card)
             play_sound("lobc_wolf_out", 1, 0.4)
         end
@@ -115,6 +117,7 @@ joker.remove_from_deck = function(self, card, from_debuff)
             _card.getting_sliced = nil
             SMODS.debuff_card(_card, false, "big_bad_wolf")
             card.children.lobc_devoured:remove_card(_card)
+            _card:add_to_deck(true)
             G.jokers:emplace(_card)
             play_sound("lobc_wolf_out", 1, 0.4)
         end
