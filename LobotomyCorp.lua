@@ -925,6 +925,7 @@ function Blind.drawn_to_hand(self)
     end
 
     G.GAME.lobc_prepped = nil
+    save_run()
 end
 
 local play_cards_from_highlightedref = G.FUNCS.play_cards_from_highlighted
