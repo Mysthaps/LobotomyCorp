@@ -333,6 +333,43 @@ end
 -- Load achievements
 SMODS.load_file("achievements.lua")()
 
+--=============== DRAW STEPS ===============--
+
+SMODS.DrawStep({
+    key = "modifiers",
+    order = 45, -- Above stickers
+    func = function(self)
+        for _, v in ipairs(G.lobc_global_modifiers or {}) do
+            if self.ability[v] then
+                G.lobc_shared_modifiers[v].role.draw_major = self
+                G.lobc_shared_modifiers[v]:draw_shader('dissolve', nil, nil, nil, self.children.center)
+                G.lobc_shared_modifiers[v]:draw_shader('voucher', nil, self.ARGS.send_to_shader, nil, self.children.center)
+            end
+        end
+    end
+})
+SMODS.DrawStep({
+    key = "mood",
+    order = 50, -- Same order as The Soul/floating sprite
+    func = function(self)
+        if self.children.mood then
+            self.children.mood.role.draw_major = self
+            self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, nil, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL), nil, 0.6)
+            self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, nil, nil)
+        end
+    end
+})
+SMODS.DrawStep({
+    key = "prey",
+    order = 51,
+    func = function(self)
+        if self.children.lobc_prey then
+            self.children.lobc_prey:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2, nil, 0.6)
+            self.children.lobc_prey:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2)
+        end
+    end
+})
+
 --=============== HELPER FUNCTIONS ===============--
 
 -- Talisman compat

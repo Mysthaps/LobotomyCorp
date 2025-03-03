@@ -47,9 +47,9 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "self.LANG = self.LANGUAGES[self.SETTINGS.language] or self.LANGUAGES['en-us']"
+pattern = "self.LANG = self.LANGUAGES[self.SETTINGS.real_language or self.SETTINGS.language] or self.LANGUAGES['en-us']"
 position = "at"
-payload = "self.LANG = copy_table(self.LANGUAGES[self.SETTINGS.language] or self.LANGUAGES['en-us'])"
+payload = "self.LANG = copy_table(self.LANGUAGES[self.SETTINGS.real_language or self.SETTINGS.language] or self.LANGUAGES['en-us'])"
 match_indent = true
 
 [[patches]]
