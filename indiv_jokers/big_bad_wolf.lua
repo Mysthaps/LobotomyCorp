@@ -138,7 +138,7 @@ end
 local card_load = Card.load
 function Card.load(self, cardTable, other_card)
     card_load(self, cardTable, other_card)
-    if self.ability and self.ability.extra and self.ability.extra.area_save then
+    if self.ability and self.ability.extra and type(self.ability.extra) == "table" and self.ability.extra.area_save then
         create_cardarea(self)
         self.children.lobc_devoured:load(self.ability.extra.area_save)
         if self.children.lobc_devoured.cards then
