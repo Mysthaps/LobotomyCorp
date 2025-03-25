@@ -1161,7 +1161,7 @@ function lobc_card_h_popup(card)
     if (next(SMODS.find_card("j_lobc_censored", true)) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored"))
        or (card.ability and card.ability.lobc_censored) then
         local name_nodes = localize{type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {}}
-        name_nodes[1].config.object.colours = {G.C.RED}
+        name_nodes[1].nodes[1].config.object.colours = {G.C.RED}
         return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
             {n=G.UIT.C, config={align = "cm", object = Moveable(), ref_table = nil}, nodes = {
                 {n=G.UIT.R, config={padding = 0.05, r = 0.12, colour = G.C.BLACK, emboss = 0.07}, nodes={
@@ -1902,7 +1902,7 @@ function Game.update(self, dt)
                         blockable = false,
                         ref_table = G.ROOM_ORIG,
                         ref_value = 'y',
-                        ease_to = 0.7,
+                        ease_to = G.original_orig_y,
                         delay = 2.5,
                         timer = "REAL",
                         func = (function(t) return t end)
@@ -1922,7 +1922,7 @@ function Game.update(self, dt)
                 end
             end
             if G.lobc_cutscene_timer >= 9.5 then
-                G.ROOM_ORIG.y = 0.7
+                G.ROOM_ORIG.y = G.original_orig_y
                 G.CANV_SCALE = 1
                 G.lobc_displaying_cutscene = false
                 G.SETTINGS.paused = false
