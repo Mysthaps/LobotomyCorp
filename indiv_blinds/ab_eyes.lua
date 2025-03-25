@@ -19,6 +19,10 @@ local blind = {
     no_collection = true
 }
 
+blind.lobc_loc_txt = function(self)
+    return { key = "bl_lobc_ab_eyes_effect" }
+end
+
 blind.set_blind = function(self, reset, silent)
     local eval_func = function()
         return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_ab_eyes'
@@ -33,7 +37,7 @@ blind.defeat = function(self)
     G.E_MANAGER:add_event(Event({
         trigger = 'before',
         func = function()
-            display_cutscene({x = 1, y = 0})
+            display_cutscene({x = 1, y = 0}, "ab")
         return true 
         end 
     }))

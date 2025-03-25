@@ -26,10 +26,10 @@ local blind = {
     }
 }
 
-blind.loc_vars = function(self)
+blind.lobc_loc_txt = function(self)
     if not G.GAME.blind or not G.GAME.blind.hands_sub then return end
     local suit = suits[G.GAME.blind.hands_sub]
-    return {vars = {localize(suit, 'suits_plural')}}
+    return {key = "bl_lobc_apocalypse_bird_effect", vars = {localize(suit, 'suits_plural')}}
 end
 
 blind.set_blind = function(self, blind, reset, silent)
@@ -61,7 +61,7 @@ blind.drawn_to_hand = function(self)
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
                         func = function()
-                            display_cutscene({x = 1, y = 1})
+                            display_cutscene({x = 1, y = 1}, "ab")
                         return true 
                         end 
                     }))
@@ -75,7 +75,7 @@ blind.drawn_to_hand = function(self)
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
                         func = function()
-                            display_cutscene({x = 2, y = 1})
+                            display_cutscene({x = 2, y = 1}, "ab")
                         return true 
                         end 
                     }))
@@ -90,7 +90,7 @@ blind.drawn_to_hand = function(self)
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
                         func = function()
-                            display_cutscene({x = 4, y = 0})
+                            display_cutscene({x = 4, y = 0}, "ab")
                         return true 
                         end 
                     }))
@@ -114,7 +114,7 @@ blind.pre_defeat = function(self)
     G.E_MANAGER:add_event(Event({
         trigger = 'before',
         func = function()
-            display_cutscene({x = 3, y = 1})
+            display_cutscene({x = 3, y = 1}, "ab")
         return true 
         end 
     }))

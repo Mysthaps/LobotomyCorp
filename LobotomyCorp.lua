@@ -3,6 +3,7 @@
 local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
+lobc_seen_what = config.seen_what
 local folder = string.match(mod_path, "[Mm]ods.*")
 SMODS.load_file("blindexpander.lua")()
 
@@ -87,7 +88,8 @@ local blind_list = {
     "midnight_violet",
     "midnight_amber",
     -- ???
-    "erlking_heathcliff"
+    "erlking_heathcliff",
+    "what_blind",
 }
 local sound_list = {
     music_first_warning = "Emergency1",
@@ -116,6 +118,7 @@ local sound_list = {
     music_gebura_1 = "Distorted Night",
     music_gebura_2 = "Insignia Decay",
     music_tpov = "Through Patches of Violet",
+    music_compass = "what/compass",
 
     meltdown_start = "Boss_StartButton",
     overload_alert = "OverloadAlert3",
@@ -140,6 +143,25 @@ local sound_list = {
     wolf_bite = "Wolf_Bite",
     wolf_out = "Wolf_EatOut",
     wolf_scratch = "Wolf_Scratch",
+    evade = "what/evade",
+    coin_fail = "what/coin_fail",
+    what_1 = "what/what_1",
+    what_2 = "what/what_2",
+    what_sfx_1 = "what/what_sfx_1",
+    what_sfx_2 = "what/what_sfx_2",
+    what_sfx_3 = "what/what_sfx_3",
+    what_s1 = "what/what_s1",
+    what_s2 = "what/what_s2",
+    what_p1 = "what/what_p1",
+    what_p2 = "what/what_p2",
+    what_p3 = "what/what_p3",
+    what_p1s2 = "what/what_p1s2",
+    what_p1s3 = "what/what_p1s3",
+    what_p2s1 = "what/what_p2s1",
+    what_p2s3 = "what/what_p2s3",
+    what_p3s1 = "what/what_p3s1",
+    what_p3s2 = "what/what_p3s2",
+    what_p3s3 = "what/what_p3s3",
 
     gebura_slash = "Gebura_Phase2_Atk1",
     dice_roll = "Dice_Roll",
@@ -183,6 +205,7 @@ local badge_colors = {
     lobc_perma_enchanted = HEX("C8831B"),
     lobc_marked = HEX("C3181B"),
     lobc_devoured = HEX("174D7D"),
+    lobc_prey_mark = HEX("1506A5"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -263,14 +286,13 @@ end
 
 -- Load all blinds
 for _, v in ipairs(blind_list) do
-    local blind = SMODS.load_file("indiv_blinds/" .. v .. ".lua")()
+    local blind = SMODS.load_file("indiv_blinds/" .. v .. ".lua")
+    if not blind then goto continue else blind = blind() end
 
     blind.key = v
     blind.atlas = blind.atlas or "LobotomyCorp_Blind"
-    if not blind.pos then 
-        blind.pos = {x = 0, y = 0} 
-        blind.atlas = nil
-    end
+    if not blind.pos then blind.pos = {x = 0, y = 0} end
+    if blind.atlas == "v" then blind.atlas = nil end
     --blind.discovered = true
     if blind.color then
         blind.boss_colour = badge_colors["lobc_o_" .. blind.color]
@@ -283,6 +305,7 @@ for _, v in ipairs(blind_list) do
             blind_obj[k_] = blind[k_]
         end
     end
+    ::continue::
 end
 
 -- Load all sounds
@@ -363,9 +386,17 @@ SMODS.DrawStep({
     key = "prey",
     order = 51,
     func = function(self)
+        if self.sprite_facing ~= "front" then return end
+        local h_mod = 0
         if self.children.lobc_prey then
-            self.children.lobc_prey:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2, nil, 0.6)
-            self.children.lobc_prey:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2)
+            self.children.lobc_prey:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
+            self.children.lobc_prey:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
+            h_mod = h_mod + 0.5
+        end
+        if self.children.lobc_prey_mark then
+            self.children.lobc_prey_mark:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
+            self.children.lobc_prey_mark:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
+            h_mod = h_mod + 0.5
         end
     end
 })
@@ -555,11 +586,21 @@ function lobc_restart_music()
     end
 end
 
+-- Shallow copy (deep copy is in blindexpander)
+function shallow_copy(t)
+    local t2 = {}
+    for k,v in pairs(t) do
+        t2[k] = v
+    end
+    return t2
+end
+
 --=============== BLINDS ===============--
 
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
+    if (string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == 9 then return "bl_lobc_what_blind" end
     if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
@@ -585,7 +626,7 @@ local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
     -- Hide Small and Big Blind (Gebura)
-    if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > 8 then
+    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > 8) or ((string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == 9) then
         G.GAME.round_resets.blind_states.Small = 'Hide'
         G.GAME.round_resets.blind_states.Big = 'Hide'
         ease_background_colour_blind()
@@ -646,7 +687,7 @@ function Blind.set_blind(self, blind, reset, silent)
                     trigger = 'before',
                     func = function()
                         lobc_restart_music()
-                        display_cutscene({x = 0, y = 0})
+                        display_cutscene({x = 0, y = 0}, "ab")
                     return true 
                     end 
                 }))
@@ -656,7 +697,7 @@ function Blind.set_blind(self, blind, reset, silent)
                     play_sound("lobc_apoc_birth", 1, 0.8)
                 return true end }))
                 G.E_MANAGER:add_event(Event({trigger = 'before', func = function()
-                    display_cutscene({x = 0, y = 1})
+                    display_cutscene({x = 0, y = 1}, "ab")
                 return true end }))
             end
         end
@@ -762,6 +803,12 @@ function Blind.save(self)
     blindTable.lobc_score_cap = self.lobc_score_cap
     blindTable.lobc_current_effect = self.lobc_current_effect
     blindTable.lobc_has_sold_joker = self.lobc_has_sold_joker
+    blindTable.p_sp = self.p_sp
+    blindTable.b_sp = self.b_sp
+    blindTable.ego = self.ego
+    blindTable.in_panic = self.in_panic
+    blindTable.skill_deck = self.skill_deck
+    blindTable.shield_value = self.shield_value
     return blindTable
 end
 
@@ -770,26 +817,32 @@ function Blind.load(self, blindTable)
     self.lobc_score_cap = blindTable.lobc_score_cap
     self.lobc_current_effect = blindTable.lobc_current_effect
     self.lobc_has_sold_joker = blindTable.lobc_has_sold_joker
+    self.p_sp = blindTable.p_sp
+    self.b_sp = blindTable.b_sp
+    self.ego = blindTable.ego
+    self.in_panic = blindTable.in_panic
+    self.skill_deck = blindTable.skill_deck
+    self.shield_value = blindTable.shield_value
     blind_loadref(self, blindTable)
+    ease_background_colour_blind()
+    local obj = self.config.blind
+    if obj.setup_sprites and type(obj.setup_sprites) == 'function' then
+        return obj:setup_sprites()
+    end
 end
 
 -- Load text midgame
 local set_textref = Blind.set_text
 function Blind.set_text(self)
-    if self.config.blind and (self.config.blind.key == "bl_lobc_red_mist" or self.config.blind.key == "bl_lobc_apocalypse_bird" or find_passive("psv_lobc_cracking_eggs")) then -- shitty bandage fix
-        local loc_vars = nil
-        local obj = self.config.blind
-        if obj.loc_vars and type(obj.loc_vars) == 'function' then
-        	local res = obj:loc_vars() or {}
-        	loc_vars = res.vars or {}
-        end
-        local loc_key = self.config.blind.key.."_effect"
-        if self.lobc_current_effect and self.config.blind.phases and G.GAME.current_round.phases_beaten < self.config.blind.phases then
-            loc_key = loc_key.."_"..self.lobc_current_effect
-        end
+    if self.config.blind and self.config.blind.lobc_loc_txt and type(self.config.blind.lobc_loc_txt) == 'function' then
+        local res = self.config.blind:lobc_loc_txt() or {}
+        local loc_vars = res.vars or {}
+        local loc_key = res.key or self.config.blind.key
+        local upd_name = res.upd_name
         local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or self.config.blind.vars}
         if loc_target then 
-            self.loc_name = self.name == '' and self.name or localize{type = 'name_text', key = self.config.blind.key, set = 'Blind'}
+            self.loc_name = self.name == '' and self.name or localize{type = 'name_text', key = upd_name and loc_key or self.config.blind.key, set = 'Blind'}
+            if self.config.blind.key == "bl_lobc_what_blind" and not upd_name then self.loc_name = localize{type = 'name_text', key = "bl_lobc_what_blind_name", set = 'Blind'} end
             self.loc_debuff_text = ''
             EMPTY(self.loc_debuff_lines)
             for k, v in ipairs(loc_target) do
@@ -816,61 +869,179 @@ Blind.cry_cap_score = Blind.cry_cap_score or function(self, score)
 end
 
 -- Apocalypse Bird cutscenes
-function display_cutscene(pos)
-    G.lobc_displaying_cutscene = true
-    G.lobc_cutscene_transparency = 0
+function display_cutscene(pos, c_type, delay_pause)
+    local atlas = nil
+    if c_type == "ab" then
+        atlas = "lobc_LobotomyCorp_cutscenes"
+    elseif c_type == "what" then
+        atlas = "lobc_black"
+    end
+    G.lobc_cutscene_transparency = c_type == "what" and 1 or 0
     G.lobc_cutscene_timer = 0
+    G.lobc_update_lock = true
+    G.lobc_displaying_cutscene = c_type
 
-    G.lobc_cutscene = Sprite(0, 0, 14.2*(1024/654), 14.2, G.ASSET_ATLAS["lobc_LobotomyCorp_cutscenes"], pos)
-    G.lobc_cutscene.states.drag.can = false
-    G.lobc_cutscene.draw_self = function(self, overlay)
-        if not self.states.visible then return end
-        if self.sprite_pos.x ~= self.sprite_pos_copy.x or self.sprite_pos.y ~= self.sprite_pos_copy.y then
-            self:set_sprite_pos(self.sprite_pos)
+    local ui_nodes = {}
+    if atlas then
+        G.lobc_cutscene = Sprite(0, 0, 14.2 * (1024 / 654), 14.2, G.ASSET_ATLAS[atlas], pos)
+        G.lobc_cutscene.states.drag.can = false
+        G.lobc_cutscene.draw_self = function(self, overlay)
+            if not self.states.visible then return end
+            if self.sprite_pos.x ~= self.sprite_pos_copy.x or self.sprite_pos.y ~= self.sprite_pos_copy.y then
+                self:set_sprite_pos(self.sprite_pos)
+            end
+            prep_draw(self, 1)
+            love.graphics.scale(1 / (self.scale.x / self.VT.w), 1 / (self.scale.y / self.VT.h))
+            love.graphics.setColor({ 1, 1, 1, G.lobc_cutscene_transparency })
+            love.graphics.draw(
+                self.atlas.image,
+                self.sprite,
+                0, 0,
+                0,
+                self.VT.w / (self.T.w),
+                self.VT.h / (self.T.h)
+            )
+            love.graphics.pop()
+            add_to_drawhash(self)
+            self:draw_boundingrect()
+            if self.shader_tab then love.graphics.setShader() end
         end
-        prep_draw(self, 1)
-        love.graphics.scale(1/(self.scale.x/self.VT.w), 1/(self.scale.y/self.VT.h))
-        love.graphics.setColor({1, 1, 1, G.lobc_cutscene_transparency})
-        love.graphics.draw(
-            self.atlas.image,
-            self.sprite,
-            0, 0,
-            0,
-            self.VT.w/(self.T.w),
-            self.VT.h/(self.T.h)
-        )
-        love.graphics.pop()
-        add_to_drawhash(self)
-        self:draw_boundingrect()
-        if self.shader_tab then love.graphics.setShader() end
+        ui_nodes = {
+            {n = G.UIT.R, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
+                { n = G.UIT.O, config = { object = G.lobc_cutscene }},
+            }}
+        }
     end
 
-    G.SETTINGS.paused = true
-    -- copied from G.FUNCS.overlay_menu just to remove the pop-in anim
-    if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
-    G.CONTROLLER.locks.frame_set = true
-    G.CONTROLLER.locks.frame = true
-    G.CONTROLLER.cursor_down.target = nil
-    G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
-    G.OVERLAY_MENU = UIBox{
-        definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
-            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                {n=G.UIT.O, config={object = G.lobc_cutscene}},
-            }},
-        }},
-        config = {
-            align = "cm",
-            offset = {x = 0, y = 0},
-            major = G.ROOM_ATTACH,
-            bond = 'Strong',
-            no_esc = true
+    if c_type == "what" then
+        G.OVERLAY_MENU = UIBox{
+            definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
+            config = {
+                align = "cm",
+                offset = {x = 0, y = 0},
+                major = G.ROOM_ATTACH,
+                bond = 'Strong',
+                no_esc = true
+            }
         }
-    }
+    end
+    G.E_MANAGER:add_event(Event({trigger = delay_pause and 'after' or 'immediate', delay = delay_pause or 0, timer = "REAL", func = function() 
+        G.lobc_update_lock = nil
+        G.SETTINGS.paused = true
+        -- copied from G.FUNCS.overlay_menu just to remove the pop-in anim
+        if G.OVERLAY_MENU and not c_type == "what" then G.OVERLAY_MENU:remove() end
+        G.CONTROLLER.locks.frame_set = true
+        G.CONTROLLER.locks.frame = true
+        G.CONTROLLER.cursor_down.target = nil
+        G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
+        if not c_type == "what" then
+            G.OVERLAY_MENU = UIBox{
+                definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
+                config = {
+                    align = "cm",
+                    offset = {x = 0, y = 0},
+                    major = G.ROOM_ATTACH,
+                    bond = 'Strong',
+                    no_esc = true
+                }
+            }
+        end
+    return true end }))
 end
 
 -- Blind passive UI size
 function current_mod.passive_ui_size()
     return G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff" and 7.5 or 6
+end
+
+--=============== SKILLS ===============--
+
+G.P_CENTER_POOLS["SkillLobc"] = {}
+SMODS.SkillLobc = SMODS.Center:extend({
+    pos = { x = 0, y = 0 },
+    class_prefix = 'sk',
+    set = 'SkillLobc',
+    atlas = 'lobc_what_skills',
+    config = {},
+    required_params = {
+        'key',
+    },
+    no_collection = true,
+    loc_vars = function(self, info_queue)
+        return {}
+    end,
+    set_sprites = function(self, card)
+        card.T.w = card.T.w / 1.775
+        card.T.h = card.T.h / 2.375
+    end,
+    set_card_type_badge = function(self, card, badges)
+        badges = {}
+    end,
+    no_mod_badges = true
+})
+
+local skill_list = {
+    "what_s1",
+    "what_s2",
+    "what_p1s1",
+    "what_p1s2",
+    "what_p1s3",
+    "what_p2s1",
+    "what_p2s2",
+    "what_p2s3",
+    "what_p3s1",
+    "what_p3s2",
+    "what_p3s3",
+}
+-- Load all skills
+for k, v in pairs(skill_list) do
+    local skill = SMODS.load_file("indiv_skills/" .. v .. ".lua")()
+    skill.key = v
+    local skill_obj = SMODS.SkillLobc(skill)
+end
+
+-- Add skills to blind description
+local HUD_blind_debuffref = G.FUNCS.HUD_blind_debuff
+function G.FUNCS.HUD_blind_debuff(e)
+    HUD_blind_debuffref(e)
+    if G.GAME.blind.skill_deck then
+        if not G.skill_deck then
+            G.skill_deck = CardArea(0, 0, 4.2, 1.2, {card_limit = 5, type = 'title_2'})
+            local deck = {n = G.UIT.R, config = {align = "cm", maxh = 1.2, maxw = 4.2}, nodes = {}}
+            for _, v in ipairs(G.GAME.blind.skill_deck) do
+                local _card = SMODS.create_card({
+                    set = "SkillLobc",
+                    key = "sk_lobc_"..v,
+                    area = G.skill_deck
+                })
+                G.skill_deck:emplace(_card)
+                _card.states.click.can = false
+                _card.states.drag.can = false
+                G.E_MANAGER:add_event(Event({trigger = "after", delay = 0.2, func = function() 
+                    _card:juice_up()
+                return true end }))
+            end
+            for _, v in ipairs(G.skill_deck.cards) do
+                v.states.click.can = false
+                v.states.drag.can = false
+            end
+            table.insert(deck.nodes, {n=G.UIT.O, config = {object = G.skill_deck}})
+            e.UIBox:set_parent_child(deck, e)
+            e.UIBox:recalculate()
+        end
+    end
+end
+
+-- Skill UI config
+local card_align_h_popupref = Card.align_h_popup
+function Card.align_h_popup(self)
+    local t = card_align_h_popupref(self)
+    if self.ability.set == "SkillLobc" then
+        t.offset.x = 0
+        t.offset.y = 0
+        t.type = "cr"
+    end
+    return t
 end
 
 --=============== JOKERS ===============--
@@ -898,6 +1069,12 @@ function Card.align(self)
         self.children.lobc_prey.T.r = self.T.r
     end
 
+    if self.children.lobc_prey_mark then 
+        self.children.lobc_prey_mark.T.y = self.T.y
+        self.children.lobc_prey_mark.T.x = self.T.x
+        self.children.lobc_prey_mark.T.r = self.T.r
+    end
+
     alignref(self)
 end
 
@@ -908,6 +1085,7 @@ function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_lights"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_wellcheers"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 4 and self.sprite_pos.y == 0 then return end
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 5 and self.sprite_pos.y == 0 then return end
     sprite_drawref(self, overlay)
 end
 
@@ -1139,7 +1317,7 @@ function Game.start_run(self, args)
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
         if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hands_reset = true end
         if G.GAME.modifiers.lobc_hod then G.GAME.lobc_hod_modifier = 0.85 end
-        if G.GAME.modifiers.lobc_gebura then G.GAME.win_ante = 9 end
+        if G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) then G.GAME.win_ante = 9 end
         if G.GAME.modifiers.lobc_end_ante then G.GAME.win_ante = G.GAME.modifiers.lobc_end_ante end
     end
 
@@ -1239,7 +1417,6 @@ local colors = {
     tiphereth = HEX("FFC50B"),
     gebura = HEX("C71F1F"),
 }
-
 local ease_background_colour_blindref = ease_background_colour_blind
 function ease_background_colour_blind(state, blind_override)
     if G.GAME.blind then
@@ -1248,6 +1425,9 @@ function ease_background_colour_blind(state, blind_override)
             return
         elseif G.GAME.blind.original_blind == "bl_lobc_apocalypse_bird" then
             ease_background_colour({new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1})
+            return
+        elseif G.GAME.blind.config.blind.key == "bl_lobc_what_blind" then
+            ease_background_colour({new_colour = darken(HEX("FCDBCB"), 0.1), special_colour = darken(HEX("FCDBCB"), 0.3), contrast = 0.5})
             return
         end
     end
@@ -1577,18 +1757,180 @@ function Game.update(self, dt)
         G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font
     end
 
-    -- Update cutscene transparency
+    -- Handle cutscenes
     if G.lobc_displaying_cutscene then
-        G.lobc_cutscene_timer = G.lobc_cutscene_timer + dt
-        if G.lobc_cutscene_timer < 0.5 then G.lobc_cutscene_transparency = G.lobc_cutscene_timer * 2 end
-        if G.lobc_cutscene_timer >= 0.5 and G.lobc_cutscene_timer < 5 then G.lobc_cutscene_transparency = 1 end
-        if G.lobc_cutscene_timer >= 5 and G.lobc_cutscene_timer <= 6 then G.lobc_cutscene_transparency = 6 - G.lobc_cutscene_timer end
-        if G.lobc_cutscene_timer >= 6 then 
-            G.lobc_cutscene_transparency = 0
-            G.lobc_displaying_cutscene = false
-            G.SETTINGS.paused = false
-            if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+        -- Apocalypse Bird
+        if G.lobc_displaying_cutscene == "ab" then
+            if G.lobc_cutscene_timer < 0.5 then G.lobc_cutscene_transparency = G.lobc_cutscene_timer * 2 end
+            if G.lobc_cutscene_timer >= 0.5 and G.lobc_cutscene_timer < 5 then G.lobc_cutscene_transparency = 1 end
+            if G.lobc_cutscene_timer >= 5 and G.lobc_cutscene_timer <= 6 then G.lobc_cutscene_transparency = 6 - G.lobc_cutscene_timer end
+            if G.lobc_cutscene_timer >= 6 then 
+                G.lobc_cutscene_transparency = 0
+                G.lobc_displaying_cutscene = false
+                G.SETTINGS.paused = false
+                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+            end
+        -- what
+        elseif G.lobc_displaying_cutscene == "what" then
+            if G.lobc_cutscene_timer < 2 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                    G.ROOM_ORIG.y = 0
+                    G.CANV_SCALE = 3.75
+                    G.lobc_what_txt = "bl_lobc_what_blind_name"
+                    G.GAME.blind:set_text()
+                end
+                G.lobc_cutscene_transparency = 1 - G.lobc_cutscene_timer / 2
+            end
+            if G.lobc_cutscene_timer >= 2 and G.lobc_cutscene_timer < 7.5 then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_cutscene_1" then 
+                    G.lobc_cutscene_transparency = 0
+                    G.lobc_what_txt = "bl_lobc_what_blind_cutscene_1"
+                    play_sound("lobc_what_1", 1, 0.6)
+                    play_sound("lobc_what_sfx_1", 1, 0.6)
+                    G.GAME.blind:set_text()
+                end
+            end
+            if G.lobc_cutscene_timer >= 7.5 and G.lobc_cutscene_timer < 10.5 then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_cutscene_2" then 
+                    G.lobc_what_txt = "bl_lobc_what_blind_cutscene_2"
+                    play_sound("lobc_what_2", 1, 0.6)
+                    G.GAME.blind:set_text()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        ease = 'inexpo',
+                        blocking = false,
+                        blockable = false,
+                        ref_table = G.ROOM_ORIG,
+                        ref_value = 'y',
+                        ease_to = G.original_orig_y,
+                        delay = 2.5,
+                        timer = "REAL",
+                        func = (function(t) return t end)
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        ease = 'inexpo',
+                        blocking = false,
+                        blockable = false,
+                        ref_table = G,
+                        ref_value = 'CANV_SCALE',
+                        ease_to = 1,
+                        delay = 2.5,
+                        timer = "REAL",
+                        func = (function(t) return t end)
+                    }))
+                end
+            end
+            if G.lobc_cutscene_timer >= 10.5 then
+            --if G.lobc_cutscene_timer >= 0.4 then -- remove this
+                G.ROOM_ORIG.y = G.original_orig_y
+                G.CANV_SCALE = 1
+                G.lobc_cutscene_transparency = 0
+                G.lobc_displaying_cutscene = false
+                G.SETTINGS.paused = false
+                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                G.lobc_what_txt = nil
+            end
+        -- what (Phase 2)
+        elseif G.lobc_displaying_cutscene == "what_2" then
+            if G.lobc_cutscene_timer < 3.5 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                    G.ROOM_ORIG.y = 0
+                    G.CANV_SCALE = 3.75
+                    play_sound("lobc_what_sfx_2", 1, 0.6)
+                    G.lobc_what_txt = "bl_lobc_what_blind_name"
+                    G.GAME.blind:set_text()
+                end
+            end
+            if G.lobc_cutscene_timer >= 3.5 and G.lobc_cutscene_timer < 6.5 then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then 
+                    G.lobc_what_txt = "bl_lobc_what_blind_name_copy"
+                    G.GAME.blind:set_text()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        ease = 'inexpo',
+                        blocking = false,
+                        blockable = false,
+                        ref_table = G.ROOM_ORIG,
+                        ref_value = 'y',
+                        ease_to = G.original_orig_y,
+                        delay = 2.5,
+                        timer = "REAL",
+                        func = (function(t) return t end)
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        ease = 'inexpo',
+                        blocking = false,
+                        blockable = false,
+                        ref_table = G,
+                        ref_value = 'CANV_SCALE',
+                        ease_to = 1,
+                        delay = 2.5,
+                        timer = "REAL",
+                        func = (function(t) return t end)
+                    }))
+                end
+            end
+            if G.lobc_cutscene_timer >= 6.5 then
+                G.ROOM_ORIG.y = G.original_orig_y
+                G.CANV_SCALE = 1
+                G.lobc_displaying_cutscene = false
+                G.SETTINGS.paused = false
+                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                G.lobc_what_txt = nil
+            end
+        -- what (Phase 3)
+        elseif G.lobc_displaying_cutscene == "what_3" then
+            if G.lobc_cutscene_timer < 6 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                    G.ROOM_ORIG.y = 0
+                    G.CANV_SCALE = 3.75
+                    play_sound("lobc_what_sfx_3", 1, 0.6)
+                    G.lobc_what_txt = "bl_lobc_what_blind_name"
+                    G.GAME.blind:set_text()
+                end
+            end
+            if G.lobc_cutscene_timer >= 6 and G.lobc_cutscene_timer < 9.5 then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then 
+                    G.lobc_what_txt = "bl_lobc_what_blind_name_copy"
+                    G.GAME.blind:set_text()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        ease = 'inexpo',
+                        blocking = false,
+                        blockable = false,
+                        ref_table = G.ROOM_ORIG,
+                        ref_value = 'y',
+                        ease_to = 0.7,
+                        delay = 2.5,
+                        timer = "REAL",
+                        func = (function(t) return t end)
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        ease = 'inexpo',
+                        blocking = false,
+                        blockable = false,
+                        ref_table = G,
+                        ref_value = 'CANV_SCALE',
+                        ease_to = 1,
+                        delay = 2.5,
+                        timer = "REAL",
+                        func = (function(t) return t end)
+                    }))
+                end
+            end
+            if G.lobc_cutscene_timer >= 9.5 then
+                G.ROOM_ORIG.y = 0.7
+                G.CANV_SCALE = 1
+                G.lobc_displaying_cutscene = false
+                G.SETTINGS.paused = false
+                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                G.lobc_what_txt = nil
+            end
         end
+        if not G.lobc_update_lock then G.lobc_cutscene_timer = G.lobc_cutscene_timer + dt end
     end
 
     -- i hate chicot
@@ -1985,6 +2327,34 @@ SMODS.Atlas({
     px = 34, 
     py = 34,
     frames = 21,
+})
+SMODS.Atlas({
+    key = "what", 
+    atlas_table = "ANIMATION_ATLAS", 
+    path = "what_asset.png", 
+    px = 512, 
+    py = 512,
+    frames = 1,
+})
+SMODS.Atlas({
+    key = "what_huh", 
+    atlas_table = "ANIMATION_ATLAS", 
+    path = "what_huh.png", 
+    px = 34, 
+    py = 34,
+    frames = 21,
+})
+SMODS.Atlas({
+    key = "black",
+    path = "black.png",
+    px = 1024,
+    py = 654
+})
+SMODS.Atlas({
+    key = "what_skills",
+    path = "Skills.png",
+    px = 196,
+    py = 196
 })
 
 -- ConsumableType (guh)

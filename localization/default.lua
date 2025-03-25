@@ -491,6 +491,20 @@ return {
                     "Removed from Joker Slots",
                     "and becomes {C:red}debuffed"
                 }
+            },
+            lobc_prey_mark = {
+                name = "Prey Mark",
+                text = {
+                    "Returns to hand after {C:blue}play{}",
+                    "{C:red}Destroyed{} when discarded"
+                }
+            },
+            lobc_shield = {
+                name = "Shield",
+                text = {
+                    "Reduces final score by {C:blue}Shield",
+                    "{C:green}[Hand Start]{} Removes {C:blue}Shield"
+                }
             }
         },
         Joker = {
@@ -2453,6 +2467,52 @@ return {
                 "Set level of played",
                 "poker hand to 0",
             }},
+
+            -- what
+            bl_lobc_what_blind = {
+                name = "???",
+                text = {}
+            },
+            bl_lobc_what_blind_name = {
+                name = "GasHarpoon",
+                text = {"­", "­"}
+            },
+            bl_lobc_what_blind_name_copy = {
+                name = "GasHarpoon",
+                text = {"­", "­"}
+            },
+            bl_lobc_what_blind_cutscene_1 = {
+                name = "GasHarpoon",
+                text = {
+                    "The time is finally upon",
+                    "us, my dear crew!"
+                }
+            },
+            bl_lobc_what_blind_cutscene_2 = {
+                name = "GasHarpoon",
+                text = {
+                    "Now, carve yourself",
+                    "in my stead!"
+                }
+            },
+            bl_lobc_what_pip = { 
+                name = "GasHarpoon",
+                text = {
+                    "Pip's Ego: #1#",
+                }
+            },
+            bl_lobc_what_starbuck = { 
+                name = "GasHarpoon",
+                text = {
+                    "Starbuck's Ego: #1#",
+                }
+            },
+            bl_lobc_what_queequeg = { 
+                name = "GasHarpoon",
+                text = {
+                    "Queequeg's Ego: #1#",
+                }
+            }
         },
         EGO_Gift = {
             c_lobc_wisdom = {
@@ -2534,7 +2594,7 @@ return {
             psv_lobc_the_strongest = {
                 name = "The Strongest",
                 text = {
-                    "Score is capped at {C:attention}15%{} Blind Size",
+                    "Score per hand is capped at {C:attention}15%{} Blind Size",
                 }
             },
             psv_lobc_the_red_mist = {
@@ -2610,7 +2670,6 @@ return {
                     "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
                 }
             },
-
             -- Erlking Heathcliff
             psv_lobc_erlking_1 = {
                 name = "Self-loathing",
@@ -2695,6 +2754,179 @@ return {
                     "that is inflicted against targets without SP.",
                 }
             },
+            -- what
+            psv_lobc_sanity = {
+                name = "{C:o_indigo}Sanity",
+                text = {
+                    "{C:blue}SP{} for you and {C:attention}GasHarpoon{} start at {C:blue}0{}",
+                    "{C:green}[Before Scoring]{} Each playing card has a",
+                    "{C:attention}100%{} chance to score, reduced by {C:attention}1%{}",
+                    "per {C:blue}SP{} lower than {C:attention}GasHarpoon's{}",
+                    "{C:green}[Phase Change]{} At less than {C:blue}0 SP{}, sets {C:blue}SP{} to {C:blue}0{}",
+                }
+            },
+            psv_lobc_what_1 = {
+                name = "Price of Nobility",
+                text = {
+                    "Loses {C:blue}10 SP{} if a Skill fails",
+                    "You heal {C:blue}1 SP{} when a card is scored",
+                    "You heal {C:blue}10 SP{} if a Skill fails",
+                }
+            },
+            psv_lobc_what_2 = {
+                name = "Ahab",
+                text = {
+                    "Score per hand is capped at {C:attention}30%{} Blind Size",
+                    "{C:green}[Hand Start]{} If not at {C:blue}-45 SP{}, heals {C:blue}15 SP{}",
+                    "{C:green}[Hand Played]{} If at {C:blue}-45 SP{}, final score",
+                    "increases by {C:attention}20%{} this hand, then",
+                    "resets {C:blue}SP{} to {C:blue}0{} next hand",
+                    "{C:green}[On Defeat] {C:attention}Phase changes{}, reset {C:red}discards{}",
+                    "and returns all cards to deck {C:inactive(up to twice)"
+                }
+            },
+            psv_lobc_what_3_pip = {
+                name = "Pip's Sin and Innocence",
+                text = {
+                    "{C:green}[Phase Start]{} Gains {C:attention}20{} {C:devoured}Pip's Ego",
+                    "{C:green}[Hand Played]{} Heals {C:blue}1 SP{} per {C:attention}2 {C:devoured}Pip's Ego",
+                    "{C:green}[Hand Played]{} At {C:attention}0{} {C:devoured}Pip's Ego{}, final score",
+                    "increases by {C:attention}50%",
+                    "{C:devoured}Pip's Ego{} is spent in some Skills"
+                }
+            },
+            psv_lobc_what_3_starbuck = {
+                name = "Starbuck's Fears",
+                text = {
+                    "{C:green}[Phase Start]{} Gains {C:attention}20{} {C:o_green}Starbuck's Ego",
+                    "{C:green}[Hand Played]{} Final score is reduced by {C:attention}20%",
+                    "for every {C:attention}6 {C:o_green}Starbuck's Ego",
+                    "{C:green}[Hand Played]{} At {C:attention}0{} {C:o_green}Starbuck's Ego{}, final",
+                    "score increases by {C:attention}50%",
+                    "Loses {C:attention}2 {C:o_green}Starbuck's Ego{} each time the",
+                    "{C:green}Echoing Cry{} Skill doesn't connect"
+                }
+            },
+            psv_lobc_what_3_queequeg = {
+                name = "Queequeg's Atonement",
+                text = {
+                    "{C:green}[Phase Start]{} Gains {C:attention}30{} {C:o_violet}Queequeg's Ego",
+                    "{C:green}[Hand Played]{} If {C:blue}Shield{} remains, regains {C:attention}5{}",
+                    "{C:o_violet}Queequeg's Ego{}, otherwise, lose {C:attention}10{}",
+                    "{C:green}[Hand Played]{} At {C:attention}0{} {C:o_violet}Queequeg's Ego{}, final",
+                    "score increases by {C:attention}50%",
+                }
+            }
+        },
+        SkillLobc = {
+            sk_lobc_what_s1 = {
+                name = "Strike Me Down!",
+                text = {
+                    "{C:green}[Before Scoring]{} Destroy all",
+                    "played {C:attention}#1#{}s, then inflict {C:blue}5 SP{}",
+                    "damage for each destroyed card",
+                    "{s:0.7}rank changes each hand"
+                }
+            },
+            sk_lobc_what_s2 = {
+                name = "Stab to Kill",
+                text = {
+                    "{C:green}[Before Scoring]{} Destroy all {C:attention}#1#{}s",
+                    "held in hand, then inflict {C:blue}5 SP{}",
+                    "damage for each destroyed card",
+                    "{s:0.7}rank changes each hand"
+                }
+            },
+            sk_lobc_what_p1s1 = {
+                name = "Undying Soul",
+                text = {
+                    "If Skill doesn't connect twice, deactivate Skill",
+                    "Does not activate {C:attention}[Price of Nobility]{}",
+                    "{C:green}[Before Scoring]{} For each scoring card,",
+                    "if its rank is {C:attention}10{} or lower,",
+                    "{C:blue}(50 + SP)% {C:inactive}(#1#%){} chance for card to not score",
+                    "{C:green}[Failed Use]{} Lose {C:attention}2 {C:devoured}Pip's Ego"
+                }
+            },
+            sk_lobc_what_p1s2 = {
+                name = "Weight of Guilt",
+                text = {
+                    "{C:green}[On Use]{} Lose {C:attention}3 {C:devoured}Pip's Ego",
+                    "{C:green}[After Scoring]{} Destroy up to {C:attention}3{} lowest",
+                    "ranked cards in hand, inflict {C:blue}SP{} damage",
+                    "equals to the total of their ranks"
+                }
+            },
+            sk_lobc_what_p1s3 = {
+                name = "Murky Innocence",
+                text = {
+                    "{C:green}[After Scoring]{} If hand is a {C:attention}#1#{},",
+                    "final score is reduced by {C:attention}50%{}",
+                    "and inflict {C:blue}10 SP{} damage",
+                    "{C:green}[Failed Use]{} Loses {C:blue}5 SP{}"
+                }
+            },
+            sk_lobc_what_p2s1 = {
+                name = "Swathed Fear",
+                text = {
+                    "{C:green}[Before Scoring]{} The leftmost scoring card",
+                    "without {C:prey_mark}Prey Mark{} gains {C:prey_mark}Prey Mark",
+                    "{C:green}[After Scoring]{} Destroy a random",
+                    "scoring card without {C:prey_mark}Prey Mark",
+                }
+            },
+            sk_lobc_what_p2s2 = {
+                name = "Punctured Weakness",
+                text = {
+                    "{C:green}[Before Scoring]{} The leftmost scoring card",
+                    "without {C:prey_mark}Prey Mark{} gains {C:prey_mark}Prey Mark",
+                    "{C:green}[On Card Scoring]{} If card doesn't have",
+                    "{C:prey_mark}Prey Mark{}, {X:mult,C:white} X0.8 {} Mult ",
+                }
+            },
+            sk_lobc_what_p2s3 = {
+                name = "Echoing Cry",
+                text = {
+                    "Repeat {C:green}[After Card Scoring]{} up to {C:attention}5{} times",
+                    "{C:green}[On Card Scoring]{} If card doesn't have",
+                    "{C:prey_mark}Prey Mark{}, {C:attention}-1{} to all hand levels",
+                    "{C:green}[After Card Scoring]{} {C:blue}SP difference*2%{} {C:inactive}(#1#%){} chance",
+                    "to destroy card and inflict {C:blue}5 SP{} damage",
+                    "{C:green}[Failed Use]{} Lose {C:blue}10 SP{}, and deactivate Skill"
+                }
+            },
+            sk_lobc_what_p3s1 = {
+                name = "Clouded Path",
+                text = {
+                    "{C:green}[Before Scoring]{} If played poker hand has {C:attention}2{}",
+                    "or less cards, destroy it and inflict {C:blue}10 SP{} damage",
+                    "{C:green}[Before Scoring]{} The leftmost scoring card",
+                    "without {C:prey_mark}Prey Mark{} gains {C:prey_mark}Prey Mark",
+                    "{C:green}[After Scoring]{} Final score reduced by {C:attention}20%",
+                    "if a card with {C:prey_mark}Prey Mark{} is in hand",
+                }
+            },
+            sk_lobc_what_p3s2 = {
+                name = "Bleached Atonement",
+                text = {
+                    "{C:green}[On Use]{} Lose {C:attention}5 {C:o_violet}Queequeg's Ego",
+                    "{C:green}[After Scoring]{} If total of scoring cards'",
+                    "ranks doesn't exceed {C:o_violet}Queequeg's Ego * 2 {C:inactive}(#1#){},",
+                    "destroy all played cards and inflict {C:blue}15 SP{} damage",
+                    "{C:green}[Failed Use]{} Lose {C:blue}5 SP{}",
+                }
+            },
+            sk_lobc_what_p3s3 = {
+                name = "Insidious Pallidification",
+                text = {
+                    "Does not activate {C:attention}[Price of Nobility]{}",
+                    "{C:green}[On Use]{} Gain {C:attention}10%{} of {C:attention}Blind Size{} as {C:blue}Shield{},",
+                    "plus {C:attention}0.5%{} for every {C:o_violet}Queequeg's Ego",
+                    "{C:green}[After Scoring]{} If {C:blue}Shield{} isn't depleted, inflict {C:blue}5 SP{} damage",
+                    "and destroy a random card held in hand",
+                    "Repeat effect for every {C:attention}10 {C:o_violet}Queequeg's Ego"
+                }
+            },
         }
     },
     misc = {
@@ -2709,6 +2941,7 @@ return {
             lobc_perma_enchanted = "Enchanted",
             lobc_devoured = "Devoured",
             lobc_marked = "Prey",
+            lobc_prey_mark = "Prey Mark",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -3199,6 +3432,10 @@ return {
             ach_lobc_asiyah = "Beat \"Asiyah\"",
             ach_lobc_briah = "Beat \"Briah\"",
             ach_lobc_atziluth = "Beat \"Atziluth\"",
+        },
+        v_dictionary = {
+            lobc_sp = "Your SP - #1# (#3#%) #2# - Blind SP",
+            lobc_shield = "Shield Value: #1#"
         }
     },
 }

@@ -128,7 +128,16 @@ return {
         key = "music_tpov",
         select_music_track = function()
             if config.no_music then return false end
-            return (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff") and 644 or false
+            return (G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_lobc_erlking_heathcliff") and 644000 or false
+        end,
+    },
+
+    -- Compass: ???
+    {
+        key = "music_compass",
+        select_music_track = function()
+            if config.no_music then return false end
+            return (G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_lobc_what_blind") and 536000 or false
         end,
     },
 

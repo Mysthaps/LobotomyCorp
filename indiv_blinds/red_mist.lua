@@ -422,7 +422,8 @@ blind.drawn_to_hand = function(self)
     end
 end
 
-blind.loc_vars = function(self)
+blind.lobc_loc_txt = function(self)
+    local key = "bl_lobc_red_mist_effect_"..G.GAME.blind.lobc_current_effect
     -- [22], [32] Debuff all [highest owned rarity] Jokers
     if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
         local highest = 1
@@ -430,7 +431,7 @@ blind.loc_vars = function(self)
             if type(v.config.center.rarity) ~= "number" then
             elseif v.config.center.rarity > highest then highest = v.config.center.rarity end
         end
-        return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[highest]} }
+        return { key = key, vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[highest]} }
     end
     -- [33] Debuff all [most owned rarity] Jokers
     if G.GAME.blind.lobc_current_effect == 33 then
@@ -449,12 +450,13 @@ blind.loc_vars = function(self)
                 return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[k]} }
             end
         end
-        return { vars = {localize('k_common')} }
+        return { key = key, vars = {localize('k_common')} }
     end
     -- [35] No [most played poker hand] allowed
     if G.GAME.blind.lobc_current_effect == 35 then
-        return { vars = { localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') }}
+        return { key = key, vars = { localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') }}
     end
+    return { key = key }
 end
 
 -- [1] Caps score, using Cryptid's The Tax function

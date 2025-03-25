@@ -19,6 +19,10 @@ local blind = {
     no_collection = true
 }
 
+blind.lobc_loc_txt = function(self)
+    return { key = "bl_lobc_ab_beak_effect" }
+end
+
 blind.set_blind = function(self, reset, silent)
     ease_hands_played(1)
     ease_discard(1)
@@ -34,7 +38,7 @@ blind.defeat = function(self)
     G.E_MANAGER:add_event(Event({
         trigger = 'before',
         func = function()
-            display_cutscene({x = 2, y = 0})
+            display_cutscene({x = 2, y = 0}, "ab")
         return true 
         end 
     }))

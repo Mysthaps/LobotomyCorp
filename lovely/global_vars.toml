@@ -9,7 +9,7 @@ target = "game.lua"
 pattern = "set_profile_progress()"
 position = "before"
 payload = '''
--- Global variables stuff
+-- [LobotomyCorp] Global variables stuff
 self.lobc_global_modifiers = {
     "laetitia_gift",
     "price_of_silence_amplified",

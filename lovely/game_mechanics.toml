@@ -117,3 +117,116 @@ for _, v in ipairs(G.discard.cards) do
         n = n + 1
     end
 end'''
+
+# Skills
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = 'elseif num_lines < #e.children then'
+position = 'at'
+match_indent = true
+payload = "elseif num_lines + (G.skill_deck and 1 or 0) < #e.children then"
+
+# SP/Shield Display
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = 'if G.GAME.blind and G.boss_throw_hand and self.STATE == self.STATES.SELECTING_HAND then'
+position = 'before'
+match_indent = true
+payload = '''
+if G.GAME.blind and G.GAME.blind.p_sp and G.GAME.blind.b_sp then
+    if (G.GAME.blind.prv_p_sp ~= G.GAME.blind.p_sp or G.GAME.blind.prv_b_sp ~= G.GAME.blind.b_sp) and self.sp_display_text then
+        self.sp_display_text:remove()
+        self.sp_display_text = nil
+    end
+    if not self.sp_display_text then
+        self.sp_display_text = UIBox {
+            definition =
+            {n = G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes = {
+                {n = G.UIT.R, config = {align = 'cm', maxw = 1}, nodes = {
+                    {n = G.UIT.O, config = {object = DynaText({scale = 0.7, string = {localize{type = 'variable', key = 'lobc_sp', vars = {G.GAME.blind.p_sp, G.GAME.blind.b_sp, 100 + (G.GAME.blind.p_sp - G.GAME.blind.b_sp > 0 and 0 or G.GAME.blind.p_sp - G.GAME.blind.b_sp)}}}, maxw = 9, colours = { G.C.WHITE }, float = true, shadow = true, silent = true})}},
+                }},
+            }},
+            config = {
+                align = 'cm',
+                offset = {x = 0, y = -3.1},
+                major = G.play,
+            }
+        }
+        self.sp_display_text.attention_text = true
+        self.sp_display_text.states.collide.can = false
+        G.GAME.blind.prv_p_sp = G.GAME.blind.p_sp
+        G.GAME.blind.prv_b_sp = G.GAME.blind.b_sp
+    end
+else
+    if self.sp_display_text then 
+        self.sp_display_text:remove()
+        self.sp_display_text = nil
+    end
+end
+
+if G.GAME.blind and G.GAME.blind.shield_value then
+    if G.GAME.blind.prv_shield ~= G.GAME.blind.shield_value and self.shield_display_text then
+        self.shield_display_text:remove()
+        self.shield_display_text = nil
+    end
+    if not self.shield_display_text then
+        self.shield_display_text = UIBox {
+            definition =
+            {n = G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes = {
+                {n = G.UIT.R, config = {align = 'cm', maxw = 1}, nodes = {
+                    {n = G.UIT.O, config = {object = DynaText({scale = 0.6, string = {localize{type = 'variable', key = 'lobc_shield', vars = {number_format(G.GAME.blind.shield_value)}}}, maxw = 9, colours = { G.C.BLUE }, float = true, shadow = true, silent = true})}},
+                }},
+            }},
+            config = {
+                align = 'cm',
+                offset = {x = 0, y = -2.3},
+                major = G.play,
+            }
+        }
+        self.shield_display_text.attention_text = true
+        self.shield_display_text.states.collide.can = false
+        G.GAME.blind.prv_shield = G.GAME.blind.shield_value
+    end
+else
+    if self.shield_display_text then 
+        self.shield_display_text:remove()
+        self.shield_display_text = nil
+    end
+end'''
+
+# Downgrade all hands
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "if vals.StatusText then "
+position = 'before'
+match_indent = true
+payload = "if vals.neg then col = G.C.RED end"
+
+# Shield
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''if hand_chips*mult > 0 then 
+        delay(0.8)
+        G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = (function() play_sound('chips2');return true end)
+        }))
+    end'''
+position = 'after'
+match_indent = true
+payload = '''
+if G.GAME.blind.shield_value and hand_chips*mult > 0 then
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        blocking = false,
+        ref_table = G.GAME.blind,
+        ref_value = 'shield_value',
+        ease_to = math.max(G.GAME.blind.shield_value - hand_chips*mult, 0),
+        delay =  0.5,
+        func = (function(t) return math.floor(t) end)
+    }))
+end'''
