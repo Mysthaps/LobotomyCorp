@@ -16,10 +16,7 @@ skill.calculate = function(self, skill, context)
             if SMODS.has_no_rank(b) then return true end
             return a:get_id() < b:get_id()
         end)
-        for _, v in ipairs(cards) do
-            print(v:get_id())
-        end
-
+        
         local destroyed_cards = {}
         local first = true
         local sp_loss = 0
@@ -27,7 +24,6 @@ skill.calculate = function(self, skill, context)
             func = function()
                 for i = 1, math.min(#cards, 3) do
                     local _card = cards[i]
-                    print(_card:get_id())
                     if i <= 3 and not _card.ability.eternal then
                         skill.triggered = true
                         if not SMODS.has_no_rank(_card) then
