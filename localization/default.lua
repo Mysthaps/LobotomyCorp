@@ -2762,7 +2762,8 @@ return {
                     "{C:green}[Before Scoring]{} Each playing card has a",
                     "{C:attention}100%{} chance to score, reduced by {C:attention}1%{}",
                     "per {C:blue}SP{} lower than {C:attention}GasHarpoon's{}",
-                    "{C:green}[Phase Change]{} At less than {C:blue}0 SP{}, sets {C:blue}SP{} to {C:blue}0{}",
+                    "{C:green}[Phase Change]{} At less than {C:blue}0 SP{},",
+                    "sets {C:blue}SP{} to {C:blue}0{}"
                 }
             },
             psv_lobc_what_1 = {
