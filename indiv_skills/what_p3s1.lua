@@ -10,7 +10,7 @@ end
 
 skill.calculate = function(self, skill, context)
     if G.STATE == G.STATES.HAND_PLAYED and context.modify_scoring_hand and not context.other_card.ability.p3s1_activated then
-        if #context.scoring_hand <= 3 then
+        if #context.scoring_hand <= 2 then
             local destroyed_cards = {}
             local first = true
             for _, card in pairs(context.scoring_hand) do
