@@ -1,6 +1,6 @@
 local joker = {
     name = "One Sin and Hundreds of Good Deeds",
-    config = {extra = {mult = 3}}, rarity = 1, cost = 4,
+    config = {extra = {mult = 3}}, rarity = 1, cost = 5,
     pos = {x = 2, y = 0}, 
     blueprint_compat = true,
     eternal_compat = true,
