@@ -23,7 +23,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.after and not context.blueprint then
+    if context.after and not context.blueprint and context.scoring_hand then
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if context.scoring_hand[1] == context.scoring_hand[#context.scoring_hand] then
                 check_for_unlock({type = "lobc_regret"})
