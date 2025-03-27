@@ -129,10 +129,12 @@ end
 -- Properly save/load devour card area
 local card_save = Card.save
 function Card.save(self)
-    if self.children.lobc_devoured then
-        self.ability.extra.area_save = self.children.lobc_devoured:save()
-    else
-        self.ability.extra.area_save = nil
+    if self.config.center.name == "j_lobc_big_bad_wolf" then
+        if self.children.lobc_devoured then
+            self.ability.extra.area_save = self.children.lobc_devoured:save()
+        else
+            self.ability.extra.area_save = nil
+        end
     end
     return card_save(self)
 end
@@ -140,14 +142,16 @@ end
 local card_load = Card.load
 function Card.load(self, cardTable, other_card)
     card_load(self, cardTable, other_card)
-    if self.ability and self.ability.extra and type(self.ability.extra) == "table" and self.ability.extra.area_save then
-        create_cardarea(self)
-        self.children.lobc_devoured:load(self.ability.extra.area_save)
-        if self.children.lobc_devoured.cards then
-            self.children.lobc_devoured.cards[1].being_devoured = true
-            self.children.lobc_devoured.cards[1].getting_sliced = true
+    if self.config.center.name == "j_lobc_big_bad_wolf" then
+        if self.ability and self.ability.extra and type(self.ability.extra) == "table" and self.ability.extra.area_save then
+            create_cardarea(self)
+            self.children.lobc_devoured:load(self.ability.extra.area_save)
+            if self.children.lobc_devoured.cards then
+                self.children.lobc_devoured.cards[1].being_devoured = true
+                self.children.lobc_devoured.cards[1].getting_sliced = true
+            end
+            self.ability.extra.area_save = nil
         end
-        self.ability.extra.area_save = nil
     end
 end
 

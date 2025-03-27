@@ -44,3 +44,19 @@ pattern = "shared_sprite:draw_shader('dissolve', nil, nil, nil, self.children.ce
 position = "after"
 payload = "end"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/card_draw.lua"]'
+pattern = "if not self.config.center.discovered and (self.ability.consumeable or self.config.center.unlocked) and not self.config.center.demo and not self.bypass_discovery_center then"
+position = "after"
+payload = "if not (self.ability.set == \"Joker\" and self.config.center.abno) then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/card_draw.lua"]'
+pattern = "if self.ability.name == 'Invisible Joker' and (self.config.center.discovered or self.bypass_discovery_center) then"
+position = "before"
+payload = "end"
+match_indent = true
