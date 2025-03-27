@@ -1947,6 +1947,7 @@ function eval_card(card, context)
     if type(eval) ~= "table" then return eval, post_trig end
     if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
         for _, v in pairs(eval) do
+            if type(v) ~= "table" then goto continue end
             if v.chips then v.chips = v.chips * G.GAME.lobc_hod_modifier end
             if v.h_chips then v.h_chips = v.h_chips * G.GAME.lobc_hod_modifier end
             if v.chip_mod then v.chip_mod = v.chip_mod * G.GAME.lobc_hod_modifier end
@@ -1977,6 +1978,7 @@ function eval_card(card, context)
                 if v.h_x_mult < 1 then v.h_x_mult = v.h_x_mult * G.GAME.lobc_hod_modifier
                 else v.h_x_mult = 1 + (v.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
             end
+            ::continue::
         end
     end
     return eval, post_trig
