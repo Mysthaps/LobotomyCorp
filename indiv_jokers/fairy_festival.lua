@@ -62,7 +62,7 @@ local function fairy_check(card)
                 first_dissolve = true
             end
             G.GAME.lobc_fairy_lock_reroll = true
-            G.GAME.current_round.voucher = nil
+            G.GAME.current_round.voucher = {}
             G.GAME.fairy_festival_counter = nil
         end
     end
@@ -110,7 +110,7 @@ function G.FUNCS.reroll_shop(e)
             first_dissolve = true
         end
         G.GAME.lobc_fairy_lock_reroll = true
-        G.GAME.current_round.voucher = nil
+        G.GAME.current_round.voucher = {}
 
         G.CONTROLLER.locks.shop_reroll = true
         if G.CONTROLLER:save_cardarea_focus('shop_jokers') then G.CONTROLLER.interrupt.focus = true end

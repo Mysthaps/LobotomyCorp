@@ -28,7 +28,6 @@ skill.calculate = function(self, skill, context)
                         selected_card.marked_destroy = true
                         G.E_MANAGER:add_event(Event({
                             trigger = "before",
-                            delay = 0.5,
                             func = function()
                                 selected_card:start_dissolve()
                                 play_sound("lobc_what_p3s3", math.random(90, 110)/100, 0.5)
