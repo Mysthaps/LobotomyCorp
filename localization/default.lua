@@ -2889,7 +2889,7 @@ return {
                 name = "Echoing Cry",
                 text = {
                     "Repeat {C:green}[After Card Scoring]{} up to {C:attention}5{} times",
-                    "{C:green}[On Use]{} Heal 10 SP",
+                    "{C:green}[On Use]{} Heal {C:blue}10 SP{}",
                     "{C:green}[After Card Scoring]{} {C:blue}SP difference*2%{} {C:inactive}(#1#%){} chance",
                     "to destroy card and inflict {C:blue}5 SP{} damage",
                     "Guaranteed if card doesn't have {C:prey_mark}Prey Mark{}",
