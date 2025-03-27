@@ -49,7 +49,7 @@ skill.calculate = function(self, skill, context)
     if context.destroying_card and not skill.disabled then
         for _ = 1, 5 do
             local roll = pseudorandom("what_p2s3")
-            if roll < (G.GAME.blind.b_sp - G.GAME.blind.p_sp) * 0.02 or context.destroying_card.ability.prey_marked then
+            if roll < (G.GAME.blind.b_sp - G.GAME.blind.p_sp) * 0.02 or not context.destroying_card.ability.prey_marked then
                 skill.triggered = true
                 G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
                     play_sound("lobc_what_p2s3", 1, 0.5)
