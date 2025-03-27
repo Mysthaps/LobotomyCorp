@@ -21,7 +21,7 @@ joker.calculate = function(self, card, context)
                 suits_count = suits_count + 1
             end
         end
-        if suits_count >= 4 then
+        if suits_count >= 3 then
             if pseudorandom("fragment_planet_roll") < (G.GAME.probabilities.normal / card.ability.extra.planet) then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1

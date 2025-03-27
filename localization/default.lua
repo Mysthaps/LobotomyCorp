@@ -1415,7 +1415,7 @@ return {
             dis_j_lobc_fragment_universe_2 = {
                 name = "O-03-60",
                 text = {
-                    "If {C:attention}poker hand{} contains {C:attention}4{}",
+                    "If {C:attention}poker hand{} contains {C:attention}3{}",
                     "different suits, {C:green}#1# in #2#{} chance to",
                     "create a random {C:dark_edition}Perishable {C:planet}Planet{} card",
                     "{C:attention}(#5#/5){} ...",
@@ -1425,7 +1425,7 @@ return {
             j_lobc_fragment_universe = {
                 name = "Fragment of the Universe",
                 text = {
-                    "If {C:attention}poker hand{} contains {C:attention}4{}",
+                    "If {C:attention}poker hand{} contains {C:attention}3{}",
                     "different suits, {C:green}#1# in #2#{} chance to",
                     "create a random {C:dark_edition}Perishable {C:planet}Planet{} card",
                     "{s:0.15} {}",
