@@ -1,10 +1,10 @@
 local joker = {
     name = "CENSORED",
     config = {extra = {
-        mult = 30,
-        x_mult = 1.5,
-        chips = 20,
-    }}, rarity = 3, cost = 7,
+        mult = 40,
+        x_mult = 2,
+        chips = 25,
+    }}, rarity = 3, cost = 8,
     pos = {x = 1, y = 6}, 
     blueprint_compat = true, 
     eternal_compat = true,
