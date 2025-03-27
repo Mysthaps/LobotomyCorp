@@ -147,6 +147,8 @@ blind.defeat = function(self)
         G.skill_deck:remove()
         G.skill_deck = nil
     end
+    G.GAME.blind.p_sp = nil
+    G.GAME.blind.b_sp = nil
 end
 
 blind.drawn_to_hand = function(self)
@@ -312,6 +314,15 @@ blind.calculate = function(self, blind, context)
                     mod_ego("add", 5)
                 else
                     mod_ego("add", -10)
+                end
+            return true end }))
+        end
+
+        -- Once an Ahab...
+        if G.GAME.current_round.phases_beaten == 2 then
+            G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
+                if G.GAME.chips >= G.GAME.blind.chips then
+                    play_sound("lobc_what_death", 1, 0.8)
                 end
             return true end }))
         end

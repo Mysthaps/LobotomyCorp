@@ -24,7 +24,7 @@ target = "functions/UI_definitions.lua"
 pattern = "{n=G.UIT.T, config={ref_table = G.GAME, ref_value='win_ante', scale = scale, colour = G.C.WHITE, shadow = true}}"
 position = "at"
 payload = '''
-(G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what))) and {n=G.UIT.T, config={text = "8?", scale = scale}} or 
+(G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not lobc_seen_what))) and {n=G.UIT.T, config={text = "8?", scale = scale}} or 
 {n=G.UIT.T, config={ref_table = G.GAME, ref_value='win_ante', scale = scale, colour = G.C.WHITE, shadow = true}}'''
 match_indent = true
 

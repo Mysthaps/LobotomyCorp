@@ -143,6 +143,7 @@ local sound_list = {
     wolf_bite = "Wolf_Bite",
     wolf_out = "Wolf_EatOut",
     wolf_scratch = "Wolf_Scratch",
+
     evade = "what/evade",
     coin_fail = "what/coin_fail",
     what_1 = "what/what_1",
@@ -162,6 +163,7 @@ local sound_list = {
     what_p3s1 = "what/what_p3s1",
     what_p3s2 = "what/what_p3s2",
     what_p3s3 = "what/what_p3s3",
+    what_death = "what/what_death",
 
     gebura_slash = "Gebura_Phase2_Atk1",
     dice_roll = "Dice_Roll",

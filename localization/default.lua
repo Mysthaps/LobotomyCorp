@@ -2893,6 +2893,7 @@ return {
                     "{C:prey_mark}Prey Mark{}, {C:attention}-1{} to all hand levels",
                     "{C:green}[After Card Scoring]{} {C:blue}SP difference*2%{} {C:inactive}(#1#%){} chance",
                     "to destroy card and inflict {C:blue}5 SP{} damage",
+                    "Guaranteed if card doesn't have {C:prey_mark}Prey Mark{}",
                     "{C:green}[Failed Use]{} Lose {C:blue}10 SP{}, and deactivate Skill"
                 }
             },
