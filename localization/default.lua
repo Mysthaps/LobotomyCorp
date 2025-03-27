@@ -2804,7 +2804,7 @@ return {
                     "for every {C:attention}6 {C:o_green}Starbuck's Ego",
                     "{C:green}[Hand Played]{} At {C:attention}0{} {C:o_green}Starbuck's Ego{}, final",
                     "score increases by {C:attention}50%",
-                    "Loses {C:attention}2 {C:o_green}Starbuck's Ego{} each time the",
+                    "Loses {C:attention}1 {C:o_green}Starbuck's Ego{} each time the",
                     "{C:green}Echoing Cry{} Skill doesn't connect"
                 }
             },
@@ -2812,6 +2812,7 @@ return {
                 name = "Queequeg's Atonement",
                 text = {
                     "{C:green}[Phase Start]{} Gains {C:attention}30{} {C:o_violet}Queequeg's Ego",
+                    "{C:green}[Phase Start]{} {C:red}+3{} discards",
                     "{C:green}[Hand Played]{} If {C:blue}Shield{} remains, regains {C:attention}5{}",
                     "{C:o_violet}Queequeg's Ego{}, otherwise, lose {C:attention}10{}",
                     "{C:green}[Hand Played]{} At {C:attention}0{} {C:o_violet}Queequeg's Ego{}, final",
@@ -2843,8 +2844,7 @@ return {
                 text = {
                     "If Skill doesn't connect twice, deactivate Skill",
                     "Does not activate {C:attention}[Price of Nobility]{}",
-                    "{C:green}[Before Scoring]{} For each scoring card,",
-                    "if its rank is {C:attention}10{} or lower,",
+                    "{C:green}[Before Card Scoring]{} If rank is {C:attention}8{} or lower,",
                     "{C:blue}(50 + SP)% {C:inactive}(#1#%){} chance for card to not score",
                     "{C:green}[Failed Use]{} Lose {C:attention}2 {C:devoured}Pip's Ego"
                 }
@@ -2882,26 +2882,26 @@ return {
                     "{C:green}[Before Scoring]{} The leftmost scoring card",
                     "without {C:prey_mark}Prey Mark{} gains {C:prey_mark}Prey Mark",
                     "{C:green}[On Card Scoring]{} If card doesn't have",
-                    "{C:prey_mark}Prey Mark{}, {X:mult,C:white} X0.8 {} Mult ",
+                    "{C:prey_mark}Prey Mark{}, {X:mult,C:white} X0.75 {} Mult ",
                 }
             },
             sk_lobc_what_p2s3 = {
                 name = "Echoing Cry",
                 text = {
                     "Repeat {C:green}[After Card Scoring]{} up to {C:attention}5{} times",
-                    "{C:green}[On Card Scoring]{} If card doesn't have",
-                    "{C:prey_mark}Prey Mark{}, {C:attention}-1{} to all hand levels",
+                    "{C:green}[On Use]{} Heal 10 SP",
                     "{C:green}[After Card Scoring]{} {C:blue}SP difference*2%{} {C:inactive}(#1#%){} chance",
                     "to destroy card and inflict {C:blue}5 SP{} damage",
                     "Guaranteed if card doesn't have {C:prey_mark}Prey Mark{}",
-                    "{C:green}[Failed Use]{} Lose {C:blue}10 SP{}, and deactivate Skill"
+                    "{C:green}[Failed Use]{} Lose {C:blue}5 SP{}"
                 }
             },
             sk_lobc_what_p3s1 = {
                 name = "Clouded Path",
                 text = {
                     "{C:green}[Before Scoring]{} If played poker hand has {C:attention}2{}",
-                    "or less cards, destroy it and inflict {C:blue}10 SP{} damage",
+                    "or less cards, destroy all scoring cards and inflict",
+                    "{C:blue}3 SP{} damage for each destroyed card",
                     "{C:green}[Before Scoring]{} The leftmost scoring card",
                     "without {C:prey_mark}Prey Mark{} gains {C:prey_mark}Prey Mark",
                     "{C:green}[After Scoring]{} Final score reduced by {C:attention}20%",
@@ -2924,8 +2924,7 @@ return {
                     "Does not activate {C:attention}[Price of Nobility]{}",
                     "{C:green}[On Use]{} Gain {C:attention}10%{} of {C:attention}Blind Size{} as {C:blue}Shield{},",
                     "plus {C:attention}0.5%{} for every {C:o_violet}Queequeg's Ego",
-                    "{C:green}[After Scoring]{} If {C:blue}Shield{} isn't depleted, inflict {C:blue}5 SP{} damage",
-                    "and destroy a random card held in hand",
+                    "{C:green}[After Scoring]{} Destroy a random card held in hand",
                     "Repeat effect for every {C:attention}10 {C:o_violet}Queequeg's Ego"
                 }
             },

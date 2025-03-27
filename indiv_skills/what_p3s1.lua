@@ -16,6 +16,7 @@ skill.calculate = function(self, skill, context)
             for _, card in pairs(context.scoring_hand) do
                 if card == context.other_card or SMODS.always_scores(context.other_card) or next(find_joker('Splash')) then
                     context.other_card.ability.p3s1_activated = true
+                    context.other_card.marked_destroy = true
                     context.other_card:start_dissolve()
                     skill.triggered = true
                     destroyed_cards[#destroyed_cards+1] = context.other_card
@@ -24,9 +25,9 @@ skill.calculate = function(self, skill, context)
                     delay(0.23)
                 end
             end
-            mod_sp("p", "add", -10)
+            mod_sp("p", "add", -3)
             SMODS.calculate_effect({
-                message = "-10 SP",
+                message = "-3 SP",
                 colour = G.C.RED,
                 no_juice = true
             }, G.deck)

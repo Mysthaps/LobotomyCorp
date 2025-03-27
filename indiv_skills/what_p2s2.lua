@@ -17,7 +17,7 @@ skill.calculate = function(self, skill, context)
         if not context.other_card.ability.prey_marked then
             skill.triggered = true
             return {
-                x_mult = 0.8,
+                x_mult = 0.75,
                 card = context.other_card,
             }
         end

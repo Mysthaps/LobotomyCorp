@@ -16,11 +16,19 @@ skill.calculate = function(self, skill, context)
             if SMODS.has_no_rank(b) then return true end
             return a:get_id() < b:get_id()
         end)
+        -- Sort twice because Lua sorting is fucked up beyond repair
+        table.sort(cards, function(a, b) 
+            if SMODS.has_no_rank(a) then return false end
+            if SMODS.has_no_rank(b) then return true end
+            return a:get_id() < b:get_id()
+        end)
         
         local destroyed_cards = {}
         local first = true
         local sp_loss = 0
         G.E_MANAGER:add_event(Event({
+            trigger = "before",
+            delay = 0.5,
             func = function()
                 for i = 1, math.min(#cards, 3) do
                     local _card = cards[i]

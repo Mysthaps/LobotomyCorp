@@ -17,7 +17,7 @@ skill.calculate = function(self, skill, context)
     if context.after then 
         for _ = 1, math.floor(G.GAME.blind.ego/10) + 1 do
             --G.E_MANAGER:add_event(Event({trigger = "before", func = function() 
-                if G.GAME.blind.shield_value > 0 then
+                --if G.GAME.blind.shield_value > 0 then
                     local available_cards = {}
                     for _, v in ipairs(G.hand.cards) do
                         if not v.ability.eternal and not v.marked_destroy then available_cards[#available_cards+1] = v end
@@ -30,8 +30,6 @@ skill.calculate = function(self, skill, context)
                             trigger = "before",
                             delay = 0.5,
                             func = function()
-                                mod_sp("p", "add", -5)
-                                card_eval_status_text(G.deck, 'extra', nil, nil, nil, {message = "-5 SP", colour = G.C.RED, instant = true, no_juice = true})
                                 selected_card:start_dissolve()
                                 play_sound("lobc_what_p3s3", math.random(90, 110)/100, 0.5)
                                 delay(0.2)
@@ -40,7 +38,7 @@ skill.calculate = function(self, skill, context)
                             end 
                         }))
                     end
-                end
+                --end
             --return true end }))
         end
     end

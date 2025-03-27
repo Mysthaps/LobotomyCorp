@@ -28,7 +28,7 @@ skill.calculate = function(self, skill, context)
     if context.after then
         if context.scoring_name == skill.ability.chosen_hand then
             skill.triggered = true
-            G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
+            G.E_MANAGER:add_event(Event({trigger = "before", delay = 0.5, func = function() 
                 G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
                     play_sound("lobc_what_p1s3", 1, 0.5)
                 return true end }))

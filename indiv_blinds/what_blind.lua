@@ -14,7 +14,7 @@ local skill_deck_2 = {
 local skill_deck_3 = {
     {"what_s1", "what_s2", "what_p3s1", "what_p3s3"},
     {"what_s1", "what_p3s1", "what_p3s2", "what_p3s3"},
-    {"what_s2", "what_p3s1", "what_p3s1", "what_p3s3"},
+    {"what_s1", "what_s2", "what_p3s1", "what_p3s3"},
 }
 local blind = {
     name = "GasHarpoon",
@@ -64,17 +64,20 @@ blind.set_blind = function(self)
         lobc_restart_music()
         display_cutscene({x = 0, y = 0}, "what", 0.1)
     return true end }))
+    G.E_MANAGER:add_event(Event({func = function() 
+        -- Sanity
+        G.GAME.blind.p_sp = 0
+        G.GAME.blind.b_sp = 0
+    return true end }))
     
     G.GAME.blind.prepped = true
     G.GAME.blind.hands_sub = -1
-    -- Sanity
-    G.GAME.blind.p_sp = 0
-    G.GAME.blind.b_sp = 0
     -- Pip's Ego
     mod_ego("set", 20)
 end
 
 blind.phase_change = function(self)
+    ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
     G.E_MANAGER:add_event(Event({func = function() 
         G.GAME.blind.skill_deck = nil
         if G.skill_deck then
@@ -120,6 +123,7 @@ blind.phase_change = function(self)
                         parent = G.GAME.blind
                     }
                 }
+                ease_discard(3)
             end
             G.GAME.blind.hands_sub = -1
             G.GAME.blind.prepped = true
@@ -149,6 +153,7 @@ blind.defeat = function(self)
     end
     G.GAME.blind.p_sp = nil
     G.GAME.blind.b_sp = nil
+    G.GAME.blind.shield_value = nil
 end
 
 blind.drawn_to_hand = function(self)
@@ -427,6 +432,7 @@ function mod_ego(_type, val)
     if _type == "set" then G.GAME.blind.ego = val end
     if _type == "add" then G.GAME.blind.ego = G.GAME.blind.ego + val end
     if G.GAME.blind.ego < 0 then G.GAME.blind.ego = 0 end
+    if G.GAME.blind.ego > 30 then G.GAME.blind.ego = 30 end
     G.GAME.blind:set_text()
 end
 
