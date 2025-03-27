@@ -131,6 +131,8 @@ local card_save = Card.save
 function Card.save(self)
     if self.children.lobc_devoured then
         self.ability.extra.area_save = self.children.lobc_devoured:save()
+    else
+        self.ability.extra.area_save = nil
     end
     return card_save(self)
 end
