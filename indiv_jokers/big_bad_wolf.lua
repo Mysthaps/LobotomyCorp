@@ -68,7 +68,9 @@ joker.calculate = function(self, card, context)
             if card.children.lobc_devoured.cards[1] then
                 local _card = card.children.lobc_devoured.cards[1]
                 _card:start_dissolve()
-                if _card.config.center.key == "j_lobc_little_red" then card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain * 3
+                if _card.config.center.key == "j_lobc_little_red" then 
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain * 3
+                    check_for_unlock({type = 'lobc_cobalt_scar'})
                 else card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain end
                 play_sound("lobc_wolf_scratch", 1, 0.4)
             end

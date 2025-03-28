@@ -62,6 +62,7 @@ joker.calculate = function(self, card, context)
 
     if context.remove_big_bad_wolf and not context.blueprint then
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain * 3
+        check_for_unlock({type = 'lobc_crimson_scar'})
         return {
             dollars = card.ability.extra.money * 3,
             message = localize("k_upgrade_ex"),

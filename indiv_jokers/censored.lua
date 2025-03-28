@@ -77,6 +77,7 @@ joker.calculate = function(self, card, context)
                     selected_card:set_sprites(selected_card.config.center)
                     selected_card:juice_up()
                     play_sound("lobc_censored", 1, 0.3)
+                    check_for_unlock({type = 'modify_deck'})
                 end
             return true 
             end 
@@ -117,6 +118,7 @@ joker.add_to_deck = function(self, card, from_debuff)
                             selected_card:juice_up()
                         end
                         play_sound("lobc_censored", 1, 0.3)
+                        check_for_unlock({type = 'modify_deck'})
                     return true 
                     end 
                 }))

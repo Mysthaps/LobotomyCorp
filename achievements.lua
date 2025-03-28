@@ -36,6 +36,18 @@ local achievements = {
             end
         end
     },
+    -- CENSORED / CENSORED
+    censored = {
+        unlock_condition = function(self, args)
+            if args.type == 'modify_deck' then
+                local count = 0
+                for _, v in pairs(G.playing_cards) do
+                    if v.ability.lobc_censored then count = count + 1 end
+                end
+                return count >= 30
+            end
+        end
+    },
     -- Tough / You're Bald...
     tough = {
         unlock_condition = function(self, args)
@@ -138,9 +150,8 @@ local achievement_list = {
     --"soda",
     "our_galaxy",
     "beak",
-    --"crimson_scar",
-    --"cobalt_scar",
-    --"sheeps_clothing",
+    "crimson_scar",
+    "cobalt_scar",
     --"justitia",
     "twilight",
     "through_the_dark_twilight",
@@ -151,7 +162,7 @@ local achievement_list = {
     "aspiration",
     "wingbeat",
     --"harvest",
-    --"censored",
+    "censored",
     "todays_expression",
     "tough",
     "blind_rage",
