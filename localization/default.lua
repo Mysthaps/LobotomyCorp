@@ -309,6 +309,15 @@ return {
                     "ever-lengthening corridors of time.",
                 }
             },
+            und_j_lobc_firebird = {
+                name = "O-02-101",
+                text = {
+                    "Those who succeed in the hunt",
+                    "are granted with one of the",
+                    "very feathers that countless",
+                    "hunters once yearned for.",
+                }
+            },
             und_j_lobc_servant_of_wrath = {
                 name = "O-01-??",
                 text = {
@@ -2048,6 +2057,32 @@ return {
                     "{s:0.15} {}",
                     "{C:green}#1# in #2#{} chance to",
                     "{C:attention}permanently{} {C:red}debuff{} it instead",
+                }
+            },
+
+            dis_j_lobc_firebird_1 = {
+                name = "O-02-101",
+                text = {
+                    "{C:attention}(#4#/3){} ...",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            dis_j_lobc_firebird_2 = {
+                name = "O-02-101",
+                text = {
+                    "Cannot earn more than {C:money}$#1#{} at once",
+                    "{C:attention}(#5#/6){} ...",
+                }
+            },
+            j_lobc_firebird = {
+                name = "The Firebird",
+                text = {
+                    "Cannot earn more than {C:money}$5{} at once",
+                    "{s:0.15} {}",
+                    "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "for every {C:money}${} lost by this effect",
+                    "{s:0.9}(resets at end of round){}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"
                 }
             },
 

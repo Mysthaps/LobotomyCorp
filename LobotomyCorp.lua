@@ -50,6 +50,7 @@ local joker_list = {
     "shy_look", -- Today's Shy Look
     "you_must_be_happy",
     "old_faith", -- Old Faith and Promise
+    "firebird", -- The Firebird
     "servant_of_wrath",
     "youre_bald",
     --- Fanmade / Mod Crossover Abnos

@@ -185,6 +185,25 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
+if JokerDisplay then
+    JokerDisplay.Definitions.j_lobc_theresia = {
+        text = {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },
+        },
+        style_function = function(card, text, reminder_text, extra)
+            if text then 
+                text.states.visible = card:check_rounds(6) >= 6
+            end
+            if reminder_text then
+            end
+            if extra then
+            end
+            return false
+        end
+    }
+end
+
 return joker
 
 -- baby im preying on you tonight

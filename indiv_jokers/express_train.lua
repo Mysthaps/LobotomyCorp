@@ -9,7 +9,7 @@ local joker = {
     name = "Express Train to Hell",
     config = {extra = {
         active_light = 0, light = 0,
-        elapsed = 0, interval = 10,
+        elapsed = 0, interval = 8,
         achievement_check = 0
     }}, rarity = 3, cost = 7,
     pos = {x = 8, y = 5}, 
