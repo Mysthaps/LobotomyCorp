@@ -327,7 +327,7 @@ blind.calculate = function(self, blind, context)
         -- Once an Ahab...
         if G.GAME.current_round.phases_beaten == 2 then
             G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
-                if G.GAME.chips >= G.GAME.blind.chips then
+                if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) then
                     play_sound("lobc_what_death", 1, 0.8)
                 end
             return true end }))

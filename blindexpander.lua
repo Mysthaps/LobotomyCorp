@@ -20,6 +20,8 @@
 --- SMODS.Blind.defeat(self) is called on the current blind if it has a summon
 --- If passive description is too long, changing how it is formatted instead of changing UIBox width is preferred
 
+to_big = to_big or function(x) return x end
+
 -- copied from cryptid's cry_deep_copy
 function lobc_deep_copy(obj, seen)
     if type(obj) ~= 'table' then return obj end
@@ -164,14 +166,16 @@ function Game.update_new_round(self, dt)
                 G.GAME.blind.children.alert = nil
             end
 
-            if G.GAME.chips >= G.GAME.blind.chips then
+            local valueToPutInIf = (Talisman and to_big and to_big(G.GAME.chips):gte(to_big(G.GAME.blind.chips))) or to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips)
+            if valueToPutInIf then
                 local obj = G.GAME.blind.config.blind
                 if obj.pre_defeat and type(obj.pre_defeat) == "function" then
                     obj:pre_defeat()
                 end
             end
         else
-            if G.GAME.current_round.hands_left <= 0 and G.GAME.chips < G.GAME.blind.chips then 
+            local valueToPutInIf = (Talisman and to_big and to_big(G.GAME.chips):lt(to_big(G.GAME.blind.chips))) or to_big(G.GAME.chips) < to_big(G.GAME.blind.chips)
+            if G.GAME.current_round.hands_left <= 0 and valueToPutInIf then 
                 G.GAME.blind.original_blind = nil
                 G.STATE_COMPLETE = true
                 end_round()
