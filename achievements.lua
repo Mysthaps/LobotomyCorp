@@ -163,6 +163,7 @@ local achievement_list = {
     "wingbeat",
     --"harvest",
     "censored",
+    "feather_of_honor",
     "todays_expression",
     "tough",
     "blind_rage",
