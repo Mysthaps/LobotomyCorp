@@ -870,14 +870,19 @@ Blind.cry_cap_score = Blind.cry_cap_score or function(self, score)
     return score
 end
 
--- Apocalypse Bird cutscenes
+-- Blind cutscenes
 function display_cutscene(pos, c_type, delay_pause)
     local atlas = nil
+    local mod_x, mod_y = 1, 1
     if c_type == "ab" then
         atlas = "lobc_LobotomyCorp_cutscenes"
+        mod_x = (1024 / 654)
     elseif c_type == "what" then
         atlas = "lobc_black"
+        mod_x = 3
+        mod_y = 3
     end
+
     G.lobc_cutscene_transparency = c_type == "what" and 1 or 0
     G.lobc_cutscene_timer = 0
     G.lobc_update_lock = true
@@ -885,7 +890,7 @@ function display_cutscene(pos, c_type, delay_pause)
 
     local ui_nodes = {}
     if atlas then
-        G.lobc_cutscene = Sprite(0, 0, 14.2 * (1024 / 654), 14.2, G.ASSET_ATLAS[atlas], pos)
+        G.lobc_cutscene = Sprite(0, 0, 14.2 * mod_x, 14.2 * mod_y, G.ASSET_ATLAS[atlas], pos)
         G.lobc_cutscene.states.drag.can = false
         G.lobc_cutscene.draw_self = function(self, overlay)
             if not self.states.visible then return end
@@ -915,7 +920,33 @@ function display_cutscene(pos, c_type, delay_pause)
         }
     end
 
-    if c_type == "what" then
+    if delay_pause then
+        G.OVERLAY_MENU = UIBox{
+            definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
+            config = {
+                align = "cm",
+                offset = {x = 0, y = 0},
+                major = G.ROOM_ATTACH,
+                bond = 'Strong',
+                no_esc = true
+            }
+        }
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = delay_pause, timer = "REAL", func = function() 
+            G.lobc_update_lock = nil
+            G.SETTINGS.paused = true
+            G.CONTROLLER.locks.frame_set = true
+            G.CONTROLLER.locks.frame = true
+            G.CONTROLLER.cursor_down.target = nil
+            G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
+        return true end }))
+    else
+        G.lobc_update_lock = nil
+        G.SETTINGS.paused = true
+        if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+        G.CONTROLLER.locks.frame_set = true
+        G.CONTROLLER.locks.frame = true
+        G.CONTROLLER.cursor_down.target = nil
+        G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
         G.OVERLAY_MENU = UIBox{
             definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
             config = {
@@ -927,28 +958,6 @@ function display_cutscene(pos, c_type, delay_pause)
             }
         }
     end
-    G.E_MANAGER:add_event(Event({trigger = delay_pause and 'after' or 'immediate', delay = delay_pause or 0, timer = "REAL", func = function() 
-        G.lobc_update_lock = nil
-        G.SETTINGS.paused = true
-        -- copied from G.FUNCS.overlay_menu just to remove the pop-in anim
-        if G.OVERLAY_MENU and not c_type == "what" then G.OVERLAY_MENU:remove() end
-        G.CONTROLLER.locks.frame_set = true
-        G.CONTROLLER.locks.frame = true
-        G.CONTROLLER.cursor_down.target = nil
-        G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
-        if not c_type == "what" then
-            G.OVERLAY_MENU = UIBox{
-                definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
-                config = {
-                    align = "cm",
-                    offset = {x = 0, y = 0},
-                    major = G.ROOM_ATTACH,
-                    bond = 'Strong',
-                    no_esc = true
-                }
-            }
-        end
-    return true end }))
 end
 
 -- Blind passive UI size
@@ -1777,6 +1786,7 @@ function Game.update(self, dt)
             if G.lobc_cutscene_timer < 2 then
                 if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
                     G.ROOM_ORIG.y = 0
+                    G.ROOM_ORIG.x = (G.original_orig_x - 1) / 3 + 1
                     G.CANV_SCALE = 3.75
                     G.lobc_what_txt = "bl_lobc_what_blind_name"
                     G.GAME.blind:set_text()
@@ -1797,34 +1807,14 @@ function Game.update(self, dt)
                     G.lobc_what_txt = "bl_lobc_what_blind_cutscene_2"
                     play_sound("lobc_what_2", 1, 0.6)
                     G.GAME.blind:set_text()
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'ease',
-                        ease = 'inexpo',
-                        blocking = false,
-                        blockable = false,
-                        ref_table = G.ROOM_ORIG,
-                        ref_value = 'y',
-                        ease_to = G.original_orig_y,
-                        delay = 2.5,
-                        timer = "REAL",
-                        func = (function(t) return t end)
-                    }))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'ease',
-                        ease = 'inexpo',
-                        blocking = false,
-                        blockable = false,
-                        ref_table = G,
-                        ref_value = 'CANV_SCALE',
-                        ease_to = 1,
-                        delay = 2.5,
-                        timer = "REAL",
-                        func = (function(t) return t end)
-                    }))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
                 end
             end
             if G.lobc_cutscene_timer >= 10.5 then
             --if G.lobc_cutscene_timer >= 0.4 then -- remove this
+                G.ROOM_ORIG.x = G.original_orig_x
                 G.ROOM_ORIG.y = G.original_orig_y
                 G.CANV_SCALE = 1
                 G.lobc_cutscene_transparency = 0
@@ -1837,6 +1827,7 @@ function Game.update(self, dt)
         elseif G.lobc_displaying_cutscene == "what_2" then
             if G.lobc_cutscene_timer < 3.5 then
                 if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                    G.ROOM_ORIG.x = (G.original_orig_x - 1) / 3 + 1
                     G.ROOM_ORIG.y = 0
                     G.CANV_SCALE = 3.75
                     play_sound("lobc_what_sfx_2", 1, 0.6)
@@ -1848,33 +1839,13 @@ function Game.update(self, dt)
                 if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then 
                     G.lobc_what_txt = "bl_lobc_what_blind_name_copy"
                     G.GAME.blind:set_text()
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'ease',
-                        ease = 'inexpo',
-                        blocking = false,
-                        blockable = false,
-                        ref_table = G.ROOM_ORIG,
-                        ref_value = 'y',
-                        ease_to = G.original_orig_y,
-                        delay = 2.5,
-                        timer = "REAL",
-                        func = (function(t) return t end)
-                    }))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'ease',
-                        ease = 'inexpo',
-                        blocking = false,
-                        blockable = false,
-                        ref_table = G,
-                        ref_value = 'CANV_SCALE',
-                        ease_to = 1,
-                        delay = 2.5,
-                        timer = "REAL",
-                        func = (function(t) return t end)
-                    }))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
                 end
             end
             if G.lobc_cutscene_timer >= 6.5 then
+                G.ROOM_ORIG.x = G.original_orig_x
                 G.ROOM_ORIG.y = G.original_orig_y
                 G.CANV_SCALE = 1
                 G.lobc_displaying_cutscene = false
@@ -1886,6 +1857,7 @@ function Game.update(self, dt)
         elseif G.lobc_displaying_cutscene == "what_3" then
             if G.lobc_cutscene_timer < 6 then
                 if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                    G.ROOM_ORIG.x = (G.original_orig_x - 1) / 3 + 1
                     G.ROOM_ORIG.y = 0
                     G.CANV_SCALE = 3.75
                     play_sound("lobc_what_sfx_3", 1, 0.6)
@@ -1897,33 +1869,13 @@ function Game.update(self, dt)
                 if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then 
                     G.lobc_what_txt = "bl_lobc_what_blind_name_copy"
                     G.GAME.blind:set_text()
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'ease',
-                        ease = 'inexpo',
-                        blocking = false,
-                        blockable = false,
-                        ref_table = G.ROOM_ORIG,
-                        ref_value = 'y',
-                        ease_to = G.original_orig_y,
-                        delay = 2.5,
-                        timer = "REAL",
-                        func = (function(t) return t end)
-                    }))
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'ease',
-                        ease = 'inexpo',
-                        blocking = false,
-                        blockable = false,
-                        ref_table = G,
-                        ref_value = 'CANV_SCALE',
-                        ease_to = 1,
-                        delay = 2.5,
-                        timer = "REAL",
-                        func = (function(t) return t end)
-                    }))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
                 end
             end
             if G.lobc_cutscene_timer >= 9.5 then
+                G.ROOM_ORIG.x = G.original_orig_x
                 G.ROOM_ORIG.y = G.original_orig_y
                 G.CANV_SCALE = 1
                 G.lobc_displaying_cutscene = false
@@ -2351,8 +2303,8 @@ SMODS.Atlas({
 SMODS.Atlas({
     key = "black",
     path = "black.png",
-    px = 1024,
-    py = 654
+    px = 2000,
+    py = 2000
 })
 SMODS.Atlas({
     key = "what_skills",

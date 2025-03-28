@@ -127,7 +127,7 @@ position = 'at'
 match_indent = true
 payload = "elseif num_lines + (G.skill_deck and 1 or 0) < #e.children then"
 
-# SP/Shield Display
+# Custom Debuff Text Display
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -135,64 +135,102 @@ pattern = 'if G.GAME.blind and G.boss_throw_hand and self.STATE == self.STATES.S
 position = 'before'
 match_indent = true
 payload = '''
-if G.GAME.blind and G.GAME.blind.p_sp and G.GAME.blind.b_sp then
-    if (G.GAME.blind.prv_p_sp ~= G.GAME.blind.p_sp or G.GAME.blind.prv_b_sp ~= G.GAME.blind.b_sp) and self.sp_display_text then
-        self.sp_display_text:remove()
-        self.sp_display_text = nil
-    end
-    if not self.sp_display_text then
-        self.sp_display_text = UIBox {
-            definition =
-            {n = G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes = {
-                {n = G.UIT.R, config = {align = 'cm', maxw = 1}, nodes = {
-                    {n = G.UIT.O, config = {object = DynaText({scale = 0.7, string = {localize{type = 'variable', key = 'lobc_sp', vars = {G.GAME.blind.p_sp, G.GAME.blind.b_sp, 100 + (G.GAME.blind.p_sp - G.GAME.blind.b_sp > 0 and 0 or G.GAME.blind.p_sp - G.GAME.blind.b_sp)}}}, maxw = 9, colours = { G.C.WHITE }, float = true, shadow = true, silent = true})}},
+-- LobotomyCorp bosses' debuff text
+if G.GAME.blind then
+    -- SP Display
+    if G.GAME.blind.p_sp and G.GAME.blind.b_sp then
+        if (G.GAME.blind.prv_p_sp ~= G.GAME.blind.p_sp or G.GAME.blind.prv_b_sp ~= G.GAME.blind.b_sp) and self.sp_display_text then
+            self.sp_display_text:remove()
+            self.sp_display_text = nil
+        end
+        if not self.sp_display_text then
+            self.sp_display_text = UIBox {
+                definition =
+                {n = G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes = {
+                    {n = G.UIT.R, config = {align = 'cm', maxw = 1}, nodes = {
+                        {n = G.UIT.O, config = {object = DynaText({scale = 0.7, string = {localize{type = 'variable', key = 'lobc_sp', vars = {G.GAME.blind.p_sp, G.GAME.blind.b_sp, 100 + (G.GAME.blind.p_sp - G.GAME.blind.b_sp > 0 and 0 or G.GAME.blind.p_sp - G.GAME.blind.b_sp)}}}, maxw = 9, colours = { G.C.WHITE }, float = true, shadow = true, silent = true})}},
+                    }},
                 }},
-            }},
-            config = {
-                align = 'cm',
-                offset = {x = 0, y = -3.1},
-                major = G.play,
+                config = {
+                    align = 'cm',
+                    offset = {x = 0, y = -3.1},
+                    major = G.play,
+                }
             }
-        }
-        self.sp_display_text.attention_text = true
-        self.sp_display_text.states.collide.can = false
-        G.GAME.blind.prv_p_sp = G.GAME.blind.p_sp
-        G.GAME.blind.prv_b_sp = G.GAME.blind.b_sp
+            self.sp_display_text.attention_text = true
+            self.sp_display_text.states.collide.can = false
+            G.GAME.blind.prv_p_sp = G.GAME.blind.p_sp
+            G.GAME.blind.prv_b_sp = G.GAME.blind.b_sp
+        end
+    else
+        if self.sp_display_text then 
+            self.sp_display_text:remove()
+            self.sp_display_text = nil
+        end
     end
-else
-    if self.sp_display_text then 
-        self.sp_display_text:remove()
-        self.sp_display_text = nil
-    end
-end
-
-if G.GAME.blind and G.GAME.blind.shield_value then
-    if G.GAME.blind.prv_shield ~= G.GAME.blind.shield_value and self.shield_display_text then
-        self.shield_display_text:remove()
-        self.shield_display_text = nil
-    end
-    if not self.shield_display_text then
-        self.shield_display_text = UIBox {
-            definition =
-            {n = G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes = {
-                {n = G.UIT.R, config = {align = 'cm', maxw = 1}, nodes = {
-                    {n = G.UIT.O, config = {object = DynaText({scale = 0.6, string = {localize{type = 'variable', key = 'lobc_shield', vars = {number_format(G.GAME.blind.shield_value)}}}, maxw = 9, colours = { G.C.BLUE }, float = true, shadow = true, silent = true})}},
+    -- Shield Display
+    if G.GAME.blind.shield_value then
+        if G.GAME.blind.prv_shield ~= G.GAME.blind.shield_value and self.shield_display_text then
+            self.shield_display_text:remove()
+            self.shield_display_text = nil
+        end
+        if not self.shield_display_text then
+            self.shield_display_text = UIBox {
+                definition =
+                {n = G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes = {
+                    {n = G.UIT.R, config = {align = 'cm', maxw = 1}, nodes = {
+                        {n = G.UIT.O, config = {object = DynaText({scale = 0.6, string = {localize{type = 'variable', key = 'lobc_shield', vars = {number_format(G.GAME.blind.shield_value)}}}, maxw = 9, colours = { G.C.BLUE }, float = true, shadow = true, silent = true})}},
+                    }},
                 }},
-            }},
-            config = {
-                align = 'cm',
-                offset = {x = 0, y = -2.3},
-                major = G.play,
+                config = {
+                    align = 'cm',
+                    offset = {x = 0, y = -2.3},
+                    major = G.play,
+                }
             }
-        }
-        self.shield_display_text.attention_text = true
-        self.shield_display_text.states.collide.can = false
-        G.GAME.blind.prv_shield = G.GAME.blind.shield_value
+            self.shield_display_text.attention_text = true
+            self.shield_display_text.states.collide.can = false
+            G.GAME.blind.prv_shield = G.GAME.blind.shield_value
+        end
+    else
+        if self.shield_display_text then 
+            self.shield_display_text:remove()
+            self.shield_display_text = nil
+        end
     end
-else
-    if self.shield_display_text then 
-        self.shield_display_text:remove()
-        self.shield_display_text = nil
+    -- Update selected hand for Small Beak
+    if G.beaked and self.STATE == self.STATES.SELECTING_HAND then
+        if G.prv_beaked ~= G.beaked and self.boss_warning_text then
+            self.boss_warning_text:remove()
+            self.boss_warning_text = nil
+        end
+        if not self.boss_warning_text then
+            self.boss_warning_text = UIBox{
+                definition = 
+                {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, padding = 0.2}, nodes={
+                    {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
+                        {n=G.UIT.O, config={object = DynaText({scale = 0.7, string = localize('ph_unscored_hand'), maxw = 9, colours = {G.C.WHITE},float = true, shadow = true, silent = true, pop_in = 0, pop_in_rate = 6})}},
+                    }},
+                    {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
+                        {n=G.UIT.O, config={object = DynaText({scale = 0.6, string = SMODS.debuff_text or G.GAME.blind:get_loc_debuff_text(), maxw = 9, colours = {G.C.WHITE},float = true, shadow = true, silent = true, pop_in = 0, pop_in_rate = 6})}},
+                    }}
+                }}, 
+                config = {
+                    align = 'cm',
+                    offset ={x=0,y=-3.1}, 
+                    major = G.play,
+                }
+            }
+            self.boss_warning_text.attention_text = true
+            self.boss_warning_text.states.collide.can = false
+            G.prv_beaked = G.beaked
+        end
+    elseif G.prv_beaked then
+        if self.boss_warning_text then 
+            self.boss_warning_text:remove()
+            self.boss_warning_text = nil
+        end
+        G.prv_beaked = nil
     end
 end'''
 

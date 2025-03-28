@@ -137,7 +137,7 @@ blind.defeat = function(self)
 end
 
 local lamped = false
-local beaked = false
+G.beaked = false
 blind.debuff_hand = function(self, cards, hand, handname, check)
     if find_passive("psv_lobc_lamp") then
         local count = 0
@@ -147,8 +147,8 @@ blind.debuff_hand = function(self, cards, hand, handname, check)
         if count >= 2 then lamped = true; return true 
         else lamped = false end
     end
-    if G.GAME.lobc_small_beak and G.GAME.lobc_small_beak[handname] then beaked = handname; return true
-    else beaked = false end
+    if G.GAME.lobc_small_beak and G.GAME.lobc_small_beak[handname] then G.beaked = handname; return true
+    else G.beaked = nil end
     if find_passive("psv_lobc_judgement") and not check then
         for _, v in ipairs(cards) do
             local id = v:get_id()
@@ -160,7 +160,7 @@ end
 
 blind.get_loc_debuff_text = function(self)
     if lamped then return localize("k_lobc_lamp") end
-    if beaked then return localize("k_lobc_misdeeds").." ("..localize(beaked, 'poker_hands')..')' end
+    if G.beaked then return localize("k_lobc_misdeeds").." ("..localize(G.beaked, 'poker_hands')..')' end
 end
 
 blind.cry_cap_score = function(self, score)

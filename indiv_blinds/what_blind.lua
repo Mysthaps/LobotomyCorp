@@ -50,6 +50,7 @@ blind.lobc_loc_txt = function(self)
 end
 
 blind.setup_sprites = function(self)
+    G.original_orig_x = lobc_deep_copy(G.ROOM_ORIG).x
     G.original_orig_y = lobc_deep_copy(G.ROOM_ORIG).y
     G.GAME.blind.children.animatedSprite.atlas = G.ANIMATION_ATLAS["lobc_what"]
     G.GAME.blind.children.animatedSprite.scale = {x = 512, y = 512}
