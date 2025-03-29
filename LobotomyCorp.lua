@@ -42,6 +42,7 @@ local joker_list = {
     "fotdb", -- Funeral of the Dead Butterflies
     "mosb", -- The Mountain of Smiling Bodies
     "heart_of_aspiration",
+    --"giant_tree_sap",
     "fairy_festival",
     "iron_maiden", -- We Can Change Anything
     "express_train", -- Express Train to Hell

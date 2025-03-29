@@ -242,6 +242,13 @@ return {
                     "about unwarranted frenzy.",
                 }
             },
+            und_j_lobc_giant_tree_sap = {
+                name = "T-09-80",
+                text = {
+                    "The tree simply reaped",
+                    "from what it sowed.",
+                }
+            },
             und_j_lobc_fairy_festival = {
                 name = "F-04-83",
                 text = {
@@ -1738,6 +1745,51 @@ return {
                     "Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
                     "after defeating {C:attention}Boss Blind{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"
+                }
+            },
+
+            dis_j_lobc_giant_tree_sap_1 = {
+                name = "T-09-80",
+                text = {
+                    "{C:attention}(#6#/3){} ...",
+                    "{C:attention}(#7#/5){} ...",
+                    "{C:attention}(#8#/7){} ...",
+                }
+            },
+            dis_j_lobc_giant_tree_sap_2 = {
+                name = "T-09-80",
+                text = {
+                    "{C:dark_edition}[Active Ability]",
+                    "{C:blue}+#1#{} hand, {C:red}+#1#{} discard this round",
+                    "and gives {C:money}$#2#{}",
+                    "{C:attention}(#7#/5){} ...",
+                    "{C:attention}(#8#/7){} ...",
+                }
+            },
+            dis_j_lobc_giant_tree_sap_3 = {
+                name = "T-09-80",
+                text = {
+                    "{C:dark_edition}[Active Ability]",
+                    "{C:blue}+#1#{} hand, {C:red}+#1#{} discard this round",
+                    "and gives {C:money}$#2#{}",
+                    "{s:0.15} {}",
+                    "{C:attention}#3#%{} chance to instead set hands",
+                    "to {C:blue}1{}, and discards and money to {C:attention}0{}",
+                    "{C:attention}(#8#/7){} ...",
+                }
+            },
+            j_lobc_giant_tree_sap = {
+                name = "Giant Tree Sap",
+                text = {
+                    "{C:dark_edition}[Active Ability]",
+                    "{C:blue}+#1#{} hand, {C:red}+#1#{} discard this round",
+                    "and gives {C:money}$#2#{}",
+                    "{s:0.15} {}",
+                    "{C:attention}#3#%{} chance to instead set hands",
+                    "to {C:blue}1{}, and discards and money to {C:attention}0{}",
+                    "{s:0.15} {}",
+                    "Increases by {C:attention}#4#%{C:inactive} (max. #5#%){} on use",
+                    "and resets to {C:attention}0%{} on trigger"
                 }
             },
 
