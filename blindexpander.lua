@@ -33,6 +33,17 @@ function lobc_deep_copy(obj, seen)
     return res
 end
 
+-- copied from cryptid's cry_cap_score
+Blind.cry_cap_score = Blind.cry_cap_score or function(self, score)
+    if not self.disabled then
+        local obj = self.config.blind
+        if obj.cry_cap_score and type(obj.cry_cap_score) == 'function' then
+            return obj:cry_cap_score(score)
+        end
+    end
+    return score
+end
+
 local set_blindref = Blind.set_blind
 function Blind.set_blind(self, blind, reset, silent)
     if not reset then

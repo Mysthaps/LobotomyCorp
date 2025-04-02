@@ -861,17 +861,6 @@ function Blind.set_text(self)
     end
 end
 
--- Score capping, just steal it from Cryptid
-Blind.cry_cap_score = Blind.cry_cap_score or function(self, score)
-    if not self.disabled then
-        local obj = self.config.blind
-        if obj.cry_cap_score and type(obj.cry_cap_score) == 'function' then
-            return obj:cry_cap_score(score)
-        end
-    end
-    return score
-end
-
 -- Blind cutscenes
 function display_cutscene(pos, c_type, delay_pause)
     local atlas = nil
