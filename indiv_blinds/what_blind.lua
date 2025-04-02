@@ -316,7 +316,7 @@ blind.calculate = function(self, blind, context)
         -- Passive: [Queequeg's Atonement]
         if G.GAME.current_round.phases_beaten == 2 and G.GAME.blind.shield_value then
             G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
-                if G.GAME.blind.shield_value > 0 then
+                if to_big(G.GAME.blind.shield_value) > to_big(0) then
                     mod_ego("add", 5)
                 else
                     mod_ego("add", -10)
@@ -381,7 +381,7 @@ blind.cry_cap_score = function(self, score)
     end
 
     local final_score = score * score_modifier
-    if G.GAME.blind.shield_value then final_score = math.max(final_score - G.GAME.blind.shield_value, 0) end
+    if G.GAME.blind.shield_value then final_score = math.max(final_score - G.GAME.blind.shield_value, to_big(0)) end
     if not messaged then
         if score_modifier ~= 1 then
             G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 

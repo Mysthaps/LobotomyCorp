@@ -1760,8 +1760,7 @@ return {
                 name = "T-09-80",
                 text = {
                     "{C:dark_edition}[Active Ability]",
-                    "{C:blue}+#1#{} hand, {C:red}+#1#{} discard this round",
-                    "and gives {C:money}$#2#{}",
+                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
                     "{C:attention}(#7#/5){} ...",
                     "{C:attention}(#8#/7){} ...",
                 }
@@ -1770,11 +1769,10 @@ return {
                 name = "T-09-80",
                 text = {
                     "{C:dark_edition}[Active Ability]",
-                    "{C:blue}+#1#{} hand, {C:red}+#1#{} discard this round",
-                    "and gives {C:money}$#2#{}",
+                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
                     "{s:0.15} {}",
-                    "{C:attention}#3#%{} chance to instead set hands",
-                    "to {C:blue}1{}, and discards and money to {C:attention}0{}",
+                    "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
+                    "money to {C:attention}0{} and {C:red}self destructs{}",
                     "{C:attention}(#8#/7){} ...",
                 }
             },
@@ -1782,14 +1780,13 @@ return {
                 name = "Giant Tree Sap",
                 text = {
                     "{C:dark_edition}[Active Ability]",
-                    "{C:blue}+#1#{} hand, {C:red}+#1#{} discard this round",
-                    "and gives {C:money}$#2#{}",
+                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
                     "{s:0.15} {}",
-                    "{C:attention}#3#%{} chance to instead set hands",
-                    "to {C:blue}1{}, and discards and money to {C:attention}0{}",
+                    "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
+                    "money to {C:attention}0{} and {C:red}self destructs{}",
                     "{s:0.15} {}",
-                    "Increases by {C:attention}#4#%{C:inactive} (max. #5#%){} on use",
-                    "and resets to {C:attention}0%{} on trigger"
+                    "Increases chance by {C:attention}#4#%{} on use",
+                    "{C:inactive}(max. #5#%)"
                 }
             },
 

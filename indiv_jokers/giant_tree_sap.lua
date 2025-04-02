@@ -1,8 +1,8 @@
 local joker = {
     name = "Giant Tree Sap",
     config = {extra = {
-        gain = 1, money = 8, chance = 0, inc = 15, cap = 60
-    }}, rarity = 2, cost = 7,
+        gain = 1, money = 6, chance = 0, inc = 15, cap = 60
+    }}, rarity = 2, cost = 6,
     pos = {x = 2, y = 5}, 
     blueprint_compat = true, 
     eternal_compat = true,
@@ -15,13 +15,12 @@ local joker = {
 joker.lobc_active = function(self, card)
     if card.ability.extra.chance <= 0 or pseudorandom("giant_tree_sap") > card.ability.extra.chance/100 then
         ease_hands_played(card.ability.extra.gain)
-        ease_discard(card.ability.extra.gain)
         ease_dollars(card.ability.extra.money)
         card.ability.extra.chance = math.min(card.ability.extra.chance + card.ability.extra.inc, card.ability.extra.cap)
     else
         ease_hands_played(-G.GAME.current_round.hands_left + 1)
-        ease_discard(-G.GAME.current_round.discards_left)
         ease_dollars(-G.GAME.dollars)
+        card:start_dissolve()
     end
 end
 
@@ -31,9 +30,9 @@ end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { 
-        card.ability.extra.pos^(card.ability.extra.held+1), card.ability.extra.neg^(card.ability.extra.held+1), 
-        card.ability.extra.pos, card.ability.extra.neg, 
-        card:check_rounds(2), card:check_rounds(3), card:check_rounds(5), card.ability.extra.held
+        card.ability.extra.gain, card.ability.extra.money, 
+        card.ability.extra.chance, card.ability.extra.inc, card.ability.extra.cap,
+        card:check_rounds(3), card:check_rounds(5), card:check_rounds(7)
     }
     local desc_key = self.key
     if card:check_rounds(3) < 3 then
