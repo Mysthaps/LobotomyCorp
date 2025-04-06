@@ -6,7 +6,7 @@ priority = 10
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "set_profile_progress()"
+pattern = "boot_timer('prep stage', 'splash prep',1)"
 position = "before"
 payload = '''
 -- [LobotomyCorp] Global variables stuff
@@ -16,7 +16,6 @@ self.lobc_global_modifiers = {
     "plague_doctor_baptism",
     "child_galaxy_pebble",
 }
-
 self.lobc_global_meltdowns = {
     "malkuth",
     "yesod",
@@ -31,7 +30,6 @@ self.lobc_global_meltdowns = {
     "day_48",
     "day_49"
 }
-
 local modifiers_atlas = self.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
 self.lobc_shared_modifiers = {
     laetitia_gift = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 0, y = 0}),
@@ -39,7 +37,5 @@ self.lobc_shared_modifiers = {
     plague_doctor_baptism = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 2, y = 0}),
     child_galaxy_pebble = Sprite(0, 0, self.CARD_W, self.CARD_H, modifiers_atlas, {x = 3, y = 0}),
 }
-
--- Late patches
 G.UIDEF.card_h_popup = lobc_card_h_popup'''
 match_indent = true
