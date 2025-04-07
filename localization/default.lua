@@ -2175,18 +2175,46 @@ return {
                 }
             },
 
-            dis_j_lobc_jolliest_jester = {
+            dis_j_lobc_jolliest_jester_1 = {
                 name = "M-01-13",
                 text = {
-                    "{C:attention}(#1#/3){} ...",
-                    "{C:attention}(#2#/6){} ...",
-                    "{C:attention}(#3#/8){} ...",
+                    "{C:attention}(#4#/2){} ...",
+                    "{C:attention}(#5#/5){} ...",
+                    "{C:attention}(#6#/7){} ...",
+                }
+            },
+            dis_j_lobc_jolliest_jester_2 = {
+                name = "M-01-13",
+                text = {
+                    "{C:attention}Jolly Jokers{} can be bought",
+                    "ignoring Joker Slot limit",
+                    "{C:attention}(#5#/5){} ...",
+                    "{C:attention}(#6#/7){} ...",
+                }
+            },
+            dis_j_lobc_jolliest_jester_3 = {
+                name = "M-01-13",
+                text = {
+                    "{C:attention}Jolly Jokers{} can be bought",
+                    "ignoring Joker Slot limit",
+                    "{s:0.15} {}",
+                    "{C:green}#1# in #2#{} for cards in shop",
+                    "to be replaced by {C:attention}Jolly Joker",
+                    "{C:attention}(#6#/7){} ...",
                 }
             },
             j_lobc_jolliest_jester = {
                 name = "The Jolliest Jester",
                 text = {
-                    "???",
+                    "{C:attention}Jolly Jokers{} can be bought",
+                    "ignoring {C:attention}Joker Slot{} limit",
+                    "{s:0.15} {}",
+                    "{C:green}#1# in #2#{} chance for cards in shop",
+                    "to be replaced by {C:attention}Jolly Joker",
+                    "{s:0.15} {}",
+                    "Increase base chance by {C:green}#3#{} if failed,",
+                    "otherwise, {C:attention}halves{} chance",
+                    "{C:inactive, s:0.7}(chance shared by all copies of this Abnormality)",
                 }
             },
 

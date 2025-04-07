@@ -55,7 +55,7 @@ local joker_list = {
     "servant_of_wrath",
     "youre_bald",
     --- Fanmade / Mod Crossover Abnos
-    --"jolliest_jester",
+    "jolliest_jester",
 }
 local blind_list = {
     -- Abnormalities
@@ -1530,6 +1530,10 @@ function Game.init_game_object(self)
     for _, v in ipairs(blind_list) do
         G.bosses_used["bl_lobc_"..v] = 1e300
     end
+
+    -- Add separate chance for Jolliest Jester
+    G.probabilities["jolliest_jester"] = 1
+    G.probabilities["jolliest_jester_inc"] = 1
 
     -- Yesod font
     self.FONTS["blank"] = {
