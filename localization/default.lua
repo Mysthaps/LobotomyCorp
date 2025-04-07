@@ -3137,16 +3137,18 @@ return {
 
             lobc_show_art_undiscovered = "Show Abnormality Art when Undiscovered",
             lobc_disable_ordeals = "Disable Random Ordeals",
-            lobc_discover_all = "Discover All (Irreversible)",
-            lobc_no_sfx = "Disable All Sound Effects",
+            lobc_no_sfx = "Disable Sound Effects",
             lobc_no_music = "Disable Music",
             lobc_irreversible = "(This effect is permanent on this profile!)",
             lobc_disable_meltdown_color = "Disable Background Override in Challenges",
             lobc_disable_unsettling_sfx = "Disable Only Unsettling Sound Effects",
             lobc_unlock_challenges = "Unlock All Challenges",
-            lobc_disable_abno_text = "Disable Abnormality (Red) Flavor Text",
+            lobc_disable_abno_text = "Disable Abnormality Blind Flavor Text",
             lobc_disable_all_text = "Disable All Flavor Text",
             lobc_lobcorp_music = "Enable Lobcorp Themes in Normal Gameplay",
+            lobc_enable_crossovers = "Cross-Mod Content without Dependencies",
+            b_lobc_reset_ach = "Reset Achievements",
+            b_lobc_discover_all = "Discover All Abnormalities",
 
             ---- Credits ----
             lobc_credits_1 = "Art and SFX from Lobotomy Corporation and Library of Ruina",

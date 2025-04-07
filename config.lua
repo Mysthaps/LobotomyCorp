@@ -11,4 +11,5 @@ return {
     unlock_challenges = false,
     disable_abno_text = false,
     lobcorp_music = false,
+    enable_crossovers = false,
 }

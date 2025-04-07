@@ -11,7 +11,7 @@ SMODS.load_file("blindexpander.lua")()
 
 -- To disable any object, comment it out by adding -- at the start of the line.
 local joker_list = {
-    --- Project Moon Abnos
+    --- Lobotomy Corporation Abnos
     "scorched_girl",
     "one_sin",
     "queen_of_hatred",
@@ -248,6 +248,9 @@ for _, v in ipairs(joker_list) do
 
     if not joker.pos then
         joker.pos = { x = 0, y = 0 }
+    end
+    if config.enable_crossovers then
+        joker.dependencies = nil
     end
 
     local joker_obj = SMODS.Joker(joker)
@@ -2114,22 +2117,55 @@ local function create_config_node(config_name)
     }}
 end
 
+G.FUNCS.lobc_discover_all = function(e)
+    for k, v in pairs(SMODS.Centers) do
+        if v.mod == current_mod then
+            if G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] then
+                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds}
+            else
+                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds, order = v.order, wins = {}, losses = {}}
+            end
+            v.discovered = true
+            v.alerted = true
+        end
+    end
+    G:save_settings()
+end
+
+G.FUNCS.lobc_reset_achievements = function(e)
+    for k, v in pairs(SMODS.Achievements) do
+        if v.mod == current_mod then
+            if G.SETTINGS.ACHIEVEMENTS_EARNED[v.key] then G.SETTINGS.ACHIEVEMENTS_EARNED[v.key] = nil end
+            if G.ACHIEVEMENTS[v.key].earned then G.ACHIEVEMENTS[v.key].earned = nil end
+        end
+    end
+    G:save_settings()
+end
+
 SMODS.current_mod.config_tab = function()
     return {n = G.UIT.ROOT, config = {r = 0.1, align = "c", padding = 0.1, colour = G.C.BLACK, minh = 6}, nodes = {
-        {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
-            create_config_node("no_music"),
-            create_config_node("disable_unsettling_sfx"),
-            create_config_node("no_sfx"),
-            create_config_node("disable_meltdown_color"),
-            create_config_node("disable_abno_text"),
+        {n = G.UIT.R, config = {align = "tm", padding = 0}, nodes = {
+            {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
+                create_config_node("no_music"),
+                create_config_node("no_sfx"),
+                create_config_node("disable_meltdown_color"),
+                create_config_node("disable_abno_text"),
+            }},
+    
+            {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
+                create_config_node("show_art_undiscovered"),
+                create_config_node("disable_ordeals"),
+                create_config_node("lobcorp_music"),
+                create_config_node("enable_crossovers"),
+            }},
         }},
-
-        {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
-            create_config_node("show_art_undiscovered"),
-            create_config_node("disable_ordeals"),
-            create_config_node("discover_all"),
-            create_config_node("unlock_challenges"),
-            create_config_node("lobcorp_music"),
+        {n = G.UIT.R, config = {align = "tm", padding = 0.1}, nodes = {
+            {n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_discover_all'}, nodes={
+                {n=G.UIT.T, config={text = localize('b_lobc_discover_all'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
+            }},
+            {n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_reset_achievements'}, nodes={
+                {n=G.UIT.T, config={text = localize('b_lobc_reset_ach'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
+            }},
         }},
     }}
 end
