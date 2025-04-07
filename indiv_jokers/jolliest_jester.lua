@@ -26,6 +26,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     elseif card:check_rounds(7) < 7 then
         desc_key = 'dis_'..desc_key..'_3'
     end
+    info_queue[#info_queue+1] = G.P_CENTERS.j_jolly
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     if not self.discovered and card.area ~= G.jokers then

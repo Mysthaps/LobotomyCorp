@@ -51,6 +51,7 @@ local joker_list = {
     "shy_look", -- Today's Shy Look
     "you_must_be_happy",
     "old_faith", -- Old Faith and Promise
+    "void_dream",
     "firebird", -- The Firebird
     "servant_of_wrath",
     "youre_bald",
@@ -607,7 +608,7 @@ end
 -- Overwrite blind spawning for Abnormality Boss Blinds if requirements are met
 local get_new_bossref = get_new_boss
 function get_new_boss()
-    if (string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == 9 then return "bl_lobc_what_blind" end
+    if (string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == 9 then return "bl_lobc_what_blind" end
     if G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= 9 then return "bl_lobc_red_mist" end
     if G.GAME.modifiers.lobc_all_whitenight or 
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
@@ -620,7 +621,7 @@ function get_new_boss()
         if ante <= 6 then return "bl_lobc_dusk_base" end
         return "bl_lobc_midnight_base"
     end
-    if string.lower(G.PROFILES[G.SETTINGS.profile].name) == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
+    if string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
     local new_boss = get_new_bossref() 
     while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do -- does this work?
         new_boss = get_new_bossref()
@@ -633,7 +634,7 @@ local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
     -- Hide Small and Big Blind (Gebura)
-    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > 8) or ((string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == 9) then
+    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > 8) or ((string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == 9) then
         G.GAME.round_resets.blind_states.Small = 'Hide'
         G.GAME.round_resets.blind_states.Big = 'Hide'
         ease_background_colour_blind()
@@ -1322,7 +1323,7 @@ function Game.start_run(self, args)
         if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
         if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hands_reset = true end
         if G.GAME.modifiers.lobc_hod then G.GAME.lobc_hod_modifier = 0.85 end
-        if G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name) == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) then G.GAME.win_ante = 9 end
+        if G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) then G.GAME.win_ante = 9 end
         if G.GAME.modifiers.lobc_end_ante then G.GAME.win_ante = G.GAME.modifiers.lobc_end_ante end
     end
 

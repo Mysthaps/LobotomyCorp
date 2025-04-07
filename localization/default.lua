@@ -316,6 +316,12 @@ return {
                     "ever-lengthening corridors of time.",
                 }
             },
+            und_j_lobc_void_dream = {
+                name = "T-02-99",
+                text = {
+                    "Please, eat my dreams.",
+                }
+            },
             und_j_lobc_firebird = {
                 name = "O-02-101",
                 text = {
@@ -2109,6 +2115,32 @@ return {
                 }
             },
 
+            dis_j_lobc_void_dream_1 = {
+                name = "T-02-99",
+                text = {
+                    "{C:attention}(#4#/2){} ...",
+                    "{C:attention}(#5#/4){} ...",
+                }
+            },
+            dis_j_lobc_void_dream_2 = {
+                name = "T-02-99",
+                text = {
+                    "Played cards have a {C:green}#1# in #2#{} chance",
+                    "to give {C:money}$#3#{} when scored",
+                    "{C:attention}(#5#/4){} ...",
+                }
+            },
+            j_lobc_void_dream = {
+                name = "Void Dream",
+                text = {
+                    "Played cards have a {C:green}#1# in #2#{} chance",
+                    "to give {C:money}$#3#{} when scored",
+                    "{s:0.15} {}",
+                    "Scoring cards have a fixed",
+                    "{C:green}1 in 4{} chance to not score",
+                }
+            },
+
             dis_j_lobc_firebird_1 = {
                 name = "O-02-101",
                 text = {
@@ -2214,7 +2246,7 @@ return {
                     "{s:0.15} {}",
                     "Increase base chance by {C:green}#3#{} if failed,",
                     "otherwise, {C:attention}halves{} chance",
-                    "{C:inactive, s:0.7}(chance shared by all copies of this Abnormality)",
+                    "{C:inactive,s:0.8}(chance shared by all copies of this Abnormality)",
                 }
             },
 
@@ -3125,6 +3157,7 @@ return {
         dictionary = {
             k_lobc_breached = "Breached!",
             k_lobc_downgrade = "Downgrade...",
+            k_lobc_asleep = "Asleep...",
             k_lobc_extraction_pack = "Extraction Pack",
             k_lobc_active = "active",
             k_lobc_inactive = "inactive",
