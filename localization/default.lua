@@ -1511,39 +1511,31 @@ return {
                 name = "O-02-63",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
-                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
-                    "to all playing cards of that rank",
                     "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/6){} ..."
+                    "{C:attention}(#4#/5){} ..."
                 }
             },
             dis_j_lobc_apocalypse_bird_3 = {
                 name = "O-02-63",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
-                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
-                    "to all playing cards of that rank",
                     "{s:0.15} {}",
                     "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
                     "{C:enchanted}unenchanted{} scoring card,",
                     "and it gains {C:dark_edition}Negative{}",
-                    "{C:attention}(#4#/6){} ..."
+                    "{C:attention}(#4#/5){} ..."
                 }
             },
             j_lobc_apocalypse_bird = {
                 name = "Apocalypse Bird",
                 text = {
                     "{C:dark_edition}+1{} Joker Slot",
-                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
-                    "to all playing cards of that rank",
                     "{s:0.15} {}",
                     "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
                     "{C:enchanted}unenchanted{} scoring card,",
                     "and it gains {C:dark_edition}Negative{}",
                     "{s:0.15} {}",
                     "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
-                    "{s:0.15} {}",
-                    "Scoring cards give {X:mult,C:white} +X#5# {} Mult for each {C:red}Sin{}",
                 }
             },
 
