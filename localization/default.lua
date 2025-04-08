@@ -129,6 +129,16 @@ return {
                     "I give you this gift.",
                 }
             },
+            und_j_lobc_queen_bee = {
+                name = "T-04-50",
+                text = {
+                    "If you feel an abdominal pain and",
+                    "a tingling sensation in your neck,",
+                    "the best thing you can do now is",
+                    "look at the great blue sky",
+                    "you'll never get to see again."
+                }
+            },
             und_j_lobc_forsaken_murderer = {
                 name = "T-01-54",
                 text = {
@@ -1054,6 +1064,48 @@ return {
                     "{s:0.15} {}",
                     "Does not activate on cards created",
                     "by this Abnormality",
+                }
+            },
+
+            dis_j_lobc_queen_bee_1 = {
+                name = "T-04-50",
+                text = {
+                    "{C:attention}(#2#/2){} ...",
+                    "{C:attention}(#3#/4){} ...",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            dis_j_lobc_queen_bee_2 = {
+                name = "T-04-50",
+                text = {
+                    "Playing cards permanently gain",
+                    "{C:mult}+#1#{} Mult when scored",
+                    "{C:attention}(#3#/4){} ...",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            dis_j_lobc_queen_bee_3 = {
+                name = "T-04-50",
+                text = {
+                    "Playing cards permanently gain",
+                    "{C:mult}+#1#{} Mult when scored",
+                    "{s:0.15} {}",
+                    "Reduces the rank of each",
+                    "scoring card by {C:attention}1{} after scoring",
+                    "{C:attention}(#4#/6){} ...",
+                }
+            },
+            j_lobc_queen_bee = {
+                name = "Queen Bee",
+                text = {
+                    "Playing cards permanently gain",
+                    "{C:mult}+#1#{} Mult when scored",
+                    "{s:0.15} {}",
+                    "Reduces the rank of each",
+                    "scoring card by {C:attention}1{} after scoring",
+                    "{s:0.15} {}",
+                    "Cards that cannot rank down are",
+                    "transformed into {C:attention}Worker Bee{} instead",
                 }
             },
 
@@ -2256,6 +2308,34 @@ return {
                 }
             },
         },
+        EGO_Gift = {
+            c_lobc_wisdom = {
+                name = "Wisdom",
+                text = {
+                    "Creates a",
+                    "{C:attention}playing card{}",
+                }
+            },
+            c_lobc_tt2 = {
+                name = "TT2 Protocol",
+                text = {
+                    "Sets {C:attention}Ante{} to next",
+                    "multiple of {C:attention}8{}, minus {C:attention}1{}",
+                    "Destroy {C:attention}#1#{} playing cards",
+                    "per {C:attention}Ante{} skipped"
+                }
+            }
+        },
+        Enhanced = {
+            m_lobc_worker_bee = {
+                name = "Worker Bee",
+                text = {
+                    "No rank or suit",
+                    "Cannot change",
+                    "enhancements"
+                }
+            }
+        },
         Blind = {
             -- Abnormalities
             bl_lobc_whitenight = {
@@ -2647,24 +2727,6 @@ return {
                 name = "GasHarpoon",
                 text = {
                     "Queequeg's Ego: #1#",
-                }
-            }
-        },
-        EGO_Gift = {
-            c_lobc_wisdom = {
-                name = "Wisdom",
-                text = {
-                    "Creates a",
-                    "{C:attention}playing card{}",
-                }
-            },
-            c_lobc_tt2 = {
-                name = "TT2 Protocol",
-                text = {
-                    "Sets {C:attention}Ante{} to next",
-                    "multiple of {C:attention}8{}, minus {C:attention}1{}",
-                    "Destroy {C:attention}#1#{} playing cards",
-                    "per {C:attention}Ante{} skipped"
                 }
             }
         },

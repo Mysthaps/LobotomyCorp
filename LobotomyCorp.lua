@@ -28,6 +28,7 @@ local joker_list = {
     "plague_doctor",
     "whitenight",
     "rudolta", -- Rudolta of the Sleigh
+    "queen_bee",
     "forsaken_murderer",
     "wellcheers", -- Opened Can of WellCheers
     "child_galaxy", -- Child of the Galaxy
@@ -146,6 +147,7 @@ local sound_list = {
     wolf_bite = "Wolf_Bite",
     wolf_out = "Wolf_EatOut",
     wolf_scratch = "Wolf_Scratch",
+    queen_bee = "QueenBee_Funga_01",
 
     evade = "what/evade",
     coin_fail = "what/coin_fail",
