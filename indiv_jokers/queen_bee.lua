@@ -1,6 +1,6 @@
 local joker = {
     name = "Queen Bee",
-    config = {extra = {mult = 2}}, rarity = 2, cost = 6,
+    config = {extra = {mult = 3}}, rarity = 2, cost = 6,
     pos = {x = 4, y = 2}, 
     blueprint_compat = true, 
     eternal_compat = true,
