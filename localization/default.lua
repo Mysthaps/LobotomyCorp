@@ -301,6 +301,13 @@ return {
                     "consider how to dispose of the manager.",
                 }
             },
+            und_j_lobc_skin_prophecy = {
+                name = "T-09-90",
+                text = {
+                    "Save us now and forevermore.",
+                    "The truth shall set us free.",
+                }
+            },
             und_j_lobc_shy_look = {
                 name = "O-01-92",
                 text = {
@@ -1326,8 +1333,8 @@ return {
                     "Whenever there are no {C:marked}Marked{} cards,",
                     "a random playing card becomes {C:marked}Marked{}",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
-                    "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
+                    "{C:purple}[Active Ability (Hand Available)]",
+                    "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{} in hand",
                     "Increases cost by {C:money}$#9#{} after use",
                     "{C:attention}(#7#/7){} ...",
                 }
@@ -1338,7 +1345,7 @@ return {
                     "If there is no {C:marked}Prey{}, a random",
                     "playing card becomes {C:marked}Marked{}",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{} in hand",
                     "Increases cost by {C:money}$#9#{} after use",
                     "{s:0.15} {}",
@@ -1368,7 +1375,7 @@ return {
                 text = {
                     "{C:marked}Marks{} {C:attention}F-02-58{}",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{}",
                     "Increases cost by {C:money}$#9#{} after use",
                     "{C:attention}(#7#/7){} ...",
@@ -1379,7 +1386,7 @@ return {
                 text = {
                     "{C:marked}Marks{} {C:attention}F-02-58{}",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
                     "Increases cost by {C:money}$#9#{} after use",
                     "{s:0.15} {}",
@@ -1415,7 +1422,7 @@ return {
                     "When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours{} a random Joker",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Returns the {C:devoured}devoured{} Joker",
                     "{C:attention}(#5#/6){} ...",
                 }
@@ -1426,7 +1433,7 @@ return {
                     "When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours{} a random Joker",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Returns the {C:devoured}devoured{} Joker",
                     "{s:0.15} {}",
                     "When {C:attention}Blind{} is defeated,",
@@ -1458,7 +1465,7 @@ return {
                     "When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours {C:attention}F-01-57",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Returns the {C:devoured}devoured{} Joker",
                     "{C:attention}(#5#/6){} ...",
                 }
@@ -1469,7 +1476,7 @@ return {
                     "When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours {C:attention}F-01-57",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Returns the {C:devoured}devoured{} Joker",
                     "{s:0.15} {}",
                     "When {C:attention}Blind{} is defeated,",
@@ -1809,7 +1816,7 @@ return {
             dis_j_lobc_giant_tree_sap_2 = {
                 name = "T-09-80",
                 text = {
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
                     "{C:attention}(#7#/5){} ...",
                     "{C:attention}(#8#/7){} ...",
@@ -1818,7 +1825,7 @@ return {
             dis_j_lobc_giant_tree_sap_3 = {
                 name = "T-09-80",
                 text = {
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
                     "{s:0.15} {}",
                     "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
@@ -1829,7 +1836,7 @@ return {
             j_lobc_giant_tree_sap = {
                 name = "Giant Tree Sap",
                 text = {
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
                     "{s:0.15} {}",
                     "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
@@ -1880,7 +1887,7 @@ return {
             dis_j_lobc_iron_maiden_2 = {
                 name = "T-09-85",
                 text = {
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
                     "this Abnormality gains {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
@@ -1892,7 +1899,7 @@ return {
             dis_j_lobc_iron_maiden_3 = {
                 name = "T-09-85",
                 text = {
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
                     "this Abnormality gains {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
@@ -1905,7 +1912,7 @@ return {
             j_lobc_iron_maiden = {
                 name = "We Can Change Anything",
                 text = {
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
                     "this Abnormality gains {C:chips}+#3#{} chips",
                     "{s:0.15} {}",
@@ -1941,10 +1948,9 @@ return {
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
-                    "Sell this Abnormality to give {C:mult}XMult{}",
-                    "and {C:money}money{} next hand based on",
-                    "{C:enchanted}illuminated{} lights, then resets lights",
+                    "{C:purple}[Active Ability (In Round)]",
+                    "Give {C:mult}XMult{} and {C:money}money{} next hand based",
+                    "on {C:enchanted}illuminated{} lights, then resets lights",
                     "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})",
                     "{C:attention}(#6#/6){} ...",
                 }
@@ -1955,7 +1961,7 @@ return {
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
                     "{s:0.15} {}",
-                    "{C:dark_edition}[Active Ability]",
+                    "{C:purple}[Active Ability (In Round)]",
                     "Give {C:mult}XMult{} and {C:money}money{} next hand based",
                     "on {C:enchanted}illuminated{} lights, then resets lights",
                     "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})",
@@ -2049,6 +2055,32 @@ return {
                     "{s:0.15} {}",
                     "After each hand, {C:red}[CENSORED]{} a random card",
                     "{C:inactive}(Joker, consumable or playing card)",
+                }
+            },
+
+            dis_j_lobc_skin_prophecy_1 = {
+                name = "T-09-90",
+                text = {
+                    "{C:attention}(#1#/2){} ...",
+                    "{C:attention}(#2#/4){} ...",
+                }
+            },
+            dis_j_lobc_skin_prophecy_2 = {
+                name = "T-09-90",
+                text = {
+                    "{C:purple}[Active Ability (In Shop)]",
+                    "{C:attention}Halves{} reroll cost this shop",
+                    "{C:inactive}(rounded down, 10 uses per shop)",
+                    "{C:attention}(#2#/4){} ...",
+                }
+            },
+            j_lobc_skin_prophecy = {
+                name = "Skin Prophecy",
+                text = {
+                    "{C:purple}[Active Ability (In Shop)]",
+                    "{C:attention}Halves{} reroll cost this shop",
+                    "{C:inactive}(rounded down, 10 uses per shop)",
+                    "{C:attention}Doubles{} reroll cost increase this shop",
                 }
             },
 
@@ -3218,6 +3250,7 @@ return {
             k_lobc_rank_sin = "Rank's Sin: ",
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
+            k_activated = "Activated!",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",

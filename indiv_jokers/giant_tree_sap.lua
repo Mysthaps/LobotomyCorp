@@ -4,7 +4,7 @@ local joker = {
         gain = 1, money = 6, chance = 0, inc = 15, cap = 60
     }}, rarity = 2, cost = 6,
     pos = {x = 2, y = 5}, 
-    blueprint_compat = true, 
+    blueprint_compat = false, 
     eternal_compat = true,
     perishable_compat = true,
     abno = true,

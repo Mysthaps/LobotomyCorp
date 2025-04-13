@@ -100,15 +100,6 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     end
 end
 
--- Remove Queen of Hatred's sell button
-local can_sell_cardref = Card.can_sell_card
-function Card.can_sell_card(self, context)
-    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
-        return false
-    end
-    return can_sell_cardref(self, context)
-end
-
 if JokerDisplay then
     JokerDisplay.Definitions.j_lobc_queen_of_hatred = {
         text = {

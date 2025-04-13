@@ -49,6 +49,7 @@ local joker_list = {
     "express_train", -- Express Train to Hell
     "scarecrow_searching", -- Scarecrow Searching for Wisdom
     "censored",
+    "skin_prophecy",
     "shy_look", -- Today's Shy Look
     "you_must_be_happy",
     "old_faith", -- Old Faith and Promise
@@ -964,7 +965,6 @@ end
 
 --=============== SKILLS ===============--
 
-G.P_CENTER_POOLS["SkillLobc"] = {}
 SMODS.SkillLobc = SMODS.Center:extend({
     pos = { x = 0, y = 0 },
     class_prefix = 'sk',
@@ -985,7 +985,13 @@ SMODS.SkillLobc = SMODS.Center:extend({
     set_card_type_badge = function(self, card, badges)
         badges = {}
     end,
-    no_mod_badges = true
+    no_mod_badges = true,
+    inject = function(self)
+		if not G.P_CENTER_POOLS[self.set] then
+			G.P_CENTER_POOLS[self.set] = {}
+		end
+		SMODS.Center.inject(self)
+	end,
 })
 
 local skill_list = {
@@ -1038,18 +1044,6 @@ function G.FUNCS.HUD_blind_debuff(e)
             e.UIBox:recalculate()
         end
     end
-end
-
--- Skill UI config
-local card_align_h_popupref = Card.align_h_popup
-function Card.align_h_popup(self)
-    local t = card_align_h_popupref(self)
-    if self.ability.set == "SkillLobc" then
-        t.offset.x = 0
-        t.offset.y = 0
-        t.type = "cr"
-    end
-    return t
 end
 
 --=============== JOKERS ===============--
@@ -1218,6 +1212,19 @@ function Card.generate_UIBox_ability_table(self, ...)
         end
     end
     return full_UI_table
+end
+
+-- Remove sell button
+local can_sell_cardref = Card.can_sell_card
+function Card.can_sell_card(self, context)
+    -- The Queen of Hatred
+    if self.ability and self.ability.extra and type(self.ability.extra) == 'table' and self.ability.extra.hysteria then
+        return false
+    end
+    if self.config.center.key == "j_lobc_skin_prophecy" and G.GAME.current_round.skin_prophecy_uses then
+        return false
+    end
+    return can_sell_cardref(self, context)
 end
 
 -- JokerDisplay text replacements
@@ -1598,6 +1605,11 @@ function Card.align_h_popup(self)
     if (self.config.center.abno and self.T.y < G.CARD_H*1.2) then
         ret.offset.y = focused_ui and 0.12 or 0.1
         ret.type = "bm"
+    end
+    if self.ability.set == "SkillLobc" then
+        t.offset.x = 0
+        t.offset.y = 0
+        t.type = "cr"
     end
     return ret
 end
@@ -1983,6 +1995,7 @@ function Card.update(self, dt)
             self:set_sprites(self.config.center)
         end
         self.config.center.discovered = (count >= self.config.center.discover_rounds)
+        self.config.center.alerted = self.config.center.discovered
     end
 
     card_updateref(self, dt)
@@ -2124,7 +2137,7 @@ G.FUNCS.lobc_discover_all = function(e)
     for k, v in pairs(SMODS.Centers) do
         if v.mod == current_mod then
             if G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] then
-                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds}
+                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key].count = v.discover_rounds
             else
                 G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds, order = v.order, wins = {}, losses = {}}
             end
