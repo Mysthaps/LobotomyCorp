@@ -3578,6 +3578,13 @@ return {
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
             k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
 
+            ---- The Silent Orchestra ----
+            k_lobc_silent_orchestra_1 = "Movement 1",
+            k_lobc_silent_orchestra_2 = "Movement 2",
+            k_lobc_silent_orchestra_3 = "Movement 3",
+            k_lobc_silent_orchestra_4 = "Movement 4",
+            k_lobc_silent_orchestra_5 = "Finale",
+
             ---- Malkuth ----
             k_lobc_malkuth_0_1 = "This is what you call a truly uncontrollable situation, manager.",
             k_lobc_malkuth_0_2 = "Everything's all jumbled up, messed up, flustered... hahaha...",

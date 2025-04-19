@@ -249,6 +249,7 @@ for _, v in ipairs(joker_list) do
     local joker = SMODS.load_file("indiv_jokers/" .. v .. ".lua")()
 
     --joker.discovered = true
+    joker.alerted = true
     joker.key = v
     joker.atlas = "LobotomyCorp_Jokers"
     --[[if not joker.yes_pool_flag then

@@ -39,6 +39,9 @@ for k, v in ipairs(mvm) do
         }},
         loc_vars = function(self, info_queue, card)
             return {vars = {card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.money}}
+        end,
+        draw_func = function(self, card)
+            
         end
     })
 end
@@ -46,7 +49,7 @@ end
 local joker = {
     name = "The Silent Orchestra",
     config = {extra = 1}, rarity = 3, cost = 9,
-    pos = {x = 7, y = 4}, 
+    pos = {x = 3, y = 1}, 
     blueprint_compat = false, 
     eternal_compat = true,
     perishable_compat = true,
@@ -56,22 +59,40 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.first_hand_drawn and not context.blueprint then
+    if context.setting_blind and not context.blueprint and not card.getting_sliced then
+        G.E_MANAGER:add_event(Event({func = function()
+            local _card = SMODS.create_card({
+                key = "mvm_lobc_"..mvm[card.ability.extra],
+                bypass_discovery_center = true
+            })
+            _card:set_base()
+            G.play:emplace(_card)
+            G.deck.config.card_limit = G.deck.config.card_limit + 1
+        return true end}))
+        draw_card(G.play, G.deck, 90, 'up', nil)
     end
+    
+    if context.end_of_round and context.main_eval and not context.blueprint then
+        for _, v in ipairs(G.deck.cards) do
+            if v.ability.set == "MovementLobc" then
+                v:start_dissolve()
+            end
+        end
+    end 
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.chips, card.ability.extra.mult, 
-                card.ability.extra.chips_gain, card.ability.extra.mult_gain,
-                card:check_rounds(3), card:check_rounds(6), card:check_rounds(9),
-                card.ability.extra.gain_scale
-            }
+    local vars = { 
+        localize{type='name_text', key="mvm_lobc_"..mvm[card.ability.extra], set='MovementLobc'},
+        localize{type='name_text', key="mvm_lobc_"..mvm[card.ability.extra == 5 and 1 or card.ability.extra + 1], set='MovementLobc'},
+        card:check_rounds(2), card:check_rounds(5), card:check_rounds(7)
+    }
     local desc_key = self.key
-    if card:check_rounds(3) < 3 then
+    if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(6) < 6 then
+    elseif card:check_rounds(5) < 5 then
         desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(9) < 9 then
+    elseif card:check_rounds(7) < 7 then
         desc_key = 'dis_'..desc_key..'_3'
     end
 
