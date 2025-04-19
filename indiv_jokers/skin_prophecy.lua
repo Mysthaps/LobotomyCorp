@@ -11,7 +11,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.ending_shop and not context.blueprint then
+    if context.ending_shop and not context.blueprint and G.GAME.current_round.skin_prophecy_uses then
         G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost * math.pow(2, G.GAME.current_round.skin_prophecy_uses)
         G.GAME.current_round.skin_prophecy_uses = nil
         card.ability.extra = 0
