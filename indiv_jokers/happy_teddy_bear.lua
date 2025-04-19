@@ -24,7 +24,7 @@ joker.calculate = function(self, card, context)
             else
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
                 update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'),chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
-                level_up_hand(context.blueprint_card or card, hand, nil, card.ability.extra.upgrade)
+                level_up_hand(context.blueprint_card or card, hand, nil, 1)
                 if not context.blueprint then 
                     card.ability.extra.upgrades[hand] = card.ability.extra.upgrades[hand] or 0
                     card.ability.extra.upgrades[hand] = card.ability.extra.upgrades[hand] + 1
@@ -41,7 +41,7 @@ end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local hand_var = card.ability.extra.last_hand_played and localize(card.ability.extra.last_hand_played, 'poker_hands') or localize('k_none')
-    local vars = { card.ability.extra.upgrade, hand_var, card:check_rounds(2), card:check_rounds(6) }
+    local vars = { "unused", hand_var, card:check_rounds(2), card:check_rounds(6) }
     local desc_key = self.key
     if card:check_rounds(2) < 2 then
         desc_key = 'dis_'..desc_key..'_1'

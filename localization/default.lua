@@ -653,16 +653,16 @@ return {
             dis_j_lobc_happy_teddy_bear_2 = {
                 name = "A Teddy Bear",
                 text = {
-                    "Upgrade level of played",
-                    "{C:attention}poker hand #1#{} time",
+                    "Upgrades level of played",
+                    "{C:attention}poker hand{} once",
                     "{C:attention}(#4#/6){} ..."
                 }
             },
             j_lobc_happy_teddy_bear = {
                 name = "Happy Teddy Bear",
                 text = {
-                    "Upgrade level of played",
-                    "{C:attention}poker hand #1#{} time",
+                    "Upgrades level of played",
+                    "{C:attention}poker hand{} once",
                     "{s:0.15} {}",
                     "If {C:attention}consecutive{} hands are",
                     "the same {C:attention}poker hand{},",
