@@ -82,6 +82,13 @@ return {
                     "\"{C:red}Manager{}\".",
                 }
             },
+            und_j_lobc_silent_orchestra = {
+                name = "T-01-31",
+                text = {
+                    "From break and ruin,",
+                    "the most beautiful performance begins.",
+                }
+            },
             und_j_lobc_big_bird = {
                 name = "O-02-40",
                 text = {
@@ -872,6 +879,48 @@ return {
                     "take its skin if this Abnormality",
                     "is adjacent to one",
                     "{C:inactive}(once per round)"
+                }
+            },
+
+            dis_j_lobc_silent_orchestra_1 = {
+                name = "O-06-20",
+                text = {
+                    "{C:attention}(#3#/2){} ...",
+                    "{C:attention}(#4#/5){} ...",
+                    "{C:attention}(#5#/7){} ..."
+                }
+            },
+            dis_j_lobc_silent_orchestra_2 = {
+                name = "O-06-20",
+                text = {
+                    "When round starts, shuffles",
+                    "{C:attention}#1#{} into the deck",
+                    "{C:attention}(#4#/5){} ...",
+                    "{C:attention}(#5#/7){} ..."
+                }
+            },
+            dis_j_lobc_silent_orchestra_3 = {
+                name = "O-06-20",
+                text = {
+                    "When round starts, shuffles",
+                    "{C:attention}#1#{} into the deck",
+                    "{s:0.15} {}",
+                    "When {C:attention}#1#{} is drawn,",
+                    "{C:attention}#2#{} is shuffled next Blind",
+                    "{C:attention}(#5#/7){} ..."
+                }
+            },
+            j_lobc_silent_orchestra = {
+                name = "The Silent Orchestra",
+                text = {
+                    "When round starts, shuffles",
+                    "{C:attention}#1#{} into the deck",
+                    "{s:0.15} {}",
+                    "When {C:attention}#1#{} is drawn,",
+                    "{C:attention}#2#{} is shuffled next Blind",
+                    "{s:0.15} {}",
+                    "When round ends, or when this Abnormality",
+                    "is removed, removes all {C:attention}Movements",
                 }
             },
 
@@ -3158,6 +3207,53 @@ return {
                     "Repeat effect for every {C:attention}10 {C:o_violet}Queequeg's Ego"
                 }
             },
+        },
+        MovementLobc = {
+            mvm_lobc_first = {
+                name = "The First Movement",
+                text = {
+                    "When drawn, {C:red}destroys{} a random playing card,",
+                    "then permanently gives all playing cards",
+                    "{C:chips}+#1#{} chips",
+                    "{S:1.1,C:red,E:2}self-destructs{}"
+                }
+            },
+            mvm_lobc_second = {
+                name = "The Second Movement",
+                text = {
+                    "When drawn, permanently {C:red}debuffs{} two playing cards,",
+                    "then permanently gives all playing cards",
+                    "{C:chips}+#1#{} chips and {C:mult}+#2#{} Mult",
+                    "{S:1.1,C:red,E:2}self-destructs{}"
+                }
+            },
+            mvm_lobc_third = {
+                name = "The Third Movement",
+                text = {
+                    "When drawn, randomizes the rank and suit of three",
+                    "playing cards, then permanently gives all playing cards",
+                    "{C:chips}+#1#{} chips, {C:mult}+#2#{} Mult and {X:mult,C:white} X#3# {} Mult",
+                    "{S:1.1,C:red,E:2}self-destructs{}"
+                }
+            },
+            mvm_lobc_fourth = {
+                name = "The Fourth Movement",
+                text = {
+                    "When drawn, removes the rank and suit of four",
+                    "playing cards, then permanently gives all playing cards",
+                    "{C:chips}+#1#{} chips, {C:mult}+#2#{} Mult, {X:mult,C:white} X#3# {} Mult,",
+                    "and they give {C:money}$#4#{} when played",
+                    "{S:1.1,C:red,E:2}self-destructs{}"
+                }
+            },
+            mvm_lobc_finale = {
+                name = "Finale",
+                text = {
+                    "When drawn, removes all permanent bonuses",
+                    "given by {C:attention}Movements",
+                    "{S:1.1,C:red,E:2}self-destructs{}"
+                }
+            }
         }
     },
     misc = {

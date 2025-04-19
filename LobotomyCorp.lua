@@ -22,6 +22,7 @@ local joker_list = {
     "nameless_fetus",
     "wall_gazer", -- The Lady Facing the Wall
     --"nothing_there",
+    --"silent_orchestra",
     "big_bird",
     "all_around_helper",
     "spider_bud",
@@ -60,6 +61,11 @@ local joker_list = {
     --- Fanmade / Mod Crossover Abnos
     "jolliest_jester",
 }
+--[[SMODS.add_card({
+    key = "mvm_lobc_fourth",
+    set = "MovementLobc",
+    area = G.jokers
+})]]
 local blind_list = {
     -- Abnormalities
     "whitenight",
@@ -1607,9 +1613,9 @@ function Card.align_h_popup(self)
         ret.type = "bm"
     end
     if self.ability.set == "SkillLobc" then
-        t.offset.x = 0
-        t.offset.y = 0
-        t.type = "cr"
+        ret.offset.x = 0
+        ret.offset.y = 0
+        ret.type = "cr"
     end
     return ret
 end
@@ -2358,6 +2364,12 @@ SMODS.Atlas({
     path = "Skills.png",
     px = 196,
     py = 196
+})
+SMODS.Atlas({
+    key = "LobotomyCorp_movement",
+    path = "LobotomyCorp_movement.png",
+    px = 71,
+    py = 95
 })
 
 -- ConsumableType (guh)
