@@ -1363,6 +1363,7 @@ return {
                 name = "F-01-57",
                 text = {
                     "{C:attention}(#5#/1){} ...",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "{C:attention}(#6#/3){} ...",
                     "{C:attention}(#7#/7){} ...",
                 }
@@ -1372,6 +1373,8 @@ return {
                 text = {
                     "Whenever there are no {C:marked}Marked{} cards,",
                     "a random playing card becomes {C:marked}Marked{}",
+                    "{s:0.15} {}",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "{C:attention}(#6#/3){} ...",
                     "{C:attention}(#7#/7){} ...",
                 }
@@ -1407,6 +1410,7 @@ return {
                 name = "F-01-57",
                 text = {
                     "{C:attention}(#5#/1){} ...",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "{C:attention}(#6#/3){} ...",
                     "{C:attention}(#7#/7){} ...",
                 }
@@ -1415,6 +1419,8 @@ return {
                 name = "F-01-57",
                 text = {
                     "{C:marked}Marks{} {C:attention}F-02-58{}",
+                    "{s:0.15} {}",
+                    "{C:purple}[Active Ability (Hand Available)]",
                     "{C:attention}(#6#/3){} ...",
                     "{C:attention}(#7#/7){} ...",
                 }
@@ -1452,6 +1458,7 @@ return {
                 name = "F-02-58",
                 text = {
                     "{C:attention}(#3#/1){} ...",
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#4#/3){} ...",
                     "{C:attention}(#5#/6){} ...",
                 }
@@ -1461,6 +1468,8 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours{} a random Joker",
+                    "{s:0.15} {}",
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#4#/3){} ...",
                     "{C:attention}(#5#/6){} ...",
                 }
@@ -1495,6 +1504,7 @@ return {
                 name = "F-02-58",
                 text = {
                     "{C:attention}(#3#/1){} ...",
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#4#/3){} ...",
                     "{C:attention}(#5#/6){} ...",
                 }
@@ -1504,6 +1514,8 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours {C:attention}F-01-57",
+                    "{s:0.15} {}",
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#4#/3){} ...",
                     "{C:attention}(#5#/6){} ...",
                 }
@@ -1857,6 +1869,7 @@ return {
             dis_j_lobc_giant_tree_sap_1 = {
                 name = "T-09-80",
                 text = {
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#6#/3){} ...",
                     "{C:attention}(#7#/5){} ...",
                     "{C:attention}(#8#/7){} ...",
@@ -1928,6 +1941,7 @@ return {
             dis_j_lobc_iron_maiden_1 = {
                 name = "T-09-85",
                 text = {
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#7#/1){} ...",
                     "{C:attention}(#8#/3){} ...",
                     "{C:attention}(#9#/5){} ...",
@@ -1978,6 +1992,7 @@ return {
                 name = "T-09-86",
                 text = {
                     "{C:attention}(#4#/2){} ...",
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/6){} ...",
                 }
@@ -1987,6 +2002,8 @@ return {
                 text = {
                     "Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}",
+                    "{s:0.15} {}",
+                    "{C:purple}[Active Ability (In Round)]",
                     "{C:attention}(#5#/4){} ...",
                     "{C:attention}(#6#/6){} ...",
                 }
@@ -2110,6 +2127,7 @@ return {
             dis_j_lobc_skin_prophecy_1 = {
                 name = "T-09-90",
                 text = {
+                    "{C:purple}[Active Ability (In Shop)]",
                     "{C:attention}(#1#/2){} ...",
                     "{C:attention}(#2#/4){} ...",
                 }
