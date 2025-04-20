@@ -423,7 +423,7 @@ blind.drawn_to_hand = function(self)
 end
 
 blind.lobc_loc_txt = function(self)
-    local key = "bl_lobc_red_mist_effect_"..G.GAME.blind.lobc_current_effect
+    local key = G.GAME.blind.lobc_current_effect and "bl_lobc_red_mist_effect_"..G.GAME.blind.lobc_current_effect
     -- [22], [32] Debuff all [highest owned rarity] Jokers
     if G.GAME.blind.lobc_current_effect == 22 or G.GAME.blind.lobc_current_effect == 32 then
         local highest = 1
