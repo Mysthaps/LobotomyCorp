@@ -18,7 +18,7 @@ local function mark_card()
         if selected_card.config.center.key == "j_lobc_big_bad_wolf" then
             for _, v in ipairs(G.playing_cards) do
                 v.ability.little_red_marked = nil
-                v.children.lobc_prey:remove()
+                if v.children.lobc_prey then v.children.lobc_prey:remove(); v.children.lobc_prey = nil end
             end
         end
         selected_card.ability.little_red_marked = true
