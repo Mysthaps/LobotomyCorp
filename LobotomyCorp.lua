@@ -61,11 +61,6 @@ local joker_list = {
     --- Fanmade / Mod Crossover Abnos
     "jolliest_jester",
 }
---[[SMODS.add_card({
-    key = "mvm_lobc_fourth",
-    set = "MovementLobc",
-    area = G.jokers
-})]]
 local blind_list = {
     -- Abnormalities
     "whitenight",
@@ -1450,6 +1445,9 @@ function ease_background_colour_blind(state, blind_override)
             return
         elseif G.GAME.blind.config.blind.key == "bl_lobc_what_blind" then
             ease_background_colour({new_colour = darken(HEX("FCDBCB"), 0.1), special_colour = darken(HEX("FCDBCB"), 0.3), contrast = 0.5})
+            return
+        elseif G.GAME.blind.config.blind.time and (G.GAME.blind.config.blind.time == "dawn" or G.GAME.blind.config.blind.time == "noon") and G.GAME.blind.config.blind.color ~= "base" then
+            ease_background_colour{new_colour = lighten(mix_colours(G.GAME.blind.config.blind.boss_colour, G.C.BLACK, 0.3), 0.1), special_colour = G.GAME.blind.config.blind.boss_colour, contrast = 2}
             return
         end
     end
