@@ -1005,20 +1005,18 @@ return {
             dis_j_lobc_spider_bud_2 = {
                 name = "T-02-43",
                 text = {
-                    "Draw {C:attention}#1#{} more card(s)",
-                    "on {C:blue}play{} or {C:red}discard{}",
+                    "{C:attention}+#1#{} hand size",
                     "{C:attention}(#4#/5){} ...",
                 }
             },
             j_lobc_spider_bud = {
                 name = "Spider Bud",
                 text = {
-                    "Draw {C:attention}#1#{} more card(s)",
-                    "on {C:blue}play{} or {C:red}discard{}",
+                    "{C:attention}+#1#{} hand size",
                     "{s:0.15} {}",
-                    "{C:red}Destroys{} the first card each {C:red}discard{}",
-                    "to increase cards drawn by {C:attention}#2#{},",
-                    "resets when {C:attention}Blind{} is defeated",
+                    "{C:red}Destroys{} the first {C:red}discarded{} card",
+                    "each round for {C:attention}+#2#{} hand size,",
+                    "resets when {C:attention}Boss Blind{} is defeated",
                 }
             },
 

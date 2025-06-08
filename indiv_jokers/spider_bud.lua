@@ -12,30 +12,39 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.discard and not context.blueprint and context.other_card and context.other_card == context.full_hand[1] then
-        card.ability.extra.cards = card.ability.extra.cards + card.ability.extra.card_gain
-        if card.ability.extra.cards >= 5 then
-            check_for_unlock({type = "lobc_red_eyes"})
+        if card.ability.extra.first then
+            card.ability.extra.first = false
+            card.ability.extra.cards = card.ability.extra.cards + card.ability.extra.card_gain
+            G.hand:change_size(card.ability.extra.card_gain)
+            if card.ability.extra.cards >= 5 then
+                check_for_unlock({type = "lobc_red_eyes"})
+            end
+            card.ability.extra.counter = card.ability.extra.counter + 1
+            if card.ability.extra.counter >= 20 then
+                check_for_unlock({type = "lobc_red_eyes_open"})
+            end
+            return {remove = true}
         end
-        card.ability.extra.counter = card.ability.extra.counter + 1
-        if card.ability.extra.counter >= 20 then
-            check_for_unlock({type = "lobc_red_eyes_open"})
-        end
-        return {remove = true}
     end
 
     if context.end_of_round and not context.blueprint and context.main_eval then
-        card.ability.extra.cards = 0
+        if G.GAME.blind.boss then 
+            G.hand:change_size(-card.ability.extra.cards)
+            card.ability.extra.cards = 0 
+            return {
+                message = localize('k_reset')
+            }
+        end
+        card.ability.extra.first = true
     end
 end
 
-local draw_from_deck_to_handref = G.FUNCS.draw_from_deck_to_hand
-function G.FUNCS.draw_from_deck_to_hand(self, e)
-	draw_from_deck_to_handref(self, e)
-	for _, v in ipairs(SMODS.find_card("j_lobc_spider_bud")) do
-        for i = 1, v.ability.extra.cards do
-            draw_card(G.deck, G.hand, 100, 'up', true)
-        end
-    end
+joker.add_to_deck = function(self, card, from_blind)
+    G.hand:change_size(card.ability.extra.cards)
+end
+
+joker.remove_from_deck = function(self, card, from_blind)
+    G.hand:change_size(-card.ability.extra.cards)
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
