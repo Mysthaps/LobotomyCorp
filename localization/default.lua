@@ -511,9 +511,10 @@ return {
             lobc_active_ability = {
                 name = "Active Ability",
                 text = {
-                    "This Abnormality's effect",
-                    "can be manually activated",
-                    "via the {C:red}USE{} button"
+                    "One of this Abnormality's",
+                    "effects can be manually",
+                    "activated by selecting it",
+                    "then pressing {C:red}USE{}"
                 }
             },
             lobc_sin = {

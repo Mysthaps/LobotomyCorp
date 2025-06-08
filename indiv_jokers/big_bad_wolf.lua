@@ -176,6 +176,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
         vars[1] = vars[1] * 3
         desc_key = desc_key.."_alt"
     end
+    info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
 
     full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     if not self.discovered and card.area ~= G.jokers then
