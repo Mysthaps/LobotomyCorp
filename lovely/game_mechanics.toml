@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Game ends at below 0 hands instead of 1
+# Game ends at below 0 hands instead of 1 when We Can Change Anything is active
 [[patches]]
 [patches.pattern]
 target = "game.lua"

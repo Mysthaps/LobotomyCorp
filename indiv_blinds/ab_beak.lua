@@ -5,7 +5,10 @@ local blind = {
     dollars = 8, 
     mult = 1, 
     vars = {}, 
-    debuff = {},
+    debuff = {
+        akyrs_cannot_be_disabled = true,
+        akyrs_blind_difficulty = "expert",
+    },
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('C8831B'),
     passives = {

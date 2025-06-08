@@ -4,7 +4,9 @@ local blind = {
     dollars = 8, 
     mult = 66.6, 
     vars = {}, 
-    debuff = {},
+    debuff = {
+        akyrs_blind_difficulty = "expert",
+    },
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('D41C25'),
     passives = {
@@ -64,6 +66,7 @@ blind.disable = function(self)
         })
         G.GAME.blind:wiggle()
     end
+    G.GAME.blind.passives = {"psv_lobc_suppression"}
 end
 
 blind.defeat = function(self)

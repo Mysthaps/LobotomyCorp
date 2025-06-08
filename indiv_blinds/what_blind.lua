@@ -24,7 +24,11 @@ local blind = {
     mult = 4, 
     phases = 3,
     vars = {}, 
-    debuff = {},
+    debuff = {
+        akyrs_cannot_be_disabled = true,
+        akyrs_blind_difficulty = "expert",
+        akyrs_is_postwin_blind = true,
+    },
     boss = {showdown = true, min = 10, max = 10},
     boss_colour = HEX('C4C4C4'),
     passives = {

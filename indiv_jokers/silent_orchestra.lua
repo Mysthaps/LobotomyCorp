@@ -41,7 +41,9 @@ for k, v in ipairs(mvm) do
             return {vars = {card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.money}}
         end,
         draw_func = function(self, card)
-            
+            if card.config.center.key == "mvm_lobc_first" then
+
+            end
         end
     })
 end
@@ -108,4 +110,4 @@ end
 
 return joker
 
--- https://www.youtube.com/watch?v=LvSuEqpq_TM&lc=Ugx2QAWifMsenWv297l4AaABAg
+-- https://www.youtube.com/watch?v=LvSuEqpq_TM
