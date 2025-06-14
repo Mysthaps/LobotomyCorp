@@ -120,4 +120,4 @@ end
 
 return joker
 
--- m
+-- shoutouts to Wrath-drenched Rose for "When defeated by a direct hit, return the damage to the attacker and inflict 5 Burn"
