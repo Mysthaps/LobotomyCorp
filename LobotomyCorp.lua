@@ -60,7 +60,7 @@ local joker_list = {
     "youre_bald",
     --- Fanmade / Mod Crossover Abnos
     "jolliest_jester",
-    --"sign_of_roses"
+    "sign_of_roses"
 }
 local blind_list = {
     -- Abnormalities

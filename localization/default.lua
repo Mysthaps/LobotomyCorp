@@ -1145,8 +1145,8 @@ return {
             j_lobc_sign_of_roses = {
                 name = "Sign of Roses",
                 text = {
-                    {"Adds #1# round to held {C:colourcard}Colour Cards",
-                    "for each unique suit in played hand"},
+                    {"Adds {C:attention}#1#{} round to held {C:colourcard}Colour Cards{} for",
+                    "every {C:attention}2{} unique suits in played hand"},
                     {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
                     "a playing card of the same suit",
                     "has already been scored this hand"}
@@ -1155,8 +1155,8 @@ return {
             j_lobc_sign_of_roses_alt = {
                 name = "Sign of Roses",
                 text = {
-                    {"This Abnormality gains {X:mult,C:white} X#3# {} Mult",
-                    "for each unique suit in played hand",
+                    {"This Abnormality gains {X:mult,C:white} X#3# {} Mult for",
+                    "every {C:attention}2{} unique suits in played hand",
                     "{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)"},
                     {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
                     "a playing card of the same suit",
@@ -2565,7 +2565,8 @@ return {
         },
         v_dictionary = {
             lobc_sp = "Your SP - #1# (#3#%) #2# - Blind SP",
-            lobc_shield = "Shield Value: #1#"
+            lobc_shield = "Shield Value: #1#",
+            lobc_round = "+#1# Round#2#",
         }
     },
 }
