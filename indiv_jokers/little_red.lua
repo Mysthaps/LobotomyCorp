@@ -41,6 +41,7 @@ local joker = {
     abno = true,
     risk = "waw",
     discover_rounds = {1, 3, 7},
+    discover_override = {nil, "lobc_obs_active_2", nil}
 }
 
 joker.calculate = function(self, card, context)
