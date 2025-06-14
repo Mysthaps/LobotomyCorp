@@ -8,7 +8,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "he",
-    discover_rounds = 8,
+    discover_rounds = {2, 4, 8},
 }
 
 joker.calculate = function(self, card, context)
@@ -64,27 +64,9 @@ joker.set_ability = function(self, card, initial, delay_sprites)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+joker.loc_vars = function(self, info_queue, card)
     local hand_var = G.GAME and localize(G.GAME.nameless_hand_type, 'poker_hands') or localize("High Card", 'poker_hands')
-    local vars = { hand_var, card.ability.extra.x_mult, card.ability.extra.x_mult_penalty, 
-        card:check_rounds(2), card:check_rounds(4), card:check_rounds(8) }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(4) < 4 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(8) < 8 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+    return {vars = {hand_var, card.ability.extra.x_mult, card.ability.extra.x_mult_penalty}}
 end
 
 if JokerDisplay then

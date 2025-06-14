@@ -12,7 +12,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "aleph",
-    discover_rounds = 9,
+    discover_rounds = {3, 6, 9},
 }
 
 joker.calculate = function(self, card, context)
@@ -61,29 +61,13 @@ joker.calculate = function(self, card, context)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.chips, card.ability.extra.mult, 
-                card.ability.extra.chips_gain, card.ability.extra.mult_gain,
-                card:check_rounds(3), card:check_rounds(6), card:check_rounds(9),
-                card.ability.extra.gain_scale
-            }
-    local desc_key = self.key
-    if card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(6) < 6 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(9) < 9 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+joker.loc_vars = function(self, info_queue, card)
+    return {vars = {
+        card.ability.extra.chips, card.ability.extra.mult, 
+        card.ability.extra.chips_gain, card.ability.extra.mult_gain,
+        "unused", "unused", "unused",
+        card.ability.extra.gain_scale
+    }}
 end
 
 if JokerDisplay then

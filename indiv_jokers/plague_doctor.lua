@@ -7,7 +7,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "zayin",
-    discover_rounds = 4,
+    discover_rounds = {2, 4, 4},
     no_pool_flag = "plague_doctor_breach",
 }
 
@@ -138,31 +138,15 @@ joker.add_to_deck = function(self, card, from_debuff)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card:check_rounds(2), card:check_rounds(4), card:check_rounds(666), card.ability.extra.apostles }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    else
-        info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
-        if card:check_rounds(4) < 4 then
-            desc_key = 'dis_'..desc_key..'_2'
-        else
-            local count = lobc_get_usage_count("j_lobc_whitenight")
-            if count == 0 then
-                desc_key = 'dis_'..desc_key..'_3'
-            end
-        end
+joker.discover_override = function(self, level, card)
+    if level == 3 and (not G.P_BLINDS["bl_lobc_whitenight"].discovered or card:check_rounds() < 4) then
+        return "lobc_obs_plague_doctor_3"
     end
+end
 
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'lobc_plague_doctor_debuffed', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+joker.loc_vars = function(self, info_queue, card)
+    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'} end
+    return {vars = {card.ability.extra.mult, card.ability.extra.apostles}}
 end
 
 if JokerDisplay then

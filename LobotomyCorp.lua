@@ -30,8 +30,8 @@ local joker_list = {
     "whitenight",
     "rudolta", -- Rudolta of the Sleigh
     "queen_bee",
-    "forsaken_murderer",
     "wellcheers", -- Opened Can of WellCheers
+    "forsaken_murderer",
     "child_galaxy", -- Child of the Galaxy
     "punishing_bird",
     "little_red", -- Little Red Riding Hooded Mercenary
@@ -39,7 +39,7 @@ local joker_list = {
     "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",
-    "price_of_silence",
+    --"price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
     "mosb", -- The Mountain of Smiling Bodies
@@ -60,6 +60,7 @@ local joker_list = {
     "youre_bald",
     --- Fanmade / Mod Crossover Abnos
     "jolliest_jester",
+    --"sign_of_roses"
 }
 local blind_list = {
     -- Abnormalities
@@ -240,6 +241,8 @@ function loc_colour(_c, _default)
 end
 
 -- Load all jokers
+SMODS.Joker.discover_override = nil
+SMODS.Joker.discover_rounds = nil
 for _, v in ipairs(joker_list) do
     local joker = SMODS.load_file("indiv_jokers/" .. v .. ".lua")()
 
@@ -267,11 +270,78 @@ for _, v in ipairs(joker_list) do
         end
     end
 
+    -- Custom UI for Observation Levels
+    joker_obj.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+        if not card then
+            card = self:create_fake_card()
+        end
+        local res = {}
+        if self.loc_vars and type(self.loc_vars) == 'function' then
+            res = self:loc_vars(info_queue, card) or {}
+        end
+        res.vars = res.vars or {}
+        local name = false
+        
+        if specific_vars and specific_vars.debuffed then
+            if self.key == "j_lobc_plague_doctor" then
+                localize{type = 'other', key = 'lobc_plague_doctor_debuffed', nodes = desc_nodes}
+            else
+                localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
+            end
+        else
+            localize{type = 'descriptions', key = res.key or self.key, set = self.set, nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
+        end
+
+        -- Fill undiscovered description
+        if not self.discovered and not (card.area == G.jokers or card.area == G.consumeables) then
+            localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
+        end
+
+        -- For Undiscovered Abnormalities
+        for k, v in ipairs(self.discover_rounds) do
+            local override
+            if self.discover_override then
+                if type(self.discover_override) == "table" then
+                    override = self.discover_override[k]
+                elseif type(self.discover_override) == "function" then
+                    override = self:discover_override(k, card)
+                end
+            end
+            if card:check_rounds() < v then
+                if card.area == G.jokers or card.area == G.consumeables then
+                    -- First level is in desc_nodes
+                    if k == 1 then
+                        full_UI_table.main = {}
+                        localize{type = 'descriptions', key = (override or "lobc_obs_"..k), set = "Other", nodes = full_UI_table.main, vars = {card:check_rounds(), v}}
+                        full_UI_table.main.main_box_flag = true
+                    else
+                    -- The rest are in AUT.multi_box
+                        full_UI_table.multi_box[k-1] = {}
+                        localize{type = 'descriptions', key = (override or "lobc_obs_"..k), set = "Other", nodes = full_UI_table.multi_box[k-1], vars = {card:check_rounds(), v}}
+                    end
+                end
+            end
+            -- If the Abno has a custom name for early Observation Levels
+            if not self.discovered and card:check_rounds() >= v and G.localization.descriptions.Joker[self.key.."_name_"..k] then
+                full_UI_table.name = localize{type = 'name', key = self.key.."_name_"..k, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+                name = true
+            end
+        end
+        -- No custom names available, fill name with Classification Code from undiscovered description
+        if not self.discovered then
+            if not name then
+                full_UI_table.name = localize{type = 'name', key = "und_"..self.key, set = "Other", name_nodes = {}, vars = specific_vars or {}}
+            end
+        else
+            full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+        end
+    end
+
     if not joker.set_sprites then
         joker_obj.set_sprites = function(self, card, front)
             card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
             local count = lobc_get_usage_count(card.config.center_key)
-            if count < card.config.center.discover_rounds and not config.show_art_undiscovered then
+            if count < card.config.center.discover_rounds[#card.config.center.discover_rounds] and not config.show_art_undiscovered then
                 card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
             end
             card.children.center:set_sprite_pos(card.config.center.pos)
@@ -557,9 +627,10 @@ function lobc_get_usage_count(key)
 end
 
 -- Check rounds until observation unlock
-function Card:check_rounds(comp)
-    local val = lobc_get_usage_count(self.config.center_key)
-    return math.min(val, comp)
+function Card:check_rounds()
+    --local val = lobc_get_usage_count(self.config.center_key)
+    --return math.min(val, comp)
+    return lobc_get_usage_count(self.config.center_key)
 end
 
 -- Make Abnos breach
@@ -2026,13 +2097,14 @@ local card_updateref = Card.update
 function Card.update(self, dt)
     -- Check if enough rounds have passed, should be saving
     if self.config.center.abno then
+        local rounds = self.config.center.discover_rounds[#self.config.center.discover_rounds]
         local count = lobc_get_usage_count(self.config.center_key)
-        if config.discover_all and count < self.config.center.discover_rounds then
-            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = {count = self.config.center.discover_rounds or 0}
+        if config.discover_all and count < rounds then
+            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = {count = rounds or 0}
             self.config.center.discovered = true
             self:set_sprites(self.config.center)
         end
-        self.config.center.discovered = (count >= self.config.center.discover_rounds)
+        self.config.center.discovered = (count >= rounds)
         self.config.center.alerted = self.config.center.discovered
     end
 
@@ -2045,7 +2117,7 @@ function set_joker_usage()
     set_joker_usageref()
     for k, v in pairs(G.jokers.cards) do
         if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno then
-            if lobc_get_usage_count(v.config.center_key) >= v.config.center.discover_rounds then
+            if lobc_get_usage_count(v.config.center_key) >= v.config.center.discover_rounds[#v.config.center.discover_rounds] then
                 if not v.config.center.discovered then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
                         play_sound('card1')
@@ -2194,11 +2266,11 @@ end
 
 G.FUNCS.lobc_discover_all = function(e)
     for k, v in pairs(SMODS.Centers) do
-        if v.mod == current_mod then
+        if v.mod == current_mod and v.discover_rounds and type(v.discover_rounds) == "table" then
             if G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] then
-                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key].count = v.discover_rounds
+                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key].count = v.discover_rounds[#v.discover_rounds]
             else
-                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds, order = v.order, wins = {}, losses = {}}
+                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds[#v.discover_rounds], order = v.order, wins = {}, losses = {}}
             end
             v.discovered = true
             v.alerted = true
@@ -2235,9 +2307,9 @@ SMODS.current_mod.config_tab = function()
             }},
         }},
         {n = G.UIT.R, config = {align = "tm", padding = 0.1}, nodes = {
-            {n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_discover_all'}, nodes={
+            --[[{n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_discover_all'}, nodes={
                 {n=G.UIT.T, config={text = localize('b_lobc_discover_all'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
-            }},
+            }},]]--
             {n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_reset_achievements'}, nodes={
                 {n=G.UIT.T, config={text = localize('b_lobc_reset_ach'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
             }},

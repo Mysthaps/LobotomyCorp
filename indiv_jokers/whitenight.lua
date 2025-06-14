@@ -7,7 +7,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "aleph",
-    discover_rounds = 3,
+    discover_rounds = {1, 3},
     yes_pool_flag = "whitenight_defeated",
     no_pool_flag = "whitenight_confessed",
 }
@@ -97,25 +97,9 @@ joker.remove_from_deck = function(self, card, from_debuff)
     G.jokers.config.card_limit = G.jokers.config.card_limit - 1
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card.ability.extra.retriggers, card:check_rounds(3) }
-    local desc_key = self.key
-    local count = lobc_get_usage_count("j_lobc_plague_doctor")
-    if count == 0 then
-        desc_key = 'dis_'..desc_key..'_1'
-    else
-        info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'}
-        if card:check_rounds(3) < 3 then
-            desc_key = 'dis_'..desc_key..'_2'
-        end
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+joker.loc_vars = function(self, info_queue, card)
+    if lobc_get_usage_count("j_lobc_plague_doctor") > 0 then info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'} end
+    return {vars = {card.ability.extra.mult, card.ability.extra.retriggers}}
 end
 
 if JokerDisplay then

@@ -7,7 +7,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "zayin",
-    discover_rounds = 2,
+    discover_rounds = {2, 2},
     no_pool_flag = "plague_doctor_breach",
 }
 
@@ -20,25 +20,14 @@ joker.calculate = function(self, card, context)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card:check_rounds(2), card:check_rounds(666) }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif not G.P_BLINDS["bl_lobc_whitenight"].discovered then
-        desc_key = 'dis_'..desc_key..'_2'
+joker.discover_override = function(self, level, card)
+    if level == 2 and (not G.P_BLINDS["bl_lobc_whitenight"].discovered or card:check_rounds() < 2) then
+        return "lobc_obs_one_sin_2"
     end
+end
 
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+joker.loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
 end
 
 -- Modified from OppositeWolf770's implementation

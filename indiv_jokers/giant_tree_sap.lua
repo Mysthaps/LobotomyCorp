@@ -9,7 +9,8 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "he",
-    discover_rounds = 7,
+    discover_rounds = {3, 5, 7},
+    discover_override = {"lobc_obs_active_1", nil, nil}
 }
 
 joker.lobc_active = function(self, card)
@@ -26,6 +27,14 @@ end
 
 joker.lobc_can_use_active = function(self, card)
     return G.STATE == G.STATES.SELECTING_HAND
+end
+
+joker.loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
+    return {vars = {
+        card.ability.extra.gain, card.ability.extra.money, 
+        card.ability.extra.chance, card.ability.extra.inc, card.ability.extra.cap
+    }}
 end
 
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
@@ -50,7 +59,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
+        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars, AUT = full_UI_table}
     end
 end
 

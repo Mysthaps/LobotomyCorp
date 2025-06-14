@@ -9,7 +9,8 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "waw",
-    discover_rounds = 6,
+    discover_rounds = {1, 3, 6},
+    discover_override = {nil, "lobc_obs_active_2", nil}
 }
 
 local function create_cardarea(card)
@@ -157,39 +158,15 @@ function Card.load(self, cardTable, other_card)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.chips_gain, card.ability.extra.chips, 
-                card:check_rounds(1), card:check_rounds(3), card:check_rounds(6),
-            }
-    local desc_key = self.key
-    if card:check_rounds(1) < 1 then
-        desc_key = 'dis_'..desc_key..'_1'
-    else 
-        info_queue[#info_queue+1] = {key = 'lobc_devoured', set = 'Other'}
-        if card:check_rounds(3) < 3 then
-            desc_key = 'dis_'..desc_key..'_2'
-        elseif card:check_rounds(6) < 6 then
-            desc_key = 'dis_'..desc_key..'_3'
-        end
-    end
-    if next(SMODS.find_card("j_lobc_little_red")) or (card.children.lobc_devoured and card.children.lobc_devoured.cards[1] and card.children.lobc_devoured.cards[1].config.center.key == "j_lobc_little_red") then
-        vars[1] = vars[1] * 3
-        desc_key = desc_key.."_alt"
-    end
+joker.loc_vars = function(self, info_queue, card)
+    if card:check_rounds() >= 1 then info_queue[#info_queue+1] = {key = 'lobc_devoured', set = 'Other'} end
     info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+    local lr = next(SMODS.find_card("j_lobc_little_red")) or (card.children.lobc_devoured and card.children.lobc_devoured.cards[1] and card.children.lobc_devoured.cards[1].config.center.key == "j_lobc_little_red")
+    return {vars = {card.ability.extra.chips_gain * (lr and 3 or 1), card.ability.extra.chips}, key = (lr and "j_lobc_big_bad_wolf_alt" or nil)}
 end
 
 if JokerDisplay then
-    JokerDisplay.Definitions.j_lobc_theresia = {
+    JokerDisplay.Definitions.j_lobc_big_bad_wolf = {
         text = {
             { text = "+", colour = G.C.CHIPS },
             { ref_table = "card.ability.extra", ref_value = "chips", colour = G.C.CHIPS },

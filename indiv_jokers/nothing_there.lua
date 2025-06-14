@@ -94,7 +94,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
+        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars, AUT = full_UI_table}
         if card.area and card.area == G.jokers then
             -- left compat
             desc_nodes[#desc_nodes+1] = {

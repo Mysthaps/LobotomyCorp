@@ -40,7 +40,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "waw",
-    discover_rounds = 7,
+    discover_rounds = {1, 3, 7},
 }
 
 joker.calculate = function(self, card, context)
@@ -161,38 +161,15 @@ function Card.start_dissolve(self, ...)
     card_start_dissolveref(self, ...)
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.money, card.ability.extra.mult_gain, 
-                card.ability.extra.mult, card.ability.extra.cost,
-                card:check_rounds(1), card:check_rounds(3), card:check_rounds(7),
-                "F-02-58", card.ability.extra.cost_increase, (card.ability.extra.mult >= 0 and "+" or "")
-            }
-    local desc_key = self.key
-    if card:check_rounds(1) < 1 then
-        desc_key = 'dis_'..desc_key..'_1'
-    else
-        info_queue[#info_queue+1] = {key = 'lobc_marked', set = 'Other'}
-        if card:check_rounds(3) < 3 then
-            desc_key = 'dis_'..desc_key..'_2'
-        elseif card:check_rounds(7) < 7 then
-            desc_key = 'dis_'..desc_key..'_3'
-        end
-    end
-    if next(SMODS.find_card("j_lobc_big_bad_wolf")) then
-        vars[1] = vars[1] * 3
-        vars[2] = vars[2] * 3
-        desc_key = desc_key.."_alt"
-    end
+joker.loc_vars = function(self, info_queue, card)
+    if card:check_rounds() >= 1 then info_queue[#info_queue+1] = {key = 'lobc_marked', set = 'Other'} end
     info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+    local bw = next(SMODS.find_card("j_lobc_big_bad_wolf"))
+    return {vars = {card.ability.extra.money * (bw and 3 or 1), card.ability.extra.mult_gain * (bw and 3 or 1), 
+                card.ability.extra.mult, card.ability.extra.cost,
+                "unused", "unused", "unused",
+                "F-02-58", card.ability.extra.cost_increase, (card.ability.extra.mult >= 0 and "+" or "")
+    }, key = (bw and "lobc_j_little_red_alt" or nil)}
 end
 
 return joker

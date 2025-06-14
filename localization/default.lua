@@ -371,6 +371,14 @@ return {
                     "with only a single letter.",
                 }
             },
+            und_j_lobc_sign_of_roses = {
+                name = "O-04-21-22",
+                text = {
+                    "{C:red}What {C:attention}do {C:money}you {C:green}wish {C:chips}for?",
+                    "A rose can bloom only when",
+                    "you clearly wish for something.",
+                }
+            },
             und_j_lobc_youre_bald = {
                 name = "Bald-Is-Awesome!",
                 text = {
@@ -385,6 +393,52 @@ return {
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:joker} Abnormality{} cards"
+                }
+            },
+
+            ---- Observation Levels ----
+            lobc_obs_1 = {
+                text = {
+                    "{C:inactive}- Observation Level 1 -",
+                    "{C:attention}#1#/#2#"
+                }
+            },
+            lobc_obs_2 = {
+                text = {
+                    "{C:inactive}- Observation Level 2 -",
+                    "{C:attention}#1#/#2#"
+                }
+            },
+            lobc_obs_3 = {
+                text = {
+                    "{C:inactive}- Observation Level 3 -",
+                    "{C:attention}#1#/#2#"
+                }
+            },
+            lobc_obs_active_1 = {
+                text = {
+                    "{C:purple}[Active Ability]",
+                    "{C:inactive}- Observation Level 1 -",
+                    "{C:attention}#1#/#2#"
+                }
+            },
+            lobc_obs_active_2 = {
+                text = {
+                    "{C:purple}[Active Ability]",
+                    "{C:inactive}- Observation Level 2 -",
+                    "{C:attention}#1#/#2#"
+                }
+            },
+            lobc_obs_one_sin_2 = {
+                text = {
+                    "{C:inactive}- Observation Level 2 -",
+                    "Defeat {C:attention}WhiteNight{}."
+                }
+            },
+            lobc_obs_plague_doctor_3 = {
+                text = {
+                    "{C:inactive}- Observation Level 3 -",
+                    "Defeat {C:attention}WhiteNight{}."
                 }
             },
 
@@ -435,7 +489,6 @@ return {
                 name = "Apostle",
                 text = {
                     "{C:red}Debuffed{}",
-                    "{s:0.15} {}",
                     "{C:attention}Perishes{} when played",
                 }
             },
@@ -453,7 +506,6 @@ return {
                 text = {
                     "All abilities",
                     "are disabled",
-                    "{s:0.15} {}",
                     "No duplicates"
                 }
             },
@@ -475,7 +527,6 @@ return {
                 name = "Pebble",
                 text = {
                     "Given by {C:attention}O-01-55{}",
-                    "{s:0.15} {}",
                     "Effect removed at the",
                     "start of each hand",
                 }
@@ -556,178 +607,55 @@ return {
         },
         Joker = {
             ---- Abnormalities' Observation Levels ----
-            dis_j_lobc_scorched_girl_1 = {
-                name = "F-01-02",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ..."
-                }
-            },
-            dis_j_lobc_scorched_girl_2 = {
-                name = "F-01-02",
-                text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:attention}-#1#%{} Blind Size",
-                    "{C:attention}(#3#/4){} ..."
-                }
-            },
             j_lobc_scorched_girl = {
                 name = "Scorched Girl",
                 text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:attention}-#1#%{} Blind Size",
-                    "{s:0.15} {}",
-                    "{C:red}Debuffs{} first hand drawn"
-                }
-            },
-
-            dis_j_lobc_one_sin_1 = {
-                name = "O-03-03",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/?){} ..."
-                }
-            },
-            dis_j_lobc_one_sin_2 = {
-                name = "One Sin and Hundreds of Good Deeds",
-                text = {
-                    "Played cards give {C:mult}+#1#{} Mult when scored",
-                    "{C:attention}(#3#/?){} ..."
+                    {"When {C:attention}Blind{} is selected,",
+                    "{C:attention}-#1#%{} Blind Size"},
+                    {"{C:red}Debuffs{} first hand drawn"}
                 }
             },
             j_lobc_one_sin = {
                 name = "One Sin and Hundreds of Good Deeds",
                 text = {
-                    "Played cards give {C:mult}+#1#{} Mult when scored",
-                    "{s:0.15} {}",
-                    "Punishment shall begin to",
-                    "rain down {C:attention}WhiteNight{}."
-                }
-            },
-
-            dis_j_lobc_queen_of_hatred_1 = {
-                name = "O-01-04",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/7){} ...",
-                }
-            },
-            dis_j_lobc_queen_of_hatred_2 = {
-                name = "O-01-04",
-                text = {
-                    "{X:mult,C:white} X#1# {} Mult",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/7){} ...",
-                }
-            },
-            dis_j_lobc_queen_of_hatred_3 = {
-                name = "O-01-04",
-                text = {
-                    "{X:mult,C:white} X#1# {} Mult",
-                    "{s:0.15} {}",
-                    "If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
-                    "this Abnormality enters {C:attention}Hysteria{}",
-                    "{C:attention}(#4#/7){} ...",
+                    {"Played cards give {C:mult}+#1#{} Mult when scored"},
+                    {"Punishment shall begin to",
+                    "rain down {C:attention}WhiteNight{}."}
                 }
             },
             j_lobc_queen_of_hatred = {
                 name = "The Queen of Hatred",
                 text = {
-                    "{X:mult,C:white} X#1# {} Mult",
-                    "{s:0.15} {}",
-                    "If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
-                    "this Abnormality enters {C:attention}Hysteria{}",
-                    "{s:0.15} {}",
-                    "At {X:mult,C:white} X1 {} Mult,",
-                    "this Abnormality {C:attention}breaches{}"
+                    {"{X:mult,C:white} X#1# {} Mult"},
+                    {"If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
+                    "this Abnormality enters {C:attention}Hysteria{}"},
+                    {"At {X:mult,C:white} X1 {} Mult,",
+                    "this Abnormality {C:attention}breaches{}"}
                 }
             },
-
-            dis_j_lobc_happy_teddy_bear_1 = {
-                name = "T-04-06",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/6){} ..."
-                }
-            },
-            dis_j_lobc_happy_teddy_bear_2 = {
-                name = "A Teddy Bear",
-                text = {
-                    "Upgrades level of played",
-                    "{C:attention}poker hand{} once",
-                    "{C:attention}(#4#/6){} ..."
-                }
+            j_lobc_happy_teddy_bear_name_1 = {
+                name = "A Teddy Bear"
             },
             j_lobc_happy_teddy_bear = {
                 name = "Happy Teddy Bear",
                 text = {
-                    "Upgrades level of played",
-                    "{C:attention}poker hand{} once",
-                    "{s:0.15} {}",
-                    "If {C:attention}consecutive{} hands are",
+                    {"Upgrades level of played",
+                    "{C:attention}poker hand{} once"},
+                    {"If {C:attention}consecutive{} hands are",
                     "the same {C:attention}poker hand{},",
                     "reduce its level to {C:attention}0{}",
-                    "{C:inactive}(Last hand played: {C:attention}#2#{}{C:inactive}){}"
-                }
-            },
-
-            dis_j_lobc_red_shoes_1 = {
-                name = "O-04-08",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/7){} ..."
-                }
-            },
-            dis_j_lobc_red_shoes_2 = {
-                name = "O-04-08",
-                text = {
-                    "Played cards permanently gain",
-                    "{C:chips}+#1#{} Chips when scored",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/7){} ..."
-                }
-            },
-            dis_j_lobc_red_shoes_3 = {
-                name = "O-04-08",
-                text = {
-                    "Played cards permanently gain",
-                    "{C:chips}+#1#{} Chips when scored",
-                    "{s:0.15} {}",
-                    "When {C:attention}Blind{} is selected, forces",
-                    "{C:attention}2{} cards to always be selected",
-                    "{C:attention}(#4#/7){} ..."
+                    "{C:inactive}(Last hand played: {C:attention}#1#{}{C:inactive}){}"}
                 }
             },
             j_lobc_red_shoes = {
                 name = "Red Shoes",
                 text = {
-                    "Played cards permanently gain",
-                    "{C:chips}+#1#{} Chips when scored",
-                    "{s:0.15} {}",
-                    "When {C:attention}Blind{} is selected, forces",
-                    "{C:attention}2{} cards to always be selected",
-                    "{s:0.15} {}",
-                    "Destroys scoring cards with",
-                    "{C:chips}100{} or more bonus Chips"
-                }
-            },
-
-            dis_j_lobc_theresia_1 = {
-                name = "T-09-09",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                }
-            },
-            dis_j_lobc_theresia_2 = {
-                name = "T-09-09",
-                text = {
-                    "This Abnormality gains",
-                    "{C:chips}+#2#{} Chips each hand",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
+                    {"Played cards permanently gain",
+                    "{C:chips}+#1#{} Chips when scored"},
+                    {"When {C:attention}Blind{} is selected, forces",
+                    "{C:attention}2{} cards to always be selected"},
+                    {"Destroys scoring cards with",
+                    "{C:chips}100{} or more bonus Chips"}
                 }
             },
             j_lobc_theresia = {
@@ -735,1674 +663,511 @@ return {
                 text = {
                     "This Abnormality gains",
                     "{C:chips}+#2#{} Chips each hand",
-                    "{s:0.15} {}",
                     "After the third hand played,",
                     "{C:red}debuffs{} all {C:attention}playing cards{}",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
                 }
             },
-
-            dis_j_lobc_old_lady_1 = {
-                name = "O-01-12",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/5){} ...",
-                }
-            },
-            dis_j_lobc_old_lady_2 = {
-                name = "O-01-12",
-                text = {
-                    "This Abnormality gains",
-                    "{C:mult}+#2#{} Mult each hand",
-                    "{C:attention}(#5#/5){} ...",
-                    "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
-                }
-            },
             j_lobc_old_lady = {
                 name = "Old Lady",
                 text = {
-                    "This Abnormality gains",
-                    "{C:mult}+#2#{} Mult each hand",
-                    "{s:0.15} {}",
-                    "When another Joker is added,",
+                    {"This Abnormality gains",
+                    "{C:mult}+#2#{} Mult each hand"},
+                    {"When another Joker is added,",
                     "this Abnormality loses {C:mult}#3#{} Mult",
-                    "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"
-                }
-            },
-
-            dis_j_lobc_nameless_fetus_1 = {
-                name = "O-01-15",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/4){} ...",
-                    "{C:attention}(#6#/8){} ...",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})",
-                }
-            },
-            dis_j_lobc_nameless_fetus_2 = {
-                name = "O-01-15",
-                text = {
-                    "{X:mult,C:white} X#2# {} Mult after playing chosen hand type",
-                    "{C:attention}(#5#/4){} ...",
-                    "{C:attention}(#6#/8){} ...",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})",
-                }
-            },
-            dis_j_lobc_nameless_fetus_3 = {
-                name = "O-01-15",
-                text = {
-                    "{X:mult,C:white} X#2# {} Mult after playing chosen hand type",
-                    "{s:0.15} {}",
-                    "{X:mult,C:white} X#3# {} Mult if other hand types are played",
-                    "{C:attention}(#6#/8){} ...",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})",
+                    "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"}
                 }
             },
             j_lobc_nameless_fetus = {
                 name = "Nameless Fetus",
                 text = {
-                    "{X:mult,C:white} X#2# {} Mult after playing chosen hand type",
-                    "{s:0.15} {}",
-                    "{X:mult,C:white} X#3# {} Mult if other hand types are played",
-                    "{s:0.15} {}",
-                    "If the {C:attention}first hand{} of round has",
+                    {"{X:mult,C:white} X#2# {} Mult after playing chosen hand type"},
+                    {"{X:mult,C:white} X#3# {} Mult if other hand types are played"},
+                    {"If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
                     "and change chosen hand type",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})",
-                }
-            },
-
-            dis_j_lobc_wall_gazer_1 = {
-                name = "F-01-18",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ..."
-                }
-            },
-            dis_j_lobc_wall_gazer_2 = {
-                name = "Wall Gazer",
-                text = {
-                    "Retriggers the {C:attention}lowest{} ranked",
-                    "scoring card in {C:attention}first hand{}",
-                    "randomly from {C:attention}#1#{} to {C:attention}#2#{} times",
-                    "{C:attention}(#4#/4){} ..."
+                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
                 }
             },
             j_lobc_wall_gazer = {
                 name = "The Lady Facing the Wall",
                 text = {
-                    "Retriggers the {C:attention}lowest{} ranked",
+                    {"Retriggers the {C:attention}lowest{} ranked",
                     "scoring card in {C:attention}first hand{}",
-                    "randomly from {C:attention}#1#{} to {C:attention}#2#{} times",
-                    "{s:0.15} {}",
-                    "{C:attention}Playing cards{} are drawn {C:attention}face{}",
-                    "{C:attention}down{} until hand is played"
-                }
-            },
-
-            dis_j_lobc_nothing_there_1 = {
-                name = "O-06-20",
-                text = {
-                    "{C:attention}(#1#/4){} ...",
-                    "{C:attention}(#2#/7){} ...",
-                    "{C:attention}(#3#/9){} ..."
-                }
-            },
-            dis_j_lobc_nothing_there_2 = {
-                name = "O-06-20",
-                text = {
-                    "Copies the abilities of leftmost",
-                    "and rightmost {C:attention}Jokers{}",
-                    "{C:attention}(#2#/7){} ...",
-                    "{C:attention}(#3#/9){} ..."
-                }
-            },
-            dis_j_lobc_nothing_there_3 = {
-                name = "O-06-20",
-                text = {
-                    "Copies the abilities of leftmost",
-                    "and rightmost {C:attention}Jokers{}",
-                    "{s:0.15} {}",
-                    "When Blind is selected, flips and shuffles",
-                    "all Jokers for the first hand",
-                    "{C:attention}(#3#/9){} ..."
+                    "randomly from {C:attention}#1#{} to {C:attention}#2#{} times"},
+                    {"{C:attention}Playing cards{} are drawn {C:attention}face{}",
+                    "{C:attention}down{} until hand is played"}
                 }
             },
             j_lobc_nothing_there = {
                 name = "Nothing There",
                 text = {
-                    "Copies the abilities of adjacent {C:attention}Jokers{}",
-                    "{s:0.15} {}",
-                    "When {C:attention}Blind{} is defeated, moves to",
-                    "a random Joker Slot",
-                    "{s:0.15} {}",
-                    "{C:red}Destroys{} Jokers copied last round and",
+                    {"Copies the abilities of adjacent {C:attention}Jokers{}"},
+                    {"When {C:attention}Blind{} is defeated, moves to",
+                    "a random Joker Slot"},
+                    {"{C:red}Destroys{} Jokers copied last round and",
                     "take its skin if this Abnormality",
                     "is adjacent to one",
-                    "{C:inactive}(once per round)"
-                }
-            },
-
-            dis_j_lobc_silent_orchestra_1 = {
-                name = "O-06-20",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/5){} ...",
-                    "{C:attention}(#5#/7){} ..."
-                }
-            },
-            dis_j_lobc_silent_orchestra_2 = {
-                name = "O-06-20",
-                text = {
-                    "When round starts, shuffles",
-                    "{C:attention}#1#{} into the deck",
-                    "{C:attention}(#4#/5){} ...",
-                    "{C:attention}(#5#/7){} ..."
-                }
-            },
-            dis_j_lobc_silent_orchestra_3 = {
-                name = "O-06-20",
-                text = {
-                    "When round starts, shuffles",
-                    "{C:attention}#1#{} into the deck",
-                    "{s:0.15} {}",
-                    "When {C:attention}#1#{} is drawn,",
-                    "{C:attention}#2#{} is shuffled next Blind",
-                    "{C:attention}(#5#/7){} ..."
+                    "{C:inactive}(once per round)"}
                 }
             },
             j_lobc_silent_orchestra = {
                 name = "The Silent Orchestra",
                 text = {
-                    "When round starts, shuffles",
-                    "{C:attention}#1#{} into the deck",
-                    "{s:0.15} {}",
-                    "When {C:attention}#1#{} is drawn,",
-                    "{C:attention}#2#{} is shuffled next Blind",
-                    "{s:0.15} {}",
-                    "When round ends, or when this Abnormality",
-                    "is removed, removes all {C:attention}Movements",
-                }
-            },
-
-            dis_j_lobc_big_bird_1 = {
-                name = "O-02-40",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/6){} ..."
-                }
-            },
-            dis_j_lobc_big_bird_2 = {
-                name = "O-02-40",
-                text = {
-                    "When Blind starts, {C:enchanted}Enchants{}",
-                    "a random playing card",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/6){} ..."
-                }
-            },
-            dis_j_lobc_big_bird_3 = {
-                name = "O-02-40",
-                text = {
-                    "When Blind starts, {C:enchanted}enchants{}",
-                    "a random playing card",
-                    "{s:0.15} {}",
-                    "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
-                    "{C:attention}(#5#/6){} ..."
+                    {"When round starts, shuffles",
+                    "{C:attention}#1#{} into the deck"},
+                    {"When {C:attention}#1#{} is drawn,",
+                    "{C:attention}#2#{} is shuffled next Blind"},
+                    {"When round ends, or when this Abnormality",
+                    "is removed, removes all {C:attention}Movements"},
                 }
             },
             j_lobc_big_bird = {
                 name = "Big Bird",
                 text = {
-                    "When round begins, {C:enchanted}enchants{}",
-                    "a random playing card",
-                    "{s:0.15} {}",
-                    "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
-                    "{s:0.15} {}",
-                    "When round ends, if no {C:enchanted}Enchanted{}",
+                    {"When round begins, {C:enchanted}enchants{}",
+                    "a random playing card"},
+                    {"Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult"},
+                    {"When round ends, if no {C:enchanted}Enchanted{}",
                     "cards were scored this round, destroy",
-                    "them and lose {C:money}$#2#{} per card"
-                }
-            },
-
-            dis_j_lobc_all_around_helper_1 = {
-                name = "T-05-41",
-                text = {
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ..."
-                }
-            },
-            dis_j_lobc_all_around_helper_2 = {
-                name = "T-05-41",
-                text = {
-                    "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
-                    "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
-                    "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
+                    "them and lose {C:money}$#2#{} per card"}
                 }
             },
             j_lobc_all_around_helper = {
                 name = "All-Around Helper",
                 text = {
-                    "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
-                    "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand",
-                    "{s:0.15} {}",
-                    "After gaining Mult {C:attention}4{} times,",
+                    {"This Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand"},
+                    {"After gaining Mult {C:attention}4{} times,",
                     "destroys a random Joker",
-                    "{s:0.15} {}",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
-                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"
-                }
-            },
-
-            dis_j_lobc_spider_bud_1 = {
-                name = "T-02-43",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/5){} ...",
-                }
-            },
-            dis_j_lobc_spider_bud_2 = {
-                name = "T-02-43",
-                text = {
-                    "{C:attention}+#1#{} hand size",
-                    "{C:attention}(#4#/5){} ...",
+                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"}
                 }
             },
             j_lobc_spider_bud = {
                 name = "Spider Bud",
                 text = {
-                    "{C:attention}+#1#{} hand size",
-                    "{s:0.15} {}",
-                    "{C:red}Destroys{} the first {C:red}discarded{} card",
+                    {"{C:attention}+#1#{} hand size"},
+                    {"{C:red}Destroys{} the first {C:red}discarded{} card",
                     "each round for {C:attention}+#2#{} hand size,",
-                    "resets when {C:attention}Boss Blind{} is defeated",
-                }
-            },
-
-            dis_j_lobc_plague_doctor_1 = {
-                name = "O-01-45",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/?){} ..."
-                }
-            },
-            dis_j_lobc_plague_doctor_2 = {
-                name = "O-01-45",
-                text = {
-                    "{C:attention}Baptizes{} a playing card each hand",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/?){} ..."
-                }
-            },
-            dis_j_lobc_plague_doctor_3 = {
-                name = "Plague Doctor",
-                text = {
-                    "{C:attention}Baptizes{} a playing card each hand",
-                    "{s:0.15} {}",
-                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
-                    "{C:attention}(#4#/?){} ..."
+                    "resets when {C:attention}Boss Blind{} is defeated"},
                 }
             },
             j_lobc_plague_doctor = {
                 name = "Plague Doctor",
                 text = {
-                    "{C:attention}Baptizes{} a playing card each hand",
-                    "{s:0.15} {}",
-                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
-                    "{s:0.15} {}",
-                    "After {C:attention}12{} cards are {C:attention}blessed{},",
+                    {"{C:attention}Baptizes{} a playing card each hand"},
+                    {"Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult"},
+                    {"After {C:attention}12{} cards are {C:attention}blessed{},",
                     "{C:attention}breach{}.",
-                    "{C:inactive}(Currently {C:attention}#5#{C:inactive})"
-                }
-            },
-
-            dis_j_lobc_whitenight_1 = {
-                name = "T-03-46",
-                text = {
-                    "{C:attention}(#3#/?){} ...",
-                    "{C:attention}(#3#/3){} ..."
-                }
-            },
-            dis_j_lobc_whitenight_2 = {
-                name = "T-03-46",
-                text = {
-                    "{C:dark_edition}+1{} Joker Slot",
-                    "{s:0.15} {}",
-                    "{C:attention}Baptizes{} a playing card each hand",
-                    "{s:0.15} {}",
-                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
-                    "{C:attention}(#3#/3){} ..."
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive})"}
                 }
             },
             j_lobc_whitenight = {
                 name = "WhiteNight",
                 text = {
-                    "{C:dark_edition}+1{} Joker Slot",
-                    "{s:0.15} {}",
-                    "{C:attention}Baptizes{} a playing card each hand",
-                    "{s:0.15} {}",
-                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult",
-                    "{s:0.15} {}",
-                    "Retrigger {C:attention}blessed{} cards {C:attention}#2#{} times",
-                }
-            },
-
-            dis_j_lobc_rudolta_1 = {
-                name = "F-02-49",
-                text = {
-                    "{C:attention}(#1#/3){} ...",
-                    "{C:attention}(#2#/6){} ...",
-                }
-            },
-            dis_j_lobc_rudolta_2 = {
-                name = "F-02-49",
-                text = {
-                    "When a card is sold, lose {C:attention}money{}",
-                    "equals to {X:money,C:white} X#3# {} its sell cost,",
-                    "then creates a card of the same",
-                    "{C:attention}type{} and/or {C:attention}rarity{}",
-                    "{C:inactive}(For Abnormalities, same Risk Level)",
-                    "{C:attention}(#2#/6){} ...",
+                    {"{C:dark_edition}+1{} Joker Slot"},
+                    {"{C:attention}Baptizes{} a playing card each hand",
+                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult"},
+                    {"Retrigger {C:attention}blessed{} cards {C:attention}#2#{} times"},
                 }
             },
             j_lobc_rudolta = {
                 name = "Rudolta of the Sleigh",
                 text = {
-                    "When a card is sold, lose {C:attention}money{}",
+                    {"When a card is sold, lose {C:attention}money{}",
                     "equals to {X:money,C:white} X#3# {} its sell cost,",
                     "then creates a card of the same",
                     "{C:attention}type{} and/or {C:attention}rarity{}",
-                    "{C:inactive}(For Abnormalities, same Risk Level)",
-                    "{s:0.15} {}",
-                    "Does not activate on cards created",
-                    "by this Abnormality",
-                }
-            },
-
-            dis_j_lobc_queen_bee_1 = {
-                name = "T-04-50",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/6){} ...",
-                }
-            },
-            dis_j_lobc_queen_bee_2 = {
-                name = "T-04-50",
-                text = {
-                    "Playing cards permanently gain",
-                    "{C:mult}+#1#{} Mult when scored",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/6){} ...",
-                }
-            },
-            dis_j_lobc_queen_bee_3 = {
-                name = "T-04-50",
-                text = {
-                    "Playing cards permanently gain",
-                    "{C:mult}+#1#{} Mult when scored",
-                    "{s:0.15} {}",
-                    "Reduces the rank of each",
-                    "scoring card by {C:attention}1{} after scoring",
-                    "{C:attention}(#4#/6){} ...",
+                    "{C:inactive}(For Abnormalities, same Risk Level)"},
+                    {"Does not activate on cards created",
+                    "by this Abnormality"},
                 }
             },
             j_lobc_queen_bee = {
                 name = "Queen Bee",
                 text = {
-                    "Playing cards permanently gain",
-                    "{C:mult}+#1#{} Mult when scored",
-                    "{s:0.15} {}",
-                    "Reduces the rank of each",
-                    "scoring card by {C:attention}1{} after scoring",
-                    "{s:0.15} {}",
-                    "Cards that cannot rank down are",
-                    "transformed into {C:attention}Worker Bee{} instead",
-                }
-            },
-
-            dis_j_lobc_forsaken_murderer_1 = {
-                name = "T-01-54",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ...",
-                }
-            },
-            dis_j_lobc_forsaken_murderer_2 = {
-                name = "T-01-54",
-                text = {
-                    "First scoring card",
-                    "gives {X:mult,C:white} X#1# {} Mult",
-                    "{C:attention}(#3#/4){} ...",
+                    {"Playing cards permanently gain",
+                    "{C:mult}+#1#{} Mult when scored"},
+                    {"Reduces the rank of each",
+                    "scoring card by {C:attention}1{} after scoring"},
+                    {"Cards that cannot rank down are",
+                    "transformed into {C:attention}Worker Bee{} instead"},
                 }
             },
             j_lobc_forsaken_murderer = {
                 name = "Forsaken Murderer",
                 text = {
-                    "First scoring card",
-                    "gives {X:mult,C:white} X#1# {} Mult",
-                    "{s:0.15} {}",
-                    "{C:red}Debuffs{} last scoring card",
-                }
-            },
-
-            dis_j_lobc_wellcheers_1 = {
-                name = "F-05-52",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/5){} ...",
-                }
-            },
-            dis_j_lobc_wellcheers_2 = {
-                name = "WellCheers",
-                text = {
-                    "On {C:blue}play{} or {C:red}discard{},",
-                    "changes the displayed can's color",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/5){} ...",
-                }
-            },
-            dis_j_lobc_wellcheers_3 = {
-                name = "WellCheers",
-                text = {
-                    "On {C:blue}play{} or {C:red}discard{},",
-                    "changes the displayed can's color",
-                    "{s:0.15} {}",
-                    "{C:chips}+#2#{} chips if displayed can is {C:blue}blue{}",
-                    "{C:mult}+#1#{} Mult if displayed can is {C:red}red{}",
-                    "{C:attention}(#5#/5){} ...",
+                    {"First scoring card",
+                    "gives {X:mult,C:white} X#1# {} Mult"},
+                    {"{C:red}Debuffs{} last scoring card"},
                 }
             },
             j_lobc_wellcheers = {
                 name = "Opened Can of WellCheers",
                 text = {
-                    "On {C:blue}play{} or {C:red}discard{},",
-                    "changes the displayed can's color",
-                    "{s:0.15} {}",
-                    "{C:chips}+#2#{} chips if displayed can is {C:blue}blue{}",
-                    "{C:mult}+#1#{} Mult if displayed can is {C:red}red{}",
-                    "{s:0.15} {}",
-                    "If someone offers you an already",
+                    {"On {C:blue}play{} or {C:red}discard{},",
+                    "changes the displayed can's color"},
+                    {"{C:chips}+#2#{} chips if displayed can is {C:blue}blue{}",
+                    "{C:mult}+#1#{} Mult if displayed can is {C:red}red{}"},
+                    {"If someone offers you an already",
                     "opened can of {C:purple}grape-flavored soda{},",
-                    "you most definitely should not drink it."
-                }
-            },
-
-            dis_j_lobc_child_galaxy_1 = {
-                name = "O-01-55",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/4){} ...",
-                    "{C:attention}(#6#/6){} ...",
-                }
-            },
-            dis_j_lobc_child_galaxy_2 = {
-                name = "O-01-55",
-                text = {
-                    "At the start of each hand, gives",
-                    "{C:attention}Pebble{} to {C:attention}5{} random cards in hand",
-                    "{C:attention}(#5#/4){} ...",
-                    "{C:attention}(#6#/6){} ...",
-                }
-            },
-            dis_j_lobc_child_galaxy_3 = {
-                name = "O-01-55",
-                text = {
-                    "At the start of each hand, gives",
-                    "{C:pebble}Pebble{} to {C:attention}5{} random cards in hand",
-                    "{s:0.15} {}",
-                    "Gives {X:purple,C:white} X#1# {} of played {C:attention}poker hand{}'s",
-                    "base {C:chips}Chips{} and {C:mult}Mult{}",
-                    "{C:attention}(#6#/6){} ...",
+                    "you most definitely should not drink it."}
                 }
             },
             j_lobc_child_galaxy = {
                 name = "Child of the Galaxy",
                 text = {
-                    "At the start of each hand, gives",
-                    "{C:pebble}Pebble{} to {C:attention}5{} random cards in hand",
-                    "{s:0.15} {}",
-                    "Gives {X:purple,C:white} X#1# {} of played {C:attention}poker hand{}'s",
-                    "base {C:chips}Chips{} and {C:mult}Mult{}",
-                    "{s:0.15} {}",
-                    "Gains {X:purple,C:white} X#2# {} per scoring card with {C:pebble}Pebble{},",
-                    "and loses {X:purple,C:white} X#3# {} per scoring card without",
-                }
-            },
-
-            dis_j_lobc_punishing_bird_1 = {
-                name = "O-02-56",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_punishing_bird_1_apoc = {
-                name = "O-02-56",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                    "When this Abnormality is {C:attention}sold{}, encounter",
-                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"
-                }
-            },
-            dis_j_lobc_punishing_bird_2 = {
-                name = "Small Bird",
-                text = {
-                    "{C:mult}+#1#{} Mult",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_punishing_bird_2_apoc = {
-                name = "Small Bird",
-                text = {
-                    "{C:mult}+#1#{} Mult",
-                    "{C:attention}(#4#/4){} ...",
-                    "When this Abnormality is {C:attention}sold{}, encounter",
-                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"
-                }
-            },
-            dis_j_lobc_punishing_bird_3 = {
-                name = "Small Bird",
-                text = {
-                    "{C:mult}+#1#{} Mult",
-                    "{s:0.15} {}",
-                    "This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
-                    "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
-                }
-            },
-            dis_j_lobc_punishing_bird_3_apoc = {
-                name = "Small Bird",
-                text = {
-                    "{C:mult}+#1#{} Mult",
-                    "{s:0.15} {}",
-                    "This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
-                    "When this Abnormality is {C:attention}sold{}, encounter",
-                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
+                    {"At the start of each hand, gives",
+                    "{C:pebble}Pebble{} to {C:attention}5{} random cards in hand"},
+                    {"Gives {X:purple,C:white} X#1# {} of played {C:attention}poker hand{}'s",
+                    "base {C:chips}Chips{} and {C:mult}Mult{}"},
+                    {"Gains {X:purple,C:white} X#2# {} per scoring card with {C:pebble}Pebble{},",
+                    "and loses {X:purple,C:white} X#3# {} per scoring card without"},
                 }
             },
             j_lobc_punishing_bird = {
                 name = "Punishing Bird",
                 text = {
-                    "{C:mult}+#1#{} Mult",
-                    "{s:0.15} {}",
-                    "This Abnormality gains",
+                    {"{C:mult}+#1#{} Mult"},
+                    {"This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
-                    "{s:0.15} {}",
-                    "If this Abnormality is {C:attention}sold{},",
-                    "immediately {C:attention}lose{} the game",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"},
+                    {"If this Abnormality is {C:attention}sold{},",
+                    "immediately {C:attention}lose{} the game"},
                 }
             },
             j_lobc_punishing_bird_apoc = {
                 name = "Punishing Bird",
                 text = {
-                    "{C:mult}+#1#{} Mult",
-                    "{s:0.15} {}",
-                    "This Abnormality gains",
+                    {"{C:mult}+#1#{} Mult"},
+                    {"This Abnormality gains",
                     "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
-                    "{s:0.15} {}",
-                    "When this Abnormality is {C:attention}sold{}, encounter",
-                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"
-                }
-            },
-
-            dis_j_lobc_little_red_1 = {
-                name = "F-01-57",
-                text = {
-                    "{C:attention}(#5#/1){} ...",
-                    "{C:purple}[Active Ability (Hand Available)]",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/7){} ...",
-                }
-            },
-            dis_j_lobc_little_red_2 = {
-                name = "F-01-57",
-                text = {
-                    "Whenever there are no {C:marked}Marked{} cards,",
-                    "a random playing card becomes {C:marked}Marked{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (Hand Available)]",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/7){} ...",
-                }
-            },
-            dis_j_lobc_little_red_3 = {
-                name = "F-01-57",
-                text = {
-                    "Whenever there are no {C:marked}Marked{} cards,",
-                    "a random playing card becomes {C:marked}Marked{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (Hand Available)]",
-                    "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{} in hand",
-                    "Increases cost by {C:money}$#9#{} after use",
-                    "{C:attention}(#7#/7){} ...",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"},
+                    {"When this Abnormality is {C:attention}sold{}, encounter",
+                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"}
                 }
             },
             j_lobc_little_red = {
                 name = "Little Red Riding Hooded Mercenary",
                 text = {
-                    "If there is no {C:marked}Prey{}, a random",
-                    "playing card becomes {C:marked}Marked{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (Hand Available)]",
+                    {"If there is no {C:marked}Prey{}, a random",
+                    "playing card becomes {C:marked}Marked{}"},
+                    {"{C:purple}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{} in hand",
-                    "Increases cost by {C:money}$#9#{} after use",
-                    "{s:0.15} {}",
-                    "When the {C:marked}Prey{} is destroyed, earn {C:money}$#1#{},",
+                    "Increases cost by {C:money}$#9#{} after use"},
+                    {"When the {C:marked}Prey{} is destroyed, earn {C:money}$#1#{},",
                     "and this Abnormality gains {C:mult}+#2#{} Mult",
-                    "{C:inactive}(Currently {C:mult}#10##3#{C:inactive} Mult)",
-                }
-            },
-            dis_j_lobc_little_red_1_alt = {
-                name = "F-01-57",
-                text = {
-                    "{C:attention}(#5#/1){} ...",
-                    "{C:purple}[Active Ability (Hand Available)]",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/7){} ...",
-                }
-            },
-            dis_j_lobc_little_red_2_alt = {
-                name = "F-01-57",
-                text = {
-                    "{C:marked}Marks{} {C:attention}F-02-58{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (Hand Available)]",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/7){} ...",
-                }
-            },
-            dis_j_lobc_little_red_3_alt = {
-                name = "F-01-57",
-                text = {
-                    "{C:marked}Marks{} {C:attention}F-02-58{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (Hand Available)]",
-                    "Pay {C:money}$#4#{} to destroy the {C:marked}Prey{}",
-                    "Increases cost by {C:money}$#9#{} after use",
-                    "{C:attention}(#7#/7){} ...",
+                    "{C:inactive}(Currently {C:mult}#10##3#{C:inactive} Mult)"},
                 }
             },
             j_lobc_little_red_alt = {
                 name = "Little Red Riding Hooded Mercenary",
                 text = {
-                    "{C:marked}Marks{} {C:attention}F-02-58{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (Hand Available)]",
+                    {"{C:marked}Marks{} {C:attention}F-02-58{}"},
+                    {"{C:purple}[Active Ability]",
                     "Pay {C:money}$#4#{} to destroy the {C:marked}Marked{} card",
-                    "Increases cost by {C:money}$#9#{} after use",
-                    "{s:0.15} {}",
-                    "When the {C:marked}Prey{} is destroyed, earn {C:money}$#1#{},",
+                    "Increases cost by {C:money}$#9#{} after use"},
+                    {"When the {C:marked}Prey{} is destroyed, earn {C:money}$#1#{},",
                     "and this Abnormality gains {C:mult}+#2#{} Mult",
                     "If the {C:marked}Prey{} is removed in any other way,",
                     "this Abnormality loses {C:mult}200{} Mult and",
                     "becomes {C:dark_edition}Eternal{}",
-                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
-                }
-            },
-
-            dis_j_lobc_big_bad_wolf_1 = {
-                name = "F-02-58",
-                text = {
-                    "{C:attention}(#3#/1){} ...",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_big_bad_wolf_2 = {
-                name = "F-02-58",
-                text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:devoured}devours{} a random Joker",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_big_bad_wolf_3 = {
-                name = "F-02-58",
-                text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:devoured}devours{} a random Joker",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Returns the {C:devoured}devoured{} Joker",
-                    "{C:attention}(#5#/6){} ...",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"},
                 }
             },
             j_lobc_big_bad_wolf = {
                 name = "Big and Will be Bad Wolf",
                 text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:devoured}devours{} a random Joker",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Returns the {C:devoured}devoured{} Joker",
-                    "{s:0.15} {}",
-                    "When {C:attention}Blind{} is defeated,",
+                    {"When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours{} a random Joker"},
+                    {"{C:purple}[Active Ability]",
+                    "Returns the {C:devoured}devoured{} Joker"},
+                    {"When {C:attention}Blind{} is defeated,",
                     "if a Joker is {C:devoured}devoured{}, {C:red}destroy{} it for",
                     "this Abnormality to gain {C:chips}+#1#{} chips",
-                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} chips)",
-                }
-            },
-            dis_j_lobc_big_bad_wolf_1_alt = {
-                name = "F-02-58",
-                text = {
-                    "{C:attention}(#3#/1){} ...",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_big_bad_wolf_2_alt = {
-                name = "F-02-58",
-                text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:devoured}devours {C:attention}F-01-57",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_big_bad_wolf_3_alt = {
-                name = "F-02-58",
-                text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:devoured}devours {C:attention}F-01-57",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Returns the {C:devoured}devoured{} Joker",
-                    "{C:attention}(#5#/6){} ...",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} chips)"},
                 }
             },
             j_lobc_big_bad_wolf_alt = {
                 name = "Big and Will be Bad Wolf",
                 text = {
-                    "When {C:attention}Blind{} is selected,",
-                    "{C:devoured}devours {C:attention}F-01-57",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Returns the {C:devoured}devoured{} Joker",
-                    "{s:0.15} {}",
-                    "When {C:attention}Blind{} is defeated,",
+                    {"When {C:attention}Blind{} is selected,",
+                    "{C:devoured}devours {C:attention}F-01-57"},
+                    {"{C:purple}[Active Ability]",
+                    "Returns the {C:devoured}devoured{} Abnormality"},
+                    {"When {C:attention}Blind{} is defeated,",
                     "if {C:attention}F-01-57{} is {C:devoured}devoured{}, {C:red}destroy{} it for",
                     "this Abnormality to gain {C:chips}+#1#{} chips",
-                    "{C:inactive}(Currently {C:chips}+#2#{} chips)",
-                }
-            },
-
-            dis_j_lobc_fragment_universe_1 = {
-                name = "O-03-60",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/5){} ...",
-                }
-            },
-            dis_j_lobc_fragment_universe_2 = {
-                name = "O-03-60",
-                text = {
-                    "If {C:attention}poker hand{} contains {C:attention}3{}",
-                    "different suits, {C:green}#1# in #2#{} chance to",
-                    "create a random {C:dark_edition}Perishable {C:planet}Planet{} card",
-                    "{C:attention}(#5#/5){} ...",
-                    "{C:inactive}(Must have room)"
+                    "{C:inactive}(Currently {C:chips}+#2#{} chips)"},
                 }
             },
             j_lobc_fragment_universe = {
                 name = "Fragment of the Universe",
                 text = {
-                    "If {C:attention}poker hand{} contains {C:attention}3{}",
+                    {"If {C:attention}poker hand{} contains {C:attention}3{}",
                     "different suits, {C:green}#1# in #2#{} chance to",
-                    "create a random {C:dark_edition}Perishable {C:planet}Planet{} card",
-                    "{s:0.15} {}",
-                    "{C:green}#1# in #3#{} chance to create a",
+                    "create a random {C:dark_edition}Perishable {C:planet}Planet{} card"},
+                    {"{C:green}#1# in #3#{} chance to create a",
                     "random {C:dark_edition}Eternal {C:spectral}Spectral{} card",
-                    "{C:inactive}(Must have room)"
-                }
-            },
-
-            dis_j_lobc_judgement_bird_1 = {
-                name = "O-02-62",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/7){} ...",
-                }
-            },
-            dis_j_lobc_judgement_bird_2 = {
-                name = "Long Bird",
-                text = {
-                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
-                    "to all playing cards of that rank",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/7){} ...",
-                }
-            },
-            dis_j_lobc_judgement_bird_3 = {
-                name = "Long Bird",
-                text = {
-                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
-                    "to all playing cards of that rank",
-                    "{s:0.15} {}",
-                    "Destroys scoring cards with {C:attention}5+ {C:red}Sin",
-                    "{s:0.15} {}",
-                    "{C:attention}(#4#/7){} ...",
+                    "{C:inactive}(Must have room)"}
                 }
             },
             j_lobc_judgement_bird = {
                 name = "Judgement Bird",
                 text = {
-                    "Each card in full hand adds {C:attention}+1 {C:red}Sin",
-                    "to all playing cards of that rank",
-                    "{s:0.15} {}",
-                    "Destroys scoring cards with {C:attention}5+ {C:red}Sin",
-                    "{s:0.15} {}",
-                    "This Abnormality gains {X:mult,C:white} X#1# {} Mult for each",
+                    {"Each card in full hand adds {C:attention}+1 {C:red}Sin",
+                    "to all playing cards of that rank"},
+                    {"Destroys scoring cards with {C:attention}5+ {C:red}Sin"},
+                    {"This Abnormality gains {X:mult,C:white} X#1# {} Mult for each",
                     "{C:red}Sin{} in destroyed cards from any source",
-                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
-                }
-            },
-
-            dis_j_lobc_apocalypse_bird_1 = {
-                name = "O-02-63",
-                text = {
-                    "{C:attention}(#3#/?){} ...",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/6){} ..."
-                }
-            },
-            dis_j_lobc_apocalypse_bird_2 = {
-                name = "O-02-63",
-                text = {
-                    "{C:dark_edition}+1{} Joker Slot",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/5){} ..."
-                }
-            },
-            dis_j_lobc_apocalypse_bird_3 = {
-                name = "O-02-63",
-                text = {
-                    "{C:dark_edition}+1{} Joker Slot",
-                    "{s:0.15} {}",
-                    "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
-                    "{C:enchanted}unenchanted{} scoring card,",
-                    "and it gains {C:dark_edition}Negative{}",
-                    "{C:attention}(#4#/5){} ..."
+                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"}
                 }
             },
             j_lobc_apocalypse_bird = {
                 name = "Apocalypse Bird",
                 text = {
-                    "{C:dark_edition}+1{} Joker Slot",
-                    "{s:0.15} {}",
-                    "{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
+                    {"{C:dark_edition}+1{} Joker Slot"},
+                    {"{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
                     "{C:enchanted}unenchanted{} scoring card,",
-                    "and it gains {C:dark_edition}Negative{}",
-                    "{s:0.15} {}",
-                    "Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult",
-                }
-            },
-
-            dis_j_lobc_price_of_silence_1 = {
-                name = "O-05-65",
-                text = {
-                    "{C:attention}(#1#/2){} ...",
-                    "{C:attention}(#2#/4){} ...",
-                    "{C:attention}(#3#/6){} ...",
-                }
-            },
-            dis_j_lobc_price_of_silence_2 = {
-                name = "O-05-65",
-                text = {
-                    "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
-                    "card to the {C:attention}leftmost{} scoring card",
-                    "{C:attention}(#2#/4){} ...",
-                    "{C:attention}(#3#/6){} ...",
-                }
-            },
-            dis_j_lobc_price_of_silence_3 = {
-                name = "O-05-65",
-                text = {
-                    "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
-                    "card to the {C:attention}leftmost{} scoring card",
-                    "{s:0.15} {}",
-                    "The converted card becomes {C:amplified}Amplified{}",
-                    "{C:attention}(#3#/6){} ...",
+                    "and it gains {C:dark_edition}Negative{}"},
+                    {"Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult"},
                 }
             },
             j_lobc_price_of_silence = {
                 name = "The Price of Silence",
                 text = {
-                    "While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
-                    "card to the {C:attention}leftmost{} scoring card",
-                    "{s:0.15} {}",
-                    "The converted card becomes {C:amplified}Amplified{}",
-                    "{s:0.15} {}",
-                    "After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys",
+                    {"While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
+                    "card to the {C:attention}leftmost{} scoring card"},
+                    {"The converted card becomes {C:amplified}Amplified{}"},
+                    {"After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys",
                     "a random {C:attention}other{} Joker and becomes {C:red}inactive{}",
-                    "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"
-                }
-            },
-
-            dis_j_lobc_laetitia_1 = {
-                name = "O-01-67",
-                text = {
-                    "{C:attention}(#1#/2){} ...",
-                    "{C:attention}(#2#/4){} ...",
-                    "{C:attention}(#3#/8){} ..."
-                }
-            },
-            dis_j_lobc_laetitia_2 = {
-                name = "A Wee Witch",
-                text = {
-                    "If only {C:hearts}Hearts{} cards score, copy",
-                    "non-{C:attention}marked{}, scoring cards to hand",
-                    "{C:attention}(#2#/4){} ...",
-                    "{C:attention}(#3#/8){} ..."
-                }
-            },
-            dis_j_lobc_laetitia_3 = {
-                name = "A Wee Witch",
-                text = {
-                    "If only {C:hearts}Hearts{} cards score, copy",
-                    "non-{C:attention}marked{}, scoring cards to hand",
-                    "{s:0.15} {}",
-                    "If no {C:hearts}Hearts{} are scored,",
-                    "destroys all scoring cards",
-                    "{C:attention}(#3#/8){} ..."
+                    "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"}
                 }
             },
             j_lobc_laetitia = {
                 name = "Laetitia",
                 text = {
-                    "If only {C:hearts}Hearts{} cards score, copy",
-                    "non-{C:attention}marked{}, scoring cards to hand",
-                    "{s:0.15} {}",
-                    "If no {C:hearts}Hearts{} are scored,",
-                    "destroys all scoring cards",
-                    "{s:0.15} {}",
-                    "When this Abnormality is removed,",
-                    "{C:attention}permanently{} {C:red}debuffs{} all {C:attention}marked{} cards"
-                }
-            },
-
-            dis_j_lobc_fotdb_1 = {
-                name = "T-01-68",
-                text = {
-                    "{C:attention}(#3#/1){} ...",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ..."
-                }
-            },
-            dis_j_lobc_fotdb_2 = {
-                name = "T-01-68",
-                text = {
-                    "This Abnormality is always {C:dark_edition}Eternal{}",
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ..."
-                }
-            },
-            dis_j_lobc_fotdb_3 = {
-                name = "T-01-68",
-                text = {
-                    "This Abnormality is always {C:dark_edition}Eternal{}",
-                    "{s:0.15} {}",
-                    "Gives {X:mult,C:white} X#2# {} per {C:dark_edition}Eternal{} Joker",
-                    "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
+                    {"If only {C:hearts}Hearts{} cards score, copy",
+                    "non-{C:attention}marked{}, scoring cards to hand"},
+                    {"If no {C:hearts}Hearts{} are scored,",
+                    "destroys all scoring cards"},
+                    {"When this Abnormality is removed,",
+                    "{C:attention}permanently{} {C:red}debuffs{} all {C:attention}marked{} cards"}
                 }
             },
             j_lobc_fotdb = {
                 name = "Funeral of the Dead Butterflies",
                 text = {
-                    "This Abnormality is always {C:dark_edition}Eternal{}",
-                    "{s:0.15} {}",
-                    "{X:mult,C:white} X#2# {} Mult for each {C:dark_edition}Eternal{} Joker",
-                    "{s:0.15} {}",
-                    "When {C:attention}Boss Blind{} is defeated,",
-                    "adds {C:dark_edition}Eternal{} to a random Joker",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
-                }
-            },
-
-            dis_j_lobc_mosb_1 = {
-                name = "T-01-75",
-                text = {
-                    "{C:attention}(#5#/3){} ...",
-                    "{C:attention}(#6#/6){} ...",
-                    "{C:attention}(#7#/9){} ...",
-                }
-            },
-            dis_j_lobc_mosb_2 = {
-                name = "T-01-75",
-                text = {
-                    "Destroys all {C:attention}scored{} cards",
-                    "{C:attention}(#6#/6){} ...",
-                    "{C:attention}(#7#/9){} ...",
-                }
-            },
-            dis_j_lobc_mosb_3 = {
-                name = "T-01-75",
-                text = {
-                    "Destroys all {C:attention}scored{} cards",
-                    "{s:0.15} {}",
-                    "This Abnormality gains {C:chips}+#3#{} Chips and",
-                    "{C:mult}+#4#{} Mult when it destroys a card",
-                    "{C:attention}(#7#/9){} ...",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
+                    {"This Abnormality is always {C:dark_edition}Eternal{}"},
+                    {"{X:mult,C:white} X#2# {} Mult for each {C:dark_edition}Eternal{} Joker",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"},
+                    {"When {C:attention}Boss Blind{} is defeated,",
+                    "adds {C:dark_edition}Eternal{} to a random Joker"},
                 }
             },
             j_lobc_mosb = {
                 name = "The Mountain of Smiling Bodies",
                 text = {
-                    "Destroys all {C:attention}scored{} cards",
-                    "{s:0.15} {}",
-                    "This Abnormality gains {C:chips}+#3#{} Chips and",
+                    {"Destroys all {C:attention}scored{} cards"},
+                    {"This Abnormality gains {C:chips}+#3#{} Chips and",
                     "{C:mult}+#4#{} Mult when it destroys a card",
-                    "{s:0.15} {}",
-                    "Increase {C:chips}Chips{} and {C:mult}Mult{} gain by {C:attention}#8#{}",
-                    "if {C:attention}5{} cards are destroyed at once",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"
-                }
-            },
-
-            dis_j_lobc_heart_of_aspiration_1 = {
-                name = "T-09-77",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_heart_of_aspiration_2 = {
-                name = "T-09-77",
-                text = {
-                    "{C:blue}Hands{} and {C:red}Discards{} are",
-                    "not reset after each {C:attention}Blind{}",
-                    "{C:attention}(#4#/4){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_heart_of_aspiration_3 = {
-                name = "T-09-77",
-                text = {
-                    "{C:blue}Hands{} and {C:red}Discards{} are",
-                    "not reset after each {C:attention}Blind{}",
-                    "{s:0.15} {}",
-                    "This Abnormality gains {X:mult,C:white} X#2# {}",
-                    "Mult after each hand",
-                    "{C:attention}(#5#/6){} ...",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and {C:mult}+#2#{C:inactive} Mult)"},
+                    {"Increase {C:chips}Chips{} and {C:mult}Mult{} gain by {C:attention}#8#{}",
+                    "if {C:attention}5{} cards are destroyed at once"},
                 }
             },
             j_lobc_heart_of_aspiration = {
                 name = "The Heart of Aspiration",
                 text = {
-                    "{C:blue}Hands{} and {C:red}Discards{} are",
-                    "not reset after each {C:attention}Blind{}",
-                    "{s:0.15} {}",
-                    "This Abnormality gains {X:mult,C:white} X#2# {}",
+                    {"{C:blue}Hands{} and {C:red}Discards{} are",
+                    "not reset after each {C:attention}Blind{}"},
+                    {"This Abnormality gains {X:mult,C:white} X#2# {}",
                     "Mult after each hand",
-                    "{s:0.15} {}",
-                    "Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
-                    "after defeating {C:attention}Boss Blind{}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"
-                }
-            },
-
-            dis_j_lobc_giant_tree_sap_1 = {
-                name = "T-09-80",
-                text = {
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#6#/3){} ...",
-                    "{C:attention}(#7#/5){} ...",
-                    "{C:attention}(#8#/7){} ...",
-                }
-            },
-            dis_j_lobc_giant_tree_sap_2 = {
-                name = "T-09-80",
-                text = {
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
-                    "{C:attention}(#7#/5){} ...",
-                    "{C:attention}(#8#/7){} ...",
-                }
-            },
-            dis_j_lobc_giant_tree_sap_3 = {
-                name = "T-09-80",
-                text = {
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
-                    "{s:0.15} {}",
-                    "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
-                    "money to {C:attention}0{} and {C:red}self destructs{}",
-                    "{C:attention}(#8#/7){} ...",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"},
+                    {"Resets {C:blue}Hands{}, {C:red}Discards{} and {C:mult}Mult{}",
+                    "after defeating {C:attention}Boss Blind{}"}
                 }
             },
             j_lobc_giant_tree_sap = {
                 name = "Giant Tree Sap",
                 text = {
-                    "{C:purple}[Active Ability (In Round)]",
+                    "{C:purple}[Active Ability]",
                     "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
-                    "{s:0.15} {}",
                     "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
                     "money to {C:attention}0{} and {C:red}self destructs{}",
-                    "{s:0.15} {}",
                     "Increases chance by {C:attention}#4#%{} on use",
                     "{C:inactive}(max. #5#%)"
-                }
-            },
-
-            dis_j_lobc_fairy_festival_1 = {
-                name = "F-04-83",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ..."
-                }
-            },
-            dis_j_lobc_fairy_festival_2 = {
-                name = "F-04-83",
-                text = {
-                    "When entering a shop, sets a",
-                    "random shop item's price to {C:money}$#1#{}",
-                    "{C:inactive}(except Vouchers)",
-                    "{C:attention}(#3#/4){} ...",
                 }
             },
             j_lobc_fairy_festival = {
                 name = "Fairy Festival",
                 text = {
-                    "When entering a shop, sets a",
-                    "random shop item's price to {C:money}$#1#{}",
-                    "{C:inactive}(except Vouchers)",
-                    "{s:0.15} {}",
-                    "Buying a different item or rerolling",
+                    {"When entering a shop, sets a",
+                    "random shop item's price to {C:money}$0{}",
+                    "{C:inactive}(except Vouchers)"},
+                    {"Buying a different item or rerolling",
                     "the affected item {C:red}destroys{}",
-                    "all shop items and {C:attention}locks rerolls{}",
-                }
-            },
-
-            dis_j_lobc_iron_maiden_1 = {
-                name = "T-09-85",
-                text = {
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#7#/1){} ...",
-                    "{C:attention}(#8#/3){} ...",
-                    "{C:attention}(#9#/5){} ...",
-                }
-            },
-            dis_j_lobc_iron_maiden_2 = {
-                name = "T-09-85",
-                text = {
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
-                    "this Abnormality gains {C:chips}+#3#{} chips",
-                    "{s:0.15} {}",
-                    "{C:attention}(#8#/3){} ...",
-                    "{C:attention}(#9#/5){} ...",
-                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive})"
-                }
-            },
-            dis_j_lobc_iron_maiden_3 = {
-                name = "T-09-85",
-                text = {
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
-                    "this Abnormality gains {C:chips}+#3#{} chips",
-                    "{s:0.15} {}",
-                    "Every {C:attention}5{} times this gains Chips, increases",
-                    "hands loss by {C:blue}-#4#{} and {C:attention}halves{} delay",
-                    "{C:attention}(#9#/5){} ...",
-                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive})"
+                    "all shop items and {C:attention}locks rerolls{}"},
                 }
             },
             j_lobc_iron_maiden = {
                 name = "We Can Change Anything",
                 text = {
-                    "{C:purple}[Active Ability (In Round)]",
+                    {"{C:purple}[Active Ability]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
                     "this Abnormality gains {C:chips}+#3#{} chips",
-                    "{s:0.15} {}",
-                    "Every {C:attention}5{} times this gains Chips, increases",
-                    "hands loss by {C:blue}-#4#{} and {C:attention}halves{} delay",
-                    "{s:0.15} {}",
-                    "When hand is played, becomes {C:red}inactive{}",
-                    "and resets {C:red}all{} values",
-                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive} chips)"
-                }
-            },
-
-            dis_j_lobc_express_train_1 = {
-                name = "T-09-86",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#5#/4){} ...",
-                    "{C:attention}(#6#/6){} ...",
-                }
-            },
-            dis_j_lobc_express_train_2 = {
-                name = "T-09-86",
-                text = {
-                    "Every {C:attention}#3#{} seconds when in control,",
-                    "a light will be {C:enchanted}illuminated{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "{C:attention}(#5#/4){} ...",
-                    "{C:attention}(#6#/6){} ...",
-                }
-            },
-            dis_j_lobc_express_train_3 = {
-                name = "T-09-86",
-                text = {
-                    "Every {C:attention}#3#{} seconds when in control,",
-                    "a light will be {C:enchanted}illuminated{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
-                    "Give {C:mult}XMult{} and {C:money}money{} next hand based",
-                    "on {C:enchanted}illuminated{} lights, then resets lights",
-                    "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})",
-                    "{C:attention}(#6#/6){} ...",
+                    "{C:inactive}(Currently {C:chips}+#6#{C:inactive} chips)"},
+                    {"Every {C:attention}5{} times this gains Chips, increases",
+                    "hands loss by {C:blue}-#4#{} and {C:attention}halves{} delay"},
+                    {"When hand is played, becomes {C:red}inactive{}",
+                    "and resets {C:red}all{} values"},
                 }
             },
             j_lobc_express_train = {
                 name = "Express Train to Hell",
                 text = {
-                    "Every {C:attention}#3#{} seconds when in control,",
-                    "a light will be {C:enchanted}illuminated{}",
-                    "{s:0.15} {}",
-                    "{C:purple}[Active Ability (In Round)]",
+                    {"Every {C:attention}#3#{} seconds when in control,",
+                    "a light will be {C:enchanted}illuminated{}"},
+                    {"{C:purple}[Active Ability]",
                     "Give {C:mult}XMult{} and {C:money}money{} next hand based",
                     "on {C:enchanted}illuminated{} lights, then resets lights",
-                    "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})",
-                    "{s:0.15} {}",
-                    "When {C:attention}4{} lights are lit up and another",
+                    "{C:inactive}(Gives {X:mult,C:white} X#1# {C:inactive} Mult and {C:money}$#2#{C:inactive})"},
+                    {"When {C:attention}4{} lights are lit up and another",
                     "is {C:enchanted}illuminated{}, randomly {C:red}destroys{} half of",
-                    "owned Jokers, then resets lights",
-                }
-            },
-
-            dis_j_lobc_scarecrow_searching_1 = {
-                name = "F-01-87",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/6){} ...",
-                }
-            },
-            dis_j_lobc_scarecrow_searching_2 = {
-                name = "F-01-87",
-                text = {
-                    "After each Blind, create {C:attention}2 {C:tarot}Wisdoms {C:inactive}(Must have room)",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/6){} ...",
-                }
-            },
-            dis_j_lobc_scarecrow_searching_3 = {
-                name = "F-01-87",
-                text = {
-                    "After each Blind, create {C:attention}2 {C:tarot}Wisdoms {C:inactive}(Must have room)",
-                    "{s:0.15} {}",
-                    "After each hand, destroy a {C:attention}Wisdom{} to",
-                    "give scoring cards an {C:attention}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
-                    "{C:attention}(#4#/6){} ...",
+                    "owned Jokers, then resets lights"},
                 }
             },
             j_lobc_scarecrow_searching = {
                 name = "Scarecrow Searching for Wisdom",
                 text = {
-                    "After each Blind, create {C:attention}2{}",
-                    "{C:tarot}Wisdom{} cards {C:inactive}(Must have room)",
-                    "{s:0.15} {}",
-                    "After each hand, destroy a {C:tarot}Wisdom{} to give",
-                    "scoring cards an {C:red}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}",
-                    "{s:0.15} {}",
-                    "If there are none, increase Blind Size by",
+                    {"After each Blind, create {C:attention}2{}",
+                    "{C:tarot}Wisdom{} cards {C:inactive}(Must have room)"},
+                    {"After each hand, destroy a {C:tarot}Wisdom{} to give",
+                    "scoring cards an {C:red}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}"},
+                    {"If there are none, increase Blind Size by",
                     "{C:attention}10%{} per {C:tarot}Wisdom{} created {C:inactive}(once per round){}",
-                    "{C:inactive}({C:tarot}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"
-                }
-            },
-
-            dis_j_lobc_censored_1 = {
-                name = "O-03-89",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/5){} ...",
-                    "{C:attention}(#6#/8){} ...",
-                }
-            },
-            dis_j_lobc_censored_2 = {
-                name = "O-03-89",
-                text = {
-                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
-                    "Removes all other descriptions",
-                    "{C:attention}(#5#/5){} ...",
-                    "{C:attention}(#6#/8){} ...",
-                }
-            },
-            dis_j_lobc_censored_3 = {
-                name = "O-03-89",
-                text = {
-                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
-                    "Removes all other descriptions",
-                    "{s:0.15} {}",
-                    "Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
-                    "consumable gives {X:mult,C:white} X#2# {} Mult, and",
-                    "card in hand gives {C:chips}+#3#{} chips",
-                    "{s:0.15} {}",
-                    "{C:attention}(#6#/8){} ...",
+                    "{C:inactive}({C:tarot}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"}
                 }
             },
             j_lobc_censored = {
                 name = "CENSORED",
                 text = {
-                    "When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
-                    "Removes all other descriptions",
-                    "{s:0.15} {}",
-                    "Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
+                    {"When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
+                    "Removes all other descriptions"},
+                    {"Each {C:red}[CENSORED]{} Joker gives {C:mult}+#1#{} Mult,",
                     "consumable gives {X:mult,C:white} X#2# {} Mult, and",
-                    "card in hand gives {C:chips}+#3#{} chips",
-                    "{s:0.15} {}",
-                    "After each hand, {C:red}[CENSORED]{} a random card",
-                    "{C:inactive}(Joker, consumable or playing card)",
-                }
-            },
-
-            dis_j_lobc_skin_prophecy_1 = {
-                name = "T-09-90",
-                text = {
-                    "{C:purple}[Active Ability (In Shop)]",
-                    "{C:attention}(#1#/2){} ...",
-                    "{C:attention}(#2#/4){} ...",
-                }
-            },
-            dis_j_lobc_skin_prophecy_2 = {
-                name = "T-09-90",
-                text = {
-                    "{C:purple}[Active Ability (In Shop)]",
-                    "{C:attention}Halves{} reroll cost this shop",
-                    "{C:inactive}(rounded down, 10 uses per shop)",
-                    "{C:attention}(#2#/4){} ...",
+                    "card in hand gives {C:chips}+#3#{} chips"},
+                    {"After each hand, {C:red}[CENSORED]{} a random card",
+                    "{C:inactive}(Joker, consumable or playing card)"},
                 }
             },
             j_lobc_skin_prophecy = {
                 name = "Skin Prophecy",
                 text = {
-                    "{C:purple}[Active Ability (In Shop)]",
+                    {"{C:purple}[Active Ability]",
                     "{C:attention}Halves{} reroll cost this shop",
-                    "{C:inactive}(rounded down, 10 uses per shop)",
-                    "{C:attention}Doubles{} reroll cost increase this shop",
-                }
-            },
-
-            dis_j_lobc_shy_look_1 = {
-                name = "O-01-92",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/6){} ...",
-                }
-            },
-            dis_j_lobc_shy_look_2 = {
-                name = "O-01-92",
-                text = {
-                    "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
-                    "{C:attention}(#3#/4){} ...",
-                    "{C:attention}(#4#/6){} ...",
-                }
-            },
-            dis_j_lobc_shy_look_3 = {
-                name = "O-01-92",
-                text = {
-                    "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
-                    "{s:0.15} {}",
-                    "The face changes every #1# seconds",
-                    "{C:attention}(#4#/6){} ...",
+                    "{C:inactive}(rounded down, 10 uses per shop)"},
+                    {"{C:attention}Doubles{} reroll cost increase this shop"},
                 }
             },
             j_lobc_shy_look = {
                 name = "Today's Shy Look",
                 text = {
-                    "+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}",
-                    "{s:0.15} {}",
-                    "The face changes every {C:attention}#1#{} seconds",
-                    "{s:0.15} {}",
-                    "Happier faces give more Chips and Mult",
-                }
-            },
-
-            dis_j_lobc_you_must_be_happy_1 = {
-                name = "T-09-94",
-                text = {
-                    "{C:attention}(#5#/2){} ...",
-                    "{C:attention}(#6#/4){} ...",
-                    "{C:attention}(#7#/5){} ...",
-                }
-            },
-            dis_j_lobc_you_must_be_happy_2 = {
-                name = "T-09-94",
-                text = {
-                    "When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
-                    "sources for this Ante by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}",
-                    "{C:attention}(#6#/4){} ...",
-                    "{C:attention}(#7#/5){} ...",
-                }
-            },
-            dis_j_lobc_you_must_be_happy_3 = {
-                name = "T-09-94",
-                text = {
-                    "When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
-                    "sources for this Ante by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}",
-                    "{s:0.15} {}",
-                    "After each round, multiply values by",
-                    "{X:blue,C:white} X#3# {} and {X:red,C:white} X#4# {}, then reduces delay",
-                    "{C:attention}(#7#/5){} ...",
+                    {"+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}"},
+                    {"The face changes every {C:attention}#1#{} seconds"},
+                    {"Happier faces give more Chips and Mult"},
                 }
             },
             j_lobc_you_must_be_happy = {
                 name = "You Must Be Happy",
                 text = {
-                    "When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
-                    "sources for this {C:attention}Ante{} by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}",
-                    "{s:0.15} {}",
-                    "After each round, multiply values by",
-                    "{X:blue,C:white} X#3# {} and {X:red,C:white} X#4# {}, then reduces delay",
-                    "{s:0.15} {}",
-                    "After {C:attention}6{} rounds held, destroys itself",
+                    {"When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
+                    "sources for this {C:attention}Ante{} by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}"},
+                    {"After each round, multiply values by",
+                    "{X:blue,C:white} X#3# {} and {X:red,C:white} X#4# {}, then reduces delay"},
+                    {"After {C:attention}6{} rounds held, destroys itself",
                     "and activates the {C:red}NO{} effect",
-                    "{C:inactive}(Currently {C:attention}#8#{C:inactive} Round(s))"
-                }
-            },
-
-            dis_j_lobc_old_faith_1 = {
-                name = "T-09-97",
-                text = {
-                    "{C:attention}(#3#/2){} ...",
-                    "{C:attention}(#4#/4){} ...",
-                }
-            },
-            dis_j_lobc_old_faith_2 = {
-                name = "T-09-97",
-                text = {
-                    "When {C:attention}Blind{} is selected, add",
-                    "an {C:dark_edition}edition{} to a random card",
-                    "{C:inactive}(Joker, consumable or playing card)",
-                    "{C:attention}(#4#/4){} ...",
+                    "{C:inactive}(Currently {C:attention}#8#{C:inactive} Round(s))"}
                 }
             },
             j_lobc_old_faith = {
                 name = "Old Faith and Promise",
                 text = {
-                    "When {C:attention}Blind{} is selected, add",
+                    {"When {C:attention}Blind{} is selected, add",
                     "an {C:dark_edition}edition{} to a random card",
-                    "{C:inactive}(Joker, consumable or playing card)",
-                    "{s:0.15} {}",
-                    "{C:green}#1# in #2#{} chance to",
-                    "{C:attention}permanently{} {C:red}debuff{} it instead",
-                }
-            },
-
-            dis_j_lobc_void_dream_1 = {
-                name = "T-02-99",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/4){} ...",
-                }
-            },
-            dis_j_lobc_void_dream_2 = {
-                name = "T-02-99",
-                text = {
-                    "Played cards have a {C:green}#1# in #2#{} chance",
-                    "to give {C:money}$#3#{} when scored",
-                    "{C:attention}(#5#/4){} ...",
+                    "{C:inactive}(Joker, consumable or playing card)"},
+                    {"{C:green}#1# in #2#{} chance to",
+                    "{C:attention}permanently{} {C:red}debuff{} it instead"},
                 }
             },
             j_lobc_void_dream = {
                 name = "Void Dream",
                 text = {
-                    "Played cards have a {C:green}#1# in #2#{} chance",
-                    "to give {C:money}$#3#{} when scored",
-                    "{s:0.15} {}",
-                    "Scoring cards have a fixed",
-                    "{C:green}1 in 4{} chance to not score",
-                }
-            },
-
-            dis_j_lobc_firebird_1 = {
-                name = "O-02-101",
-                text = {
-                    "{C:attention}(#4#/3){} ...",
-                    "{C:attention}(#5#/6){} ...",
-                }
-            },
-            dis_j_lobc_firebird_2 = {
-                name = "O-02-101",
-                text = {
-                    "Cannot earn more than {C:money}$#1#{} at once",
-                    "{C:attention}(#5#/6){} ...",
+                    {"Played cards have a {C:green}#1# in #2#{} chance",
+                    "to give {C:money}$#3#{} when scored"},
+                    {"Scoring cards have a fixed",
+                    "{C:green}1 in 4{} chance to not score"},
                 }
             },
             j_lobc_firebird = {
                 name = "The Firebird",
                 text = {
-                    "Cannot earn more than {C:money}$5{} at once",
-                    "{s:0.15} {}",
-                    "This Abnormality gains {X:mult,C:white} X#2# {} Mult",
+                    {"Cannot earn more than {C:money}$5{} at once"},
+                    {"This Abnormality gains {X:mult,C:white} X#2# {} Mult",
                     "for every {C:money}${} lost by this effect",
                     "{s:0.9}(resets at end of round){}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"
-                }
-            },
-
-            dis_j_lobc_servant_of_wrath_1 = {
-                name = "O-01-??",
-                text = {
-                    "{C:attention}(#2#/2){} ...",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/7){} ...",
-                }
-            },
-            dis_j_lobc_servant_of_wrath_2 = {
-                name = "O-01-??",
-                text = {
-                    "When round starts, plays {C:attention}5{}",
-                    "random cards from your hand",
-                    "{C:attention}(#3#/3){} ...",
-                    "{C:attention}(#4#/7){} ...",
-                }
-            },
-            dis_j_lobc_servant_of_wrath_3 = {
-                name = "O-01-??",
-                text = {
-                    "When round starts, plays {C:attention}5{}",
-                    "random cards from your hand",
-                    "{s:0.15} {}",
-                    "Scoring cards this way give {X:mult,C:white} X#1# {} Mult",
-                    "{C:attention}(#4#/7){} ...",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"}
                 }
             },
             j_lobc_servant_of_wrath = {
                 name = "The Servant of Wrath",
                 text = {
-                    "When round starts, plays {C:attention}5{}",
-                    "random cards from your hand",
-                    "{s:0.15} {}",
-                    "Scoring cards this way give {X:mult,C:white} X#1# {} Mult",
-                    "{s:0.15} {}",
-                    "If {C:attention}three{} hands played this way are",
-                    "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}",
-                }
-            },
-
-            dis_j_lobc_jolliest_jester_1 = {
-                name = "M-01-13",
-                text = {
-                    "{C:attention}(#4#/2){} ...",
-                    "{C:attention}(#5#/5){} ...",
-                    "{C:attention}(#6#/7){} ...",
-                }
-            },
-            dis_j_lobc_jolliest_jester_2 = {
-                name = "M-01-13",
-                text = {
-                    "{C:attention}Jolly Jokers{} can be bought",
-                    "ignoring Joker Slot limit",
-                    "{C:attention}(#5#/5){} ...",
-                    "{C:attention}(#6#/7){} ...",
-                }
-            },
-            dis_j_lobc_jolliest_jester_3 = {
-                name = "M-01-13",
-                text = {
-                    "{C:attention}Jolly Jokers{} can be bought",
-                    "ignoring Joker Slot limit",
-                    "{s:0.15} {}",
-                    "{C:green}#1# in #2#{} for cards in shop",
-                    "to be replaced by {C:attention}Jolly Joker",
-                    "{C:attention}(#6#/7){} ...",
+                    {"When round starts, plays {C:attention}5{}",
+                    "random cards from your hand"},
+                    {"Scoring cards this way give {X:mult,C:white} X#1# {} Mult"},
+                    {"If {C:attention}three{} hands played this way are",
+                    "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}"},
                 }
             },
             j_lobc_jolliest_jester = {
                 name = "The Jolliest Jester",
                 text = {
-                    "{C:attention}Jolly Jokers{} can be bought",
-                    "ignoring {C:attention}Joker Slot{} limit",
-                    "{s:0.15} {}",
-                    "{C:green}#1# in #2#{} chance for cards in shop",
-                    "to be replaced by {C:attention}Jolly Joker",
-                    "{s:0.15} {}",
-                    "Increase base chance by {C:green}#3#{} if failed,",
+                    {"{C:attention}Jolly Jokers{} can be bought",
+                    "ignoring {C:attention}Joker Slot{} limit"},
+                    {"{C:green}#1# in #2#{} chance for cards in shop",
+                    "to be replaced by {C:attention}Jolly Joker"},
+                    {"Increase base chance by {C:green}#3#{} if failed,",
                     "otherwise, {C:attention}halves{} chance",
-                    "{C:inactive,s:0.8}(chance shared by all copies of this Abnormality)",
+                    "{C:inactive,s:0.8}(chance shared by all copies of this Abnormality)"},
                 }
             },
-
-            dis_j_lobc_youre_bald_1 = {
-                name = "Bald-Is-Awesome!",
+            j_lobc_sign_of_roses = {
+                name = "Sign of Roses",
                 text = {
-                    "{C:attention}(#1#/3){} ...",
+                    {"Adds #1# round to held {C:colourcard}Colour Cards",
+                    "for each unique suit in played hand"},
+                    {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
+                    "a playing card of the same suit",
+                    "has already been scored this hand"}
+                }
+            },
+            j_lobc_sign_of_roses_alt = {
+                name = "Sign of Roses",
+                text = {
+                    {"This Abnormality gains {X:mult,C:white} X#3# {} Mult",
+                    "for each unique suit in played hand",
+                    "{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)"},
+                    {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
+                    "a playing card of the same suit",
+                    "has already been scored this hand"}
                 }
             },
             j_lobc_youre_bald = {
                 name = "You're Bald...",
                 text = {
-                    "Future Jokers may",
-                    "become {C:attention}bald{}",
+                    {"Future Jokers may",
+                    "become {C:attention}bald{}"},
                 }
             },
         },

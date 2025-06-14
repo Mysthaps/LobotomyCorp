@@ -18,7 +18,8 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "waw",
-    discover_rounds = 6,
+    discover_rounds = {2, 4, 6},
+    discover_override = {nil, "lobc_obs_active_2", nil}
 }
 
 joker.calculate = function(self, card, context)
@@ -78,7 +79,7 @@ joker.set_sprites = function(self, card, front)
 
     card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
     local count = lobc_get_usage_count(card.config.center_key)
-    if count < card.config.center.discover_rounds and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
+    if count < card.config.center.discover_rounds[#card.config.center.discover_rounds] and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
         card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
     end
     card.children.center:set_sprite_pos(card.config.center.pos)
@@ -122,30 +123,13 @@ joker.update = function(self, card, dt)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { 
+joker.loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
+    return {vars = { 
         card.ability.extra.active_light > 0 and lights[card.ability.extra.active_light].x_mult or 1,
         card.ability.extra.active_light > 0 and lights[card.ability.extra.active_light].dollars or 0,
-        card.ability.extra.interval, card:check_rounds(2), card:check_rounds(4), card:check_rounds(6)
-    }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(4) < 4 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(6) < 6 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
-    info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+        card.ability.extra.interval
+    }}
 end
 
 if JokerDisplay then

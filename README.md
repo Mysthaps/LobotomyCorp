@@ -9,6 +9,11 @@ I see that you've been slacking off while playing a few rounds of cards during o
 I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have "fun" while still generating precious energy to meet the daily quota. 
 This may hinder your playing experience, but I am sure you will do just fine.</i></h5>
 
+# Notice
+**Lobotomy Corporation** is about discovery and experiment with different Abnormalities. 
+It is recommended to play with **Lobotomy Corporation** by itself on your first playthrough, regardless of this mod's cross-mod content.
+The **Discover All** functionality does not discover Abnormalities from this mod, since it can be overwhelming for new players with the amount of text each Abnormality has.
+
 # Features
 ## Abnormalities, as Jokers
 Each added Abnormality have different Observation Levels that unlock more of their Information. 

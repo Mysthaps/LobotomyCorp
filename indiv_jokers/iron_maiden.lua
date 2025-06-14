@@ -12,7 +12,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "zayin",
-    discover_rounds = 5,
+    discover_rounds = {1, 3, 5},
 }
 
 joker.update = function(self, card, dt)
@@ -85,36 +85,10 @@ joker.calculate = function(self, card, context)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { 
-        card.ability.extra.interval, card.ability.extra.hands_loss, card.ability.extra.chips_gain,
-        card.ability.extra.loss_increase, card.ability.extra.chips_gain_increase, card.ability.extra.chips,
-        card:check_rounds(1), card:check_rounds(3), card:check_rounds(5) }
-    local desc_key = self.key
-    if card:check_rounds(1) < 1 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(5) < 5 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
+joker.loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-        desc_nodes[#desc_nodes+1] = {
-            {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                    {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.active and 'k_lobc_active' or 'k_lobc_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
-                }}
-            }}
-        }
-    end
+    return {vars = {card.ability.extra.interval, card.ability.extra.hands_loss, card.ability.extra.chips_gain,
+        card.ability.extra.loss_increase, card.ability.extra.chips_gain_increase, card.ability.extra.chips}}
 end
 
 if JokerDisplay then

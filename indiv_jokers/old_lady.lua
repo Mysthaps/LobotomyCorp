@@ -7,7 +7,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "teth",
-    discover_rounds = 5,
+    discover_rounds = {2, 5},
 }
 
 joker.calculate = function(self, card, context)
@@ -30,24 +30,9 @@ joker.calculate = function(self, card, context)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+joker.loc_vars = function(self, info_queue, card)
     local sign = card.ability.extra.mult >= 0 and "+" or ""
-    local vars = { card.ability.extra.mult, card.ability.extra.gain, card.ability.extra.loss, card:check_rounds(2), card:check_rounds(5), sign }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(5) < 5 then
-        desc_key = 'dis_'..desc_key..'_2'
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+    return {vars = {card.ability.extra.mult, card.ability.extra.gain, card.ability.extra.loss, "unused", "unused", sign}}
 end
 
 -- Check for Old Lady's bullshit

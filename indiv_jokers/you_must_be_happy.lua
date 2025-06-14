@@ -10,7 +10,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "zayin",
-    discover_rounds = 5,
+    discover_rounds = {2, 3, 5},
 }
 
 joker.calculate = function(self, card, context)
@@ -61,7 +61,7 @@ joker.set_sprites = function(self, card, front)
 
     card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
     local count = lobc_get_usage_count(card.config.center_key)
-    if count < card.config.center.discover_rounds and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
+    if count < card.config.center.discover_rounds[#card.config.center.discover_rounds] and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
         card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
     end
     card.children.center:set_sprite_pos(card.config.center.pos)
@@ -87,6 +87,14 @@ joker.update = function(self, card, dt)
     end
 end
 
+joker.loc_vars = function(self, info_queue, card)
+    return {vars = {
+        card.ability.extra.pos^(card.ability.extra.held+1), card.ability.extra.neg^(card.ability.extra.held+1), 
+        card.ability.extra.pos, card.ability.extra.neg, 
+        "unused", "unused", "unused", card.ability.extra.held
+    }}
+end
+
 joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     local vars = { 
         card.ability.extra.pos^(card.ability.extra.held+1), card.ability.extra.neg^(card.ability.extra.held+1), 
@@ -108,7 +116,7 @@ joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, 
     elseif specific_vars and specific_vars.debuffed then
         localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
     else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
+        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars, AUT = full_UI_table}
     end
 end
 

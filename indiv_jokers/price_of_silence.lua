@@ -9,7 +9,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "he",
-    discover_rounds = 6,
+    discover_rounds = {2, 4, 6},
 }
 
 joker.update = function(self, card, dt)
@@ -115,39 +115,16 @@ joker.calculate = function(self, card, context)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { 
-        card:check_rounds(2), card:check_rounds(4), card:check_rounds(6),
-        colours = {HEX("004d00")}
-    }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(4) < 4 then
-        desc_key = 'dis_'..desc_key..'_2'
-    else
-        info_queue[#info_queue+1] = {key = 'lobc_amplified', set = 'Other'}
-        if card:check_rounds(6) < 6 then
-            desc_key = 'dis_'..desc_key..'_3'
-        end
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-        local check = (card.ability.extra.active and G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND)
-        desc_nodes[#desc_nodes+1] = {
-            {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                {n=G.UIT.C, config={ref_table = self, align = "m", colour = check and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                    {n=G.UIT.T, config={text = ' '..localize(check and 'k_lobc_active' or 'k_lobc_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
-                }}
+joker.loc_vars = function(self, info_queue, card)
+    if card:check_rounds() >= 4 then info_queue[#info_queue+1] = {key = 'lobc_amplified', set = 'Other'} end
+    local check = (card.ability.extra.active and G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND)
+    return {main_end = 
+        {{n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = self, align = "m", colour = check and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' '..localize(check and 'k_lobc_active' or 'k_lobc_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
             }}
-        }
-    end
+        }}
+    }}
 end
 
 -- The Price of Silence amplification

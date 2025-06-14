@@ -10,7 +10,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "zayin",
-    discover_rounds = 5,
+    discover_rounds = {2, 3, 5},
 }
 
 joker.calculate = function(self, card, context)
@@ -66,31 +66,14 @@ joker.set_sprites = function(self, card, front)
 
     card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Jokers"]
     local count = lobc_get_usage_count(card.config.center_key)
-    if count < card.config.center.discover_rounds and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
+    if count < card.config.center.discover_rounds[#card.config.center.discover_rounds] and not SMODS.Mods.LobotomyCorp.config.show_art_undiscovered then
         card.children.center.atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_Undiscovered"]
     end
     card.children.center:set_sprite_pos(card.config.center.pos)
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { card.ability.extra.mult, card.ability.extra.chips, card:check_rounds(2), card:check_rounds(3), card:check_rounds(5)}
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(5) < 5 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars}
-    end
+joker.loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult, card.ability.extra.chips}}
 end
 
 if JokerDisplay then
