@@ -1,7 +1,7 @@
 local joker = {
     name = "CENSORED",
     config = {extra = {
-        mult = 40,
+        mult = 30,
         x_mult = 2,
         chips = 25,
     }}, rarity = 3, cost = 8,
@@ -30,7 +30,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.other_joker and card ~= context.other_joker and context.other_joker.ability.lobc_censored then
+    if context.other_joker and (context.other_joker.ability.lobc_censored or card == context.other_joker) then
         G.E_MANAGER:add_event(Event({
             func = function()
                 context.other_joker:juice_up(0.5, 0.5)
@@ -175,7 +175,7 @@ if JokerDisplay then
             local c_count = 0
 
             for k, v in pairs(G.hand.cards) do
-                if not v.highlighted and not v.debuff and v.ability.censored then
+                if not v.highlighted and not v.debuff and (v.ability.censored or v == card) then
                     h_count = h_count + 1
                 end
             end
