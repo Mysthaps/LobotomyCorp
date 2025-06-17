@@ -16,12 +16,9 @@ joker.calculate = function(self, card, context)
             card.ability.extra.first = false
             card.ability.extra.cards = card.ability.extra.cards + card.ability.extra.card_gain
             G.hand:change_size(card.ability.extra.card_gain)
-            if card.ability.extra.cards >= 5 then
-                check_for_unlock({type = "lobc_red_eyes"})
-            end
             card.ability.extra.counter = card.ability.extra.counter + 1
-            if card.ability.extra.counter >= 20 then
-                check_for_unlock({type = "lobc_red_eyes_open"})
+            if card.ability.extra.counter >= 10 then
+                check_for_unlock({type = "lobc_red_eyes"})
             end
             return {remove = true}
         end
