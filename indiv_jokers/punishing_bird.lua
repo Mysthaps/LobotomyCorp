@@ -82,7 +82,7 @@ function Card.hover(self)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.mult, card.ability.extra.rounds_played}}
+    return {vars = {card.ability.extra.mult, card.ability.extra.rounds_played}, key = (card.ability.extra.start_apoc and "j_lobc_punishing_bird_apoc" or nil)}
 end
 
 if JokerDisplay then

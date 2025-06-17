@@ -60,7 +60,8 @@ local joker_list = {
     "youre_bald",
     --- Fanmade / Mod Crossover Abnos
     "jolliest_jester",
-    "sign_of_roses"
+    "sign_of_roses",
+    "electric_sheep"
 }
 local blind_list = {
     -- Abnormalities
@@ -260,7 +261,14 @@ for _, v in ipairs(joker_list) do
     end
     if config.enable_crossovers then
         joker.dependencies = nil
+        joker.or_dependencies = nil
     end
+
+    local can = config.enable_crossovers
+    for _, v in ipairs(joker.or_dependencies or {}) do
+        if next(SMODS.find_mod(v)) then can = true; break end
+    end
+    if not can then joker.dependencies = {"THIS_JOKER_WILL_NOT_LOAD_HOPEFULLY"} end
 
     local joker_obj = SMODS.Joker(joker)
 
@@ -1650,9 +1658,9 @@ function Card.set_ability(self, center, initial, delay_sprites)
         end
     end
     
-    if self.ability and self.playing_card and self.ability.set == "Enhanced" then
+    --[[if self.ability and self.playing_card and self.ability.set == "Enhanced" then
         self:lobc_check_amplified()
-    end
+    end]]--
 end
 
 -- Blind:alert_debuff for ordeals
@@ -2084,6 +2092,42 @@ function boot_timer(_label, _next, progress)
                     e.UIBox:set_parent_child(deck, e)
                     e.UIBox:recalculate()
                 end
+            end
+        end
+
+        -- Add different Enhancements to Metallic Cards
+        local metallic = {
+            {"m_gold"},
+            {"m_steel"},
+            {"m_bunc_copper", "Bunco"},
+            {"m_grim_iron", "Grim"},
+            {"m_grim_lead", "Grim"},
+            {"m_grim_platinum", "Grim"},
+            {"m_grim_radium", "Grim"},
+            {"m_grim_silver", "Grim"},
+            {"m_kino_sci_fi", "Kino"},
+            {"m_mills_cinna", "MillsCookbook"}, {"m_mills_cinnabar", "MillsCookbook"}, -- vro why do you have two of the same enhancements
+            {"m_mills_cob", "MillsCookbook"}, {"m_mills_cobalt", "MillsCookbook"},
+            {"m_mills_elec", "MillsCookbook"}, {"m_mills_electrum", "MillsCookbook"},
+            {"m_mills_ir", "MillsCookbook"}, {"m_mills_iron", "MillsCookbook"},
+            {"m_mills_titanium", "MillsCookbook"},
+            {"m_mf_brass", "MoreFluff"},
+            {"m_ortalab_rusty", "Ortalab"},
+            {"m_jen_potassium", "POLTERWORX"},
+            {"m_reverse_copper", "ReverseTarot+"},
+            {"m_reverse_iridium", "ReverseTarot+"},
+            {"m_crv_coatedcopper", "RevosVault"},
+            {"m_toga_bronze", "TOGAPack"},
+            {"m_toga_copper", "TOGAPack"},
+            {"m_toga_electrum", "TOGAPack"},
+            {"m_toga_iron", "TOGAPack"},
+            {"m_toga_osmium", "TOGAPack"},
+            {"m_toga_silver", "TOGAPack"},
+            {"m_toga_tin", "TOGAPack"},
+        }
+        for _, v in ipairs(metallic) do
+            if G.localization.descriptions.Enhanced[v[1]] then
+                table.insert(G.localization.descriptions.Other.lobc_metallic.text, "{C:attention}"..G.localization.descriptions.Enhanced[v[1]].name..(v[2] and "{} ("..v[2]..")" or ""))
             end
         end
     end

@@ -379,6 +379,13 @@ return {
                     "you clearly wish for something.",
                 }
             },
+            und_j_lobc_electric_sheep = {
+                name = "F-01-20-08",
+                text = {
+                    "The {C:purple}\"electric sheep\"{} seems to be in pain.",
+                    "Could it be dreaming?",
+                }
+            },
             und_j_lobc_youre_bald = {
                 name = "Bald-Is-Awesome!",
                 text = {
@@ -432,13 +439,13 @@ return {
             lobc_obs_one_sin_2 = {
                 text = {
                     "{C:inactive}- Observation Level 2 -",
-                    "Defeat {C:attention}WhiteNight{}."
+                    "Defeat {C:attention}??????????{}."
                 }
             },
             lobc_obs_plague_doctor_3 = {
                 text = {
                     "{C:inactive}- Observation Level 3 -",
-                    "Defeat {C:attention}WhiteNight{}."
+                    "Defeat {C:attention}??????????{}."
                 }
             },
 
@@ -603,6 +610,10 @@ return {
                     "Reduces final score by {C:blue}Shield",
                     "{C:green}[Hand Start]{} Removes {C:blue}Shield"
                 }
+            },
+            lobc_metallic = {
+                name = "Metallic Cards",
+                text = {}
             }
         },
         Joker = {
@@ -633,9 +644,7 @@ return {
                     "this Abnormality {C:attention}breaches{}"}
                 }
             },
-            j_lobc_happy_teddy_bear_name_1 = {
-                name = "A Teddy Bear"
-            },
+            j_lobc_happy_teddy_bear_name_1 = {name = "A Teddy Bear"},
             j_lobc_happy_teddy_bear = {
                 name = "Happy Teddy Bear",
                 text = {
@@ -689,6 +698,7 @@ return {
                     "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
                 }
             },
+            j_lobc_wall_gazer_name_1 = {name = "Wall Gazer"},
             j_lobc_wall_gazer = {
                 name = "The Lady Facing the Wall",
                 text = {
@@ -826,6 +836,7 @@ return {
                     "and loses {X:purple,C:white} X#3# {} per scoring card without"},
                 }
             },
+            j_lobc_punishing_bird_name_2 = {name = "Small Bird"},
             j_lobc_punishing_bird = {
                 name = "Punishing Bird",
                 text = {
@@ -913,6 +924,7 @@ return {
                     "{C:inactive}(Must have room)"}
                 }
             },
+            j_lobc_judgement_bird_name_2 = {name = "Long Bird"},
             j_lobc_judgement_bird = {
                 name = "Judgement Bird",
                 text = {
@@ -1161,6 +1173,18 @@ return {
                     {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
                     "a playing card of the same suit",
                     "has already been scored this hand"}
+                }
+            },
+            j_lobc_electric_sheep = {
+                name = "Dreaming Electric Sheep",
+                text = {
+                    {"All non-{C:attention}Metallic Cards{} held in hand",
+                    "are {C:red}debuffed{} for the entire round"},
+                    {"{C:attention}Metallic Cards{} held in hand trigger",
+                    "their scoring and end of round effects",
+                    "once when a {C:attention}Metallic Card{} is scored"},
+                    {"This Abnormality doesn't trigger if more than",
+                    "{C:attention}5 Metallic Cards{} or {C:attention}none{} are held in hand",}
                 }
             },
             j_lobc_youre_bald = {
@@ -2129,6 +2153,7 @@ return {
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
             k_activated = "Activated!",
+            k_conduct = "Conduct!",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
