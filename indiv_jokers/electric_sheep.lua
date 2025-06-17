@@ -55,6 +55,9 @@ joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and card.ability.extra.can_trig then
         for _, v in ipairs(metallic) do
             if context.other_card.config.center.key == v then
+                G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
+                    play_sound("lobc_electric_sheep", 1, 0.7)
+                return true end }))
                 SMODS.calculate_effect({
                     message = localize("k_conduct"),
                     colour = G.C.PURPLE,
@@ -109,14 +112,21 @@ joker.calculate = function(self, card, context)
         end
     end
     if context.end_of_round and not context.blueprint then
+        card.ability.extra.can_trig = false
         for _, v in ipairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, "electric_sheep")
+            SMODS.debuff_card(v, false, "electric_sheep_debuff")
         end
     end
 end
 
+joker.remove_from_deck = function(self, card, from_debuff)
+    for _, v in ipairs(G.playing_cards) do
+        SMODS.debuff_card(v, false, 'electric_sheep_debuff')
+    end
+end
+
 joker.update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and (G.GAME and G.GAME.boss and G.GAME.boss.in_blind) and (card.area == G.jokers or card.area == G.consumeables) and not card.debuff and G.hand then
+    if G.STAGE == G.STAGES.RUN and (G.GAME and G.GAME.blind and G.GAME.blind.in_blind) and (card.area == G.jokers or card.area == G.consumeables) and not card.debuff and G.hand then
         local count = 0
         for _, _card in ipairs(G.hand.cards) do
             for _, vv in ipairs(metallic) do if _card.config.center.key == vv then
@@ -129,7 +139,7 @@ joker.update = function(self, card, dt)
             for _, vv in ipairs(metallic) do if _card.config.center.key == vv then
                 is_metallic = true
             end end
-            if not is_metallic then SMODS.debuff_card(_card, (count > 0 and count <= 5), "electric_sheep") end
+            if not is_metallic then SMODS.debuff_card(_card, (count > 0 and count <= 5), "electric_sheep_debuff") end
         end
     end
 end

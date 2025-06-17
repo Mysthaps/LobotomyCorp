@@ -152,6 +152,7 @@ local sound_list = {
     wolf_out = "Wolf_EatOut",
     wolf_scratch = "Wolf_Scratch",
     queen_bee = "QueenBee_Funga_01",
+    electric_sheep = "sheep_3_1-1",
 
     evade = "what/evade",
     coin_fail = "what/coin_fail",
