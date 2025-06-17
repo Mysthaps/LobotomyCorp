@@ -108,10 +108,15 @@ joker.calculate = function(self, card, context)
             end
         end
     end
+    if context.end_of_round and not context.blueprint then
+        for _, v in ipairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, "electric_sheep")
+        end
+    end
 end
 
 joker.update = function(self, card, dt)
-    if G.STAGE == G.STAGES.RUN and (card.area == G.jokers or card.area == G.consumeables) and not card.debuff and G.hand then
+    if G.STAGE == G.STAGES.RUN and (G.GAME and G.GAME.boss and G.GAME.boss.in_blind) and (card.area == G.jokers or card.area == G.consumeables) and not card.debuff and G.hand then
         local count = 0
         for _, _card in ipairs(G.hand.cards) do
             for _, vv in ipairs(metallic) do if _card.config.center.key == vv then
