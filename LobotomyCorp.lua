@@ -740,7 +740,7 @@ function reset_blinds()
         if G.GAME.round_resets.ante % 8 == 4 and G.GAME.round_resets.ante > 0 and
            (G.GAME.modifiers.lobc_ordeals or pseudorandom("noon_ordeal") < 0.125) then
             G.GAME.round_resets.blind_choices.Big = 'bl_lobc_noon_base'
-        elseif G.GAME.round_resets.blind_choices.Small == 'bl_lobc_noon_base' then
+        elseif G.GAME.round_resets.blind_choices.Big == 'bl_lobc_noon_base' then
             G.GAME.round_resets.blind_choices.Big = 'bl_big'
         end
 
