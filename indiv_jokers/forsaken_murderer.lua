@@ -13,7 +13,7 @@ local joker = {
 joker.calculate = function(self, card, context)
     if context.before and not context.blueprint then
         if context.scoring_hand and context.scoring_hand[#context.scoring_hand] then
-           SMODS.debuff_card(context.scoring_hand[#context.scoring_hand], true, "forsaken_murderer")
+            SMODS.debuff_card(context.scoring_hand[#context.scoring_hand], true, "forsaken_murderer")
         end
         card:juice_up()
     end

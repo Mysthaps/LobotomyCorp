@@ -160,6 +160,7 @@ local achievement_list = {
     "smile",
     "aspiration",
     "wingbeat",
+    --"lantern",
     --"harvest",
     "censored",
     "feather_of_honor",
