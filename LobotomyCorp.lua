@@ -6,6 +6,7 @@ local config = SMODS.current_mod.config
 lobc_seen_what = config.seen_what
 local folder = string.match(mod_path, "[Mm]ods.*")
 SMODS.load_file("blindexpander.lua")()
+SMODS.load_file("lyrics.lua")()
 
 --=============== STEAMODDED OBJECTS ===============--
 
@@ -414,6 +415,9 @@ for k, v in pairs(sound_list) do
     for _, vv in ipairs(SMODS.load_file("sound_conditionals.lua")()) do
         if k == vv.key then
             sound.select_music_track = vv.select_music_track
+            sound.bpm = vv.bpm
+            sound.offset = vv.offset
+            sound.sync_events = vv.sync_events
             sound.sync = vv.sync
             sound.pitch = 0.7
         end
@@ -686,6 +690,62 @@ function shallow_copy(t)
         t2[k] = v
     end
     return t2
+end
+
+--=============== CONDUCTOR ===============--
+
+lobc_conductor = {
+    track = '',
+    bpm = 0,
+    offset = 0, 
+    sec_per_beat = 0, 
+    beat = 0, 
+    pitch = 0,
+}
+
+local modulate_soundref = modulate_sound
+function modulate_sound(dt)
+    local prev_track = SMODS.previous_track
+    modulate_soundref(dt)
+    local cur_track = SMODS.previous_track
+    if prev_track ~= cur_track then
+        local sound = SMODS.Sounds[cur_track]
+        if sound and sound.sync_events then
+            lobc_conductor.track = cur_track
+            lobc_conductor.bpm = sound.bpm
+            lobc_conductor.pitch = sound.pitch
+            lobc_conductor.offset = sound.offset / sound.pitch
+            lobc_conductor.sec_per_beat = 60/(sound.bpm / sound.pitch)
+            lobc_conductor.beat = 0
+        end
+    end
+end
+
+local last_beat = 0
+function lobc_condupd(dt)
+    local sound = SMODS.Sounds[lobc_conductor.track]
+    -- Only activate for SMODS sounds, with bpm funcs
+    if sound and sound.sync_events then
+        local beat = lobc_conductor.beat
+        G.SOUND_MANAGER.channel:push({type = "get_conductor"})
+        while G.SOUND_MANAGER.conductor:getCount() > 0 do
+            req = G.SOUND_MANAGER.conductor:pop()
+        end
+        if not req then return end
+
+        if beat - last_beat < (beat / 2) then -- bandage fix for looping
+            for _, v in ipairs(SMODS.Sounds[lobc_conductor.track].sync_events) do
+                if v.beat > last_beat and v.beat <= beat then
+                    print(last_beat.." "..beat)
+                    v.func()
+                end
+            end
+        end
+
+        local pos = req.pos - lobc_conductor.offset
+        last_beat = lobc_conductor.beat
+        lobc_conductor.beat = pos / lobc_conductor.sec_per_beat
+    end
 end
 
 --=============== BLINDS ===============--

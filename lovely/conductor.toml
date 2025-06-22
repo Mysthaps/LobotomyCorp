@@ -1,0 +1,61 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Create the thread
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "load_channel = love.thread.getChannel('load_channel')"
+position = "after"
+payload = ''',conductor = love.thread.getChannel('conductor')'''
+match_indent = false
+
+[[patches]]
+[patches.pattern]
+target = "engine/sound_manager.lua"
+pattern = "LOAD_CHANNEL = love.thread.getChannel('load_channel')"
+position = "after"
+payload = '''
+CONDUCTOR = love.thread.getChannel('conductor')
+local start_time = 0'''
+match_indent = true
+
+# Get the audio time
+[[patches]]
+[patches.pattern]
+target = "engine/sound_manager.lua"
+pattern = "love.audio.play(s.sound)"
+position = "before"
+payload = '''start_time = s.sound:tell("seconds")'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "engine/sound_manager.lua"
+pattern = "elseif request.type == 'sound_source' then"
+position = "before"
+payload = '''
+elseif request.type == 'get_conductor' then
+    for _, v in pairs(SOURCES) do
+        for _, s in ipairs(v) do
+            if s.sound:isPlaying() then
+                CONDUCTOR:push{
+                    pos = s.sound:tell("seconds") - start_time
+                }
+            end
+        end
+    end'''
+match_indent = true
+
+# Deal with the received stuff
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "modulate_sound(dt)"
+position = "after"
+payload = '''
+-- LobotomyCorp's conductor
+if lobc_condupd then lobc_condupd(dt) end'''
+match_indent = true
