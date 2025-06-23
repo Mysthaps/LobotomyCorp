@@ -12,7 +12,7 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and context.other_card then
-        if pseudorandom("void_dream") < G.GAME.probabilities["normal"] / card.ability.extra.chance then
+        if SMODS.pseudorandom_probability(card, "void_dream", 1, card.ability.extra.chance) then
             return {
                 dollars = card.ability.extra.dollars
             }
@@ -50,7 +50,8 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    return {vars = {G.GAME.probabilities["normal"], card.ability.extra.chance, card.ability.extra.dollars}}
+    local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+    return {vars = {numerator, denominator, card.ability.extra.dollars}}
 end
 
 return joker

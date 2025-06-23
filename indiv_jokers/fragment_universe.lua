@@ -22,7 +22,7 @@ joker.calculate = function(self, card, context)
             end
         end
         if suits_count >= 3 then
-            if pseudorandom("fragment_planet_roll") < (G.GAME.probabilities.normal / card.ability.extra.planet) then
+            if SMODS.pseudorandom_probability(card, "fragment_planet_roll", 1, card.ability.extra.planet) then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({func = function()
@@ -36,7 +36,7 @@ joker.calculate = function(self, card, context)
                     return true end }))
                 end
             end
-            if pseudorandom("fragment_spectral_roll") < (G.GAME.probabilities.normal / card.ability.extra.spectral) then
+            if SMODS.pseudorandom_probability(card, "fragment_spectral_roll", 1, card.ability.extra.spetral) then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({func = function()
@@ -54,7 +54,9 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    return {vars = {G.GAME.probabilities.normal, card.ability.extra.planet, card.ability.extra.spectral}}
+    local numerator, planet = SMODS.get_probability_vars(card, 1, card.ability.extra.planet)
+    local _, spectral = SMODS.get_probability_vars(card, 1, card.ability.extra.spectral)
+    return {vars = {numerator, planet, spectral}}
 end
 
 return joker

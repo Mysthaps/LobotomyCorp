@@ -26,7 +26,7 @@ joker.calculate = function(self, card, context)
         if #available_cards > 0 then
             local selected_card = pseudorandom_element(available_cards, pseudoseed("old_faith_select"))
 
-            if pseudorandom('old_faith_debuff') < G.GAME.probabilities.normal/card.ability.extra then
+            if SMODS.pseudorandom_probability(card, "old_faith_debuff", 1, card.ability.extra) then
                 SMODS.debuff_card(selected_card, true, 'old_faith_perma_debuff')
                 selected_card.ability.perma_debuff = true
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
@@ -43,7 +43,8 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    return {vars = {G.GAME.probabilities.normal, card.ability.extra}}
+    local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra)
+    return {vars = {numerator, denominator}}
 end
 
 if JokerDisplay then
@@ -51,15 +52,15 @@ if JokerDisplay then
         extra = {
             {
                 { text = "(" },
-                { ref_table = "card.joker_display_values", ref_value = "odds" },
+                { ref_table = "card.joker_display_values", ref_value = "numerator" },
                 { text = " in "},
-                { ref_table = "card.ability", ref_value = "extra" },
+                { ref_table = "card.joker_display_values", ref_value = "denominator" },
                 { text = ")"},
             }
         },
         extra_config = { colour = G.C.GREEN, scale = 0.3 },
         calc_function = function(card)
-            card.joker_display_values.odds = G.GAME and G.GAME.probabilities.normal or 1
+            card.joker_display_values.numerator, card.joker_display_values.denominator = SMODS.get_probability_vars(card, 1, card.ability.extra)
         end,
         style_function = function(card, text, reminder_text, extra)
             if text then 
