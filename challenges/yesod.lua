@@ -117,7 +117,7 @@ end
 -- Remove blank font when appropriate
 local overlay_menuref = G.FUNCS.overlay_menu
 function G.FUNCS.overlay_menu(args)
-    if G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font end
+    if G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language or "en_us"].font end
     overlay_menuref(args)
 end
 
