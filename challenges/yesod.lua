@@ -117,7 +117,7 @@ end
 -- Remove blank font when appropriate
 local overlay_menuref = G.FUNCS.overlay_menu
 function G.FUNCS.overlay_menu(args)
-    if G.LANG and G.FONTS and G.LANG.font == G.FONTS["blank"] and G.LANGUAGES and G.SETTINGS and G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language or "en_us"].font end
+    if G.LANG and G.FONTS and G.LANG.font == G.FONTS["blank"] and G.LANGUAGES and G.SETTINGS and G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language] and G.LANGUAGES[G.SETTINGS.language].font or G.FONTS[1] end
     overlay_menuref(args)
 end
 

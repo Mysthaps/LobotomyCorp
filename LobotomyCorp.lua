@@ -1858,7 +1858,7 @@ function Game.update(self, dt)
     if not G.SETTINGS.paused and G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 and G.STATE ~= G.STATES.GAME_OVER and G.LANGUAGES and G.LANG and G.FONTS and G.SETTINGS then
         G.LANG.font = G.FONTS["blank"]
     else
-        G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font
+        G.LANG.font = G.LANGUAGES[G.SETTINGS.language] and G.LANGUAGES[G.SETTINGS.language].font or G.FONTS[1]
     end
 
     -- Handle cutscenes
