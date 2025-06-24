@@ -117,7 +117,7 @@ end
 -- Remove blank font when appropriate
 local overlay_menuref = G.FUNCS.overlay_menu
 function G.FUNCS.overlay_menu(args)
-    if G.GAME.modifiers.lobc_yesod and G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language or "en_us"].font end
+    if G.LANGUAGES and G.SETTINGS.paused then G.LANG.font = G.LANGUAGES[G.SETTINGS.language or "en_us"].font end
     overlay_menuref(args)
 end
 

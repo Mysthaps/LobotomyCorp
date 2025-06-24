@@ -1855,7 +1855,7 @@ end
 local game_updateref = Game.update
 function Game.update(self, dt)
     -- Apply blank font (Yesod)
-    if not G.SETTINGS.paused and G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 and G.STATE ~= G.STATES.GAME_OVER then
+    if not G.SETTINGS.paused and G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 6 and G.STATE ~= G.STATES.GAME_OVER and G.LANGUAGES and G.FONT then
         G.LANG.font = G.FONTS["blank"]
     else
         G.LANG.font = G.LANGUAGES[G.SETTINGS.language].font
