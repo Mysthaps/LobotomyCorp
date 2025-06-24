@@ -267,11 +267,13 @@ for _, v in ipairs(joker_list) do
         joker.or_dependencies = nil
     end
 
-    local can = config.enable_crossovers
-    for _, v in ipairs(joker.or_dependencies or {}) do
-        if next(SMODS.find_mod(v)) then can = true; break end
+    if joker.or_dependencies then
+        local can = lobc_deep_copy(config).enable_crossovers
+        for _, v in ipairs(joker.or_dependencies or {}) do
+            if next(SMODS.find_mod(v)) then can = true; break end
+        end
+        if not can then joker.dependencies = {"THIS_JOKER_WILL_NOT_LOAD_HOPEFULLY"} end
     end
-    if not can then joker.dependencies = {"THIS_JOKER_WILL_NOT_LOAD_HOPEFULLY"} end
 
     local joker_obj = SMODS.Joker(joker)
 
