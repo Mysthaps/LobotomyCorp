@@ -128,6 +128,7 @@ local sound_list = {
     music_gebura_2 = "Insignia Decay",
     music_tpov = "Through Patches of Violet",
     music_compass = "what/compass",
+    --music_funky = "HYPERHASTIGHETS UPPGRADERINGAR",
 
     meltdown_start = "Boss_StartButton",
     overload_alert = "OverloadAlert3",
@@ -419,7 +420,7 @@ for k, v in pairs(sound_list) do
             sound.offset = vv.offset
             sound.sync_events = vv.sync_events
             sound.sync = vv.sync
-            sound.pitch = 0.7
+            sound.pitch = vv.pitch or 0.7
         end
     end
 end
@@ -721,6 +722,7 @@ function modulate_sound(dt)
     end
 end
 
+local inc = 1
 local last_beat = 0
 function lobc_condupd(dt)
     local sound = SMODS.Sounds[lobc_conductor.track]
@@ -733,10 +735,21 @@ function lobc_condupd(dt)
         end
         if not req then return end
 
+        -- Get Funky
+        if G.get_funky then
+            if beat - last_beat > (beat / 2) then
+                inc = 1
+            end
+            if last_beat < inc and inc <= beat then
+                --print(inc)
+                if inc % 4 == 1 then lobc_move_cards(inc) end
+                inc = inc + 1
+            end
+        end
+
         if beat - last_beat < (beat / 2) then -- bandage fix for looping
             for _, v in ipairs(SMODS.Sounds[lobc_conductor.track].sync_events) do
                 if v.beat > last_beat and v.beat <= beat then
-                    print(last_beat.." "..beat)
                     v.func()
                 end
             end

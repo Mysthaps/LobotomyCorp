@@ -265,4 +265,17 @@ return {
             lobc_music_neutral4 = true,
         }
     },
+
+    -- HYPERHASTIGHETS UPPGRADERINGAR (Get Funky)
+    {
+        key = "music_funky",
+        select_music_track = function()
+            if config.no_music then return false end
+            return G.get_funky and 100 or false
+        end,
+        pitch = 1,
+        bpm = 120,
+        offset = 0.033,
+        sync_events = {}
+    }
 }
