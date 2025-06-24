@@ -39,34 +39,6 @@ joker.calculate = function(self, card, context)
     end
 end
 
-joker.loc_vars = function(self, info_queue, card)
-    local hand_var = card.ability.extra.last_hand_played and localize(card.ability.extra.last_hand_played, 'poker_hands') or localize('k_none')
-    return {vars = {hand_var}}
-end
-
-if JokerDisplay then
-    JokerDisplay.Definitions.j_lobc_happy_teddy_bear = {
-        reminder_text = {
-            { text = "(" },
-            { ref_table = "card.joker_display_values", ref_value = "hand_text", colour = G.C.IMPORTANT },
-            { text = ")" },
-        },
-        calc_function = function(card)
-            card.joker_display_values.hand_text = card.ability.extra.last_hand_played and localize(card.ability.extra.last_hand_played, 'poker_hands') or localize('k_none')
-        end,
-        style_function = function(card, text, reminder_text, extra)
-            if text then 
-            end
-            if reminder_text then
-                reminder_text.states.visible = card:check_rounds(6) >= 6
-            end
-            if extra then
-            end
-            return false
-        end
-    }
-end
-
 return joker
 
 -- happy teddy bear fervent emotions go

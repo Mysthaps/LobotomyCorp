@@ -652,8 +652,7 @@ return {
                     "{C:attention}poker hand{} once"},
                     {"If {C:attention}consecutive{} hands are",
                     "the same {C:attention}poker hand{},",
-                    "reduce its level to {C:attention}0{}",
-                    "{C:inactive}(Last hand played: {C:attention}#1#{}{C:inactive}){}"}
+                    "reduce its level to {C:attention}0{}",}
                 }
             },
             j_lobc_red_shoes = {
@@ -957,6 +956,7 @@ return {
                     "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"}
                 }
             },
+            j_lobc_judgement_bird_name_1 = {name = "A Wee Witch"},
             j_lobc_laetitia = {
                 name = "Laetitia",
                 text = {
