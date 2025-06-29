@@ -2,14 +2,14 @@ local joker = {
     name = "The Price of Silence",
     config = {extra = {
         elapsed = 0, seconds = 0, active = false, converted = 0,
-    }}, rarity = 3, cost = 7,
+    }}, rarity = 3, cost = 8,
     pos = {x = 5, y = 8}, 
     blueprint_compat = false, 
     eternal_compat = true,
     perishable_compat = true,
     abno = true,
     risk = "he",
-    discover_rounds = {2, 4, 6},
+    discover_rounds = {3, 6},
 }
 
 joker.update = function(self, card, dt)
