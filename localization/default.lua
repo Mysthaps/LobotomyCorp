@@ -1145,9 +1145,9 @@ return {
             j_lobc_firebird = {
                 name = "The Firebird",
                 text = {
-                    {"Cannot earn more than {C:money}$5{} at once"},
+                    {"Cannot earn more than {C:money}$3{} at once"},
                     {"This Abnormality gains {X:mult,C:white} X#2# {} Mult",
-                    "for every {C:money}${} lost by this effect",
+                    "for each {C:money}${} lost by this effect",
                     "{s:0.9}(resets at end of round){}",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"}
                 }
