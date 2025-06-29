@@ -274,6 +274,14 @@ return {
                     "the fairies' care.",
                 }
             },
+            und_j_lobc_meat_lantern = {
+                name = "O-04-84",
+                text = {
+                    "...That's not a flower.",
+                    "Order all the employees nearby",
+                    "to evacuate immediately.",
+                }
+            },
             und_j_lobc_iron_maiden = {
                 name = "T-09-85",
                 text = {
@@ -1021,6 +1029,18 @@ return {
                     {"Buying a different item or rerolling",
                     "the affected item {C:red}destroys{}",
                     "all shop items and {C:attention}locks rerolls{}"},
+                }
+            },
+            j_lobc_meat_lantern = {
+                name = "Meat Lantern",
+                text = {
+                    {"When shop is {C:attention}rerolled{}, add a",
+                    "random {C:attention}Booster Pack{} to the shop",
+                    "{C:inactive}(max. {C:attention}#1#{C:inactive} per shop)"},
+                    {"A random card in {C:attention}Booster Packs{}",
+                    "gains {C:lantern}Lantern"},
+                    {"If the {C:lantern}Lantern{} is selected,",
+                    "permanently reduce {C:attention}hand size{} by {C:attention}#2#"},
                 }
             },
             j_lobc_iron_maiden = {
@@ -2075,6 +2095,7 @@ return {
             lobc_devoured = "Devoured",
             lobc_marked = "Prey",
             lobc_prey_mark = "Prey Mark",
+            lobc_lantern = "Lantern",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -2154,6 +2175,7 @@ return {
             b_ego_gift_cards = "E.G.O Gifts",
             k_activated = "Activated!",
             k_conduct = "Conduct!",
+            k_ambush= "Ambushed!",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",

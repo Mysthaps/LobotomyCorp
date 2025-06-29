@@ -47,6 +47,7 @@ local joker_list = {
     "heart_of_aspiration",
     "giant_tree_sap",
     "fairy_festival",
+    "meat_lantern",
     "iron_maiden", -- We Can Change Anything
     "express_train", -- Express Train to Hell
     "scarecrow_searching", -- Scarecrow Searching for Wisdom
@@ -155,6 +156,7 @@ local sound_list = {
     wolf_scratch = "Wolf_Scratch",
     queen_bee = "QueenBee_Funga_01",
     electric_sheep = "sheep_3_1-1",
+    meat_lantern = "Bunny_Start",
 
     evade = "what/evade",
     coin_fail = "what/coin_fail",
@@ -220,6 +222,7 @@ local badge_colors = {
     lobc_marked = HEX("C3181B"),
     lobc_devoured = HEX("174D7D"),
     lobc_prey_mark = HEX("1506A5"),
+    lobc_lantern = HEX("88CA42"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -486,16 +489,13 @@ SMODS.DrawStep({
     order = 51,
     func = function(self)
         if self.sprite_facing ~= "front" then return end
-        local h_mod = 0
-        if self.children.lobc_prey then
-            self.children.lobc_prey:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
-            self.children.lobc_prey:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
-            h_mod = h_mod + 0.5
-        end
-        if self.children.lobc_prey_mark then
-            self.children.lobc_prey_mark:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
-            self.children.lobc_prey_mark:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
-            h_mod = h_mod + 0.5
+        local h_mod = (self.config.center.abno and -0.15 or 0)
+        for _, v in ipairs({"lantern", "prey", "prey_mark"}) do
+            if self.children["lobc_"..v] then
+                self.children["lobc_"..v]:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
+                self.children["lobc_"..v]:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
+                h_mod = h_mod + 0.5
+            end
         end
     end
 })
@@ -706,6 +706,7 @@ lobc_conductor = {
     pitch = 0,
 }
 
+-- Updates the conductor when sound changes
 local modulate_soundref = modulate_sound
 function modulate_sound(dt)
     local prev_track = SMODS.previous_track
@@ -1204,16 +1205,12 @@ function Card.align(self)
         self.children.mood.T.r = self.T.r
     end
 
-    if self.children.lobc_prey then 
-        self.children.lobc_prey.T.y = self.T.y
-        self.children.lobc_prey.T.x = self.T.x
-        self.children.lobc_prey.T.r = self.T.r
-    end
-
-    if self.children.lobc_prey_mark then 
-        self.children.lobc_prey_mark.T.y = self.T.y
-        self.children.lobc_prey_mark.T.x = self.T.x
-        self.children.lobc_prey_mark.T.r = self.T.r
+    for _, v in ipairs({"lantern", "prey", "prey_mark"}) do
+        if self.children["lobc_"..v] then
+            self.children["lobc_"..v].T.y = self.T.y
+            self.children["lobc_"..v].T.x = self.T.x
+            self.children["lobc_"..v].T.r = self.T.r
+        end
     end
 
     alignref(self)
@@ -1225,8 +1222,9 @@ function Sprite.draw(self, overlay)
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_yes_no"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_lights"] then return end
     if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_wellcheers"] then return end
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 4 and self.sprite_pos.y == 0 then return end
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 5 and self.sprite_pos.y == 0 then return end
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 4 and self.sprite_pos.y == 0 then return end -- Prey
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 5 and self.sprite_pos.y == 0 then return end -- Prey Mark
+    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 7 and self.sprite_pos.y == 0 then return end -- Lantern
     sprite_drawref(self, overlay)
 end
 
