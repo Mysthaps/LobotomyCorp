@@ -958,7 +958,7 @@ return {
                 text = {
                     {"While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card"},
-                    {"The converted card becomes {C:amplified}Amplified{}"},
+                    --{"The converted card becomes {C:amplified}Amplified{}"},
                     {"After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys",
                     "a random {C:attention}other{} Joker and becomes {C:red}inactive{}",
                     "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"}

@@ -40,7 +40,7 @@ local joker_list = {
     "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",
-    --"price_of_silence",
+    "price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
     "mosb", -- The Mountain of Smiling Bodies
@@ -2069,6 +2069,9 @@ function boot_timer(_label, _next, progress)
             "price_of_silence_amplified",
             "plague_doctor_baptism",
             "child_galaxy_pebble",
+            "little_red_marked",
+            "prey_marked",
+            "meat_lantern_lantern",
         }
         G.lobc_global_meltdowns = {
             "malkuth",

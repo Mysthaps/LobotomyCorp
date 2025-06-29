@@ -102,8 +102,8 @@ joker.calculate = function(self, card, context)
                 return true end }))
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     copy_card(leftmost, rightmost)
-                    rightmost.ability.price_of_silence_amplified = true
-                    rightmost:lobc_check_amplified()
+                    --rightmost.ability.price_of_silence_amplified = true
+                    --rightmost:lobc_check_amplified()
                     rightmost:flip()
                 return true end }))
                 card.ability.extra.converted = card.ability.extra.converted + 1
