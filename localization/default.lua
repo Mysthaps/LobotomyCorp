@@ -956,12 +956,12 @@ return {
             j_lobc_price_of_silence = {
                 name = "The Price of Silence",
                 text = {
-                    {"While {C:green}active{}, converts the {C:attention}rightmost{} scoring",
+                    {"Converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card"},
-                    --{"The converted card becomes {C:amplified}Amplified{}"},
-                    {"After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{}, destroys",
-                    "a random {C:attention}other{} Joker and becomes {C:red}inactive{}",
-                    "{C:inactive}({C:red}Inactive{C:inactive} if there are no destructible Jokers)"}
+                    {"After {C:attention}13{} seconds without {C:blue}play{} or {C:red}discard{},",
+                    "{C:red}destroys{} a random Joker"},
+                    {"Does not trigger if this {C:red}destroyed{} a Joker",
+                    "this round or no Jokers are destructible"}
                 }
             },
             j_lobc_judgement_bird_name_1 = {name = "A Wee Witch"},
@@ -1203,8 +1203,8 @@ return {
                     {"{C:attention}Metallic Cards{} held in hand trigger",
                     "their scoring and end of round effects",
                     "once when a {C:attention}Metallic Card{} is scored"},
-                    {"This Abnormality doesn't trigger if more than",
-                    "{C:attention}5 Metallic Cards{} or {C:attention}none{} are held in hand",}
+                    {"Does not trigger if more than {C:attention}5",
+                    "{C:attention}Metallic Cards{} or {C:attention}none{} are held in hand",}
                 }
             },
             j_lobc_youre_bald = {

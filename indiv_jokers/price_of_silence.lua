@@ -9,7 +9,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "he",
-    discover_rounds = {3, 6},
+    discover_rounds = {3, 6, 7},
 }
 
 joker.update = function(self, card, dt)
@@ -116,15 +116,9 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 4 then info_queue[#info_queue+1] = {key = 'lobc_amplified', set = 'Other'} end
+    --if card:check_rounds() >= 4 then info_queue[#info_queue+1] = {key = 'lobc_amplified', set = 'Other'} end
     local check = (card.ability.extra.active and G.STAGE == G.STAGES.RUN and G.STATE == G.STATES.SELECTING_HAND)
-    return {main_end = 
-        {{n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = check and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                {n=G.UIT.T, config={text = ' '..localize(check and 'k_lobc_active' or 'k_lobc_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
-            }}
-        }}
-    }}
+    return {}
 end
 
 -- The Price of Silence amplification
