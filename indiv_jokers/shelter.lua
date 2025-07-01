@@ -1,6 +1,6 @@
 local joker = {
     name = "Shelter from the 27th of March",
-    config = {extra = {x_mult = 1, active = false}}, rarity = 2, cost = 6,
+    config = {extra = {x_mult = 1, active = false}}, rarity = 2, cost = 8,
     pos = {x = 4, y = 5}, 
     blueprint_compat = false, 
     eternal_compat = true,
@@ -19,7 +19,7 @@ joker.calculate = function(self, card, context)
             play_sound('timpani')
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
         end
-        if context.joker_main then
+        if context.final_scoring_step then
             return {
                 x_mult = card.ability.extra.x_mult
             }

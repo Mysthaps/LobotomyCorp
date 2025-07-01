@@ -1035,8 +1035,8 @@ return {
                     {"Use {C:purple}[Active Ability]{} again to remove",
                     "{C:attention}Sheltered{}, {C:attention}doubling{} this Abnormality's {C:mult}Mult{}",},
                     {"When hand is played while {C:attention}Sheltered{}, disables",
-                    "the current {C:attention}Boss Blind{}, gives {X:mult,C:white} X#1# {} Mult and",
-                    "{C:attention}halves{} this Abnormality's {C:mult}Mult{}"}
+                    "{C:attention}Boss Blind{}, gives {X:mult,C:white} X#1# {} Mult after other",
+                    "Jokers and {C:attention}halves{} this Abnormality's {C:mult}Mult{}"}
                 }
             },
             j_lobc_fairy_festival = {
