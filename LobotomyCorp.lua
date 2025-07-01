@@ -46,6 +46,7 @@ local joker_list = {
     "mosb", -- The Mountain of Smiling Bodies
     "heart_of_aspiration",
     "giant_tree_sap",
+    "shelter",
     "fairy_festival",
     "meat_lantern",
     "iron_maiden", -- We Can Change Anything

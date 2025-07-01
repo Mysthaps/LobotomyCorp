@@ -266,6 +266,13 @@ return {
                     "from what it sowed.",
                 }
             },
+            und_j_lobc_shelter = {
+                name = "T-09-82",
+                text = {
+                    "It literally makes itself into",
+                    "\"the safest place on Earth.\"",
+                }
+            },
             und_j_lobc_fairy_festival = {
                 name = "F-04-83",
                 text = {
@@ -1018,6 +1025,18 @@ return {
                     "money to {C:attention}0{} and {C:red}self destructs{}",
                     "Increases chance by {C:attention}#4#%{} on use",
                     "{C:inactive}(max. #5#%)"
+                }
+            },
+            j_lobc_shelter = {
+                name = "Shelter from the 27th of March",
+                text = {
+                    {"{C:purple}[Active Ability]",
+                    "Become {C:attention}Sheltered{}, {C:attention}halving{} this Abnormality's {C:mult}Mult{}"},
+                    {"Use {C:purple}[Active Ability]{} again to remove",
+                    "{C:attention}Sheltered{}, {C:attention}doubling{} this Abnormality's {C:mult}Mult{}",},
+                    {"When hand is played while {C:attention}Sheltered{}, disables",
+                    "the current {C:attention}Boss Blind{}, gives {X:mult,C:white} X#1# {} Mult and",
+                    "{C:attention}halves{} this Abnormality's {C:mult}Mult{}"}
                 }
             },
             j_lobc_fairy_festival = {
@@ -2175,7 +2194,8 @@ return {
             b_ego_gift_cards = "E.G.O Gifts",
             k_activated = "Activated!",
             k_conduct = "Conduct!",
-            k_ambush= "Ambushed!",
+            k_ambush = "Ambushed!",
+            k_shelter = "Sheltered!",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
