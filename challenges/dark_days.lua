@@ -19,9 +19,10 @@ local chal = {
     },
     restrictions = {
         banned_cards = {
-            {id = 'j_lobc_one_sin'},
             {id = 'j_luchador'},
             {id = 'j_chicot'},
+            {id = 'j_lobc_one_sin'},
+            {id = 'j_lobc_shelter'},
             {id = 'v_directors_cut'},
             {id = 'v_retcon'},
         },

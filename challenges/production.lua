@@ -12,6 +12,7 @@ local chal = {
         banned_cards = {
             { id = 'j_luchador' },
             { id = 'j_chicot' },
+            { id = 'j_lobc_shelter' },
             { id = 'v_directors_cut' },
             { id = 'v_retcon' },
             { id = 'c_judgement' },

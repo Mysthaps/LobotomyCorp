@@ -30,6 +30,7 @@ local chal = {
             {id = 'j_chicot'},
             {id = 'j_lobc_iron_maiden'},
             {id = 'j_lobc_scorched_girl'},
+            {id = 'j_lobc_shelter'},
             {id = 'v_directors_cut'},
             {id = 'v_retcon'},
         },
