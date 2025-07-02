@@ -2070,9 +2070,6 @@ function boot_timer(_label, _next, progress)
             "price_of_silence_amplified",
             "plague_doctor_baptism",
             "child_galaxy_pebble",
-            "little_red_marked",
-            "prey_marked",
-            "meat_lantern_lantern",
         }
         G.lobc_global_meltdowns = {
             "malkuth",
