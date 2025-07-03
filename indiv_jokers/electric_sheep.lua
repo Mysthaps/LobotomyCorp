@@ -152,3 +152,5 @@ end
 return joker
 
 -- WHAT'S THE COLOR OF THE ELECTRIC SHEEP YOU SEE?
+-- wait shit i've already made this joke on void dream
+-- AND IF YOU LOVE ME, CAN YOU LOVE YOUR EVERYTHING TOO FOR ME?

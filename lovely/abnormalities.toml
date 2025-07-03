@@ -31,3 +31,23 @@ if score == 'defeated_by' and G.GAME.lobc_death_text then
     }
 end'''
 match_indent = true
+
+# 1.76 MHz
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}"
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_lobc_mhz")) then
+    localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {"???"}}
+else'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}"
+position = "after"
+payload = "end"
+match_indent = true

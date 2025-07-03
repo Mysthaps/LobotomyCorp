@@ -82,6 +82,13 @@ return {
                     "\"{C:red}Manager{}\".",
                 }
             },
+            und_j_lobc_mhz = {
+                name = "T-06-27",
+                text = {
+                    "This is a recording of",
+                    "the day we must never forget.",
+                }
+            },
             und_j_lobc_silent_orchestra = {
                 name = "T-01-31",
                 text = {
@@ -733,6 +740,15 @@ return {
                     "take its skin if this Abnormality",
                     "is adjacent to one",
                     "{C:inactive}(once per round)"}
+                }
+            },
+            j_lobc_mhz = {
+                name = "1.76 MHz",
+                text = {
+                    {"Removes visible playing card",
+                    "ranks and suits",},
+                    {"Played cards give {C:chips}+???{} chips",
+                    "and {C:mult}+???{} Mult when scored"}
                 }
             },
             j_lobc_silent_orchestra = {

@@ -23,6 +23,7 @@ local joker_list = {
     "nameless_fetus",
     "wall_gazer", -- The Lady Facing the Wall
     --"nothing_there",
+    "mhz",
     --"silent_orchestra",
     "big_bird",
     "all_around_helper",
@@ -461,6 +462,7 @@ SMODS.load_file("achievements.lua")()
 
 --=============== DRAW STEPS ===============--
 
+-- "Sticker" modifiers
 SMODS.DrawStep({
     key = "modifiers",
     order = 45, -- Above stickers
@@ -474,6 +476,7 @@ SMODS.DrawStep({
         end
     end
 })
+-- "Mood" modifiers (Shy Look, Wellcheers, Express Train)
 SMODS.DrawStep({
     key = "mood",
     order = 50, -- Same order as The Soul/floating sprite
@@ -485,6 +488,7 @@ SMODS.DrawStep({
         end
     end
 })
+-- "Hover" modifiers
 SMODS.DrawStep({
     key = "prey",
     order = 51,
@@ -500,6 +504,11 @@ SMODS.DrawStep({
         end
     end
 })
+
+-- Do not call Sprite:draw()
+for _, v in ipairs({"mood", "lobc_lantern", "lobc_prey", "lobc_prey_mark"}) do
+    SMODS.draw_ignore_keys[v] = true
+end
 
 --=============== HELPER FUNCTIONS ===============--
 
@@ -1215,18 +1224,6 @@ function Card.align(self)
     end
 
     alignref(self)
-end
-
-local sprite_drawref = Sprite.draw
-function Sprite.draw(self, overlay)
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_moodboard"] then return end
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_yes_no"] then return end
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_lights"] then return end
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_wellcheers"] then return end
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 4 and self.sprite_pos.y == 0 then return end -- Prey
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 5 and self.sprite_pos.y == 0 then return end -- Prey Mark
-    if self.atlas == G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"] and self.sprite_pos.x == 7 and self.sprite_pos.y == 0 then return end -- Lantern
-    sprite_drawref(self, overlay)
 end
 
 -- Global start of hand effect
@@ -2105,7 +2102,7 @@ function boot_timer(_label, _next, progress)
             if (next(SMODS.find_card("j_lobc_censored", true)) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored"))
             or (card.ability and card.ability.lobc_censored) then
                 local name_nodes = localize{type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {}}
-                name_nodes[1].nodes[1].config.object.colours = {G.C.RED}
+                name_nodes[1].nodes[1].nodes[1].config.object.colours = {G.C.RED}
                 return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
                     {n=G.UIT.C, config={align = "cm", object = Moveable(), ref_table = nil}, nodes = {
                         {n=G.UIT.R, config={padding = 0.05, r = 0.12, colour = G.C.BLACK, emboss = 0.07}, nodes={
