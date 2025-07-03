@@ -691,11 +691,11 @@ return {
             j_lobc_theresia = {
                 name = "Theresia",
                 text = {
-                    "This Abnormality gains",
+                    {"This Abnormality gains",
                     "{C:chips}+#2#{} Chips each hand",
-                    "After the third hand played,",
-                    "{C:red}debuffs{} all {C:attention}playing cards{}",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"},
+                    {"After the third hand played,",
+                    "{C:red}debuffs{} all {C:attention}playing cards{}",}
                 }
             },
             j_lobc_old_lady = {
@@ -1035,12 +1035,12 @@ return {
             j_lobc_giant_tree_sap = {
                 name = "Giant Tree Sap",
                 text = {
-                    "{C:purple}[Active Ability]",
-                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",
-                    "{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
-                    "money to {C:attention}0{} and {C:red}self destructs{}",
-                    "Increases chance by {C:attention}#4#%{} on use",
-                    "{C:inactive}(max. #5#%)"
+                    {"{C:purple}[Active Ability]",
+                    "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",},
+                    {"{C:attention}#3#%{} chance to set hands to {C:blue}1{},",
+                    "money to {C:attention}0{} and {C:red}self destructs{}",},
+                    {"Increases chance by {C:attention}#4#%{} on use",
+                    "{C:inactive}(max. #5#%)"}
                 }
             },
             j_lobc_shelter = {
