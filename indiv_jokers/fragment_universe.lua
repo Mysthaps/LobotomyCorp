@@ -36,7 +36,7 @@ joker.calculate = function(self, card, context)
                     return true end }))
                 end
             end
-            if SMODS.pseudorandom_probability(card, "fragment_spectral_roll", 1, card.ability.extra.spetral) then
+            if SMODS.pseudorandom_probability(card, "fragment_spectral_roll", 1, card.ability.extra.spectral) then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({func = function()

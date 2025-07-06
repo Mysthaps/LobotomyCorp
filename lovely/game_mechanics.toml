@@ -259,3 +259,12 @@ if G.GAME.blind.shield_value and hand_chips*mult > 0 then
         func = (function(t) return math.floor(t) end)
     }))
 end'''
+
+# Patch a crash
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = "if v.boss.showdown then "
+position = 'at'
+match_indent = true
+payload = "if v.boss and v.boss.showdown then "
