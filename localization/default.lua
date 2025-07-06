@@ -219,6 +219,14 @@ return {
                     "even the smallest sin.",
                 }
             },
+            und_j_lobc_king_of_greed = {
+                name = "O-01-64",
+                text = {
+                    "...Sadness says: \"Begone, pass away!\"",
+                    "But greed seeks eternity-",
+                    "seeks deep, deep eternity.",
+                }
+            },
             und_j_lobc_apocalypse_bird = {
                 name = "O-02-63",
                 text = {
@@ -484,10 +492,9 @@ return {
             lobc_magical_girl = {
                 name = "Magical Girl",
                 text = {
-                    "When this Abnormality",
-                    "{C:attention}breaches{}, {C:attention}permanently{}",
-                    "increase blind",
-                    "size by {X:mult,C:white} X1.5 {}",
+                    "When sold or {C:attention}breached{},",
+                    "fight this Abnormality at {C:attention}Boss Blind",
+                    "{C:inactive}(starting fron Ante {C:attention}6{C:inactive})",
                 }
             },
             lobc_gift = {
@@ -976,6 +983,16 @@ return {
                     {"Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult"},
                 }
             },
+            j_lobc_king_of_greed = {
+                name = "The King of Greed",
+                text = {
+                    {"Played {C:attention}Kings{} give {C:money}$#1#{} when scored",},
+                    {"Decreases money given by {C:money}$#2#{}",
+                    "if played hand triggered this Abnormality"},
+                    {"If money spent this shop is not more than",
+                    "the previous, this Abnormality {C:attention}breaches"},
+                }
+            },
             j_lobc_price_of_silence = {
                 name = "The Price of Silence",
                 text = {
@@ -987,7 +1004,7 @@ return {
                     "this round or no Jokers are destructible"}
                 }
             },
-            j_lobc_judgement_bird_name_1 = {name = "A Wee Witch"},
+            j_lobc_laetitia_name_1 = {name = "A Wee Witch"},
             j_lobc_laetitia = {
                 name = "Laetitia",
                 text = {

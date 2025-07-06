@@ -41,6 +41,7 @@ local joker_list = {
     "fragment_universe", -- Fragment of the Universe
     "judgement_bird",
     "apocalypse_bird",
+    "king_of_greed",
     "price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
@@ -59,7 +60,7 @@ local joker_list = {
     "you_must_be_happy",
     "old_faith", -- Old Faith and Promise
     "void_dream",
-    "firebird", -- The Firebird
+    "firebird",
     "servant_of_wrath",
     "youre_bald",
     --- Fanmade / Mod Crossover Abnos
