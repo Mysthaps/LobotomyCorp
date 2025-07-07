@@ -306,13 +306,11 @@ for _, v in ipairs(joker_list) do
             else
                 localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
             end
+        -- Fill undiscovered description
+        elseif not self.discovered and not (card.area == G.jokers or card.area == G.consumeables) then
+            localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
         else
             localize{type = 'descriptions', key = res.key or self.key, set = self.set, nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
-        end
-
-        -- Fill undiscovered description
-        if not self.discovered and not (card.area == G.jokers or card.area == G.consumeables) then
-            localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
         end
 
         -- For Undiscovered Abnormalities
