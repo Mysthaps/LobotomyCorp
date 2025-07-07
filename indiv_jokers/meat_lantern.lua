@@ -56,6 +56,7 @@ joker.calculate = function(self, card, context)
             G.hand:change_size(-card.ability.extra.reduce)
             G.E_MANAGER:add_event(Event({func = function()
                 play_sound("lobc_meat_lantern", 1, 0.4)
+                return true
             end}))
             return {
                 message = localize("k_ambush"),
