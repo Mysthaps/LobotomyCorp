@@ -2634,9 +2634,10 @@ SMODS.ConsumableType({
     primary_colour = HEX('424e54'),
     secondary_colour = HEX("dd4930"),
     loc_txt = {},
-    shop_rate = (SMODS.Mods.Cryptid or {}).can_load and 0.1 or 0,
+    shop_rate = 0,
     default = 'c_lobc_tt2',
     no_doe = true,
+    no_collection = true,
 })
 
 -- Shaders
