@@ -2323,6 +2323,21 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         end
         if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
 
+        if not config.enable_crossovers then
+            local can = true
+            if joker.or_dependencies then
+                can = false
+                for _, v in ipairs(joker.or_dependencies) do
+                    if next(SMODS.find_mod(v)) then can = true; break end
+                end
+            elseif joker.dependencies then
+                for _, v in ipairs(joker.dependencies) do
+                    if not next(SMODS.find_mod(v)) then can = false; break end
+                end
+            else can = true end
+            if not can then add = false end
+        end
+
         if add and not G.GAME.banned_keys[v.key] then
            _pool[#_pool+1] = v.key
            _pool_size = _pool_size + 1
