@@ -55,7 +55,13 @@ joker.calculate = function(self, card, context)
             card.ability.extra.this = 0
         else
             abno_breach(card, 1)
+            G.GAME.pool_flags["king_of_greed_breach"] = true
         end
+    end
+
+    if context.selling_self and not context.blueprint then
+        abno_breach(card, 1)
+        G.GAME.pool_flags["king_of_greed_breach"] = true
     end
 end
 
@@ -72,7 +78,7 @@ function ease_dollars(mod, instant)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = 'lobc_magical_girl', set = 'Other'}
+    if card:check_rounds() >= 3 then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
     return {vars = {card.ability.extra.dollars, card.ability.extra.decrease}}
 end
 

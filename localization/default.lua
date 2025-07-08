@@ -489,6 +489,12 @@ return {
                     "and {C:red}cannot{} be sold",
                 }
             },
+            lobc_magical_girl_temp = {
+                name = "Magical Girl",
+                text = {
+                    "{C:attention}Breaches{} when sold",
+                }
+            },
             lobc_magical_girl = {
                 name = "Magical Girl",
                 text = {

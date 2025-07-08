@@ -69,7 +69,6 @@ joker.calculate = function(self, card, context)
         G.GAME.servant_triggered = false
 
         if card.ability.extra.counter >= 3 then
-            G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.5
             abno_breach(card, 1)
             G.GAME.pool_flags["servant_of_wrath_breach"] = true
         end
@@ -86,10 +85,15 @@ joker.calculate = function(self, card, context)
             check_for_unlock({type = "lobc_blind_rage"})
         end
     end
+
+    if context.selling_self and not context.blueprint then
+        abno_breach(card, 1)
+        G.GAME.pool_flags["servant_of_wrath_breach"] = true
+    end
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = 'lobc_magical_girl', set = 'Other'}
+    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
     return {vars = {card.ability.extra.x_mult}}
 end
 

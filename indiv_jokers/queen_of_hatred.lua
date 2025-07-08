@@ -35,25 +35,7 @@ joker.calculate = function(self, card, context)
 
         if card.ability.extra.hysteria then
             if card.ability.extra.x_mult - card.ability.extra.loss <= 1 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.5
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                            return true;
-                            end
-                        })) 
-                    return true
-                    end
-                })) 
+                abno_breach(card, 1)
                 G.GAME.pool_flags["queen_of_hatred_breach"] = true
                 return {
                     message = localize('k_lobc_breached'),
@@ -72,11 +54,16 @@ joker.calculate = function(self, card, context)
             end
         end
     end
+
+    if context.selling_self and not context.blueprint then
+        abno_breach(card, 1)
+        G.GAME.pool_flags["queen_of_hatred_breach"] = true
+    end
 end
 
 joker.loc_vars = function(self, info_queue, card)
     if card:check_rounds() >= 3 then info_queue[#info_queue+1] = {key = 'lobc_hysteria', set = 'Other'} end
-    info_queue[#info_queue+1] = {key = 'lobc_magical_girl', set = 'Other'}
+    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
     return {vars = {card.ability.extra.x_mult}}
 end
 
