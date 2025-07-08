@@ -8,5 +8,8 @@ priority = 1
 target = "engine/controller.lua"
 pattern = "if key == \"2\" then"
 position = "after"
-payload = "G.PROFILES[G.SETTINGS.profile].joker_usage[_card.config.center.key] = { count = _card.config.center.discover_rounds[#_card.config.center.discover_rounds] or 0 }"
+payload = '''
+if _card.config.center.discover_rounds then
+    G.PROFILES[G.SETTINGS.profile].joker_usage[_card.config.center.key] = { count = _card.config.center.discover_rounds[#_card.config.center.discover_rounds] or 0 }
+end'''
 match_indent = true

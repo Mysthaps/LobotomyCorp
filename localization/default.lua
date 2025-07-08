@@ -1359,6 +1359,15 @@ return {
                     "played hand gains +1 Sin",
                 }
             },
+            bl_lobc_mg_hatred = {
+                name = "Hatred",
+                text = {
+                    "Marks #1# cards each hand,",
+                    "destroy Marked cards",
+                    "when hand is played",
+                    "Hysteria: #2#"
+                }
+            },
 
             -- Dawn Ordeals
             bl_lobc_dawn_base = {
@@ -1825,6 +1834,35 @@ return {
                     "Each card in full hand adds {C:attention}+1 {C:red}Sin",
                     "to all playing cards of that rank",
                     "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
+                }
+            },
+            -- In the Name of Love and Hate
+            psv_lobc_hatred = {
+                name = "In the Name of Hate",
+                text = {
+                    "When a {C:attention}Marked{} card is {C:attention}played{} or {C:attention}discarded{},",
+                    "increase {C:attention}Hysteria{} by {C:attention}1{}",
+                    "When a {C:attention}Marked{} card is {C:red}destroyed{},",
+                    "decrease {C:attention}Hysteria{} by {C:attention}1{}"
+                }
+            },
+            psv_lobc_adverse = {
+                name = "Adverse Change",
+                text = {
+                    "When score reaches {C:attention}50%{} Blind Size,",
+                    "transform, increase {C:attention}Hysteria{} by {C:attention}3{} and",
+                    "{C:attention}+2 {C:blue}hands{} and {C:red}discards",
+                    "Score cannot go above {C:attention}50%{} Blind Size",
+                    "before this occurs"
+                }
+            },
+            psv_lobc_arcana = {
+                name = "Arcana Slave",
+                text = {
+                    "Blind's effects are stronger based on",
+                    "current {C:attention}Hysteria{}",
+                    "Every {C:attention}3{} hands  or when {C:purple}Adverse Change",
+                    "activates, change Blind's effect for a hand",
                 }
             },
             -- Erlking Heathcliff
