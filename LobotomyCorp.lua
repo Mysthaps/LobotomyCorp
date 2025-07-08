@@ -316,16 +316,17 @@ for _, v in ipairs(joker_list) do
 
         -- For Undiscovered Abnormalities
         for k, v in ipairs(self.discover_rounds) do
-            local override
+            local override, true_override
             if self.discover_override then
                 if type(self.discover_override) == "table" then
                     override = self.discover_override[k]
                 elseif type(self.discover_override) == "function" then
                     override = self:discover_override(k, card)
+                    if override then true_override = true end
                 end
             end
-            if card:check_rounds() < v then
-                if card.area == G.jokers or card.area == G.consumeables then
+            if card:check_rounds() < v or true_override then
+                if card.area == G.jokers or card.area == G.consumeables or self.discovered then
                     -- First level is in desc_nodes
                     if k == 1 then
                         full_UI_table.main = {}

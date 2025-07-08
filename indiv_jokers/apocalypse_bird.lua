@@ -7,7 +7,7 @@ local joker = {
     perishable_compat = false,
     abno = true,
     risk = "aleph",
-    discover_rounds = {0, 3, 5},
+    discover_rounds = {0, 2, 4},
     yes_pool_flag = "apocalypse_bird_defeated",
 }
 
