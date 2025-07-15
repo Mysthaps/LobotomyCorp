@@ -12,7 +12,7 @@ position = "before"
 payload = '''
 if score == 'defeated_by' and G.GAME.lobc_death_text then 
     local center = G.P_CENTERS["j_lobc_"..G.GAME.lobc_death_text]
-    local text = localize{type = 'name_text', key = center.discovered and center.key or "dis_"..center.key.."_1", set = "Joker"} 
+    local text = localize{type = 'name_text', key = center.discovered and center.key or "und_"..center.key, set = "Joker"} 
     local sprite = Sprite(0, 0, 1.4*(71/95), 1.4, G.ASSET_ATLAS["lobc_LobotomyCorp_"..((center.discovered or SMODS.Mods.LobotomyCorp.config.show_art_undiscovered) and "Jokers" or "Undiscovered")], center.pos)
     sprite:define_draw_steps({
         {shader = 'dissolve', shadow_height = 0.05},
