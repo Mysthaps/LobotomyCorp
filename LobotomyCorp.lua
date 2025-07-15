@@ -2398,7 +2398,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
 
     if #_starting_pool == 0 then
         for _, v in ipairs(joker_list) do
-            if (_rarity and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity then 
+            if (_rarity and G.P_CENTERS["j_lobc_"..v] and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity then 
                 _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
             end
         end
