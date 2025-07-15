@@ -2398,7 +2398,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
 
     if #_starting_pool == 0 then
         for _, v in ipairs(joker_list) do
-            if (_rarity and G.P_CENTERS["j_lobc_"..v] and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity then 
+            if G.P_CENTERS["j_lobc_"..v] and ((_rarity and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity) then 
                 _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
             end
         end
@@ -2417,21 +2417,6 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
             add = false
         end
         if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
-
-        if not config.enable_crossovers then
-            local can = true
-            if v.or_dependencies then
-                can = false
-                for _, vv in ipairs(v.or_dependencies) do -- stupid ass code
-                    if next(SMODS.find_mod(vv)) then can = true; break end
-                end
-            elseif v.dependencies then
-                for _, vv in ipairs(v.dependencies) do
-                    if not next(SMODS.find_mod(vv)) then can = false; break end
-                end
-            else can = true end
-            if not can then add = false end
-        end
 
         if add and not G.GAME.banned_keys[v.key] then
            _pool[#_pool+1] = v.key
