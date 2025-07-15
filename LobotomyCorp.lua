@@ -325,7 +325,7 @@ for _, v in ipairs(joker_list) do
                     if override then true_override = true end
                 end
             end
-            if (card:check_rounds() < v or true_override) and not self.debuff then
+            if (card:check_rounds() < v or true_override) and not card.debuff then
                 if card.area == G.jokers or card.area == G.consumeables or self.discovered then
                     -- First level is in desc_nodes
                     if k == 1 then
