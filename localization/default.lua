@@ -674,7 +674,7 @@ return {
                 text = {
                     {"{X:mult,C:white} X#1# {} Mult"},
                     {"If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
-                    "this Abnormality enters {C:attention}Hysteria{}"},
+                    "this Abnormality enters {C:red}Hysteria{}"},
                     {"At {X:mult,C:white} X1 {} Mult,",
                     "this Abnormality {C:attention}breaches{}"}
                 }
@@ -1847,16 +1847,16 @@ return {
                 name = "In the Name of Hate",
                 text = {
                     "When a {C:attention}Marked{} card is {C:attention}played{} or {C:attention}discarded{},",
-                    "increase {C:attention}Hysteria{} by {C:attention}1{}",
+                    "increase {C:red}Hysteria{} by {C:attention}1{}",
                     "When a {C:attention}Marked{} card is {C:red}destroyed{},",
-                    "decrease {C:attention}Hysteria{} by {C:attention}1{}"
+                    "decrease {C:red}Hysteria{} by {C:attention}1{}"
                 }
             },
             psv_lobc_adverse = {
                 name = "Adverse Change",
                 text = {
                     "When score reaches {C:attention}50%{} Blind Size,",
-                    "transform, increase {C:attention}Hysteria{} by {C:attention}3{} and",
+                    "transform, increase {C:red}Hysteria{} by {C:attention}3{} and",
                     "{C:attention}+2 {C:blue}hands{} and {C:red}discards",
                     "Score cannot go above {C:attention}50%{} Blind Size",
                     "before this occurs"
@@ -1865,10 +1865,10 @@ return {
             psv_lobc_arcana = {
                 name = "Arcana Slave",
                 text = {
-                    "Blind's effects are stronger based on",
-                    "current {C:attention}Hysteria{}",
-                    "Every {C:attention}3{} hands  or when {C:purple}Adverse Change",
-                    "activates, change Blind's effect for a hand",
+                    "Blind effects are stronger based on",
+                    "current {C:red}Hysteria{}",
+                    "Every {C:attention}3{} hands or when {C:purple}Adverse Change",
+                    "activates, change Blind effect for a hand",
                 }
             },
             -- Erlking Heathcliff

@@ -2326,14 +2326,14 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
 
         if not config.enable_crossovers then
             local can = true
-            if joker.or_dependencies then
+            if v.or_dependencies then
                 can = false
-                for _, v in ipairs(joker.or_dependencies) do
-                    if next(SMODS.find_mod(v)) then can = true; break end
+                for _, vv in ipairs(v.or_dependencies) do -- stupid ass code
+                    if next(SMODS.find_mod(vv)) then can = true; break end
                 end
-            elseif joker.dependencies then
-                for _, v in ipairs(joker.dependencies) do
-                    if not next(SMODS.find_mod(v)) then can = false; break end
+            elseif v.dependencies then
+                for _, vv in ipairs(v.dependencies) do
+                    if not next(SMODS.find_mod(vv)) then can = false; break end
                 end
             else can = true end
             if not can then add = false end
