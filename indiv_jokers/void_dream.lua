@@ -21,7 +21,7 @@ joker.calculate = function(self, card, context)
         else
             if SMODS.pseudorandom_probability(card, "void_dream", 1, card.ability.extra.chance) then
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
-                if not Handy or (Handy and not Handy.animation_skip.should_skip_messages()) then
+                if not Handy or (Handy and Handy.animation_skip and not Handy.animation_skip.should_skip_messages()) then
                     G.E_MANAGER:add_event(Event({
                         func = (function()
                             G.GAME.dollar_buffer = 0
