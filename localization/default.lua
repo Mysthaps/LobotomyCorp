@@ -1857,7 +1857,7 @@ return {
                     "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
                 }
             },
-            -- In the Name of Love and Hate
+            -- Hatred
             psv_lobc_hatred = {
                 name = "In the Name of Hate",
                 text = {

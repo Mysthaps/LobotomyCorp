@@ -227,6 +227,7 @@ local badge_colors = {
     lobc_devoured = HEX("174D7D"),
     lobc_prey_mark = HEX("1506A5"),
     lobc_lantern = HEX("88CA42"),
+    lobc_villain = HEX("CB34B4"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -496,7 +497,7 @@ SMODS.DrawStep({
     func = function(self)
         if self.sprite_facing ~= "front" then return end
         local h_mod = (self.config.center.abno and -0.15 or 0)
-        for _, v in ipairs({"lantern", "prey", "prey_mark"}) do
+        for _, v in ipairs({"lantern", "prey", "prey_mark, villain"}) do
             if self.children["lobc_"..v] then
                 self.children["lobc_"..v]:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
                 self.children["lobc_"..v]:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
@@ -507,7 +508,7 @@ SMODS.DrawStep({
 })
 
 -- Do not call Sprite:draw()
-for _, v in ipairs({"mood", "lobc_lantern", "lobc_prey", "lobc_prey_mark"}) do
+for _, v in ipairs({"mood", "lobc_lantern", "lobc_prey", "lobc_prey_mark", "lobc_villain"}) do
     SMODS.draw_ignore_keys[v] = true
 end
 

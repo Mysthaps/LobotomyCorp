@@ -18,6 +18,15 @@ local blind = {
     lobc_bg = {new_colour = darken(HEX("CB34B4"), 0.1), special_colour = darken(HEX("CB34B4"), 0.3), contrast = 0.7}
 }
 
+blind.set_blind = function(self)
+    local eval_func = function()
+        return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_mg_hatred'
+    end
+    lobc_abno_text("long_arms", eval_func, 2, 6)
+end
 
+blind.drawn_to_hand = function(self)
+
+end
 
 return blind

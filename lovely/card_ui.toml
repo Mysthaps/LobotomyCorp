@@ -30,7 +30,8 @@ if self.ability.plague_doctor_baptism then
 end
 if self.ability.little_red_marked then badges[#badges + 1] = 'lobc_marked' end
 if self.being_devoured then badges[#badges + 1] = 'lobc_devoured' end
-if self.ability.prey_marked then badges[#badges + 1] = 'lobc_prey_mark' end'''
+if self.ability.prey_marked then badges[#badges + 1] = 'lobc_prey_mark' end
+if self.ability.hatred_villain then badges[#badges + 1] = 'lobc_villain' end'''
 match_indent = true
 
 # Card info queue
@@ -59,5 +60,6 @@ if v == 'lobc_blessed_wn' then info_queue[#info_queue+1] = {key = 'lobc_blessed_
 if v == 'lobc_apostle' then info_queue[#info_queue+1] = {key = 'lobc_apostle', set = 'Other'} end
 if v == 'lobc_marked' then info_queue[#info_queue+1] = {key = 'lobc_marked', set = 'Other'} end
 if v == 'lobc_devoured' then info_queue[#info_queue+1] = {key = 'lobc_devoured', set = 'Other'} end
-if v == 'lobc_prey_mark' then info_queue[#info_queue+1] = {key = 'lobc_prey_mark', set = 'Other'} end'''
+if v == 'lobc_prey_mark' then info_queue[#info_queue+1] = {key = 'lobc_prey_mark', set = 'Other'} end
+if v == 'lobc_villain' then info_queue[#info_queue+1] = {key = 'lobc_villain', set = 'Other'} end'''
 match_indent = true
