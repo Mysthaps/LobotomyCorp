@@ -75,6 +75,7 @@ local blind_list = {
     "ab_beak",
     "ab_eyes",
     "ab_arms",
+    "mg_hatred",
     -- Meltdowns
     "red_mist",
     --"an_arbiter",
@@ -1525,14 +1526,8 @@ local colors = {
 local ease_background_colour_blindref = ease_background_colour_blind
 function ease_background_colour_blind(state, blind_override)
     if G.GAME.blind then
-        if G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
-            ease_background_colour({new_colour = darken(HEX("FFFFFF"), 0.2), special_colour = darken(HEX("FFFFFF"), 0.4), contrast = 0.7})
-            return
-        elseif G.GAME.blind.original_blind == "bl_lobc_apocalypse_bird" then
-            ease_background_colour({new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1})
-            return
-        elseif G.GAME.blind.config.blind.key == "bl_lobc_what_blind" then
-            ease_background_colour({new_colour = darken(HEX("FCDBCB"), 0.1), special_colour = darken(HEX("FCDBCB"), 0.3), contrast = 0.5})
+        if G.GAME.blind.config.blind.lobc_bg then
+            ease_background_colour(G.GAME.blind.config.blind.lobc_bg)
             return
         elseif G.GAME.blind.config.blind.time and (G.GAME.blind.config.blind.time == "dawn" or G.GAME.blind.config.blind.time == "noon") and G.GAME.blind.config.blind.color ~= "base" then
             ease_background_colour{new_colour = lighten(mix_colours(G.GAME.blind.config.blind.boss_colour, G.C.BLACK, 0.3), 0.1), special_colour = G.GAME.blind.config.blind.boss_colour, contrast = 2}

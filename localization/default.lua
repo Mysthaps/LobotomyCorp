@@ -639,6 +639,12 @@ return {
                     "{C:red}Destroyed{} when discarded"
                 }
             },
+            lobc_villain = {
+                name = "Villain",
+                text = {
+                    "Marked by {C:attention}Hatred{}~",
+                }
+            },
             lobc_shield = {
                 name = "Shield",
                 text = {
@@ -1368,10 +1374,19 @@ return {
             bl_lobc_mg_hatred = {
                 name = "Hatred",
                 text = {
-                    "Marks #1# cards each hand,",
+                    "Hysteria: #1#",
+                    "Marks #2# cards each hand,",
                     "destroy Marked cards",
-                    "when hand is played",
-                    "Hysteria: #2#"
+                    "when hand is played"
+                }
+            },
+            bl_lobc_mg_hatred_alt = {
+                name = "Hatred",
+                text = {
+                    "Hysteria: #1#",
+                    "Total ranks of poker hand",
+                    "must exceed #2#,",
+                    "otherwise, -2 hands"
                 }
             },
 
@@ -2192,6 +2207,7 @@ return {
             lobc_marked = "Prey",
             lobc_prey_mark = "Prey Mark",
             lobc_lantern = "Lantern",
+            lobc_villain = "Villain",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",

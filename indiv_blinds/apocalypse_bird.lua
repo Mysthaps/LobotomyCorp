@@ -26,7 +26,8 @@ local blind = {
         "psv_lobc_misdeeds",
         "psv_lobc_judgement",
         "psv_lobc_suppression",
-    }
+    },
+    lobc_bg = {new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1}
 }
 
 blind.lobc_loc_txt = function(self)

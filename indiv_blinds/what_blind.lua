@@ -41,6 +41,7 @@ local blind = {
     },
     phase_refresh = true,
     no_collection = true,
+    lobc_bg = {new_colour = darken(HEX("FCDBCB"), 0.1), special_colour = darken(HEX("FCDBCB"), 0.3), contrast = 0.5}
 }
 
 blind.lobc_loc_txt = function(self)
