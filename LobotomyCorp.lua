@@ -2296,6 +2296,20 @@ function boot_timer(_label, _next, progress)
                 table.insert(G.localization.descriptions.Other.lobc_metallic.text, "{C:attention}"..G.localization.descriptions.Enhanced[v[1]].name..(v[2] and "{} ("..v[2]..")" or ""))
             end
         end
+
+        -- NotJustYet compat with phase blinds
+        local njy_endround_ref = G.FUNCS.njy_attempt_endround
+        if njy_endround_ref then
+            print("NotJustYet found!")
+            G.FUNCS.njy_attempt_endround = function(e)
+                if (G.GAME.blind.config.blind.summon or G.GAME.blind.config.blind.phases or G.GAME.blind.original_blind) then
+                    G.STATE = G.STATES.NEW_ROUND
+                    G.STATE_COMPLETE = false
+                else
+                    njy_endround_ref()
+                end
+            end
+        end
     end
     return boot_timerref(_label, _next, progress)
 end
