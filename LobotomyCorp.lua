@@ -133,6 +133,7 @@ local sound_list = {
     music_gebura_2 = "Insignia Decay",
     music_tpov = "Through Patches of Violet",
     music_compass = "what/compass",
+    music_second_warning_ruina = "Second Warning (Ruina)",
     --music_funky = "HYPERHASTIGHETS UPPGRADERINGAR",
 
     meltdown_start = "Boss_StartButton",
@@ -916,6 +917,7 @@ function Blind.alert_debuff(self, first)
     if self.config.blind.color and self.config.blind.color == "base" then return end
     if self.config.blind.phases then return end
     if self.config.blind.key == "bl_lobc_apocalypse_bird" or find_passive("psv_lobc_cracking_eggs") then return end
+    if find_passive("psv_lobc_magical_girl") then return end
     if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin", true)) then
         self.block_play = true
         G.E_MANAGER:add_event(Event({

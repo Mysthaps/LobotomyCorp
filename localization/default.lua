@@ -189,7 +189,7 @@ return {
             und_j_lobc_little_red = {
                 name = "F-01-57",
                 text = {
-                    "I’ll hang his head over my bed.",
+                    "I'll hang his head over my bed.",
                     "Only then can I get up in",
                     "the morning without having a nightmare.",
                 }
@@ -197,7 +197,7 @@ return {
             und_j_lobc_big_bad_wolf = {
                 name = "F-02-58",
                 text = {
-                    "Still, it didn’t matter to him.",
+                    "Still, it didn't matter to him.",
                     "After all, he was \"destined\"",
                     "to be a big bad wolf.",
                 }
@@ -1374,10 +1374,18 @@ return {
             bl_lobc_mg_hatred = {
                 name = "Hatred",
                 text = {
+                    "In the name of",
+                    "Love and Justice~",
+                    "Here comes Magical Girl!"
+                }
+            },
+            bl_lobc_mg_hatred_effect = {
+                name = "Hatred",
+                text = {
                     "Hysteria: #1#",
-                    "Marks #2# cards each hand,",
-                    "destroy Marked cards",
-                    "when hand is played"
+                    "Mark #2# cards each hand,",
+                    "destroy Marked cards in",
+                    "hand when hand is played"
                 }
             },
             bl_lobc_mg_hatred_alt = {
@@ -1740,6 +1748,20 @@ return {
                     "create a special {C:attention}Abnormality{} card"
                 }
             },
+            psv_lobc_magical_girl = {
+                name = "Magical Girl",
+                text = {
+                    "When this {C:attention}Blind{} is suppressed,",
+                    "create a {C:dark_edition}Negative {C:attention}Hope",
+                }
+            },
+            psv_lobc_refracted = {
+                name = "Refracted Struggle",
+                text = {
+                    "When a card is retriggered {C:attention}10{} times",
+                    "in a hand, destroy it instead"
+                }
+            },
             -- Crimson Noon & Crimson Dusk
             psv_lobc_harmony = {
                 name = "Harmony",
@@ -1871,7 +1893,7 @@ return {
                 name = "Adverse Change",
                 text = {
                     "When score reaches {C:attention}50%{} Blind Size,",
-                    "transform, increase {C:red}Hysteria{} by {C:attention}3{} and",
+                    "increase {C:red}Hysteria{} by {C:attention}3{} and",
                     "{C:attention}+2 {C:blue}hands{} and {C:red}discards",
                     "Score cannot go above {C:attention}50%{} Blind Size",
                     "before this occurs"
@@ -2515,6 +2537,20 @@ return {
             k_lobc_apocalypse_bird_10 = "Let's be free before we have to face that fear...",
             k_lobc_apocalypse_bird_11 = "I whisper, without cessation...",
             k_lobc_apocalypse_bird_12 = "I condemn you, but you will still commit more sin without end...",
+
+            ---- Hatred ----
+            k_lobc_hatred_1 = "Why is everybody happy? I won't have anything to do.",
+            k_lobc_hatred_2 = "I've always believed. Evil must exist as long as I exist.",
+            k_lobc_hatred_3 = "It's finally here... An evil I must defeat...",
+            k_lobc_hatred_4 = "There's no light without the darkness... I can stand here thanks to your existence.",
+            k_lobc_hatred_5 = "You guys are evil because you're disturbing this place. I am on the side of good... So those who oppose me...",
+            k_lobc_hatred_6 = "To keep the world's peace... I was born.",
+            k_lobc_hatred_alt_1 = "People like you aren't good or evil... You're merely beings that need to be purged...",
+            k_lobc_hatred_alt_2 = "I've always believed. Evil must exist as long as I exist.",
+            k_lobc_hatred_alt_3 = "Like how there can't be light without shadow, true evil has to exist in this world...",
+            k_lobc_hatred_alt_4 = "Someone has to be the villain...",
+            k_lobc_hatred_alt_5 = "I am the chosen one... I'm not like you... I'm different!",
+            k_lobc_hatred_alt_6 = "Don't you dare... try to erase my reason to exist!!!",
 
             ---- The Price of Silence ----
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
