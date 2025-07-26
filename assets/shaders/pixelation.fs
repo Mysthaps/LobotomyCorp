@@ -1,3 +1,11 @@
+// === GLSL Fix Log ===
+// 修复时间: Sat Jul 26 13:02:09 HKT 2025
+// 文件来源: pixelation.fs
+// 共修改 2 行
+// 第 100 行："if (uv.x > uv.x * 2){" → "if (uv.x > uv.x * 2.0){"
+// 第 139 行："return transform_projection * vertex_position + vec4(0,0,0,scale);" → "return transform_projection * vertex_position + vec4(0.0,0.0,0.0,scale);"
+// =====================
+
 #if defined(VERTEX) || __VERSION__ > 100 || defined(GL_FRAGMENT_PRECISION_HIGH)
 	#define MY_HIGHP_OR_MEDIUMP highp
 #else
@@ -97,7 +105,7 @@ vec4 HSL(vec4 c)
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
     vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
-    if (uv.x > uv.x * 2){
+    if (uv.x > uv.x * 2.0){
         uv = pixelation;
     }
 
@@ -136,6 +144,6 @@ vec4 position( mat4 transform_projection, vec4 vertex_position )
     float scale = 0.2*(-0.03 - 0.3*max(0., 0.3-mid_dist))
                 *hovering*(length(mouse_offset)*length(mouse_offset))/(2. -mid_dist);
 
-    return transform_projection * vertex_position + vec4(0,0,0,scale);
+    return transform_projection * vertex_position + vec4(0.0,0.0,0.0,scale);
 }
 #endif

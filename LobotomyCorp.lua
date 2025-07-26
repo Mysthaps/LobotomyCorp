@@ -4,7 +4,12 @@ local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 lobc_seen_what = config.seen_what
-local folder = string.match(mod_path, "[Mm]ods.*")
+local folder = nil
+if love.system.getOS() == 'Android' then
+    folder = string.match(mod_path, ".*_[Mm]ods.*")
+else
+    folder = string.match(mod_path, "[Mm]ods.*")
+end
 SMODS.load_file("blindexpander.lua")()
 SMODS.load_file("lyrics.lua")()
 
@@ -257,7 +262,7 @@ end
 -- Localization colors
 local loc_colourref = loc_colour
 function loc_colour(_c, _default)
-    return (_c and badge_colors['lobc_'.._c]) or loc_colourref(_c, _default)
+    return (_c and badge_colors['lobc_' .. _c]) or loc_colourref(_c, _default)
 end
 
 -- Load all jokers
@@ -271,8 +276,8 @@ for _, v in ipairs(joker_list) do
     joker.key = v
     joker.atlas = "LobotomyCorp_Jokers"
     --[[if not joker.yes_pool_flag then
-        joker.yes_pool_flag = "allow_abnormalities_in_shop"
-    end]]--
+            joker.yes_pool_flag = "allow_abnormalities_in_shop"
+        end]]--
     --joker.config.discover_rounds = 0
 
     if not joker.pos then
@@ -286,9 +291,14 @@ for _, v in ipairs(joker_list) do
     if joker.or_dependencies then
         local can = lobc_deep_copy(config).enable_crossovers
         for _, v in ipairs(joker.or_dependencies or {}) do
-            if next(SMODS.find_mod(v)) then can = true; break end
+            if next(SMODS.find_mod(v)) then
+                can = true;
+                break
+            end
         end
-        if not can then joker.dependencies = {"THIS_JOKER_WILL_NOT_LOAD_HOPEFULLY"} end
+        if not can then
+            joker.dependencies = { "THIS_JOKER_WILL_NOT_LOAD_HOPEFULLY" }
+        end
     end
 
     local joker_obj = SMODS.Joker(joker)
@@ -310,18 +320,18 @@ for _, v in ipairs(joker_list) do
         end
         res.vars = res.vars or {}
         local name = false
-        
+
         if specific_vars and specific_vars.debuffed then
             if self.key == "j_lobc_plague_doctor" then
-                localize{type = 'other', key = 'lobc_plague_doctor_debuffed', nodes = desc_nodes}
+                localize { type = 'other', key = 'lobc_plague_doctor_debuffed', nodes = desc_nodes }
             else
-                localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
+                localize { type = 'other', key = 'debuffed_default', nodes = desc_nodes }
             end
-        -- Fill undiscovered description
+            -- Fill undiscovered description
         elseif not self.discovered and not (card.area == G.jokers or card.area == G.consumeables) then
-            localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
+            localize { type = 'descriptions', key = 'und_' .. self.key, set = "Other", nodes = desc_nodes, vars = res.vars, AUT = full_UI_table }
         else
-            localize{type = 'descriptions', key = res.key or self.key, set = self.set, nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
+            localize { type = 'descriptions', key = res.key or self.key, set = self.set, nodes = desc_nodes, vars = res.vars, AUT = full_UI_table }
         end
 
         -- For Undiscovered Abnormalities
@@ -332,7 +342,9 @@ for _, v in ipairs(joker_list) do
                     override = self.discover_override[k]
                 elseif type(self.discover_override) == "function" then
                     override = self:discover_override(k, card)
-                    if override then true_override = true end
+                    if override then
+                        true_override = true
+                    end
                 end
             end
             if (card:check_rounds() < v or true_override) and not card.debuff then
@@ -340,28 +352,28 @@ for _, v in ipairs(joker_list) do
                     -- First level is in desc_nodes
                     if k == 1 then
                         full_UI_table.main = {}
-                        localize{type = 'descriptions', key = (override or "lobc_obs_"..k), set = "Other", nodes = full_UI_table.main, vars = {card:check_rounds(), v}}
+                        localize { type = 'descriptions', key = (override or "lobc_obs_" .. k), set = "Other", nodes = full_UI_table.main, vars = { card:check_rounds(), v } }
                         full_UI_table.main.main_box_flag = true
                     else
-                    -- The rest are in AUT.multi_box
-                        full_UI_table.multi_box[k-1] = {}
-                        localize{type = 'descriptions', key = (override or "lobc_obs_"..k), set = "Other", nodes = full_UI_table.multi_box[k-1], vars = {card:check_rounds(), v}}
+                        -- The rest are in AUT.multi_box
+                        full_UI_table.multi_box[k - 1] = {}
+                        localize { type = 'descriptions', key = (override or "lobc_obs_" .. k), set = "Other", nodes = full_UI_table.multi_box[k - 1], vars = { card:check_rounds(), v } }
                     end
                 end
             end
             -- If the Abno has a custom name for early Observation Levels
-            if not self.discovered and card:check_rounds() >= v and G.localization.descriptions.Joker[self.key.."_name_"..k] then
-                full_UI_table.name = localize{type = 'name', key = self.key.."_name_"..k, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+            if not self.discovered and card:check_rounds() >= v and G.localization.descriptions.Joker[self.key .. "_name_" .. k] then
+                full_UI_table.name = localize { type = 'name', key = self.key .. "_name_" .. k, set = self.set, name_nodes = {}, vars = specific_vars or {} }
                 name = true
             end
         end
         -- No custom names available, fill name with Classification Code from undiscovered description
         if not self.discovered then
             if not name then
-                full_UI_table.name = localize{type = 'name', key = "und_"..self.key, set = "Other", name_nodes = {}, vars = specific_vars or {}}
+                full_UI_table.name = localize { type = 'name', key = "und_" .. self.key, set = "Other", name_nodes = {}, vars = specific_vars or {} }
             end
         else
-            full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+            full_UI_table.name = localize { type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {} }
         end
     end
 
@@ -378,8 +390,12 @@ for _, v in ipairs(joker_list) do
 
     if not joker.in_pool then
         joker_obj.in_pool = function(self, args)
-            if not args then return true end
-            if args.source == "lobc_rudolta" then return false end
+            if not args then
+                return true
+            end
+            if args.source == "lobc_rudolta" then
+                return false
+            end
             return true
         end
     end
@@ -388,7 +404,9 @@ for _, v in ipairs(joker_list) do
         joker_obj.set_badges = function(self, card, badges)
             if self.discovered then
                 local color = nil
-                if joker.risk == "he" or joker.risk == "zayin" then color = G.C.UI.TEXT_DARK end
+                if joker.risk == "he" or joker.risk == "zayin" then
+                    color = G.C.UI.TEXT_DARK
+                end
                 badges[#badges + 1] = create_badge(localize("lobc_" .. joker.risk, "labels"), get_badge_colour("lobc_" .. joker.risk), color)
             end
         end
@@ -398,12 +416,20 @@ end
 -- Load all blinds
 for _, v in ipairs(blind_list) do
     local blind = SMODS.load_file("indiv_blinds/" .. v .. ".lua")
-    if not blind then goto continue else blind = blind() end
+    if not blind then
+        goto continue
+    else
+        blind = blind()
+    end
 
     blind.key = v
     blind.atlas = blind.atlas or "LobotomyCorp_Blind"
-    if not blind.pos then blind.pos = {x = 0, y = 0} end
-    if blind.atlas == "v" then blind.atlas = nil end
+    if not blind.pos then
+        blind.pos = { x = 0, y = 0 }
+    end
+    if blind.atlas == "v" then
+        blind.atlas = nil
+    end
     --blind.discovered = true
     if blind.color then
         blind.boss_colour = badge_colors["lobc_o_" .. blind.color]
@@ -416,20 +442,20 @@ for _, v in ipairs(blind_list) do
             blind_obj[k_] = blind[k_]
         end
     end
-    ::continue::
+    :: continue ::
 end
 
 -- Load all sounds
 for k, v in pairs(sound_list) do
     local sound = SMODS.Sound({
         key = k,
-        path = v..".ogg",
+        path = v .. ".ogg",
         pitch = 1,
         volume = 0.6,
         sync = false,
         no_sync = true,
     })
-    
+
     for _, vv in ipairs(SMODS.load_file("sound_conditionals.lua")()) do
         if k == vv.key then
             sound.select_music_track = vv.select_music_track
@@ -455,7 +481,9 @@ for _, v in ipairs(consumable_list) do
 
     cons.key = v
     cons.atlas = "LobotomyCorp_consumable"
-    if not cons.set then cons.set = "EGO_Gift" end
+    if not cons.set then
+        cons.set = "EGO_Gift"
+    end
     cons.discovered = true
     cons.alerted = true
     local cons_obj = SMODS.Consumable(cons)
@@ -493,7 +521,7 @@ SMODS.DrawStep({
     func = function(self)
         if self.children.mood then
             self.children.mood.role.draw_major = self
-            self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, nil, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL), nil, 0.6)
+            self.children.mood:draw_shader('dissolve', 0, nil, nil, self.children.center, nil, nil, nil, 0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
             self.children.mood:draw_shader('dissolve', nil, nil, nil, self.children.center, nil, nil)
         end
     end
@@ -503,7 +531,9 @@ SMODS.DrawStep({
     key = "prey",
     order = 51,
     func = function(self)
-        if self.sprite_facing ~= "front" then return end
+        if self.sprite_facing ~= "front" then
+            return
+        end
         local h_mod = (self.config.center.abno and -0.15 or 0)
         for _, v in ipairs({"lantern", "prey", "prey_mark", "villain"}) do
             if self.children["lobc_"..v] then
@@ -529,23 +559,27 @@ end
 
 -- copied from attention_text
 function lobc_screen_text(args)
-    if config.disable_all_text then return end
+    if config.disable_all_text then
+        return
+    end
     args = args or {}
     args.text = args.text or 'test'
     args.scale = args.scale or 1
     args.colour = copy_table(args.colour or G.C.WHITE)
-    args.hold = (args.hold or 0) + 0.1*(G.SPEEDFACTOR)
-    args.pos = args.pos or {x = 0, y = 0}
+    args.hold = (args.hold or 0) + 0.1 * (G.SPEEDFACTOR)
+    args.pos = args.pos or { x = 0, y = 0 }
     args.align = args.align or 'cm'
     args.emboss = args.emboss or nil
-    if args.float == nil then args.float = true end
+    if args.float == nil then
+        args.float = true
+    end
 
     args.fade = 1
     args.cover_colour = copy_table(G.C.CLEAR)
 
     args.uibox_config = {
         align = args.align or 'cm',
-        offset = args.offset or { x = 0, y = 0}, 
+        offset = args.offset or { x = 0, y = 0 },
         major = args.cover or args.major or nil,
     }
 
@@ -555,12 +589,11 @@ function lobc_screen_text(args)
         blockable = false,
         blocking = false,
         func = function()
-            args.AT = UIBox{
-                T = {args.pos.x,args.pos.y,0,0},
-                definition = 
-                    {n=G.UIT.ROOT, config = {align = args.cover_align or 'cm', minw = (args.cover and args.cover.T.w or 0.001) + (args.cover_padding or 0), minh = (args.cover and args.cover.T.h or 0.001) + (args.cover_padding or 0), padding = 0.03, r = 0.1, emboss = args.emboss, colour = args.cover_colour}, nodes={
-                        {n=G.UIT.O, config = { draw_layer = 1, object = DynaText({scale = args.scale, string = args.text, maxw = args.maxw, colours = {args.colour}, float = args.float, shadow = true, silent = not args.noisy, pop_in = args.pop_in or 0, pop_in_rate = args.pop_in_rate or 3, rotate = args.rotate or nil, text_rot = args.text_rot or 0, font = G.LANGUAGES[G.SETTINGS.language].font })}},
-                    }}, 
+            args.AT = UIBox {
+                T = { args.pos.x, args.pos.y, 0, 0 },
+                definition = { n = G.UIT.ROOT, config = { align = args.cover_align or 'cm', minw = (args.cover and args.cover.T.w or 0.001) + (args.cover_padding or 0), minh = (args.cover and args.cover.T.h or 0.001) + (args.cover_padding or 0), padding = 0.03, r = 0.1, emboss = args.emboss, colour = args.cover_colour }, nodes = {
+                    { n = G.UIT.O, config = { draw_layer = 1, object = DynaText({ scale = args.scale, string = args.text, maxw = args.maxw, colours = { args.colour }, float = args.float, shadow = true, silent = not args.noisy, pop_in = args.pop_in or 0, pop_in_rate = args.pop_in_rate or 3, rotate = args.rotate or nil, text_rot = args.text_rot or 0, font = G.LANGUAGES[G.SETTINGS.language].font }) } },
+                } },
                 config = args.uibox_config
             }
             args.AT.states.hover.can = false
@@ -570,7 +603,7 @@ function lobc_screen_text(args)
             args.text = args.AT.UIRoot.children[1].config.object
             args.text.yesod_immune = true
             --args.text:pulse(0.5)
-        return true
+            return true
         end
     }))
 
@@ -590,69 +623,76 @@ function lobc_screen_text(args)
                     blocking = false,
                     timer = "REAL",
                     func = function()
-                        if args.AT then args.AT:remove() end
-                    return true
+                        if args.AT then
+                            args.AT:remove()
+                        end
+                        return true
                     end
                 }))
             end
-        return true
+            return true
         end
     }))
 end
 
 -- on-screen text that's present in like every project moon game
 function lobc_abno_text(key, eval_func, delay, quips)
-    if config.disable_abno_text then return end
+    if config.disable_abno_text then
+        return
+    end
     local chosen_quip = nil
 
     for _, v in pairs(G.lobc_global_meltdowns) do
-        if G.GAME.modifiers["lobc_"..v] and key ~= v then return end
+        if G.GAME.modifiers["lobc_" .. v] and key ~= v then
+            return
+        end
     end
 
-    if type(quips) == "number" then chosen_quip = math.random(1, quips or 8)
+    if type(quips) == "number" then
+        chosen_quip = math.random(1, quips or 8)
     else
         --[[
-            quips = {
-                global = 2,
-                { min_ante = 0, max_ante = 3, amount = 2 },
-                { min_ante = 4, max_ante = 6, amount = 4 },
-                { min_ante = 7, max_ante = G.GAME.win_ante, amount = 4 },
-            }
-        ]]--
+                quips = {
+                    global = 2,
+                    { min_ante = 0, max_ante = 3, amount = 2 },
+                    { min_ante = 4, max_ante = 6, amount = 4 },
+                    { min_ante = 7, max_ante = G.GAME.win_ante, amount = 4 },
+                }
+            ]]--
         local all_quips = {}
 
         if quips["global"] and G.GAME.round_resets.ante <= G.GAME.win_ante then
             for i = 1, quips["global"] do
-                all_quips[#all_quips+1] = "0_"..i
+                all_quips[#all_quips + 1] = "0_" .. i
             end
         end
 
         for k, v in ipairs(quips) do
-            if (v.phase and G.GAME.current_round.phases_beaten == v.phase) or 
-               (v.min_ante and G.GAME.round_resets.ante >= v.min_ante and G.GAME.round_resets.ante <= v.max_ante) then
+            if (v.phase and G.GAME.current_round.phases_beaten == v.phase) or
+                    (v.min_ante and G.GAME.round_resets.ante >= v.min_ante and G.GAME.round_resets.ante <= v.max_ante) then
                 for i = 1, v.amount do
-                    all_quips[#all_quips+1] = k.."_"..i
+                    all_quips[#all_quips + 1] = k .. "_" .. i
                 end
             end
         end
 
         chosen_quip = all_quips[math.random(#all_quips)]
     end
-    local rotation = math.random(-50, 50)/100
-    local offset = {x = math.random(-100, 100)/100, y = math.random(-150, 150)/100}
+    local rotation = math.random(-50, 50) / 100
+    local offset = { x = math.random(-100, 100) / 100, y = math.random(-150, 150) / 100 }
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
-        delay = delay or 0, 
-        blocking = false, 
-        blockable = false, 
+        delay = delay or 0,
+        blocking = false,
+        blockable = false,
         timer = 'REAL',
-        func = function() 
-            if eval_func() and key and chosen_quip then 
-                lobc_screen_text({scale = 0.6, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5*G.SETTINGS.GAMESPEED, align = 'cm', offset = offset, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.25, pop_out = 0.1*G.SETTINGS.GAMESPEED})
-                lobc_abno_text(key, eval_func, math.random(2, 10), quips) 
-            end 
-        return true 
+        func = function()
+            if eval_func() and key and chosen_quip then
+                lobc_screen_text({ scale = 0.6, text = localize("k_lobc_" .. key .. "_" .. chosen_quip), colour = G.C.RED, hold = 5 * G.SETTINGS.GAMESPEED, align = 'cm', offset = offset, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.25, pop_out = 0.1 * G.SETTINGS.GAMESPEED })
+                lobc_abno_text(key, eval_func, math.random(2, 10), quips)
+            end
+            return true
         end
     }))
 end
@@ -672,22 +712,22 @@ end
 -- Make Abnos breach
 function abno_breach(card, delay)
     G.E_MANAGER:add_event(Event({
-        trigger = 'after', 
-        delay = (delay or 1)*G.SETTINGS.GAMESPEED,
+        trigger = 'after',
+        delay = (delay or 1) * G.SETTINGS.GAMESPEED,
         func = function()
             play_sound('tarot1')
             card.T.r = -0.2
             card:juice_up(0.3, 0.4)
             card.states.drag.is = true
             card.children.center.pinch.x = true
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_lobc_breached'), colour = G.C.FILTER, instant = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                func = function()
-                    G.jokers:remove_card(card)
-                    card:remove()
-                    card = nil
-                return true 
-                end
+            card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_lobc_breached'), colour = G.C.FILTER, instant = true })
+            G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, blockable = false,
+                                          func = function()
+                                              G.jokers:remove_card(card)
+                                              card:remove()
+                                              card = nil
+                                              return true
+                                          end
             }))
             return true
         end
@@ -696,7 +736,9 @@ end
 
 -- Restart music
 function lobc_restart_music()
-    if config.disable_music then return end
+    if config.disable_music then
+        return
+    end
     G.ARGS.push = G.ARGS.push or {}
     G.ARGS.push.type = 'restart_music'
     if G.F_SOUND_THREAD then
@@ -709,7 +751,7 @@ end
 -- Shallow copy (deep copy is in blindexpander)
 function shallow_copy(t)
     local t2 = {}
-    for k,v in pairs(t) do
+    for k, v in pairs(t) do
         t2[k] = v
     end
     return t2
@@ -720,9 +762,9 @@ end
 lobc_conductor = {
     track = '',
     bpm = 0,
-    offset = 0, 
-    sec_per_beat = 0, 
-    beat = 0, 
+    offset = 0,
+    sec_per_beat = 0,
+    beat = 0,
     pitch = 0,
 }
 
@@ -739,7 +781,7 @@ function modulate_sound(dt)
             lobc_conductor.bpm = sound.bpm
             lobc_conductor.pitch = sound.pitch
             lobc_conductor.offset = sound.offset / sound.pitch
-            lobc_conductor.sec_per_beat = 60/(sound.bpm / sound.pitch)
+            lobc_conductor.sec_per_beat = 60 / (sound.bpm / sound.pitch)
             lobc_conductor.beat = 0
         end
     end
@@ -752,11 +794,13 @@ function lobc_condupd(dt)
     -- Only activate for SMODS sounds, with bpm funcs
     if sound and sound.sync_events then
         local beat = lobc_conductor.beat
-        G.SOUND_MANAGER.channel:push({type = "get_conductor"})
+        G.SOUND_MANAGER.channel:push({ type = "get_conductor" })
         while G.SOUND_MANAGER.conductor:getCount() > 0 do
             req = G.SOUND_MANAGER.conductor:pop()
         end
-        if not req then return end
+        if not req then
+            return
+        end
 
         -- Get Funky
         if G.get_funky then
@@ -765,12 +809,15 @@ function lobc_condupd(dt)
             end
             if last_beat < inc and inc <= beat then
                 --print(inc)
-                if inc % 4 == 1 then lobc_move_cards(inc) end
+                if inc % 4 == 1 then
+                    lobc_move_cards(inc)
+                end
                 inc = inc + 1
             end
         end
 
-        if beat - last_beat < (beat / 2) then -- bandage fix for looping
+        if beat - last_beat < (beat / 2) then
+            -- bandage fix for looping
             for _, v in ipairs(SMODS.Sounds[lobc_conductor.track].sync_events) do
                 if v.beat > last_beat and v.beat <= beat then
                     v.func()
@@ -799,14 +846,23 @@ function get_new_boss()
     (G.GAME.pool_flags["queen_of_hatred_breach"] and not G.GAME.pool_flags["hatred_defeated"]) then return "bl_lobc_mg_hatred" end
     if G.GAME.modifiers.lobc_production then
         local ante = G.GAME.round_resets.ante
-        if ante <= 2 then return "bl_lobc_dawn_base" end
-        if ante <= 4 then return "bl_lobc_noon_base" end
-        if ante <= 6 then return "bl_lobc_dusk_base" end
+        if ante <= 2 then
+            return "bl_lobc_dawn_base"
+        end
+        if ante <= 4 then
+            return "bl_lobc_noon_base"
+        end
+        if ante <= 6 then
+            return "bl_lobc_dusk_base"
+        end
         return "bl_lobc_midnight_base"
     end
-    if string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "heathcliff" then return "bl_lobc_erlking_heathcliff" end
-    local new_boss = get_new_bossref() 
-    while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do -- does this work?
+    if string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "heathcliff" then
+        return "bl_lobc_erlking_heathcliff"
+    end
+    local new_boss = get_new_bossref()
+    while G.P_BLINDS[new_boss].mod and G.P_BLINDS[new_boss].mod.id == "LobotomyCorp" do
+        -- does this work?
         new_boss = get_new_bossref()
     end
     return new_boss
@@ -817,33 +873,39 @@ local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
     -- Hide Small and Big Blind (Gebura)
-    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > G.GAME.win_ante) or 
-       ((string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == G.GAME.win_ante) then
+    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > G.GAME.win_ante) or
+            ((string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == G.GAME.win_ante) then
         G.GAME.round_resets.blind_states.Small = 'Hide'
         G.GAME.round_resets.blind_states.Big = 'Hide'
         ease_background_colour_blind()
         return
     end
-    if config.disable_ordeals and not G.GAME.modifiers.lobc_ordeals then return end
-    if G.GAME.modifiers.lobc_production then return end
+    if config.disable_ordeals and not G.GAME.modifiers.lobc_ordeals then
+        return
+    end
+    if G.GAME.modifiers.lobc_production then
+        return
+    end
     if G.GAME.round_resets.blind_states.Small == 'Upcoming' or G.GAME.round_resets.blind_states.Small == 'Hide' then
         if G.GAME.round_resets.ante % 8 == 2 and G.GAME.round_resets.ante > 0 and
-           (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) and 
-           not (G.GAME.round_resets.ante >= 8 and G.GAME.modifiers.lobc_tiphereth) then
-                G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
+                (G.GAME.modifiers.lobc_ordeals or pseudorandom("dawn_ordeal") < 0.125) and
+                not (G.GAME.round_resets.ante >= 8 and G.GAME.modifiers.lobc_tiphereth) then
+            G.GAME.round_resets.blind_choices.Small = 'bl_lobc_dawn_base'
         elseif G.GAME.round_resets.blind_choices.Small == 'bl_lobc_dawn_base' then
             G.GAME.round_resets.blind_choices.Small = 'bl_small'
         end
 
         if G.GAME.round_resets.ante % 8 == 4 and G.GAME.round_resets.ante > 0 and
-           (G.GAME.modifiers.lobc_ordeals or pseudorandom("noon_ordeal") < 0.125) then
+                (G.GAME.modifiers.lobc_ordeals or pseudorandom("noon_ordeal") < 0.125) then
             G.GAME.round_resets.blind_choices.Big = 'bl_lobc_noon_base'
         elseif G.GAME.round_resets.blind_choices.Big == 'bl_lobc_noon_base' then
             G.GAME.round_resets.blind_choices.Big = 'bl_big'
         end
 
         -- don't overwrite whitenight
-        if G.GAME.round_resets.blind_choices.Boss == "bl_lobc_whitenight" then return end
+        if G.GAME.round_resets.blind_choices.Boss == "bl_lobc_whitenight" then
+            return
+        end
 
         if G.GAME.round_resets.ante % 8 == 6 and G.GAME.round_resets.ante > 0 then
             if G.GAME.modifiers.lobc_ordeals or pseudorandom("dusk_ordeal") < 0.125 then
@@ -853,7 +915,7 @@ function reset_blinds()
         end
 
         if (G.GAME.round_resets.ante % 8 == 0 and G.GAME.round_resets.ante > 0) or
-           (G.GAME.round_resets.ante == 8 and G.GAME.modifiers.lobc_tiphereth) then
+                (G.GAME.round_resets.ante == 8 and G.GAME.modifiers.lobc_tiphereth) then
             if G.GAME.modifiers.lobc_ordeals or pseudorandom("midnight_ordeal") < 0.125 or G.GAME.modifiers.lobc_tiphereth then
                 G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] = G.GAME.bosses_used[G.GAME.round_resets.blind_choices.Boss] - 1
                 G.GAME.round_resets.blind_choices.Boss = 'bl_lobc_midnight_base'
@@ -868,7 +930,7 @@ function Blind.set_blind(self, blind, reset, silent)
     if not reset then
         if blind and blind.color and blind.color == "base" then
             local chosen_blind = pseudorandom_element(blind.blind_list, pseudoseed("dusk_ordeal"))
-            return self:set_blind(G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
+            return self:set_blind(G.P_BLINDS['bl_lobc_' .. chosen_blind], reset, silent)
         end
         if blind and blind.key == "bl_lobc_apocalypse_bird" then
             if not G.GAME.blind.original_blind then
@@ -879,26 +941,29 @@ function Blind.set_blind(self, blind, reset, silent)
                     trigger = 'before',
                     func = function()
                         lobc_restart_music()
-                        display_cutscene({x = 0, y = 0}, "ab")
-                    return true 
-                    end 
+                        display_cutscene({ x = 0, y = 0 }, "ab")
+                        return true
+                    end
                 }))
                 return self:set_blind(G.P_BLINDS["bl_lobc_ab_eyes"], reset, silent)
             else
-                G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function() 
+                G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function()
                     play_sound("lobc_apoc_birth", 1, 0.8)
-                return true end }))
-                G.E_MANAGER:add_event(Event({trigger = 'before', func = function()
-                    display_cutscene({x = 0, y = 1}, "ab")
-                return true end }))
+                    return true
+                end }))
+                G.E_MANAGER:add_event(Event({ trigger = 'before', func = function()
+                    display_cutscene({ x = 0, y = 1 }, "ab")
+                    return true
+                end }))
             end
         end
     end
     set_blindref(self, blind, reset, silent)
     if not reset and blind and (blind.time == "dusk" or blind.time == "midnight") then
-        G.E_MANAGER:add_event(Event({trigger = 'before', func = function()
+        G.E_MANAGER:add_event(Event({ trigger = 'before', func = function()
             lobc_restart_music()
-        return true end }))
+            return true
+        end }))
     end
 end
 
@@ -968,14 +1033,14 @@ function Blind.alert_debuff(self, first)
         G.E_MANAGER:add_event(Event({
             blocking = false,
             blockable = false,
-            func = function() 
+            func = function()
                 if G.STATE == G.STATES.SELECTING_HAND then
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
-                        delay = 4*G.SETTINGS.GAMESPEED,
+                        delay = 4 * G.SETTINGS.GAMESPEED,
                         blocking = false,
                         blockable = false,
-                        func = function() 
+                        func = function()
                             self.block_play = false
                             self.chips = to_big(0)
                             self.chip_text = number_format(self.chips)
@@ -1010,8 +1075,8 @@ function Blind.alert_debuff(self, first)
     else
         if self.config.blind.color and not config.disable_all_text then
             self:ordeal_alert()
-        else 
-            alert_debuffref(self, first) 
+        else
+            alert_debuffref(self, first)
         end
     end
 end
@@ -1073,14 +1138,16 @@ function Blind.set_text(self)
         local loc_vars = res.vars or {}
         local loc_key = res.key or self.config.blind.key
         local upd_name = res.upd_name
-        local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or self.config.blind.vars}
-        if loc_target then 
-            self.loc_name = self.name == '' and self.name or localize{type = 'name_text', key = upd_name and loc_key or self.config.blind.key, set = 'Blind'}
-            if self.config.blind.key == "bl_lobc_what_blind" and not upd_name then self.loc_name = localize{type = 'name_text', key = "bl_lobc_what_blind_name", set = 'Blind'} end
+        local loc_target = localize { type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or self.config.blind.vars }
+        if loc_target then
+            self.loc_name = self.name == '' and self.name or localize { type = 'name_text', key = upd_name and loc_key or self.config.blind.key, set = 'Blind' }
+            if self.config.blind.key == "bl_lobc_what_blind" and not upd_name then
+                self.loc_name = localize { type = 'name_text', key = "bl_lobc_what_blind_name", set = 'Blind' }
+            end
             self.loc_debuff_text = ''
             EMPTY(self.loc_debuff_lines)
             for k, v in ipairs(loc_target) do
-                self.loc_debuff_text = self.loc_debuff_text..v..(k <= #loc_target and ' ' or '')
+                self.loc_debuff_text = self.loc_debuff_text .. v .. (k <= #loc_target and ' ' or '')
                 self.loc_debuff_lines[k] = v
             end
         else
@@ -1114,7 +1181,9 @@ function display_cutscene(pos, c_type, delay_pause)
         G.lobc_cutscene = Sprite(0, 0, 14.2 * mod_x, 14.2 * mod_y, G.ASSET_ATLAS[atlas], pos)
         G.lobc_cutscene.states.drag.can = false
         G.lobc_cutscene.draw_self = function(self, overlay)
-            if not self.states.visible then return end
+            if not self.states.visible then
+                return
+            end
             if self.sprite_pos.x ~= self.sprite_pos_copy.x or self.sprite_pos.y ~= self.sprite_pos_copy.y then
                 self:set_sprite_pos(self.sprite_pos)
             end
@@ -1122,57 +1191,62 @@ function display_cutscene(pos, c_type, delay_pause)
             love.graphics.scale(1 / (self.scale.x / self.VT.w), 1 / (self.scale.y / self.VT.h))
             love.graphics.setColor({ 1, 1, 1, G.lobc_cutscene_transparency })
             love.graphics.draw(
-                self.atlas.image,
-                self.sprite,
-                0, 0,
-                0,
-                self.VT.w / (self.T.w),
-                self.VT.h / (self.T.h)
+                    self.atlas.image,
+                    self.sprite,
+                    0, 0,
+                    0,
+                    self.VT.w / (self.T.w),
+                    self.VT.h / (self.T.h)
             )
             love.graphics.pop()
             add_to_drawhash(self)
             self:draw_boundingrect()
-            if self.shader_tab then love.graphics.setShader() end
+            if self.shader_tab then
+                love.graphics.setShader()
+            end
         end
         ui_nodes = {
-            {n = G.UIT.R, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
-                { n = G.UIT.O, config = { object = G.lobc_cutscene }},
-            }}
+            { n = G.UIT.R, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
+                { n = G.UIT.O, config = { object = G.lobc_cutscene } },
+            } }
         }
     end
 
     if delay_pause then
-        G.OVERLAY_MENU = UIBox{
-            definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
+        G.OVERLAY_MENU = UIBox {
+            definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = ui_nodes },
             config = {
                 align = "cm",
-                offset = {x = 0, y = 0},
+                offset = { x = 0, y = 0 },
                 major = G.ROOM_ATTACH,
                 bond = 'Strong',
                 no_esc = true
             }
         }
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = delay_pause, timer = "REAL", func = function() 
+        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = delay_pause, timer = "REAL", func = function()
             G.lobc_update_lock = nil
             G.SETTINGS.paused = true
             G.CONTROLLER.locks.frame_set = true
             G.CONTROLLER.locks.frame = true
             G.CONTROLLER.cursor_down.target = nil
             G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
-        return true end }))
+            return true
+        end }))
     else
         G.lobc_update_lock = nil
         G.SETTINGS.paused = true
-        if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+        if G.OVERLAY_MENU then
+            G.OVERLAY_MENU:remove()
+        end
         G.CONTROLLER.locks.frame_set = true
         G.CONTROLLER.locks.frame = true
         G.CONTROLLER.cursor_down.target = nil
         G.CONTROLLER:mod_cursor_context_layer(G.NO_MOD_CURSOR_STACK and 0 or 1)
-        G.OVERLAY_MENU = UIBox{
-            definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes=ui_nodes},
+        G.OVERLAY_MENU = UIBox {
+            definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = ui_nodes },
             config = {
                 align = "cm",
-                offset = {x = 0, y = 0},
+                offset = { x = 0, y = 0 },
                 major = G.ROOM_ATTACH,
                 bond = 'Strong',
                 no_esc = true
@@ -1210,11 +1284,11 @@ SMODS.SkillLobc = SMODS.Center:extend({
     end,
     no_mod_badges = true,
     inject = function(self)
-		if not G.P_CENTER_POOLS[self.set] then
-			G.P_CENTER_POOLS[self.set] = {}
-		end
-		SMODS.Center.inject(self)
-	end,
+        if not G.P_CENTER_POOLS[self.set] then
+            G.P_CENTER_POOLS[self.set] = {}
+        end
+        SMODS.Center.inject(self)
+    end,
 })
 
 local skill_list = {
@@ -1256,14 +1330,18 @@ end
 local set_costref = Card.set_cost
 function Card.set_cost(self)
     set_costref(self)
-    if self.ability.set == "EGO_Gift" then self.sell_cost = 0 end
-    if self.ability.lobc_fairy_festival and self.cost > 0 then self.cost = 0 end
+    if self.ability.set == "EGO_Gift" then
+        self.sell_cost = 0
+    end
+    if self.ability.lobc_fairy_festival and self.cost > 0 then
+        self.cost = 0
+    end
 end
 
 -- Front sprites thing (Today's Shy Look / You Must Be Happy / Express Train to Hell / Opened Can of WellCheers)
 local alignref = Card.align
-function Card.align(self)  
-    if self.children.mood then 
+function Card.align(self)
+    if self.children.mood then
         self.children.mood.T.y = self.T.y
         self.children.mood.T.x = self.T.x
         self.children.mood.T.r = self.T.r
@@ -1330,7 +1408,9 @@ end
 local drawn_to_handref = Blind.drawn_to_hand
 function Blind.drawn_to_hand(self)
     drawn_to_handref(self)
-    if not G.GAME.lobc_prepped then return end
+    if not G.GAME.lobc_prepped then
+        return
+    end
 
     -- Gebura's effect
     if G.GAME.modifiers.lobc_gebura then
@@ -1338,19 +1418,23 @@ function Blind.drawn_to_hand(self)
         local destroyed_cards = {}
         local first = true
         for _, v in ipairs(G.hand.cards) do
-            if not v.highlighted then available_cards[#available_cards+1] = v end
+            if not v.highlighted then
+                available_cards[#available_cards + 1] = v
+            end
         end
         if #available_cards > 0 then
             for i = 1, (G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_red_mist" and G.GAME.current_round.phases_beaten >= 2) and 2 or 1 do
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("lobc_gebura_destroy"))
                 table.remove(available_cards, chosen_card_key)
-                destroyed_cards[#destroyed_cards+1] = chosen_card
-                chosen_card:start_dissolve() 
-                if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
+                destroyed_cards[#destroyed_cards + 1] = chosen_card
+                chosen_card:start_dissolve()
+                if first then
+                    play_sound("lobc_gebura_slash", math.random(90, 110) / 100, 0.5)
+                end
                 first = nil
             end
             delay(0.2)
-            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
+            SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
         end
     end
 
@@ -1389,16 +1473,18 @@ end
 -- Remove the topleft message when CENSORED/Yesod is active
 local generate_UIBox_ability_tableref = Card.generate_UIBox_ability_table
 function Card.generate_UIBox_ability_table(self, ...)
-    if (next(SMODS.find_card("j_lobc_censored", true)) and self.config.center.key ~= "j_lobc_censored") 
-    or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3) 
-    or (self.ability and self.ability.lobc_censored) then return end
+    if (next(SMODS.find_card("j_lobc_censored", true)) and self.config.center.key ~= "j_lobc_censored")
+            or (G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3)
+            or (self.ability and self.ability.lobc_censored) then
+        return
+    end
 
     -- Add "Sin" info_queue
     local full_UI_table = generate_UIBox_ability_tableref(self, ...)
     if self.playing_card then
         local id = self:get_id()
         if G.GAME.lobc_long_arms and G.GAME.lobc_long_arms[id] then
-            generate_card_ui({key = 'lobc_sin', set = 'Other'}, full_UI_table)
+            generate_card_ui({ key = 'lobc_sin', set = 'Other' }, full_UI_table)
         end
     end
     return full_UI_table
@@ -1427,7 +1513,7 @@ if JokerDisplay then
         replace_modifiers = {},
         replace_debuff_text = { { text = "CENSORED", colour = G.C.UI.TEXT_INACTIVE } },
         stop_calc = true,
-        is_replaced_func = function (card, custom_parent)
+        is_replaced_func = function(card, custom_parent)
             return next(SMODS.find_card("j_lobc_censored")) and card.config.center.key ~= "j_lobc_censored"
         end
     }
@@ -1441,7 +1527,7 @@ if JokerDisplay then
         replace_debuff_reminder = {},
         replace_debuff_extra = {},
         stop_calc = true,
-        is_replaced_func = function (card, custom_parent)
+        is_replaced_func = function(card, custom_parent)
             return G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3
         end
     }
@@ -1457,13 +1543,13 @@ local use_and_sell_buttonsref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
     local t = use_and_sell_buttonsref(card)
     if t and t.nodes[1] and t.nodes[1].nodes[2] and card.config.center.lobc_active and type(card.config.center.lobc_active) == "function" then
-        table.insert(t.nodes[1].nodes[2].nodes, 
-            {n=G.UIT.C, config={align = "cr"}, nodes={
-                {n=G.UIT.C, config={ref_table = card, align = "cr", maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'lobc_active_ability', func = 'lobc_can_use_active'}, nodes={
-                    {n=G.UIT.B, config = {w=0.1,h=0.6}},
-                    {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
-                }}
-            }}
+        table.insert(t.nodes[1].nodes[2].nodes,
+                { n = G.UIT.C, config = { align = "cr" }, nodes = {
+                    { n = G.UIT.C, config = { ref_table = card, align = "cr", maxw = 1.25, padding = 0.1, r = 0.08, minw = 1.25, minh = 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'lobc_active_ability', func = 'lobc_can_use_active' }, nodes = {
+                        { n = G.UIT.B, config = { w = 0.1, h = 0.6 } },
+                        { n = G.UIT.T, config = { text = localize('b_use'), colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true } }
+                    } }
+                } }
         )
     end
     return t
@@ -1471,14 +1557,13 @@ end
 
 G.FUNCS.lobc_can_use_active = function(e)
     local card = e.config.ref_table
-    local can_use = 
-    not (not skip_check and ((G.play and #G.play.cards > 0) or
-    (G.CONTROLLER.locked) or
-    (G.GAME.STOP_USE and G.GAME.STOP_USE > 0))) and
-    G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT and
-    card.area == G.jokers and not card.debuff and
-    (not card.config.center.lobc_can_use_active or card.config.center:lobc_can_use_active(card))
-    if can_use then 
+    local can_use = not (not skip_check and ((G.play and #G.play.cards > 0) or
+            (G.CONTROLLER.locked) or
+            (G.GAME.STOP_USE and G.GAME.STOP_USE > 0))) and
+            G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT and
+            card.area == G.jokers and not card.debuff and
+            (not card.config.center.lobc_can_use_active or card.config.center:lobc_can_use_active(card))
+    if can_use then
         e.config.colour = G.C.RED
         e.config.button = 'lobc_active_ability'
     else
@@ -1490,13 +1575,20 @@ end
 G.FUNCS.lobc_active_ability = function(e, mute, nosave)
     local card = e.config.ref_table
 
-    G.E_MANAGER:add_event(Event({func = function()
+    G.E_MANAGER:add_event(Event({ func = function()
         e.disable_button = nil
         e.config.button = 'lobc_active_ability'
-    return true end }))
+        return true
+    end }))
 
-    if card.children.use_button then card.children.use_button:remove(); card.children.use_button = nil end
-    if card.children.sell_button then card.children.sell_button:remove(); card.children.sell_button = nil end
+    if card.children.use_button then
+        card.children.use_button:remove();
+        card.children.use_button = nil
+    end
+    if card.children.sell_button then
+        card.children.sell_button:remove();
+        card.children.sell_button = nil
+    end
 
     card.config.center:lobc_active(card)
     card.area:remove_from_highlighted(card)
@@ -1518,41 +1610,53 @@ function Game.start_run(self, args)
     start_runref(self, args)
 
     if not args.savetext then
-        if G.GAME.modifiers.lobc_fast_ante_1 then G.GAME.modifiers.scaling = 2 end
-        if G.GAME.modifiers.lobc_fast_ante_2 then G.GAME.modifiers.scaling = 3 end
-        if G.GAME.modifiers.lobc_netzach then G.GAME.lobc_no_hands_reset = true end
-        if G.GAME.modifiers.lobc_hod then G.GAME.lobc_hod_modifier = 0.85 end
-        if G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) then G.GAME.win_ante = G.GAME.win_ante + 1 end
-        if G.GAME.modifiers.lobc_end_ante then G.GAME.win_ante = G.GAME.modifiers.lobc_end_ante end
+        if G.GAME.modifiers.lobc_fast_ante_1 then
+            G.GAME.modifiers.scaling = 2
+        end
+        if G.GAME.modifiers.lobc_fast_ante_2 then
+            G.GAME.modifiers.scaling = 3
+        end
+        if G.GAME.modifiers.lobc_netzach then
+            G.GAME.lobc_no_hands_reset = true
+        end
+        if G.GAME.modifiers.lobc_hod then
+            G.GAME.lobc_hod_modifier = 0.85
+        end
+        if G.GAME.modifiers.lobc_gebura or (string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) then
+            G.GAME.win_ante = G.GAME.win_ante + 1
+        end
+        if G.GAME.modifiers.lobc_end_ante then
+            G.GAME.win_ante = G.GAME.modifiers.lobc_end_ante
+        end
     end
 
     -- First time text
     if not config.first_time then
         config.first_time = true
         SMODS.save_mod_config(current_mod)
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
             lobc_screen_text({
                 text = localize('k_lobc_first_time_1'),
-                scale = 0.35, 
-                hold = 10*G.SETTINGS.GAMESPEED,
+                scale = 0.35,
+                hold = 10 * G.SETTINGS.GAMESPEED,
                 major = G.play,
                 align = 'cm',
-                offset = {x = 0.3, y = -3.5},
+                offset = { x = 0.3, y = -3.5 },
                 noisy = false,
                 float = false,
             })
             lobc_screen_text({
                 text = localize('k_lobc_first_time_2'),
-                scale = 0.35, 
-                hold = 10*G.SETTINGS.GAMESPEED,
+                scale = 0.35,
+                hold = 10 * G.SETTINGS.GAMESPEED,
                 major = G.play,
                 align = 'cm',
-                offset = {x = 0.3, y = -3.1},
+                offset = { x = 0.3, y = -3.1 },
                 noisy = false,
                 float = false,
             })
-            return true 
-            end 
+            return true
+        end
         }))
     end
 
@@ -1591,12 +1695,18 @@ function Game.start_run(self, args)
         gebura = {},
     }
 
-    local eval_func = function() return G.GAME.round_resets.ante <= G.GAME.win_ante end
+    local eval_func = function()
+        return G.GAME.round_resets.ante <= G.GAME.win_ante
+    end
     for k, v in pairs(quips) do
-        if G.GAME.modifiers["lobc_"..k] then
-            if v.global then lobc_abno_text(k, eval_func, 0.2, v) end
+        if G.GAME.modifiers["lobc_" .. k] then
+            if v.global then
+                lobc_abno_text(k, eval_func, 0.2, v)
+            end
             ease_background_colour_blind()
-            if not args.save_text and not config.disable_unsettling_sfx then play_sound("lobc_meltdown_start", 1, 0.5) end
+            if not args.save_text and not config.disable_unsettling_sfx then
+                play_sound("lobc_meltdown_start", 1, 0.5)
+            end
             break
         end
     end
@@ -1629,16 +1739,18 @@ function ease_background_colour_blind(state, blind_override)
             ease_background_colour(G.GAME.blind.config.blind.lobc_bg)
             return
         elseif G.GAME.blind.config.blind.time and (G.GAME.blind.config.blind.time == "dawn" or G.GAME.blind.config.blind.time == "noon") and G.GAME.blind.config.blind.color ~= "base" then
-            ease_background_colour{new_colour = lighten(mix_colours(G.GAME.blind.config.blind.boss_colour, G.C.BLACK, 0.3), 0.1), special_colour = G.GAME.blind.config.blind.boss_colour, contrast = 2}
+            ease_background_colour { new_colour = lighten(mix_colours(G.GAME.blind.config.blind.boss_colour, G.C.BLACK, 0.3), 0.1), special_colour = G.GAME.blind.config.blind.boss_colour, contrast = 2 }
             return
         end
     end
 
-    if config.disable_meltdown_color then return ease_background_colour_blindref(state, blind_override) end
+    if config.disable_meltdown_color then
+        return ease_background_colour_blindref(state, blind_override)
+    end
     for k, v in pairs(colors) do
-        if G.GAME.modifiers["lobc_"..k] then
+        if G.GAME.modifiers["lobc_" .. k] then
             ease_colour(G.C.DYN_UI.MAIN, v)
-            ease_background_colour({new_colour = darken(v, 0.1), special_colour = darken(v, 0.3), contrast = 1})
+            ease_background_colour({ new_colour = darken(v, 0.1), special_colour = darken(v, 0.3), contrast = 1 })
             return
         end
     end
@@ -1648,10 +1760,14 @@ end
 
 local get_blind_main_colourref = get_blind_main_colour
 function get_blind_main_colour(blind)
-    if config.disable_meltdown_color then return get_blind_main_colourref(blind) end
+    if config.disable_meltdown_color then
+        return get_blind_main_colourref(blind)
+    end
 
     for k, v in pairs(colors) do
-        if G.GAME.modifiers["lobc_"..k] then return v end
+        if G.GAME.modifiers["lobc_" .. k] then
+            return v
+        end
     end
 
     return get_blind_main_colourref(blind)
@@ -1673,14 +1789,27 @@ function ease_ante(mod)
             -- Card shuffle (Malkuth)
             if G.GAME.modifiers.lobc_malkuth and G.GAME.round_resets.ante > 6 then
                 G.jokers:unhighlight_all()
-                if #G.jokers.cards > 1 then 
-                    G.E_MANAGER:add_event(Event({ func = function() 
-                        G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 0.85);return true end })) 
+                if #G.jokers.cards > 1 then
+                    G.E_MANAGER:add_event(Event({ func = function()
+                        G.E_MANAGER:add_event(Event({ func = function()
+                            G.jokers:shuffle('malk_shuffle');
+                            play_sound('cardSlide1', 0.85);
+                            return true
+                        end }))
                         delay(0.1)
-                        G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 1.15);return true end })) 
+                        G.E_MANAGER:add_event(Event({ func = function()
+                            G.jokers:shuffle('malk_shuffle');
+                            play_sound('cardSlide1', 1.15);
+                            return true
+                        end }))
                         delay(0.1)
-                        G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('malk_shuffle'); play_sound('cardSlide1', 1);return true end })) 
-                    return true end })) 
+                        G.E_MANAGER:add_event(Event({ func = function()
+                            G.jokers:shuffle('malk_shuffle');
+                            play_sound('cardSlide1', 1);
+                            return true
+                        end }))
+                        return true
+                    end }))
                 end
             end
 
@@ -1709,9 +1838,11 @@ function ease_ante(mod)
                 end
             end
 
-            for _, v in pairs({"malkuth", "yesod", "hod", "netzach", "tiphereth"}) do
-                if G.GAME.modifiers["lobc_"..v] and (G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante == 7) then
-                    if not config.disable_unsettling_sfx then play_sound("lobc_overload_alert", 1, 0.5) end
+            for _, v in pairs({ "malkuth", "yesod", "hod", "netzach", "tiphereth" }) do
+                if G.GAME.modifiers["lobc_" .. v] and (G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante == 7) then
+                    if not config.disable_unsettling_sfx then
+                        play_sound("lobc_overload_alert", 1, 0.5)
+                    end
                     break
                 end
             end
@@ -1725,10 +1856,10 @@ end
 local init_game_objectref = Game.init_game_object
 function Game.init_game_object(self)
     local G = init_game_objectref(self)
-    
+
     -- Make Lobcorp blinds unable to spawn normally
     for _, v in ipairs(blind_list) do
-        G.bosses_used["bl_lobc_"..v] = 1e300
+        G.bosses_used["bl_lobc_" .. v] = 1e300
     end
 
     -- Add separate chance for Jolliest Jester
@@ -1737,14 +1868,14 @@ function Game.init_game_object(self)
 
     -- Yesod font
     self.FONTS["blank"] = {
-        file = folder.."assets/fonts/AdobeBlank.ttf", 
-        render_scale = self.TILESIZE*10, 
-        TEXT_HEIGHT_SCALE = 0.83, 
-        TEXT_OFFSET = {x=10,y=-20}, 
-        FONTSCALE = 0.1, 
-        squish = 1, 
+        file = folder .. "assets/fonts/AdobeBlank.ttf",
+        render_scale = self.TILESIZE * 10,
+        TEXT_HEIGHT_SCALE = 0.83,
+        TEXT_OFFSET = { x = 10, y = -20 },
+        FONTSCALE = 0.1,
+        squish = 1,
         DESCSCALE = 1,
-        FONT = love.graphics.newFont(folder.."assets/fonts/AdobeBlank.ttf", self.TILESIZE*10)
+        FONT = love.graphics.newFont(folder .. "assets/fonts/AdobeBlank.ttf", self.TILESIZE * 10)
     }
 
     return G
@@ -1763,9 +1894,13 @@ function current_mod.reset_game_globals(start_run)
         G.GAME.lobc_long_arms = {}
     else
         for k, _ in pairs(G.GAME.lobc_long_arms) do
-            if G.GAME.lobc_long_arms[k] >= 10 then G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] / 2 end
+            if G.GAME.lobc_long_arms[k] >= 10 then
+                G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] / 2
+            end
             G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] - 1
-            if G.GAME.lobc_long_arms[k] <= 0 then G.GAME.lobc_long_arms[k] = nil end
+            if G.GAME.lobc_long_arms[k] <= 0 then
+                G.GAME.lobc_long_arms[k] = nil
+            end
         end
     end
 end
@@ -1793,7 +1928,7 @@ local should_debuff_ability = {
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
         for _, v in ipairs(should_debuff_ability) do
-            if card.ability[v] then 
+            if card.ability[v] then
                 --card:set_debuff(true)
                 return true
             end
@@ -1823,37 +1958,44 @@ function Card.set_ability(self, center, initial, delay_sprites)
             end
         end
     end
-    
+
     --[[if self.ability and self.playing_card and self.ability.set == "Enhanced" then
-        self:lobc_check_amplified()
-    end]]--
+            self:lobc_check_amplified()
+        end]]--
 end
 
 -- Blind:alert_debuff for ordeals
 function Blind:ordeal_alert()
-    if G.GAME.current_round.hands_played > 0 then return end
+    if G.GAME.current_round.hands_played > 0 then
+        return
+    end
     for _, v in ipairs(SMODS.find_card("bl_lobc_iron_maiden", true)) do
-        if v.ability.extra.elapsed ~= 0 or v.ability.extra.seconds ~= 0 then return true end
+        if v.ability.extra.elapsed ~= 0 or v.ability.extra.seconds ~= 0 then
+            return true
+        end
     end
     self.block_play = true
     G.E_MANAGER:add_event(Event({
         blockable = false,
         blocking = false,
         func = (function()
-            if self.disabled then self.block_play = nil; return true end
+            if self.disabled then
+                self.block_play = nil;
+                return true
+            end
             if G.STATE == G.STATES.SELECTING_HAND then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = G.SETTINGS.GAMESPEED * 0.05,
                     blockable = false,
                     func = (function()
-                        play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.3)
+                        play_sound('lobc_' .. self.config.blind.color .. '_start', 1, 0.3)
                         local hold_time = G.SETTINGS.GAMESPEED * 5
-                        local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
-                        lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false})
-                        lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false})
-                        lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false})
-                        lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false, float = false})
+                        local loc_key = 'k_lobc_' .. self.config.blind.time .. '_' .. self.config.blind.color
+                        lobc_screen_text({ scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false })
+                        lobc_screen_text({ scale = 1, text = localize(loc_key .. '_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false })
+                        lobc_screen_text({ scale = 0.35, text = localize(loc_key .. '_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false })
+                        lobc_screen_text({ scale = 0.35, text = localize(loc_key .. '_start_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false, float = false })
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after',
                             delay = hold_time,
@@ -1886,15 +2028,17 @@ function G.FUNCS.draw_from_hand_to_discard(e)
             delay = not config.disable_all_text and G.SETTINGS.GAMESPEED * 4 or 0,
             blockable = false,
             func = (function()
-                if config.disable_all_text then return true end
+                if config.disable_all_text then
+                    return true
+                end
                 local hold_time = G.SETTINGS.GAMESPEED * 5
                 local blind = G.GAME.blind
-                local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
-                play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.3)
-                lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false})
-                lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false})
-                lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false})
-                lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false, float = false})
+                local loc_key = 'k_lobc_' .. blind.config.blind.time .. '_' .. blind.config.blind.color
+                play_sound('lobc_' .. blind.config.blind.color .. '_end', 1, 0.3)
+                lobc_screen_text({ scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false })
+                lobc_screen_text({ scale = 1, text = localize(loc_key .. '_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false })
+                lobc_screen_text({ scale = 0.35, text = localize(loc_key .. '_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false })
+                lobc_screen_text({ scale = 0.35, text = localize(loc_key .. '_end_2'), hold = hold_time, align = 'cm', offset = { x = 0, y = -0.6 }, major = G.play, noisy = false, float = false })
                 return true
             end)
         }))
@@ -1916,7 +2060,7 @@ function new_round()
                 G.STATE = G.STATES.NEW_ROUND
                 G.STATE_COMPLETE = false
             end
-        return true
+            return true
         end
     }))
 
@@ -1928,13 +2072,18 @@ local played_enchanted = false
 function play_sound(sound_code, per, vol)
     if sound_code and sound_code:find('lobc') then
         -- No SFX toggle
-        if config.no_sfx then return end
+        if config.no_sfx then
+            return
+        end
         if sound_code == "lobc_big_bird_attract" then
-            if played_enchanted then return end
+            if played_enchanted then
+                return
+            end
             played_enchanted = true
-            G.E_MANAGER:add_event(Event({trigger = 'after', blocking = false, func = function()
+            G.E_MANAGER:add_event(Event({ trigger = 'after', blocking = false, func = function()
                 played_enchanted = false
-            return true end }))
+                return true
+            end }))
         end
         return play_soundref(sound_code, per, vol * 0.8)
     end
@@ -1955,19 +2104,27 @@ function Game.update(self, dt)
     if G.lobc_displaying_cutscene then
         -- Apocalypse Bird
         if G.lobc_displaying_cutscene == "ab" then
-            if G.lobc_cutscene_timer < 0.5 then G.lobc_cutscene_transparency = G.lobc_cutscene_timer * 2 end
-            if G.lobc_cutscene_timer >= 0.5 and G.lobc_cutscene_timer < 5 then G.lobc_cutscene_transparency = 1 end
-            if G.lobc_cutscene_timer >= 5 and G.lobc_cutscene_timer <= 6 then G.lobc_cutscene_transparency = 6 - G.lobc_cutscene_timer end
-            if G.lobc_cutscene_timer >= 6 then 
+            if G.lobc_cutscene_timer < 0.5 then
+                G.lobc_cutscene_transparency = G.lobc_cutscene_timer * 2
+            end
+            if G.lobc_cutscene_timer >= 0.5 and G.lobc_cutscene_timer < 5 then
+                G.lobc_cutscene_transparency = 1
+            end
+            if G.lobc_cutscene_timer >= 5 and G.lobc_cutscene_timer <= 6 then
+                G.lobc_cutscene_transparency = 6 - G.lobc_cutscene_timer
+            end
+            if G.lobc_cutscene_timer >= 6 then
                 G.lobc_cutscene_transparency = 0
                 G.lobc_displaying_cutscene = false
                 G.SETTINGS.paused = false
-                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                if G.OVERLAY_MENU then
+                    G.OVERLAY_MENU:remove()
+                end
             end
-        -- what
+            -- what
         elseif G.lobc_displaying_cutscene == "what" then
             if G.lobc_cutscene_timer < 2 then
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then
                     G.ROOM_ORIG.y = 0
                     G.ROOM_ORIG.x = (G.original_orig_x - 1) / 3 + 1
                     G.CANV_SCALE = 3.75
@@ -1976,8 +2133,8 @@ function Game.update(self, dt)
                 end
                 G.lobc_cutscene_transparency = 1 - G.lobc_cutscene_timer / 2
             end
-            if G.lobc_cutscene_timer >= 2 and G.lobc_cutscene_timer < 7.5 then 
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_cutscene_1" then 
+            if G.lobc_cutscene_timer >= 2 and G.lobc_cutscene_timer < 7.5 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_cutscene_1" then
                     G.lobc_cutscene_transparency = 0
                     G.lobc_what_txt = "bl_lobc_what_blind_cutscene_1"
                     play_sound("lobc_what_1", 1, 0.6)
@@ -1985,31 +2142,39 @@ function Game.update(self, dt)
                     G.GAME.blind:set_text()
                 end
             end
-            if G.lobc_cutscene_timer >= 7.5 and G.lobc_cutscene_timer < 10.5 then 
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_cutscene_2" then 
+            if G.lobc_cutscene_timer >= 7.5 and G.lobc_cutscene_timer < 10.5 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_cutscene_2" then
                     G.lobc_what_txt = "bl_lobc_what_blind_cutscene_2"
                     play_sound("lobc_what_2", 1, 0.6)
                     G.GAME.blind:set_text()
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
                 end
             end
             if G.lobc_cutscene_timer >= 10.5 then
-            --if G.lobc_cutscene_timer >= 0.4 then -- remove this
+                --if G.lobc_cutscene_timer >= 0.4 then -- remove this
                 G.ROOM_ORIG.x = G.original_orig_x
                 G.ROOM_ORIG.y = G.original_orig_y
                 G.CANV_SCALE = 1
                 G.lobc_cutscene_transparency = 0
                 G.lobc_displaying_cutscene = false
                 G.SETTINGS.paused = false
-                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                if G.OVERLAY_MENU then
+                    G.OVERLAY_MENU:remove()
+                end
                 G.lobc_what_txt = nil
             end
-        -- what (Phase 2)
+            -- what (Phase 2)
         elseif G.lobc_displaying_cutscene == "what_2" then
             if G.lobc_cutscene_timer < 3.5 then
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then
                     G.ROOM_ORIG.x = (G.original_orig_x - 1) / 3 + 1
                     G.ROOM_ORIG.y = 0
                     G.CANV_SCALE = 3.75
@@ -2018,13 +2183,19 @@ function Game.update(self, dt)
                     G.GAME.blind:set_text()
                 end
             end
-            if G.lobc_cutscene_timer >= 3.5 and G.lobc_cutscene_timer < 6.5 then 
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then 
+            if G.lobc_cutscene_timer >= 3.5 and G.lobc_cutscene_timer < 6.5 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then
                     G.lobc_what_txt = "bl_lobc_what_blind_name_copy"
                     G.GAME.blind:set_text()
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
                 end
             end
             if G.lobc_cutscene_timer >= 6.5 then
@@ -2033,13 +2204,15 @@ function Game.update(self, dt)
                 G.CANV_SCALE = 1
                 G.lobc_displaying_cutscene = false
                 G.SETTINGS.paused = false
-                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                if G.OVERLAY_MENU then
+                    G.OVERLAY_MENU:remove()
+                end
                 G.lobc_what_txt = nil
             end
-        -- what (Phase 3)
+            -- what (Phase 3)
         elseif G.lobc_displaying_cutscene == "what_3" then
             if G.lobc_cutscene_timer < 6 then
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then 
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name" then
                     G.ROOM_ORIG.x = (G.original_orig_x - 1) / 3 + 1
                     G.ROOM_ORIG.y = 0
                     G.CANV_SCALE = 3.75
@@ -2048,13 +2221,19 @@ function Game.update(self, dt)
                     G.GAME.blind:set_text()
                 end
             end
-            if G.lobc_cutscene_timer >= 6 and G.lobc_cutscene_timer < 9.5 then 
-                if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then 
+            if G.lobc_cutscene_timer >= 6 and G.lobc_cutscene_timer < 9.5 then
+                if G.lobc_what_txt ~= "bl_lobc_what_blind_name_copy" then
                     G.lobc_what_txt = "bl_lobc_what_blind_name_copy"
                     G.GAME.blind:set_text()
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
-                    G.E_MANAGER:add_event(Event({trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t) return t end)}))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'x', ease_to = G.original_orig_x, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G.ROOM_ORIG, ref_value = 'y', ease_to = G.original_orig_y, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'ease', ease = 'inexpo', blocking = false, blockable = false, ref_table = G, ref_value = 'CANV_SCALE', ease_to = 1, delay = 2.5, timer = "REAL", func = (function(t)
+                        return t
+                    end) }))
                 end
             end
             if G.lobc_cutscene_timer >= 9.5 then
@@ -2063,15 +2242,21 @@ function Game.update(self, dt)
                 G.CANV_SCALE = 1
                 G.lobc_displaying_cutscene = false
                 G.SETTINGS.paused = false
-                if G.OVERLAY_MENU then G.OVERLAY_MENU:remove() end
+                if G.OVERLAY_MENU then
+                    G.OVERLAY_MENU:remove()
+                end
                 G.lobc_what_txt = nil
             end
         end
-        if not G.lobc_update_lock then G.lobc_cutscene_timer = G.lobc_cutscene_timer + dt end
+        if not G.lobc_update_lock then
+            G.lobc_cutscene_timer = G.lobc_cutscene_timer + dt
+        end
     end
 
     -- i hate chicot
-    if find_passive("psv_lobc_fixed_encounter") then G.GAME.blind.disabled = nil end
+    if find_passive("psv_lobc_fixed_encounter") then
+        G.GAME.blind.disabled = nil
+    end
     game_updateref(self, dt)
 end
 
@@ -2079,41 +2264,75 @@ end
 local eval_cardref = eval_card
 function eval_card(card, context)
     local eval, post_trig = eval_cardref(card, context)
-    if type(eval) ~= "table" then return eval, post_trig end
+    if type(eval) ~= "table" then
+        return eval, post_trig
+    end
     if eval and G.GAME.lobc_hod_modifier and G.GAME.lobc_hod_modifier ~= 1 then
         for _, v in pairs(eval) do
-            if type(v) ~= "table" then goto continue end
-            if v.chips then v.chips = v.chips * G.GAME.lobc_hod_modifier end
-            if v.h_chips then v.h_chips = v.h_chips * G.GAME.lobc_hod_modifier end
-            if v.chip_mod then v.chip_mod = v.chip_mod * G.GAME.lobc_hod_modifier end
-            if v.mult then v.mult = v.mult * G.GAME.lobc_hod_modifier end
-            if v.h_mult then v.h_mult = v.h_mult * G.GAME.lobc_hod_modifier end
-            if v.mult_mod then v.mult_mod = v.mult_mod * G.GAME.lobc_hod_modifier end
-            if v.x_mult then 
-                if v.x_mult < 1 then v.x_mult = v.x_mult * G.GAME.lobc_hod_modifier
-                else v.x_mult = 1 + (v.x_mult - 1) * G.GAME.lobc_hod_modifier end
+            if type(v) ~= "table" then
+                goto continue
             end
-            if v.X_mult then 
-                if v.X_mult < 1 then v.X_mult = v.X_mult * G.GAME.lobc_hod_modifier
-                else v.X_mult = 1 + (v.X_mult - 1) * G.GAME.lobc_hod_modifier end
+            if v.chips then
+                v.chips = v.chips * G.GAME.lobc_hod_modifier
             end
-            if v.xmult then 
-                if v.xmult < 1 then v.xmult = v.xmult * G.GAME.lobc_hod_modifier
-                else v.xmult = 1 + (v.xmult - 1) * G.GAME.lobc_hod_modifier end
+            if v.h_chips then
+                v.h_chips = v.h_chips * G.GAME.lobc_hod_modifier
             end
-            if v.x_mult_mod then 
-                if v.x_mult_mod < 1 then v.x_mult_mod = v.x_mult_mod * G.GAME.lobc_hod_modifier
-                else v.x_mult_mod = 1 + (v.x_mult_mod - 1) * G.GAME.lobc_hod_modifier end
+            if v.chip_mod then
+                v.chip_mod = v.chip_mod * G.GAME.lobc_hod_modifier
             end
-            if v.Xmult_mod then 
-                if v.Xmult_mod < 1 then v.Xmult_mod = v.Xmult_mod * G.GAME.lobc_hod_modifier
-                else v.Xmult_mod = 1 + (v.Xmult_mod - 1) * G.GAME.lobc_hod_modifier end
+            if v.mult then
+                v.mult = v.mult * G.GAME.lobc_hod_modifier
             end
-            if v.h_x_mult then 
-                if v.h_x_mult < 1 then v.h_x_mult = v.h_x_mult * G.GAME.lobc_hod_modifier
-                else v.h_x_mult = 1 + (v.h_x_mult - 1) * G.GAME.lobc_hod_modifier end
+            if v.h_mult then
+                v.h_mult = v.h_mult * G.GAME.lobc_hod_modifier
             end
-            ::continue::
+            if v.mult_mod then
+                v.mult_mod = v.mult_mod * G.GAME.lobc_hod_modifier
+            end
+            if v.x_mult then
+                if v.x_mult < 1 then
+                    v.x_mult = v.x_mult * G.GAME.lobc_hod_modifier
+                else
+                    v.x_mult = 1 + (v.x_mult - 1) * G.GAME.lobc_hod_modifier
+                end
+            end
+            if v.X_mult then
+                if v.X_mult < 1 then
+                    v.X_mult = v.X_mult * G.GAME.lobc_hod_modifier
+                else
+                    v.X_mult = 1 + (v.X_mult - 1) * G.GAME.lobc_hod_modifier
+                end
+            end
+            if v.xmult then
+                if v.xmult < 1 then
+                    v.xmult = v.xmult * G.GAME.lobc_hod_modifier
+                else
+                    v.xmult = 1 + (v.xmult - 1) * G.GAME.lobc_hod_modifier
+                end
+            end
+            if v.x_mult_mod then
+                if v.x_mult_mod < 1 then
+                    v.x_mult_mod = v.x_mult_mod * G.GAME.lobc_hod_modifier
+                else
+                    v.x_mult_mod = 1 + (v.x_mult_mod - 1) * G.GAME.lobc_hod_modifier
+                end
+            end
+            if v.Xmult_mod then
+                if v.Xmult_mod < 1 then
+                    v.Xmult_mod = v.Xmult_mod * G.GAME.lobc_hod_modifier
+                else
+                    v.Xmult_mod = 1 + (v.Xmult_mod - 1) * G.GAME.lobc_hod_modifier
+                end
+            end
+            if v.h_x_mult then
+                if v.h_x_mult < 1 then
+                    v.h_x_mult = v.h_x_mult * G.GAME.lobc_hod_modifier
+                else
+                    v.h_x_mult = 1 + (v.h_x_mult - 1) * G.GAME.lobc_hod_modifier
+                end
+            end
+            :: continue ::
         end
     end
     return eval, post_trig
@@ -2124,29 +2343,29 @@ function first_time_passive()
     if not config.first_time_passive then
         config.first_time_passive = true
         SMODS.save_mod_config(current_mod)
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
             lobc_screen_text({
                 text = localize('k_lobc_first_time_passive_1'),
-                scale = 0.35, 
-                hold = 10*G.SETTINGS.GAMESPEED,
+                scale = 0.35,
+                hold = 10 * G.SETTINGS.GAMESPEED,
                 major = G.play,
                 align = 'cm',
-                offset = {x = 0.3, y = -3.5},
+                offset = { x = 0.3, y = -3.5 },
                 noisy = false,
                 float = false,
             })
             lobc_screen_text({
                 text = localize('k_lobc_first_time_passive_2'),
-                scale = 0.35, 
-                hold = 10*G.SETTINGS.GAMESPEED,
+                scale = 0.35,
+                hold = 10 * G.SETTINGS.GAMESPEED,
                 major = G.play,
                 align = 'cm',
-                offset = {x = 0.3, y = -3.1},
+                offset = { x = 0.3, y = -3.1 },
                 noisy = false,
                 float = false,
             })
-            return true 
-            end 
+            return true
+        end
         }))
     end
 end
@@ -2178,51 +2397,51 @@ function boot_timer(_label, _next, progress)
         }
         local modifiers_atlas = G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"]
         G.lobc_shared_modifiers = {
-            laetitia_gift = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 0, y = 0}),
-            price_of_silence_amplified = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 1, y = 0}),
-            plague_doctor_baptism = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 2, y = 0}),
-            child_galaxy_pebble = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 3, y = 0}),
+            laetitia_gift = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, { x = 0, y = 0 }),
+            price_of_silence_amplified = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, { x = 1, y = 0 }),
+            plague_doctor_baptism = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, { x = 2, y = 0 }),
+            child_galaxy_pebble = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, { x = 3, y = 0 }),
         }
-        
+
         -- Card popup UI effects
         local card_h_popupref = G.UIDEF.card_h_popup
         function G.UIDEF.card_h_popup(card)
             local t = card_h_popupref(card)
             -- Yesod remove UI
             if G.GAME and G.GAME.modifiers.lobc_yesod and G.GAME.round_resets.ante > 3 then
-                return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={}}
+                return { n = G.UIT.ROOT, config = { align = 'cm', colour = G.C.CLEAR }, nodes = {} }
             end
             -- CENSORED
             if (next(SMODS.find_card("j_lobc_censored", true)) and (not card.config or not card.config.center or card.config.center.key ~= "j_lobc_censored"))
-            or (card.ability and card.ability.lobc_censored) then
-                local name_nodes = localize{type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {}}
-                name_nodes[1].nodes[1].nodes[1].config.object.colours = {G.C.RED}
-                return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
-                    {n=G.UIT.C, config={align = "cm", object = Moveable(), ref_table = nil}, nodes = {
-                        {n=G.UIT.R, config={padding = 0.05, r = 0.12, colour = G.C.BLACK, emboss = 0.07}, nodes={
-                            {n=G.UIT.R, config={align = "cm", padding = 0.07, r = 0.1, colour = G.C.RED}, nodes={
-                                {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes = name_nodes},
-                            }}
-                        }}
-                    }},
-                }}
+                    or (card.ability and card.ability.lobc_censored) then
+                local name_nodes = localize { type = 'name', key = "j_lobc_censored", set = "Joker", name_nodes = {}, vars = {} }
+                name_nodes[1].nodes[1].nodes[1].config.object.colours = { G.C.RED }
+                return { n = G.UIT.ROOT, config = { align = 'cm', colour = G.C.CLEAR }, nodes = {
+                    { n = G.UIT.C, config = { align = "cm", object = Moveable(), ref_table = nil }, nodes = {
+                        { n = G.UIT.R, config = { padding = 0.05, r = 0.12, colour = G.C.BLACK, emboss = 0.07 }, nodes = {
+                            { n = G.UIT.R, config = { align = "cm", padding = 0.07, r = 0.1, colour = G.C.RED }, nodes = {
+                                { n = G.UIT.R, config = { align = "cm", padding = 0.05, r = 0.1, colour = G.C.BLACK, emboss = 0.05 }, nodes = name_nodes },
+                            } }
+                        } }
+                    } },
+                } }
             end
             -- Apocalypse Bird/Long Arms
             if G.GAME.lobc_long_arms and card.playing_card and G.GAME.lobc_long_arms[card:get_id()] then
                 table.insert(
-                    t.nodes[1].nodes[1].nodes[1].nodes[2].nodes[1].nodes,
-                    {n=G.UIT.R, config={align = "cm"}, nodes={
-                        {n=G.UIT.T, config={
-                            text = localize("k_lobc_rank_sin"),
-                            scale = 0.32*G.LANG.font.DESCSCALE*(G.F_MOBILE_UI and 1.5 or 1),
-                            colour = G.C.UI.TEXT_DARK,
-                        }},
-                        {n=G.UIT.T, config={
-                            text = G.GAME.lobc_long_arms[card:get_id()], 
-                            scale = 0.32*G.LANG.font.DESCSCALE*(G.F_MOBILE_UI and 1.5 or 1),
-                            colour = G.C.RED,
-                        }}
-                    }}
+                        t.nodes[1].nodes[1].nodes[1].nodes[2].nodes[1].nodes,
+                        { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                            { n = G.UIT.T, config = {
+                                text = localize("k_lobc_rank_sin"),
+                                scale = 0.32 * G.LANG.font.DESCSCALE * (G.F_MOBILE_UI and 1.5 or 1),
+                                colour = G.C.UI.TEXT_DARK,
+                            } },
+                            { n = G.UIT.T, config = {
+                                text = G.GAME.lobc_long_arms[card:get_id()],
+                                scale = 0.32 * G.LANG.font.DESCSCALE * (G.F_MOBILE_UI and 1.5 or 1),
+                                colour = G.C.RED,
+                            } }
+                        } }
                 )
 
             end
@@ -2235,26 +2454,27 @@ function boot_timer(_label, _next, progress)
             HUD_blind_debuffref(e)
             if G.GAME.blind.skill_deck then
                 if not G.skill_deck then
-                    G.skill_deck = CardArea(0, 0, 4.2, 1.2, {card_limit = 5, type = 'title_2'})
-                    local deck = {n = G.UIT.R, config = {align = "cm", maxh = 1.2, maxw = 4.2}, nodes = {}}
+                    G.skill_deck = CardArea(0, 0, 4.2, 1.2, { card_limit = 5, type = 'title_2' })
+                    local deck = { n = G.UIT.R, config = { align = "cm", maxh = 1.2, maxw = 4.2 }, nodes = {} }
                     for _, v in ipairs(G.GAME.blind.skill_deck) do
                         local _card = SMODS.create_card({
                             set = "SkillLobc",
-                            key = "sk_lobc_"..v,
+                            key = "sk_lobc_" .. v,
                             area = G.skill_deck
                         })
                         G.skill_deck:emplace(_card)
                         _card.states.click.can = false
                         _card.states.drag.can = false
-                        G.E_MANAGER:add_event(Event({trigger = "after", delay = 0.2, func = function() 
+                        G.E_MANAGER:add_event(Event({ trigger = "after", delay = 0.2, func = function()
                             _card:juice_up()
-                        return true end }))
+                            return true
+                        end }))
                     end
                     for _, v in ipairs(G.skill_deck.cards) do
                         v.states.click.can = false
                         v.states.drag.can = false
                     end
-                    table.insert(deck.nodes, {n=G.UIT.O, config = {object = G.skill_deck}})
+                    table.insert(deck.nodes, { n = G.UIT.O, config = { object = G.skill_deck } })
                     e.UIBox:set_parent_child(deck, e)
                     e.UIBox:recalculate()
                 end
@@ -2263,37 +2483,37 @@ function boot_timer(_label, _next, progress)
 
         -- Add different Enhancements to Metallic Cards
         local metallic = {
-            {"m_gold"},
-            {"m_steel"},
-            {"m_bunc_copper", "Bunco"},
-            {"m_grim_iron", "Grim"},
-            {"m_grim_lead", "Grim"},
-            {"m_grim_platinum", "Grim"},
-            {"m_grim_radium", "Grim"},
-            {"m_grim_silver", "Grim"},
-            {"m_kino_sci_fi", "Kino"},
-            {"m_mills_cinna", "MillsCookbook"}, {"m_mills_cinnabar", "MillsCookbook"}, -- vro why do you have two of the same enhancements
-            {"m_mills_cob", "MillsCookbook"}, {"m_mills_cobalt", "MillsCookbook"},
-            {"m_mills_elec", "MillsCookbook"}, {"m_mills_electrum", "MillsCookbook"},
-            {"m_mills_ir", "MillsCookbook"}, {"m_mills_iron", "MillsCookbook"},
-            {"m_mills_titanium", "MillsCookbook"},
-            {"m_mf_brass", "MoreFluff"},
-            {"m_ortalab_rusty", "Ortalab"},
-            {"m_jen_potassium", "POLTERWORX"},
-            {"m_reverse_copper", "ReverseTarot+"},
-            {"m_reverse_iridium", "ReverseTarot+"},
-            {"m_crv_coatedcopper", "RevosVault"},
-            {"m_toga_bronze", "TOGAPack"},
-            {"m_toga_copper", "TOGAPack"},
-            {"m_toga_electrum", "TOGAPack"},
-            {"m_toga_iron", "TOGAPack"},
-            {"m_toga_osmium", "TOGAPack"},
-            {"m_toga_silver", "TOGAPack"},
-            {"m_toga_tin", "TOGAPack"},
+            { "m_gold" },
+            { "m_steel" },
+            { "m_bunc_copper", "Bunco" },
+            { "m_grim_iron", "Grim" },
+            { "m_grim_lead", "Grim" },
+            { "m_grim_platinum", "Grim" },
+            { "m_grim_radium", "Grim" },
+            { "m_grim_silver", "Grim" },
+            { "m_kino_sci_fi", "Kino" },
+            { "m_mills_cinna", "MillsCookbook" }, { "m_mills_cinnabar", "MillsCookbook" }, -- vro why do you have two of the same enhancements
+            { "m_mills_cob", "MillsCookbook" }, { "m_mills_cobalt", "MillsCookbook" },
+            { "m_mills_elec", "MillsCookbook" }, { "m_mills_electrum", "MillsCookbook" },
+            { "m_mills_ir", "MillsCookbook" }, { "m_mills_iron", "MillsCookbook" },
+            { "m_mills_titanium", "MillsCookbook" },
+            { "m_mf_brass", "MoreFluff" },
+            { "m_ortalab_rusty", "Ortalab" },
+            { "m_jen_potassium", "POLTERWORX" },
+            { "m_reverse_copper", "ReverseTarot+" },
+            { "m_reverse_iridium", "ReverseTarot+" },
+            { "m_crv_coatedcopper", "RevosVault" },
+            { "m_toga_bronze", "TOGAPack" },
+            { "m_toga_copper", "TOGAPack" },
+            { "m_toga_electrum", "TOGAPack" },
+            { "m_toga_iron", "TOGAPack" },
+            { "m_toga_osmium", "TOGAPack" },
+            { "m_toga_silver", "TOGAPack" },
+            { "m_toga_tin", "TOGAPack" },
         }
         for _, v in ipairs(metallic) do
             if G.localization.descriptions.Enhanced[v[1]] then
-                table.insert(G.localization.descriptions.Other.lobc_metallic.text, "{C:attention}"..G.localization.descriptions.Enhanced[v[1]].name..(v[2] and "{} ("..v[2]..")" or ""))
+                table.insert(G.localization.descriptions.Other.lobc_metallic.text, "{C:attention}" .. G.localization.descriptions.Enhanced[v[1]].name .. (v[2] and "{} (" .. v[2] .. ")" or ""))
             end
         end
 
@@ -2324,7 +2544,7 @@ function Card.update(self, dt)
         local rounds = self.config.center.discover_rounds[#self.config.center.discover_rounds]
         local count = lobc_get_usage_count(self.config.center_key)
         if config.discover_all and count < rounds then
-            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = {count = rounds or 0}
+            G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] = { count = rounds or 0 }
             self.config.center.discovered = true
             self:set_sprites(self.config.center)
         end
@@ -2343,18 +2563,20 @@ function set_joker_usage()
         if v.config.center_key and v.ability.set == 'Joker' and v.config.center.abno then
             if lobc_get_usage_count(v.config.center_key) >= v.config.center.discover_rounds[#v.config.center.discover_rounds] then
                 if not v.config.center.discovered then
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
+                    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4 * G.SETTINGS.GAMESPEED, func = function()
                         play_sound('card1')
                         v:flip()
-                    return true end }))
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4*G.SETTINGS.GAMESPEED, func = function()
+                        return true
+                    end }))
+                    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4 * G.SETTINGS.GAMESPEED, func = function()
                         discover_card(v.config.center)
                         v:set_sprites(v.config.center, nil)
                         play_sound('card1')
                         v:flip()
-                    return true end }))
+                        return true
+                    end }))
                 end
-                check_for_unlock({type = "lobc_observe_abno", card = v})
+                check_for_unlock({ type = "lobc_observe_abno", card = v })
             end
         end
     end
@@ -2371,9 +2593,13 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
     local t = generate_card_uiref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     if abno_hide_desc and _c.set == "Joker" and _c.abno then
         t.main = {}
-        if main_start then t.main[#t.main+1] = main_start end
-        localize{type = 'other', key = 'und_'.._c.key, set = _c.set, nodes = t.main}
-        if main_end then t.main[#t.main+1] = main_end end
+        if main_start then
+            t.main[#t.main + 1] = main_start
+        end
+        localize { type = 'other', key = 'und_' .. _c.key, set = _c.set, nodes = t.main }
+        if main_end then
+            t.main[#t.main + 1] = main_end
+        end
     end
     if card_type == "Undiscovered Abnormality" then
         t.card_type = "Undiscovered"
@@ -2388,12 +2614,12 @@ end
 local function get_abno_pool(_type, _rarity, legendary, key_append)
     --create the pool
     G.ARGS.TEMP_POOL = EMPTY(G.ARGS.TEMP_POOL)
-    local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality'..(_rarity or ''), 0
-    
+    local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality' .. (_rarity or ''), 0
+
     -- Increased chance to get birds when you get a bird
     local bird = false
     local birds = {}
-    for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
+    for _, birb in ipairs({ "j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird" }) do
         local birbs = SMODS.find_card(birb)
         if next(birbs) then
             bird = true
@@ -2402,9 +2628,9 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
     end
     local roll = pseudorandom("birb_chance")
     if not _rarity and bird and roll < 0.1 and not G.GAME.pool_flags.apocalypse_bird_event then
-        for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
+        for _, birb in ipairs({ "j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird" }) do
             if not birds[birb] then
-                _starting_pool[#_starting_pool+1] = G.P_CENTERS[birb]
+                _starting_pool[#_starting_pool + 1] = G.P_CENTERS[birb]
             end
             bird = false
         end
@@ -2412,8 +2638,8 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
 
     if #_starting_pool == 0 then
         for _, v in ipairs(joker_list) do
-            if G.P_CENTERS["j_lobc_"..v] and ((_rarity and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity) then 
-                _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
+            if G.P_CENTERS["j_lobc_" .. v] and ((_rarity and G.P_CENTERS["j_lobc_" .. v].risk == _rarity) or not _rarity) then
+                _starting_pool[#_starting_pool + 1] = G.P_CENTERS["j_lobc_" .. v]
             end
         end
     end
@@ -2421,20 +2647,22 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
     --cull the pool
     for k, v in ipairs(_starting_pool) do
         local add = true
-        
+
         if G.GAME.used_jokers[v.key] then
             add = false
         end
 
-        if v.yes_pool_flag and v.yes_pool_flag ~= "allow_abnormalities_in_shop" 
-           and not G.GAME.pool_flags[v.no_pool_flag] then 
+        if v.yes_pool_flag and v.yes_pool_flag ~= "allow_abnormalities_in_shop"
+                and not G.GAME.pool_flags[v.no_pool_flag] then
             add = false
         end
-        if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
+        if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then
+            add = false
+        end
 
         if add and not G.GAME.banned_keys[v.key] then
-           _pool[#_pool+1] = v.key
-           _pool_size = _pool_size + 1
+            _pool[#_pool + 1] = v.key
+            _pool_size = _pool_size + 1
         end
     end
 
@@ -2444,13 +2672,17 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         _pool[#_pool + 1] = "j_lobc_youre_bald"
     end
 
-    return _pool, _pool_key..G.GAME.round_resets.ante
+    return _pool, _pool_key .. G.GAME.round_resets.ante
 end
 
 local get_current_poolref = get_current_pool
 function get_current_pool(_type, _rarity, _legendary, _append)
-    if _type == "Abnormality" then return get_abno_pool(_type, _rarity, _legendary, _append) end
-    if _append == "lobc_rudolta" then _rarity = ({"Common", "Uncommon", "Rare", "Legendary"})[_rarity] or _rarity end
+    if _type == "Abnormality" then
+        return get_abno_pool(_type, _rarity, _legendary, _append)
+    end
+    if _append == "lobc_rudolta" then
+        _rarity = ({ "Common", "Uncommon", "Rare", "Legendary" })[_rarity] or _rarity
+    end
     return get_current_poolref(_type, _rarity, _legendary, _append)
 end
 
@@ -2461,7 +2693,7 @@ SMODS.Booster({
     kind = "Abnormality",
     cost = 5,
     atlas = "LobotomyCorp_Booster",
-    config = {extra = 3, choose = 1},
+    config = { extra = 3, choose = 1 },
     create_card = function(self, card)
         return { set = 'Abnormality', area = G.pack_cards, skip_materialize = true, soulable = true, key_append = 'abn' }
     end,
@@ -2469,8 +2701,8 @@ SMODS.Booster({
         ease_background_colour_blind(G.STATES.PLANET_PACK)
     end,
     loc_vars = function(self, info_queue, card)
-		return { vars = {card.config.center.config.choose, card.ability.extra} }
-	end,
+        return { vars = { card.config.center.config.choose, card.ability.extra } }
+    end,
     group_key = "k_lobc_extraction_pack",
 })
 
@@ -2478,14 +2710,14 @@ SMODS.Booster({
 
 local function create_config_node(config_name)
     return
-    {n = G.UIT.R, config = {align = "cl", padding = 0}, nodes = {
-        {n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
-            create_toggle{ col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = config_name },
-        }},
-        {n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
-            { n = G.UIT.T, config = { text = localize('lobc_'..config_name), scale = 0.35, colour = G.C.UI.TEXT_LIGHT }},
-        }},
-    }}
+    { n = G.UIT.R, config = { align = "cl", padding = 0 }, nodes = {
+        { n = G.UIT.C, config = { align = "cl", padding = 0.05 }, nodes = {
+            create_toggle { col = true, label = "", scale = 0.85, w = 0, shadow = true, ref_table = config, ref_value = config_name },
+        } },
+        { n = G.UIT.C, config = { align = "c", padding = 0 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_' .. config_name), scale = 0.35, colour = G.C.UI.TEXT_LIGHT } },
+        } },
+    } }
 end
 
 G.FUNCS.lobc_discover_all = function(e)
@@ -2494,7 +2726,7 @@ G.FUNCS.lobc_discover_all = function(e)
             if G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] then
                 G.PROFILES[G.SETTINGS.profile].joker_usage[v.key].count = v.discover_rounds[#v.discover_rounds]
             else
-                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = {count = v.discover_rounds[#v.discover_rounds], order = v.order, wins = {}, losses = {}}
+                G.PROFILES[G.SETTINGS.profile].joker_usage[v.key] = { count = v.discover_rounds[#v.discover_rounds], order = v.order, wins = {}, losses = {} }
             end
             v.discovered = true
             v.alerted = true
@@ -2506,113 +2738,117 @@ end
 G.FUNCS.lobc_reset_achievements = function(e)
     for k, v in pairs(SMODS.Achievements) do
         if v.mod == current_mod then
-            if G.SETTINGS.ACHIEVEMENTS_EARNED[v.key] then G.SETTINGS.ACHIEVEMENTS_EARNED[v.key] = nil end
-            if G.ACHIEVEMENTS[v.key].earned then G.ACHIEVEMENTS[v.key].earned = nil end
+            if G.SETTINGS.ACHIEVEMENTS_EARNED[v.key] then
+                G.SETTINGS.ACHIEVEMENTS_EARNED[v.key] = nil
+            end
+            if G.ACHIEVEMENTS[v.key].earned then
+                G.ACHIEVEMENTS[v.key].earned = nil
+            end
         end
     end
     G:save_settings()
 end
 
 SMODS.current_mod.config_tab = function()
-    return {n = G.UIT.ROOT, config = {r = 0.1, align = "c", padding = 0.1, colour = G.C.BLACK, minh = 6}, nodes = {
-        {n = G.UIT.R, config = {align = "tm", padding = 0}, nodes = {
-            {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
+    return { n = G.UIT.ROOT, config = { r = 0.1, align = "c", padding = 0.1, colour = G.C.BLACK, minh = 6 }, nodes = {
+        { n = G.UIT.R, config = { align = "tm", padding = 0 }, nodes = {
+            { n = G.UIT.C, config = { align = "t", padding = 0.1 }, nodes = {
                 create_config_node("no_music"),
                 create_config_node("no_sfx"),
                 create_config_node("disable_meltdown_color"),
                 create_config_node("disable_abno_text"),
-            }},
-    
-            {n = G.UIT.C, config = {align = "t", padding = 0.1}, nodes = {
+            } },
+
+            { n = G.UIT.C, config = { align = "t", padding = 0.1 }, nodes = {
                 create_config_node("show_art_undiscovered"),
                 create_config_node("disable_ordeals"),
                 create_config_node("lobcorp_music"),
                 create_config_node("enable_crossovers"),
-            }},
-        }},
-        {n = G.UIT.R, config = {align = "tm", padding = 0.1}, nodes = {
+            } },
+        } },
+        { n = G.UIT.R, config = { align = "tm", padding = 0.1 }, nodes = {
             --[[{n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_discover_all'}, nodes={
-                {n=G.UIT.T, config={text = localize('b_lobc_discover_all'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
-            }},]]--
-            {n=G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_reset_achievements'}, nodes={
-                {n=G.UIT.T, config={text = localize('b_lobc_reset_ach'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
-            }},
-        }},
-    }}
+                    {n=G.UIT.T, config={text = localize('b_lobc_discover_all'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
+                }},]]--
+            { n = G.UIT.C, config = { align = "cm", padding = 0.1, r = 0.1, minw = 6, minh = 0.8, hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'lobc_reset_achievements' }, nodes = {
+                { n = G.UIT.T, config = { text = localize('b_lobc_reset_ach'), colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true } }
+            } },
+        } },
+    } }
 end
 
 SMODS.current_mod.credits_tab = function()
-    return {n = G.UIT.ROOT, config = {r = 0.1, align = "cm", padding = 0.1, colour = G.C.BLACK, minw = 10, minh = 6}, nodes = {
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_1'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
-        }},
+    return { n = G.UIT.ROOT, config = { r = 0.1, align = "cm", padding = 0.1, colour = G.C.BLACK, minw = 10, minh = 6 }, nodes = {
+        { n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_1'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT } },
+        } },
 
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
-        }},
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_pm'), scale = 0.5, colour = G.C.DARK_EDITION}},
-        }},
+        { n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_2'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT } },
+        } },
+        { n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_by'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT } },
+            { n = G.UIT.T, config = { text = localize('lobc_credits_pm'), scale = 0.5, colour = G.C.DARK_EDITION } },
+        } },
 
-        {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_full_list'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
-        }},
+        { n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_full_list'), scale = 0.35, colour = G.C.UI.TEXT_LIGHT } },
+        } },
 
-        {n = G.UIT.R, config = {align = "cm", padding = 0, minh = 0.2}, nodes = {}},
+        { n = G.UIT.R, config = { align = "cm", padding = 0, minh = 0.2 }, nodes = {} },
 
-        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_4'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_twi'), scale = 0.3, colour = G.C.DARK_EDITION}},
-        }},
-        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_5'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_opp'), scale = 0.3, colour = G.C.DARK_EDITION}},
-        }},
-        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_8'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_sam'), scale = 0.3, colour = G.C.DARK_EDITION}},
-        }},
-        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_6'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_lym'), scale = 0.3, colour = G.C.DARK_EDITION}},
-        }},
-        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
-            {n = G.UIT.T, config = { text = localize('lobc_credits_7'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
-            {n = G.UIT.T, config = { text = localize('lobc_credits_sil'), scale = 0.3, colour = G.C.DARK_EDITION}},
-        }},
-    }}
+        { n = G.UIT.R, config = { align = "cl", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_4'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT } },
+            { n = G.UIT.T, config = { text = localize('lobc_credits_twi'), scale = 0.3, colour = G.C.DARK_EDITION } },
+        } },
+        { n = G.UIT.R, config = { align = "cl", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_5'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT } },
+            { n = G.UIT.T, config = { text = localize('lobc_credits_opp'), scale = 0.3, colour = G.C.DARK_EDITION } },
+        } },
+        { n = G.UIT.R, config = { align = "cl", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_8'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT } },
+            { n = G.UIT.T, config = { text = localize('lobc_credits_sam'), scale = 0.3, colour = G.C.DARK_EDITION } },
+        } },
+        { n = G.UIT.R, config = { align = "cl", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_6'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT } },
+            { n = G.UIT.T, config = { text = localize('lobc_credits_lym'), scale = 0.3, colour = G.C.DARK_EDITION } },
+        } },
+        { n = G.UIT.R, config = { align = "cl", padding = 0.05 }, nodes = {
+            { n = G.UIT.T, config = { text = localize('lobc_credits_7'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT } },
+            { n = G.UIT.T, config = { text = localize('lobc_credits_sil'), scale = 0.3, colour = G.C.DARK_EDITION } },
+        } },
+    } }
 end
 
 --=============== STEAMODDED OBJECTS 2 ===============--
 
 -- Atlases
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Jokers", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "LobotomyCorp_spritesheet.png", 
-    px = 71, 
-    py = 95 
+SMODS.Atlas({
+    key = "LobotomyCorp_Jokers",
+    atlas_table = "ASSET_ATLAS",
+    path = "LobotomyCorp_spritesheet.png",
+    px = 71,
+    py = 95
 })
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Undiscovered", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "LobotomyCorp_undiscovered.png", 
-    px = 71, 
-    py = 95 
+SMODS.Atlas({
+    key = "LobotomyCorp_Undiscovered",
+    atlas_table = "ASSET_ATLAS",
+    path = "LobotomyCorp_undiscovered.png",
+    px = 71,
+    py = 95
 })
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Booster", 
-    atlas_table = "ASSET_ATLAS", 
-    path = "LobotomyCorp_booster.png", 
-    px = 71, 
-    py = 95 
+SMODS.Atlas({
+    key = "LobotomyCorp_Booster",
+    atlas_table = "ASSET_ATLAS",
+    path = "LobotomyCorp_booster.png",
+    px = 71,
+    py = 95
 })
-SMODS.Atlas({ 
-    key = "LobotomyCorp_Blind", 
-    atlas_table = "ANIMATION_ATLAS", 
-    path = "LobotomyCorp_blind.png", 
-    px = 34, 
+SMODS.Atlas({
+    key = "LobotomyCorp_Blind",
+    atlas_table = "ANIMATION_ATLAS",
+    path = "LobotomyCorp_blind.png",
+    px = 34,
     py = 34,
     frames = 21,
 })
@@ -2671,34 +2907,34 @@ SMODS.Atlas({
     py = 654
 })
 SMODS.Atlas({
-    key = "Erlking_Heathcliff", 
-    atlas_table = "ANIMATION_ATLAS", 
-    path = "Erlking_Heathcliff.png", 
-    px = 1435, 
+    key = "Erlking_Heathcliff",
+    atlas_table = "ANIMATION_ATLAS",
+    path = "Erlking_Heathcliff.png",
+    px = 1435,
     py = 1042,
     frames = 1,
 })
-SMODS.Atlas({ 
-    key = "LobotomyCorp_ApocBird", 
-    atlas_table = "ANIMATION_ATLAS", 
-    path = "LobotomyCorp_ApocBird.png", 
-    px = 34, 
+SMODS.Atlas({
+    key = "LobotomyCorp_ApocBird",
+    atlas_table = "ANIMATION_ATLAS",
+    path = "LobotomyCorp_ApocBird.png",
+    px = 34,
     py = 34,
     frames = 21,
 })
 SMODS.Atlas({
-    key = "what", 
-    atlas_table = "ANIMATION_ATLAS", 
-    path = "what_asset.png", 
-    px = 512, 
+    key = "what",
+    atlas_table = "ANIMATION_ATLAS",
+    path = "what_asset.png",
+    px = 512,
     py = 512,
     frames = 1,
 })
 SMODS.Atlas({
-    key = "what_huh", 
-    atlas_table = "ANIMATION_ATLAS", 
-    path = "what_huh.png", 
-    px = 34, 
+    key = "what_huh",
+    atlas_table = "ANIMATION_ATLAS",
+    path = "what_huh.png",
+    px = 34,
     py = 34,
     frames = 21,
 })
@@ -2723,7 +2959,7 @@ SMODS.Atlas({
 
 -- ConsumableType (guh)
 SMODS.ConsumableType({
-    key = 'EGO_Gift', 
+    key = 'EGO_Gift',
     primary_colour = HEX('424e54'),
     secondary_colour = HEX("dd4930"),
     loc_txt = {},
