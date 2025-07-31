@@ -643,6 +643,7 @@ return {
                 name = "Villain",
                 text = {
                     "Marked by {C:attention}Hatred{}~",
+                    "Removed after hand played",
                 }
             },
             lobc_shield = {
@@ -1383,7 +1384,7 @@ return {
                 name = "Hatred",
                 text = {
                     "Hysteria: #1#",
-                    "Mark #2# cards each hand,",
+                    "Mark #2# card(s) each hand,",
                     "destroy Marked cards in",
                     "hand when hand is played"
                 }
@@ -1394,7 +1395,7 @@ return {
                     "Hysteria: #1#",
                     "Total ranks of poker hand",
                     "must exceed #2#,",
-                    "otherwise, -2 hands"
+                    "otherwise, -#3# hands"
                 }
             },
 
@@ -1751,8 +1752,9 @@ return {
             psv_lobc_magical_girl = {
                 name = "Magical Girl",
                 text = {
-                    "When this {C:attention}Blind{} is suppressed,",
-                    "create a {C:dark_edition}Negative {C:attention}Hope",
+                    "???"
+                    --"When this {C:attention}Blind{} is suppressed,",
+                    --"create a {C:dark_edition}Negative {C:attention}Hope",
                 }
             },
             psv_lobc_refracted = {
@@ -1883,18 +1885,19 @@ return {
             psv_lobc_hatred = {
                 name = "In the Name of Hate",
                 text = {
-                    "When a {C:attention}Marked{} card is {C:attention}played{} or {C:attention}discarded{},",
-                    "increase {C:red}Hysteria{} by {C:attention}1{}",
+                    "After hand is played, increase {C:red}Hysteria{} by",
+                    "number of hands played this Blind {C:attention}/ 2{}, plus",
+                    "number of {C:attention}Marked{} cards in full deck",
                     "When a {C:attention}Marked{} card is {C:red}destroyed{},",
-                    "decrease {C:red}Hysteria{} by {C:attention}1{}"
+                    "decrease {C:red}Hysteria{} by {C:attention}1 {C:inactive}(min. 0)",
                 }
             },
             psv_lobc_adverse = {
                 name = "Adverse Change",
                 text = {
                     "When score reaches {C:attention}50%{} Blind Size,",
-                    "increase {C:red}Hysteria{} by {C:attention}3{} and",
-                    "{C:attention}+2 {C:blue}hands{} and {C:red}discards",
+                    "increase {C:red}Hysteria{} by {C:attention}hands remaining{},",
+                    "then {C:attention}+1 {C:blue}hand{} and {C:red}discard",
                     "Score cannot go above {C:attention}50%{} Blind Size",
                     "before this occurs"
                 }
@@ -2539,6 +2542,12 @@ return {
             k_lobc_apocalypse_bird_12 = "I condemn you, but you will still commit more sin without end...",
 
             ---- Hatred ----
+            k_lobc_hatred_entry = "In the name of Love and Justice~ Here comes Magical Girl!",
+            k_lobc_hatred_s1 = "With Love!",
+            k_lobc_hatred_s2 = "In the Name of Justice!",
+            k_lobc_hatred_s3 = "Arcana Beats!",
+            k_lobc_hatred_slave = "Arcana Slave!",
+            k_lobc_hatred_switch = "I swore I would... protect everyone... to the end...",
             k_lobc_hatred_1 = "Why is everybody happy? I won't have anything to do.",
             k_lobc_hatred_2 = "I've always believed. Evil must exist as long as I exist.",
             k_lobc_hatred_3 = "It's finally here... An evil I must defeat...",

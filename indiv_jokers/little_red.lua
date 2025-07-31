@@ -130,18 +130,6 @@ joker.update = function(self, card, dt)
     end
 end
 
--- Restore Marked on reload
-local card_updateref = Card.update
-function Card.update(self, dt)
-    card_updateref(self, dt)
-    if self.ability.little_red_marked and not self.children.lobc_prey then
-        self.children.lobc_prey = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 4, y = 0})
-        self.children.lobc_prey.role.major = self
-        self.children.lobc_prey.states.hover.can = false
-        self.children.lobc_prey.states.click.can = false
-    end
-end
-
 -- When BaWbBW is removed not from LRRHM
 local card_start_dissolveref = Card.start_dissolve
 function Card.start_dissolve(self, ...)

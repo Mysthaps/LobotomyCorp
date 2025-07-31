@@ -442,18 +442,6 @@ function mod_ego(_type, val)
     G.GAME.blind:set_text()
 end
 
--- Restore Prey Mark on reload
-local card_updateref = Card.update
-function Card.update(self, dt)
-    card_updateref(self, dt)
-    if self.ability.prey_marked and not self.children.lobc_prey_mark then
-        self.children.lobc_prey_mark = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 5, y = 0})
-        self.children.lobc_prey_mark.role.major = self
-        self.children.lobc_prey_mark.states.hover.can = false
-        self.children.lobc_prey_mark.states.click.can = false
-    end
-end
-
 -- Draw Prey Marked cards to hand / Destroy Prey Marked cards on discard
 local draw_cardref = draw_card
 function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
