@@ -1886,7 +1886,7 @@ return {
                 name = "In the Name of Hate",
                 text = {
                     "After hand is played, increase {C:red}Hysteria{} by",
-                    "number of hands played this Blind {C:attention}/ 2{}, plus",
+                    "number of hands played this Blind, plus",
                     "number of {C:attention}Marked{} cards in full deck",
                     "When a {C:attention}Marked{} card is {C:red}destroyed{},",
                     "decrease {C:red}Hysteria{} by {C:attention}1 {C:inactive}(min. 0)",
@@ -1909,6 +1909,13 @@ return {
                     "current {C:red}Hysteria{}",
                     "Every {C:attention}3{} hands or when {C:purple}Adverse Change",
                     "activates, change Blind effect for a hand",
+                }
+            },
+            psv_lobc_power = {
+                name = "Power of Love and Justice",
+                text = {
+                    "Cards with {C:hearts}Hearts{} suit count as {C:attention}5{} extra",
+                    "ranks for this Blind's effects"
                 }
             },
             -- Erlking Heathcliff

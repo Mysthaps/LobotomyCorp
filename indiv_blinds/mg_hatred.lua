@@ -15,6 +15,7 @@ local blind = {
         "psv_lobc_hatred",
         "psv_lobc_adverse",
         "psv_lobc_arcana",
+        "psv_lobc_power",
         "psv_lobc_magical_girl"
     },
     lobc_bg = {new_colour = darken(HEX("CB34B4"), 0.1), special_colour = darken(HEX("CB34B4"), 0.3), contrast = 0.7}
@@ -109,8 +110,9 @@ blind.calculate = function(self, blind, context)
             local count = 0
             for _, v in ipairs(context.scoring_hand) do
                 if not SMODS.has_no_rank(v) then count = count + v.base.nominal end
+                if v:is_suit("Hearts") then count = count + 5 end
             end
-            if count <= math.min(G.GAME.starting_params.play_limit and 10*G.GAME.starting_params.play_limit or 50, G.GAME.blind.hysteria * 5) then 
+            if count <= math.min(G.GAME.starting_params.play_limit and 15*G.GAME.starting_params.play_limit or 75, G.GAME.blind.hysteria * 5) then 
                 lamped = true
                 G.E_MANAGER:add_event(Event({func = function()
                     play_sound("lobc_hatred_alt", 1, 0.8)
@@ -128,7 +130,7 @@ blind.calculate = function(self, blind, context)
                     G.GAME.blind.hysteria = G.GAME.blind.hysteria + 1
                 end
             end
-            G.GAME.blind.hysteria = G.GAME.blind.hysteria + math.floor(G.GAME.current_round.hands_played/2)
+            G.GAME.blind.hysteria = G.GAME.blind.hysteria + G.GAME.current_round.hands_played
         return true end}))
     end
 end
@@ -174,7 +176,7 @@ blind.lobc_loc_txt = function(self)
         key = G.GAME.blind.alt_skill and "bl_lobc_mg_hatred_alt" or "bl_lobc_mg_hatred_effect", 
         vars = {
             G.GAME.blind.hysteria,
-            G.GAME.blind.alt_skill and math.min(G.GAME.starting_params.play_limit and 10*G.GAME.starting_params.play_limit or 50, G.GAME.blind.hysteria * 5) or G.GAME.blind.hysteria + 1,
+            G.GAME.blind.alt_skill and math.min(G.GAME.starting_params.play_limit and 15*G.GAME.starting_params.play_limit or 75, G.GAME.blind.hysteria * 5) or G.GAME.blind.hysteria + 1,
             G.GAME.blind.hysteria >= 20 and G.GAME.blind.hysteria or math.max(1, math.min(math.ceil(G.GAME.current_round.hands_left / 2), math.floor(G.GAME.blind.hysteria / 2))),
         }
     }
