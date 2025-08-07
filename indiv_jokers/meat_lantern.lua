@@ -66,7 +66,7 @@ joker.calculate = function(self, card, context)
 
     if context.playing_card_added and not context.blueprint then
         for _, v in ipairs(context.cards or {}) do
-            if v.ability.meat_lantern_lantern then
+            if type(v) == "table" and v.ability.meat_lantern_lantern then
                 v.ability.meat_lantern_lantern = nil
                 if v.children.lobc_lantern then v.children.lobc_lantern:remove(); v.children.lobc_lantern = nil end
                 G.hand:change_size(-card.ability.extra.reduce)
