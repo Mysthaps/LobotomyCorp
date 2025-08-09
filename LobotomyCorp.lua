@@ -81,6 +81,7 @@ local blind_list = {
     "ab_eyes",
     "ab_arms",
     "mg_hatred",
+    "mg_wrath",
     -- Meltdowns
     "red_mist",
     --"an_arbiter",

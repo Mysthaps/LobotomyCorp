@@ -1317,6 +1317,7 @@ return {
                     "Blind Size by 5X Base",
                 }
             },
+            
             bl_lobc_apocalypse_bird = {
                 name = "Apocalypse Bird",
                 text = {
@@ -1372,6 +1373,7 @@ return {
                     "played hand gains +1 Sin",
                 }
             },
+
             bl_lobc_mg_hatred = {
                 name = "Hatred",
                 text = {
@@ -1396,6 +1398,28 @@ return {
                     "Total ranks of poker hand",
                     "must exceed #2#,",
                     "otherwise, -#3# hands"
+                }
+            },
+            bl_lobc_mg_wrath = {
+                name = "Wrath",
+                text = {
+                    "SINNERS OF THE OTHERWORLD!!!",
+                    "EMBODIMENTS OF EVIL!!!",
+                }
+            },
+            bl_lobc_mg_wrath_effect = {
+                name = "Hermit",
+                text = {
+                    "Creates The Servant",
+                    "of Wrath for the round",
+                }
+            },
+            bl_lobc_mg_wrath_alt = {
+                name = "Hermit",
+                text = {
+                    "X0.25 Mult on",
+                    "hands played by",
+                    "The Servant of Wrath",
                 }
             },
 
@@ -1916,6 +1940,41 @@ return {
                 text = {
                     "Cards with {C:hearts}Hearts{} suit count as {C:attention}5{} extra",
                     "ranks for this Blind's effects"
+                }
+            },
+            -- Wrath
+            psv_lobc_realm = {
+                name = "When Two Realms Meet",
+                text = {
+                    "On the first hand, score does not increase,",
+                    "and {C:blue}+1{} hand when hand is played",
+                    "After the first hand, change Blind effect"
+                }
+            },
+            psv_lobc_exploited = {
+                name = "The Exploited",
+                text = {
+                    "If score is above {C:attention}90% Blind Size{} and round",
+                    "is not won by {C:purple}Today's Play{}, set score to",
+                    "{C:attention}50% Blind Size{}"
+                }
+            },
+            psv_lobc_today_play = {
+                name = "Today's Play",
+                text = {
+                    "Only {C:attention}The Servant of Wrath{} can defeat the",
+                    "{C:attention}Hermit{}, then the round is won",
+                    "Otherwise, {C:purple}Blind Rage{} does not activate, and",
+                    "round cannot be won this hand"
+                }
+            },
+            psv_lobc_blind_rage = {
+                name = "Blind Rage",
+                text = {
+                    "{C:attention}The Servant of Wrath{} activates after",
+                    "every hand played, and does not cost hands",
+                    "Playing cards are only drawn after",
+                    "{C:attention}The Servant of Wrath{} activates"
                 }
             },
             -- Erlking Heathcliff
@@ -2567,6 +2626,16 @@ return {
             k_lobc_hatred_alt_4 = "Someone has to be the villain...",
             k_lobc_hatred_alt_5 = "I am the chosen one... I'm not like you... I'm different!",
             k_lobc_hatred_alt_6 = "Don't you dare... try to erase my reason to exist!!!",
+
+            ---- Wrath ----
+            k_lobc_wrath_1 = "UURGH!!! Sinners of the otherworlds... Embodiments of evil!!!",
+            k_lobc_wrath_2 = "Justice and balance... needed to... be upheld!!!",
+            k_lobc_wrath_3 = "GRRRR!!!",
+            k_lobc_wrath_4 = "AAAAH!!!",
+            k_lobc_wrath_alt_1 = "Call me. Speak my name. Then I shall speak yours in return. My beloved companion.",
+            k_lobc_wrath_alt_2 = "I visit from another world. I've come to meet a friend, so kindly make way for me.",
+            k_lobc_wrath_alt_3 = "Dear companion. Servant of Wrath... At long last, we face each other, transcending realms.",
+            k_lobc_wrath_alt_4 = "That's why you have lost. Defeated by your beloved companion.",
 
             ---- The Price of Silence ----
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
