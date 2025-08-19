@@ -181,8 +181,10 @@ return {
         key = "music_second_warning_ruina",
         select_music_track = function()
             if config.no_music then return false end
-            return (G.GAME and G.GAME.blind and 
-                (G.GAME.blind.config.blind.key == "bl_lobc_mg_hatred")) and 1e6 or false
+            for _, v in pairs({"hatred", "despair", "greed", "wrath"}) do
+                if G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_mg_"..v then return 1e6 end
+            end
+            return false
         end,
     },
 

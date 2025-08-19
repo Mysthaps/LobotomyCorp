@@ -167,7 +167,7 @@ blind.get_loc_debuff_text = function(self)
     if G.beaked then return localize("k_lobc_misdeeds").." ("..localize(G.beaked, 'poker_hands')..')' end
 end
 
-blind.cry_cap_score = function(self, score)
+blind.mod_score = function(self, score)
     local final_mult = 1
     local proc = false
     for _, v in ipairs(G.play.cards) do

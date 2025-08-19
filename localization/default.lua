@@ -1417,9 +1417,8 @@ return {
             bl_lobc_mg_wrath_alt = {
                 name = "Hermit",
                 text = {
-                    "X0.25 Mult on",
-                    "hands played by",
                     "The Servant of Wrath",
+                    "gives X0.75 Mult instead"
                 }
             },
 

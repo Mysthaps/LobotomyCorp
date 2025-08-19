@@ -7,7 +7,7 @@
 --- G.GAME.current_round.phases_beaten (number): Amount of times Blind was beaten if Blind has phases
 --- SMODS.Blind.phase_refresh (bool): Refreshes the deck when Blind is defeated (independent of SMODS.Blind.phases)
 --- 
---- SMODS.Blind.cry_score_cap(self, score) -> number: Caps score, the same effect as Cryptid's The Tax blind
+--- SMODS.Blind.mod_score(self, score) -> number: Directly modifies final hand score
 --- SMODS.Blind.phase_change(self) -> nil: Called when Blind is defeated and a new phase starts (either summon or phases)
 --- SMODS.Blind.pre_defeat(self) -> nil: Called when the final Blind (requires summon or phases) is defeated, but before deck shuffle and round eval occurs
 --- SMODS.current_mod.passive_ui_size() -> number: Allows changing width of passive UIBox, default 6
@@ -267,4 +267,16 @@ local new_roundref = new_round
 function new_round()
     new_roundref()
     G.GAME.current_round.phases_beaten = 0
+end
+
+local calculate_round_scoreref = SMODS.calculate_round_score
+function SMODS.calculate_round_score(flames)
+    local score = calculate_round_scoreref(flames)
+    if G.GAME.blind then
+        local obj = G.GAME.blind.config.blind
+        if obj.mod_score and type(obj.mod_score) == "function" then
+            return obj:mod_score(score)
+        end
+    end
+    return score
 end

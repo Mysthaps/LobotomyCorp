@@ -143,7 +143,7 @@ blind.defeat = function(self)
     end
 end
 
-blind.cry_cap_score = function(self, score)
+blind.mod_score = function(self, score)
     if lamped then return 0 end
     -- [Adverse Change] Up to 50% Blind Size
     if to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) / 2 and to_big(G.GAME.chips) + score >= to_big(G.GAME.blind.chips) / 2 then

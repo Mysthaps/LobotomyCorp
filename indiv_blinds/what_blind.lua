@@ -349,7 +349,7 @@ blind.calculate = function(self, blind, context)
 end
 
 local messaged = false
-blind.cry_cap_score = function(self, score)
+blind.mod_score = function(self, score)
     local score_modifier = 1
     -- Passive: [Ahab] - Score increases by 20% at -45 SP
     if G.GAME.blind.b_sp <= -45 then

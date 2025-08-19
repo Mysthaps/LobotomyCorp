@@ -13,7 +13,7 @@
         "Steamodded (>=1.0.0~BETA-0626a)"
     ],
     "provides": [
-        "blindexpander (1.0.1)"
+        "blindexpander (1.1.0)"
     ],
     "conflicts": [
         "3xCredits (1.0.0)"

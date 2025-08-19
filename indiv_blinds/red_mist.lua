@@ -464,7 +464,7 @@ blind.lobc_loc_txt = function(self)
 end
 
 -- [1] Caps score, using Cryptid's The Tax function
-blind.cry_cap_score = function(self, score)
+blind.mod_score = function(self, score)
     return math.floor(math.min(G.GAME.blind.lobc_score_cap*G.GAME.blind.chips,score)+0.5)
 end
 

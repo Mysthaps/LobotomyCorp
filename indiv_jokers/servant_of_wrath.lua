@@ -12,7 +12,10 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.first_hand_drawn and not context.blueprint and not G.GAME.servant_triggered then
+    if (context.first_hand_drawn or context.lobc_proc_wrath) and not context.blueprint and not G.GAME.servant_triggered then
+        if context.lobc_proc_wrath and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) then
+            G.GAME.lobc_maiden_active = nil
+        end
         G.GAME.servant_triggered = true
         G.E_MANAGER:add_event(Event({
             func = function() 
@@ -51,14 +54,15 @@ joker.calculate = function(self, card, context)
         }))
     end
 
-    if context.individual and context.cardarea == G.play and G.GAME.current_round.hands_played == 0 then
+    if context.individual and context.cardarea == G.play and (card.ability.extra.from_blind or G.GAME.current_round.hands_played == 0) then
+        if G.GAME.blind.config.blind.key == "bl_lobc_mg_wrath" and G.GAME.blind.discards_sub == G.GAME.blind.hands_sub then return end
         return {
-            x_mult = card.ability.extra.x_mult,
+            x_mult = card.ability.extra.from_blind and 0.75 or card.ability.extra.x_mult,
             card = context.blueprint_card or card,
         }
     end
 
-    if context.joker_main and not context.blueprint and G.GAME.current_round.hands_played == 0 then
+    if context.joker_main and not context.blueprint and G.GAME.current_round.hands_played == 0 and not card.ability.extra.from_blind then
         if context.scoring_name == "High Card" then
             card.ability.extra.counter = card.ability.extra.counter + 1
             if card.ability.extra.counter < 3 then
@@ -74,7 +78,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.end_of_round and context.main_eval then
+    if context.end_of_round and context.main_eval and not card.ability.extra.from_blind then
         if G.GAME.current_round.hands_played == 1 then
             card.ability.extra.round_count = card.ability.extra.round_count + 1 
         else
@@ -86,7 +90,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.selling_self and not context.blueprint then
+    if context.selling_self and not context.blueprint and not card.ability.extra.from_blind then
         abno_breach(card, 1)
         G.GAME.pool_flags["servant_of_wrath_breach"] = true
     end
