@@ -4,7 +4,7 @@ local joker = {
     pos = {x = 0, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     abno = true,
     risk = "teth",
     discover_rounds = {2, 4, 6},
