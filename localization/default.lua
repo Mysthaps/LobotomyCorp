@@ -485,7 +485,7 @@ return {
                 text = {
                     "This Abnormality",
                     "loses {X:mult,C:white} X0.25 {} Mult",
-                    "after each blind",
+                    "after each Blind",
                     "and {C:red}cannot{} be sold",
                 }
             },
@@ -801,7 +801,7 @@ return {
                     {"After gaining Mult {C:attention}4{} times,",
                     "destroys a random Joker",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
-                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"}
+                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} Blind(s)"}
                 }
             },
             j_lobc_spider_bud = {
@@ -1344,7 +1344,7 @@ return {
                 name = "Small Beak",
                 text = {
                     "No repeat hands",
-                    "this blind",
+                    "this Blind",
                 }
             },
             bl_lobc_ab_eyes = {
@@ -1397,7 +1397,7 @@ return {
                     "Hysteria: #1#",
                     "Total ranks of poker hand",
                     "must exceed #2#,",
-                    "otherwise, -#3# hands"
+                    "otherwise, -#3# hand(s)"
                 }
             },
             bl_lobc_mg_wrath = {
@@ -1457,7 +1457,7 @@ return {
                 name = "Violet Dawn",
                 text = {
                     "-1 hand if hand doesn't",
-                    "score at least 20% of blind"
+                    "score at least 20% Blind Size"
                 }
             },
 
@@ -1494,7 +1494,7 @@ return {
                 name = "Violet Noon",
                 text = {
                     "-2 hands if hand scores",
-                    "less than 20% of blind,",
+                    "less than 20% Blind Size,",
                     "+X0.2 Blind Size per",
                     "Consumable slot"
                 }
@@ -1559,7 +1559,7 @@ return {
                 name = "Violet Midnight",
                 text = {
                     "Lose if hand scores",
-                    "less than 30% of blind,",
+                    "less than 30% Blind Size,",
                     "+X1 Blind Size per",
                     "Joker slot, minus 3",
                 }
@@ -2404,7 +2404,7 @@ return {
             lobc_credits_full_list = "The full list can be found in the \"music.txt\" file",
             lobc_credits_4 = "Nameless Fetus, The Lady Facing the Wall, All-Around Helper effects: ",
             lobc_credits_5 = "Initial JokerDisplay for All-Around Helper, One Sin and Hundreds of Good Deeds: ",
-            lobc_credits_6 = "Apocalypse Bird blind sprites: ",
+            lobc_credits_6 = "Apocalypse Bird Blind sprites: ",
             lobc_credits_7 = "Playing card modifiers sprites: ",
             lobc_credits_8 = "Energy Production concept: ",
             lobc_credits_by = "by ",
@@ -2822,13 +2822,13 @@ return {
             ach_lobc_laetitia = "Have 30 or more cards in deck be A Wee Witch's Gift",
             ach_lobc_solemn_lament = "Fill all Joker slots and make all non-Negative Jokers Eternal using Funeral of the Dead Butterflies",
             ach_lobc_smile = "Reach +15 Mult per card destroyed or higher on The Mountain of Smiling Bodies",
-            ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each blind",
+            ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each Blind",
             ach_lobc_wingbeat = "Buy 8 or more items affected by Fairy Festival without any being destroyed",
             ach_lobc_censored = "Have 30 or more cards in deck be CENSORED",
             ach_lobc_todays_expression = "Make the happiest face 10 times in a row on Today's Shy Look",
             ach_lobc_feather_of_honor = "Reach X6 Mult or higher on The Firebird",
             ach_lobc_tough = "Fully observe You're Bald...",
-            ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds in one game while defeating each blind in only one hand",
+            ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds in one game while defeating each Blind in only one hand",
             ach_lobc_midnight = "Defeat a Midnight Ordeal in a non-challenge game",
             ach_lobc_white_nights = "Beat \"Dark Days\"",
             ach_lobc_malkuth = "Beat \"Control\"",
