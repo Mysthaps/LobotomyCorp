@@ -75,6 +75,7 @@ joker.calculate = function(self, card, context)
         if card.ability.extra.counter >= 3 then
             abno_breach(card, 1)
             G.GAME.pool_flags["servant_of_wrath_breach"] = true
+            lobc_reroll_boss(card)
         end
     end
 
@@ -93,6 +94,7 @@ joker.calculate = function(self, card, context)
     if context.selling_self and not context.blueprint and not card.ability.extra.from_blind then
         abno_breach(card, 1)
         G.GAME.pool_flags["servant_of_wrath_breach"] = true
+        lobc_reroll_boss(card)
     end
 end
 

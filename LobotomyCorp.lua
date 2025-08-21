@@ -679,7 +679,7 @@ end
 function abno_breach(card, delay)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-        delay = (delay or 1)*G.SETTINGS.GAMESPEED,
+        delay = (delay or 1)*2,
         func = function()
             play_sound('tarot1')
             card.T.r = -0.2
@@ -719,6 +719,14 @@ function shallow_copy(t)
         t2[k] = v
     end
     return t2
+end
+
+-- Quickly rerolls a boss
+function lobc_reroll_boss(card)
+    lobc_screen_text({text = localize('k_lobc_warning_1'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.5}, noisy = false, float = false, colour = G.C.RED})
+    lobc_screen_text({text = localize{type = 'name_text', key = card.config.center.key, set = card.ability.set}..localize('k_lobc_warning_2'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.1}, noisy = false, float = false, colour = G.C.WHITE})
+    G.from_boss_tag = true
+    G.FUNCS.reroll_boss()
 end
 
 --=============== CONDUCTOR ===============--
@@ -803,6 +811,8 @@ function get_new_boss()
     (G.GAME.pool_flags["apocalypse_bird_event"] and not G.GAME.pool_flags["apocalypse_bird_defeated"]) then return "bl_lobc_apocalypse_bird" end
     if G.GAME.modifiers.lobc_placeholder or
     (G.GAME.pool_flags["queen_of_hatred_breach"] and not G.GAME.pool_flags["hatred_defeated"]) then return "bl_lobc_mg_hatred" end
+    if G.GAME.modifiers.lobc_placeholder or
+    (G.GAME.pool_flags["servant_of_wrath_breach"] and not G.GAME.pool_flags["wrath_defeated"]) then return "bl_lobc_mg_wrath" end
     if G.GAME.modifiers.lobc_production then
         local ante = G.GAME.round_resets.ante
         if ante <= 2 then return "bl_lobc_dawn_base" end

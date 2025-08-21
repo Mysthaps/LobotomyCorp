@@ -36,6 +36,7 @@ joker.calculate = function(self, card, context)
                 end
             end
             G.GAME.pool_flags["apocalypse_bird_event"] = true
+            lobc_reroll_boss(card)
         else
             G.E_MANAGER:add_event(Event({
                 func = function()

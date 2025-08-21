@@ -18,7 +18,7 @@ local blind = {
         "psv_lobc_exploited",
         "psv_lobc_magical_girl"
     },
-    lobc_bg = {new_colour = darken(HEX("413536"), 0.1), special_colour = lighten(HEX("413536"), 0.1), contrast = 0.7}
+    lobc_bg = {new_colour = darken(HEX("413536"), 0.15), special_colour = lighten(HEX("413536"), 0.1), contrast = 0.7}
 }
 
 local eval_func = function()
@@ -90,6 +90,7 @@ blind.defeat = function(self)
     for _, v in ipairs(SMODS.find_card("j_lobc_servant_of_wrath", true)) do
         v:start_dissolve()
     end
+    G.GAME.pool_flags["wrath_defeated"] = true
 end
 
 blind.lobc_loc_txt = function(self)

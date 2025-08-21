@@ -2421,6 +2421,10 @@ return {
             k_lobc_first_time_passive_1 = "Manager, the current Blind has Passive Effects. Hover over the Blind to see them.",
             k_lobc_first_time_passive_2 = "(Note: There is no Controller support. This message will only appear once.)",
 
+            ---- Breaching text ----
+            k_lobc_warning_1 = "!!! WARNING !!!",
+            k_lobc_warning_2 = " has just breached. Manager, please immediately suppress the Abnormality.",
+
             ---- Ordeals ----
 
             -- Dawn
