@@ -13,7 +13,8 @@ local blind = {
         "psv_lobc_the_time_has_come",
         "psv_lobc_rise_and_serve_me",
         "psv_lobc_suppression"
-    }
+    },
+    lobc_bg = {new_colour = darken(HEX("FFFFFF"), 0.2), special_colour = darken(HEX("FFFFFF"), 0.4), contrast = 0.7}
 }
 
 blind.set_blind = function(self, reset, silent)

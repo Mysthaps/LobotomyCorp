@@ -91,18 +91,6 @@ joker.remove_from_deck = function(self, card, from_blind)
     end
 end
 
--- Restore Lantern on reload
-local card_updateref = Card.update
-function Card.update(self, dt)
-    card_updateref(self, dt)
-    if self.ability.meat_lantern_lantern and not self.children.lobc_lantern then
-        self.children.lobc_lantern = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 7, y = 0})
-        self.children.lobc_lantern.role.major = self
-        self.children.lobc_lantern.states.hover.can = false
-        self.children.lobc_lantern.states.click.can = false
-    end
-end
-
 return joker
 
 -- om nom nom

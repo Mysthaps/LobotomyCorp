@@ -54,7 +54,7 @@ joker.calculate = function(self, card, context)
     end
 
     if context.destroying_card and not context.blueprint and 
-       card.ability.extra.not_hearts and not context.destroying_card.ability.eternal then
+       card.ability.extra.not_hearts and not SMODS.is_eternal(context.destroying_card, card) then
         return {
             remove = true
         }

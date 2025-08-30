@@ -96,7 +96,7 @@ joker.update = function(self, card, dt)
             if card.ability.extra.light > 4 then
                 local available_cards = {}
                 for _, v in ipairs(G.jokers.cards) do
-                    if v ~= card and not v.ability.eternal then available_cards[#available_cards+1] = v end
+                    if v ~= card and not SMODS.is_eternal(card) then available_cards[#available_cards+1] = v end
                 end
 
                 G.E_MANAGER:add_event(Event({trigger = 'before', blockable = false, delay = 1, timer = "REAL", func = function()

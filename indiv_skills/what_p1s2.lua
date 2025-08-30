@@ -32,7 +32,7 @@ skill.calculate = function(self, skill, context)
             func = function()
                 for i = 1, math.min(#cards, 3) do
                     local _card = cards[i]
-                    if i <= 3 and not _card.ability.eternal then
+                    if i <= 3 and not SMODS.is_eternal(_card) then
                         skill.triggered = true
                         if not SMODS.has_no_rank(_card) then
                             sp_loss = sp_loss + _card:get_id()

@@ -189,7 +189,7 @@ return {
             und_j_lobc_little_red = {
                 name = "F-01-57",
                 text = {
-                    "I’ll hang his head over my bed.",
+                    "I'll hang his head over my bed.",
                     "Only then can I get up in",
                     "the morning without having a nightmare.",
                 }
@@ -197,7 +197,7 @@ return {
             und_j_lobc_big_bad_wolf = {
                 name = "F-02-58",
                 text = {
-                    "Still, it didn’t matter to him.",
+                    "Still, it didn't matter to him.",
                     "After all, he was \"destined\"",
                     "to be a big bad wolf.",
                 }
@@ -485,7 +485,7 @@ return {
                 text = {
                     "This Abnormality",
                     "loses {X:mult,C:white} X0.25 {} Mult",
-                    "after each blind",
+                    "after each Blind",
                     "and {C:red}cannot{} be sold",
                 }
             },
@@ -637,6 +637,13 @@ return {
                 text = {
                     "Returns to hand after {C:blue}play{}",
                     "{C:red}Destroyed{} when discarded"
+                }
+            },
+            lobc_villain = {
+                name = "Villain",
+                text = {
+                    "Marked by {C:attention}Hatred{}~",
+                    "Removed after hand played",
                 }
             },
             lobc_shield = {
@@ -794,7 +801,7 @@ return {
                     {"After gaining Mult {C:attention}4{} times,",
                     "destroys a random Joker",
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
-                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} blind(s)"}
+                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} Blind(s)"}
                 }
             },
             j_lobc_spider_bud = {
@@ -1220,6 +1227,16 @@ return {
                     "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}"},
                 }
             },
+            j_lobc_servant_of_wrath_alt = {
+                name = "The Servant of Wrath",
+                text = {
+                    {"After hand is played, plays {C:attention}5{}",
+                    "random cards from your hand"},
+                    {"Scoring cards this way give {X:mult,C:white} X#2# {} Mult"},
+                    {"{C:inactive}If three hands played this way are",
+                    "{C:inactive}High Cards, this Abnormality breaches"},
+                }
+            },
             j_lobc_jolliest_jester = {
                 name = "The Jolliest Jester",
                 text = {
@@ -1310,6 +1327,7 @@ return {
                     "Blind Size by 5X Base",
                 }
             },
+            
             bl_lobc_apocalypse_bird = {
                 name = "Apocalypse Bird",
                 text = {
@@ -1336,7 +1354,7 @@ return {
                 name = "Small Beak",
                 text = {
                     "No repeat hands",
-                    "this blind",
+                    "this Blind",
                 }
             },
             bl_lobc_ab_eyes = {
@@ -1365,13 +1383,52 @@ return {
                     "played hand gains +1 Sin",
                 }
             },
+
             bl_lobc_mg_hatred = {
                 name = "Hatred",
                 text = {
-                    "Marks #1# cards each hand,",
-                    "destroy Marked cards",
-                    "when hand is played",
-                    "Hysteria: #2#"
+                    "In the name of",
+                    "Love and Justice~",
+                    "Here comes Magical Girl!"
+                }
+            },
+            bl_lobc_mg_hatred_effect = {
+                name = "Hatred",
+                text = {
+                    "Hysteria: #1#",
+                    "Mark #2# card(s) each hand,",
+                    "destroy Marked cards in",
+                    "hand when hand is played"
+                }
+            },
+            bl_lobc_mg_hatred_alt = {
+                name = "Hatred",
+                text = {
+                    "Hysteria: #1#",
+                    "Total ranks of poker hand",
+                    "must exceed #2#,",
+                    "otherwise, -#3# hand(s)"
+                }
+            },
+            bl_lobc_mg_wrath = {
+                name = "Wrath",
+                text = {
+                    "SINNERS OF THE OTHERWORLD!!!",
+                    "EMBODIMENTS OF EVIL!!!",
+                }
+            },
+            bl_lobc_mg_wrath_effect = {
+                name = "Hermit",
+                text = {
+                    "Creates The Servant",
+                    "of Wrath for the round",
+                }
+            },
+            bl_lobc_mg_wrath_alt = {
+                name = "Hermit",
+                text = {
+                    "The Servant of Wrath",
+                    "gives X0.6 Mult instead"
                 }
             },
 
@@ -1410,7 +1467,7 @@ return {
                 name = "Violet Dawn",
                 text = {
                     "-1 hand if hand doesn't",
-                    "score at least 20% of blind"
+                    "score at least 20% Blind Size"
                 }
             },
 
@@ -1447,7 +1504,7 @@ return {
                 name = "Violet Noon",
                 text = {
                     "-2 hands if hand scores",
-                    "less than 20% of blind,",
+                    "less than 20% Blind Size,",
                     "+X0.2 Blind Size per",
                     "Consumable slot"
                 }
@@ -1512,7 +1569,7 @@ return {
                 name = "Violet Midnight",
                 text = {
                     "Lose if hand scores",
-                    "less than 30% of blind,",
+                    "less than 30% Blind Size,",
                     "+X1 Blind Size per",
                     "Joker slot, minus 3",
                 }
@@ -1725,6 +1782,21 @@ return {
                     "create a special {C:attention}Abnormality{} card"
                 }
             },
+            psv_lobc_magical_girl = {
+                name = "Magical Girl",
+                text = {
+                    "???"
+                    --"When this {C:attention}Blind{} is suppressed,",
+                    --"create a {C:dark_edition}Negative {C:attention}Hope",
+                }
+            },
+            psv_lobc_refracted = {
+                name = "Refracted Struggle",
+                text = {
+                    "When a card is retriggered {C:attention}10{} times",
+                    "in a hand, destroy it instead"
+                }
+            },
             -- Crimson Noon & Crimson Dusk
             psv_lobc_harmony = {
                 name = "Harmony",
@@ -1842,22 +1914,23 @@ return {
                     "Cards with {C:attention}5{} or more {C:red}Sin{} are debuffed",
                 }
             },
-            -- In the Name of Love and Hate
+            -- Hatred
             psv_lobc_hatred = {
                 name = "In the Name of Hate",
                 text = {
-                    "When a {C:attention}Marked{} card is {C:attention}played{} or {C:attention}discarded{},",
-                    "increase {C:red}Hysteria{} by {C:attention}1{}",
+                    "After hand is played, increase {C:red}Hysteria{} by",
+                    "number of hands played this Blind, plus",
+                    "number of {C:attention}Marked{} cards in full deck",
                     "When a {C:attention}Marked{} card is {C:red}destroyed{},",
-                    "decrease {C:red}Hysteria{} by {C:attention}1{}"
+                    "decrease {C:red}Hysteria{} by {C:attention}1 {C:inactive}(min. 0)",
                 }
             },
             psv_lobc_adverse = {
                 name = "Adverse Change",
                 text = {
                     "When score reaches {C:attention}50%{} Blind Size,",
-                    "transform, increase {C:red}Hysteria{} by {C:attention}3{} and",
-                    "{C:attention}+2 {C:blue}hands{} and {C:red}discards",
+                    "increase {C:red}Hysteria{} by {C:attention}hands remaining{},",
+                    "then {C:attention}+1 {C:blue}hand{} and {C:red}discard",
                     "Score cannot go above {C:attention}50%{} Blind Size",
                     "before this occurs"
                 }
@@ -1869,6 +1942,48 @@ return {
                     "current {C:red}Hysteria{}",
                     "Every {C:attention}3{} hands or when {C:purple}Adverse Change",
                     "activates, change Blind effect for a hand",
+                }
+            },
+            psv_lobc_power = {
+                name = "Power of Love and Justice",
+                text = {
+                    "Cards with {C:hearts}Hearts{} suit count as {C:attention}5{} extra",
+                    "ranks for this Blind's effects"
+                }
+            },
+            -- Wrath
+            psv_lobc_realm = {
+                name = "When Two Realms Meet",
+                text = {
+                    "On the first hand, score does not increase,",
+                    "and {C:blue}+1{} hand when hand is played",
+                    "After the first hand, change Blind effect"
+                }
+            },
+            psv_lobc_exploited = {
+                name = "The Exploited",
+                text = {
+                    "If score is above {C:attention}90% Blind Size{} and round",
+                    "is not won by {C:purple}Today's Play{}, set score to",
+                    "{C:attention}50% Blind Size{}"
+                }
+            },
+            psv_lobc_today_play = {
+                name = "Today's Play",
+                text = {
+                    "Only {C:attention}The Servant of Wrath{} can defeat the",
+                    "{C:attention}Hermit{}, then the round is won",
+                    "Otherwise, {C:purple}Blind Rage{} does not activate, and",
+                    "round cannot be won this hand"
+                }
+            },
+            psv_lobc_blind_rage = {
+                name = "Blind Rage",
+                text = {
+                    "{C:attention}The Servant of Wrath{} activates after",
+                    "every hand played, and does not cost hands",
+                    "Playing cards are only drawn after",
+                    "{C:attention}The Servant of Wrath{} activates"
                 }
             },
             -- Erlking Heathcliff
@@ -2192,6 +2307,7 @@ return {
             lobc_marked = "Prey",
             lobc_prey_mark = "Prey Mark",
             lobc_lantern = "Lantern",
+            lobc_villain = "Villain",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -2298,7 +2414,7 @@ return {
             lobc_credits_full_list = "The full list can be found in the \"music.txt\" file",
             lobc_credits_4 = "Nameless Fetus, The Lady Facing the Wall, All-Around Helper effects: ",
             lobc_credits_5 = "Initial JokerDisplay for All-Around Helper, One Sin and Hundreds of Good Deeds: ",
-            lobc_credits_6 = "Apocalypse Bird blind sprites: ",
+            lobc_credits_6 = "Apocalypse Bird Blind sprites: ",
             lobc_credits_7 = "Playing card modifiers sprites: ",
             lobc_credits_8 = "Energy Production concept: ",
             lobc_credits_by = "by ",
@@ -2314,6 +2430,10 @@ return {
             k_lobc_first_time_2 = "(Open the mod in the in-game mod list. This message will only appear once.)",
             k_lobc_first_time_passive_1 = "Manager, the current Blind has Passive Effects. Hover over the Blind to see them.",
             k_lobc_first_time_passive_2 = "(Note: There is no Controller support. This message will only appear once.)",
+
+            ---- Breaching text ----
+            k_lobc_warning_1 = "!!! WARNING !!!",
+            k_lobc_warning_2 = " has just breached. Manager, please immediately suppress the Abnormality.",
 
             ---- Ordeals ----
 
@@ -2500,6 +2620,36 @@ return {
             k_lobc_apocalypse_bird_11 = "I whisper, without cessation...",
             k_lobc_apocalypse_bird_12 = "I condemn you, but you will still commit more sin without end...",
 
+            ---- Hatred ----
+            k_lobc_hatred_entry = "In the name of Love and Justice~ Here comes Magical Girl!",
+            k_lobc_hatred_s1 = "With Love!",
+            k_lobc_hatred_s2 = "In the Name of Justice!",
+            k_lobc_hatred_s3 = "Arcana Beats!",
+            k_lobc_hatred_slave = "Arcana Slave!",
+            k_lobc_hatred_switch = "I swore I would... protect everyone... to the end...",
+            k_lobc_hatred_1 = "Why is everybody happy? I won't have anything to do.",
+            k_lobc_hatred_2 = "I've always believed. Evil must exist as long as I exist.",
+            k_lobc_hatred_3 = "It's finally here... An evil I must defeat...",
+            k_lobc_hatred_4 = "There's no light without the darkness... I can stand here thanks to your existence.",
+            k_lobc_hatred_5 = "You guys are evil because you're disturbing this place. I am on the side of good... So those who oppose me...",
+            k_lobc_hatred_6 = "To keep the world's peace... I was born.",
+            k_lobc_hatred_alt_1 = "People like you aren't good or evil... You're merely beings that need to be purged...",
+            k_lobc_hatred_alt_2 = "I've always believed. Evil must exist as long as I exist.",
+            k_lobc_hatred_alt_3 = "Like how there can't be light without shadow, true evil has to exist in this world...",
+            k_lobc_hatred_alt_4 = "Someone has to be the villain...",
+            k_lobc_hatred_alt_5 = "I am the chosen one... I'm not like you... I'm different!",
+            k_lobc_hatred_alt_6 = "Don't you dare... try to erase my reason to exist!!!",
+
+            ---- Wrath ----
+            k_lobc_wrath_1 = "UURGH!!! Sinners of the otherworlds... Embodiments of evil!!!",
+            k_lobc_wrath_2 = "Justice and balance... needed to... be upheld!!!",
+            k_lobc_wrath_3 = "GRRRR!!!",
+            k_lobc_wrath_4 = "AAAAH!!!",
+            k_lobc_wrath_alt_1 = "Call me. Speak my name. Then I shall speak yours in return. My beloved companion.",
+            k_lobc_wrath_alt_2 = "I visit from another world. I've come to meet a friend, so kindly make way for me.",
+            k_lobc_wrath_alt_3 = "Dear companion. Servant of Wrath... At long last, we face each other, transcending realms.",
+            k_lobc_wrath_alt_4 = "That's why you have lost. Defeated by your beloved companion.",
+
             ---- The Price of Silence ----
             k_lobc_price_of_silence_1 = "When time stops, silence falls.",
             k_lobc_price_of_silence_2 = "In a way, they are one and the same.",
@@ -2682,13 +2832,13 @@ return {
             ach_lobc_laetitia = "Have 30 or more cards in deck be A Wee Witch's Gift",
             ach_lobc_solemn_lament = "Fill all Joker slots and make all non-Negative Jokers Eternal using Funeral of the Dead Butterflies",
             ach_lobc_smile = "Reach +15 Mult per card destroyed or higher on The Mountain of Smiling Bodies",
-            ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each blind",
+            ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each Blind",
             ach_lobc_wingbeat = "Buy 8 or more items affected by Fairy Festival without any being destroyed",
             ach_lobc_censored = "Have 30 or more cards in deck be CENSORED",
             ach_lobc_todays_expression = "Make the happiest face 10 times in a row on Today's Shy Look",
             ach_lobc_feather_of_honor = "Reach X6 Mult or higher on The Firebird",
             ach_lobc_tough = "Fully observe You're Bald...",
-            ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds in one game while defeating each blind in only one hand",
+            ach_lobc_blind_rage = "Have The Servant of Wrath for 6 rounds in one game while defeating each Blind in only one hand",
             ach_lobc_midnight = "Defeat a Midnight Ordeal in a non-challenge game",
             ach_lobc_white_nights = "Beat \"Dark Days\"",
             ach_lobc_malkuth = "Beat \"Control\"",

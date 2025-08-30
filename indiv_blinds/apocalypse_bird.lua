@@ -26,7 +26,8 @@ local blind = {
         "psv_lobc_misdeeds",
         "psv_lobc_judgement",
         "psv_lobc_suppression",
-    }
+    },
+    lobc_bg = {new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1}
 }
 
 blind.lobc_loc_txt = function(self)
@@ -166,7 +167,7 @@ blind.get_loc_debuff_text = function(self)
     if G.beaked then return localize("k_lobc_misdeeds").." ("..localize(G.beaked, 'poker_hands')..')' end
 end
 
-blind.cry_cap_score = function(self, score)
+blind.mod_score = function(self, score)
     local final_mult = 1
     local proc = false
     for _, v in ipairs(G.play.cards) do

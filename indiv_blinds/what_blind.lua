@@ -41,6 +41,7 @@ local blind = {
     },
     phase_refresh = true,
     no_collection = true,
+    lobc_bg = {new_colour = darken(HEX("FCDBCB"), 0.1), special_colour = darken(HEX("FCDBCB"), 0.3), contrast = 0.5}
 }
 
 blind.lobc_loc_txt = function(self)
@@ -348,7 +349,7 @@ blind.calculate = function(self, blind, context)
 end
 
 local messaged = false
-blind.cry_cap_score = function(self, score)
+blind.mod_score = function(self, score)
     local score_modifier = 1
     -- Passive: [Ahab] - Score increases by 20% at -45 SP
     if G.GAME.blind.b_sp <= -45 then
@@ -439,18 +440,6 @@ function mod_ego(_type, val)
     if G.GAME.blind.ego < 0 then G.GAME.blind.ego = 0 end
     if G.GAME.blind.ego > 30 then G.GAME.blind.ego = 30 end
     G.GAME.blind:set_text()
-end
-
--- Restore Prey Mark on reload
-local card_updateref = Card.update
-function Card.update(self, dt)
-    card_updateref(self, dt)
-    if self.ability.prey_marked and not self.children.lobc_prey_mark then
-        self.children.lobc_prey_mark = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 5, y = 0})
-        self.children.lobc_prey_mark.role.major = self
-        self.children.lobc_prey_mark.states.hover.can = false
-        self.children.lobc_prey_mark.states.click.can = false
-    end
 end
 
 -- Draw Prey Marked cards to hand / Destroy Prey Marked cards on discard

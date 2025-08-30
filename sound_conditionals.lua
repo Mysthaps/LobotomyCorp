@@ -176,6 +176,18 @@ return {
         end,
     },
 
+    -- Second Warning (Ruina): 
+    {
+        key = "music_second_warning_ruina",
+        select_music_track = function()
+            if config.no_music then return false end
+            for _, v in pairs({"hatred", "despair", "greed", "wrath"}) do
+                if G.GAME and G.GAME.blind and G.GAME.blind.config.blind.key == "bl_lobc_mg_"..v then return 1e6 end
+            end
+            return false
+        end,
+    },
+
     -- Second Warning: Antes 1-3 of most Core Suppressions, Midnight Ordeals, Antes 1-8/10 and Phase 1 of The Red Mist and An Arbiter
     {
         key = "music_second_warning",

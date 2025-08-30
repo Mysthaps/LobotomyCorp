@@ -80,6 +80,8 @@ local blind_list = {
     "ab_beak",
     "ab_eyes",
     "ab_arms",
+    "mg_hatred",
+    "mg_wrath",
     -- Meltdowns
     "red_mist",
     --"an_arbiter",
@@ -137,6 +139,7 @@ local sound_list = {
     music_gebura_2 = "Insignia Decay",
     music_tpov = "Through Patches of Violet",
     music_compass = "what/compass",
+    music_second_warning_ruina = "Second Warning (Ruina)",
     --music_funky = "HYPERHASTIGHETS UPPGRADERINGAR",
 
     meltdown_start = "Boss_StartButton",
@@ -187,6 +190,13 @@ local sound_list = {
     what_p3s3 = "what/what_p3s3",
     what_death = "what/what_death",
 
+    hatred_entry = "Hatred/hatred_entry",
+    hatred_s1 = "Hatred/hatred_s1",
+    hatred_s2 = "Hatred/hatred_s2",
+    hatred_s3 = "Hatred/hatred_s3",
+    hatred_alt = "Hatred/hatred_alt",
+    hatred_switch = "Hatred/hatred_switch",
+
     gebura_slash = "Gebura_Phase2_Atk1",
     dice_roll = "Dice_Roll",
     apoc_birth = "Bossbird_Birth",
@@ -231,6 +241,7 @@ local badge_colors = {
     lobc_devoured = HEX("174D7D"),
     lobc_prey_mark = HEX("1506A5"),
     lobc_lantern = HEX("88CA42"),
+    lobc_villain = HEX("CB34B4"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -500,7 +511,7 @@ SMODS.DrawStep({
     func = function(self)
         if self.sprite_facing ~= "front" then return end
         local h_mod = (self.config.center.abno and -0.15 or 0)
-        for _, v in ipairs({"lantern", "prey", "prey_mark"}) do
+        for _, v in ipairs({"lantern", "prey", "prey_mark", "villain"}) do
             if self.children["lobc_"..v] then
                 self.children["lobc_"..v]:draw_shader('dissolve', 0, nil, nil, self.children.center, 0.1, nil, nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL) + self.T.h*-0.2-h_mod, nil, 0.6)
                 self.children["lobc_"..v]:draw_shader('dissolve', nil, nil, nil, self.children.center, 0.1, nil, nil, self.T.h*-0.2-h_mod)
@@ -511,7 +522,7 @@ SMODS.DrawStep({
 })
 
 -- Do not call Sprite:draw()
-for _, v in ipairs({"mood", "lobc_lantern", "lobc_prey", "lobc_prey_mark"}) do
+for _, v in ipairs({"mood", "lobc_lantern", "lobc_prey", "lobc_prey_mark", "lobc_villain"}) do
     SMODS.draw_ignore_keys[v] = true
 end
 
@@ -668,7 +679,7 @@ end
 function abno_breach(card, delay)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-        delay = (delay or 1)*G.SETTINGS.GAMESPEED,
+        delay = (delay or 1)*2,
         func = function()
             play_sound('tarot1')
             card.T.r = -0.2
@@ -708,6 +719,16 @@ function shallow_copy(t)
         t2[k] = v
     end
     return t2
+end
+
+-- Quickly rerolls a boss
+function lobc_reroll_boss(card)
+    local offset = 0
+    if card.config.center.key == "j_lobc_plague_doctor" then offset = 0.8 end
+    lobc_screen_text({text = localize('k_lobc_warning_1'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.5 + offset}, noisy = false, float = false, colour = G.C.RED})
+    lobc_screen_text({text = localize{type = 'name_text', key = card.config.center.key, set = card.ability.set}..localize('k_lobc_warning_2'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.1 + offset}, noisy = false, float = false, colour = G.C.WHITE})
+    G.from_boss_tag = true
+    G.FUNCS.reroll_boss()
 end
 
 --=============== CONDUCTOR ===============--
@@ -790,6 +811,10 @@ function get_new_boss()
     (G.GAME.pool_flags["plague_doctor_breach"] and not G.GAME.pool_flags["whitenight_defeated"]) then return "bl_lobc_whitenight" end
     if G.GAME.modifiers.lobc_placeholder or 
     (G.GAME.pool_flags["apocalypse_bird_event"] and not G.GAME.pool_flags["apocalypse_bird_defeated"]) then return "bl_lobc_apocalypse_bird" end
+    if G.GAME.modifiers.lobc_placeholder or
+    (G.GAME.pool_flags["queen_of_hatred_breach"] and not G.GAME.pool_flags["hatred_defeated"]) then return "bl_lobc_mg_hatred" end
+    if G.GAME.modifiers.lobc_placeholder or
+    (G.GAME.pool_flags["servant_of_wrath_breach"] and not G.GAME.pool_flags["wrath_defeated"]) then return "bl_lobc_mg_wrath" end
     if G.GAME.modifiers.lobc_production then
         local ante = G.GAME.round_resets.ante
         if ante <= 2 then return "bl_lobc_dawn_base" end
@@ -919,6 +944,43 @@ function Blind.alert_debuff(self, first)
     if self.config.blind.color and self.config.blind.color == "base" then return end
     if self.config.blind.phases then return end
     if self.config.blind.key == "bl_lobc_apocalypse_bird" or find_passive("psv_lobc_cracking_eggs") then return end
+    if self.config.blind.key == "bl_lobc_mg_hatred" then
+        self.block_play = true
+        G.E_MANAGER:add_event(Event({
+            blocking = false,
+            blockable = false,
+            func = function() 
+                if G.STATE == G.STATES.SELECTING_HAND then
+                    play_sound("lobc_hatred_entry", 1, 0.8)
+                    lobc_screen_text({text = localize('k_lobc_hatred_entry'), scale = 0.35, hold = 5*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.5}, noisy = false, colour = HEX("ffedf5")})
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 3*G.SETTINGS.GAMESPEED,
+                        blocking = false,
+                        blockable = false,
+                        func = function() 
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 1,
+                                blocking = false,
+                                blockable = false,
+                                func = (function()
+                                    self.block_play = nil
+                                    if G.buttons then
+                                        local _buttons = G.buttons:get_UIE_by_ID('play_button')
+                                        _buttons.disable_button = nil
+                                    end
+                                end)
+                            }))
+                            return true
+                        end
+                    }))
+                    return true
+                end
+            end
+        }))
+    end
+    if find_passive("psv_lobc_magical_girl") then return end
     if self.config.blind.key == "bl_lobc_whitenight" and next(SMODS.find_card("j_lobc_one_sin", true)) then
         self.block_play = true
         G.E_MANAGER:add_event(Event({
@@ -1002,12 +1064,17 @@ function Blind.load(self, blindTable)
     self.lobc_score_cap = blindTable.lobc_score_cap
     self.lobc_current_effect = blindTable.lobc_current_effect
     self.lobc_has_sold_joker = blindTable.lobc_has_sold_joker
+    -- GasHarpoon
     self.p_sp = blindTable.p_sp
     self.b_sp = blindTable.b_sp
     self.ego = blindTable.ego
     self.in_panic = blindTable.in_panic
     self.skill_deck = blindTable.skill_deck
     self.shield_value = blindTable.shield_value
+    -- Hatred
+    self.hysteria = blindTable.hysteria
+    self.transformed = blindTable.transformed
+    self.alt_skill = blindTable.alt_skill
     blind_loadref(self, blindTable)
     ease_background_colour_blind()
     local obj = self.config.blind
@@ -1220,7 +1287,7 @@ function Card.align(self)
         self.children.mood.T.r = self.T.r
     end
 
-    for _, v in ipairs({"lantern", "prey", "prey_mark"}) do
+    for _, v in ipairs({"lantern", "prey", "prey_mark", "villain"}) do
         if self.children["lobc_"..v] then
             self.children["lobc_"..v].T.y = self.T.y
             self.children["lobc_"..v].T.x = self.T.x
@@ -1229,6 +1296,52 @@ function Card.align(self)
     end
 
     alignref(self)
+end
+
+-- Restore several modifiers on card reload
+local card_updateref = Card.update
+function Card.update(self, dt)
+    card_updateref(self, dt)
+    -- Enchanted
+    if self.ability.big_bird_enchanted and not self.children.lobc_big_bird_particles and G.GAME.blind and G.GAME.blind.in_blind then
+        self.children.lobc_big_bird_particles = Particles(0, 0, 0,0, {
+            timer = self.ability.permanent_enchanted and 0.4 or 0.3,
+            scale = self.ability.permanent_enchanted and 0.3 or 0.45,
+            speed = 0.3,
+            lifespan = self.ability.permanent_enchanted and 3 or 4,
+            attach = self,
+            colours = {darken(G.C.MONEY, 0.1), darken(G.C.MONEY, 0.3), darken(G.C.MONEY, 0.5)},
+            fill = true
+        })
+    end
+    -- Marked
+    if self.ability.little_red_marked and not self.children.lobc_prey then
+        self.children.lobc_prey = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 4, y = 0})
+        self.children.lobc_prey.role.major = self
+        self.children.lobc_prey.states.hover.can = false
+        self.children.lobc_prey.states.click.can = false
+    end
+    -- Lantern
+    if self.ability.meat_lantern_lantern and not self.children.lobc_lantern then
+        self.children.lobc_lantern = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 7, y = 0})
+        self.children.lobc_lantern.role.major = self
+        self.children.lobc_lantern.states.hover.can = false
+        self.children.lobc_lantern.states.click.can = false
+    end
+    -- Villain
+    if self.ability.hatred_villain and not self.children.lobc_villain then
+        self.children.lobc_villain = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 8, y = 0})
+        self.children.lobc_villain.role.major = self
+        self.children.lobc_villain.states.hover.can = false
+        self.children.lobc_villain.states.click.can = false
+    end
+    -- Prey Mark
+    if self.ability.prey_marked and not self.children.lobc_prey_mark then
+        self.children.lobc_prey_mark = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 5, y = 0})
+        self.children.lobc_prey_mark.role.major = self
+        self.children.lobc_prey_mark.states.hover.can = false
+        self.children.lobc_prey_mark.states.click.can = false
+    end
 end
 
 -- Global start of hand effect
@@ -1530,14 +1643,8 @@ local colors = {
 local ease_background_colour_blindref = ease_background_colour_blind
 function ease_background_colour_blind(state, blind_override)
     if G.GAME.blind then
-        if G.GAME.blind.config.blind.key == "bl_lobc_whitenight" then
-            ease_background_colour({new_colour = darken(HEX("FFFFFF"), 0.2), special_colour = darken(HEX("FFFFFF"), 0.4), contrast = 0.7})
-            return
-        elseif G.GAME.blind.original_blind == "bl_lobc_apocalypse_bird" then
-            ease_background_colour({new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1})
-            return
-        elseif G.GAME.blind.config.blind.key == "bl_lobc_what_blind" then
-            ease_background_colour({new_colour = darken(HEX("FCDBCB"), 0.1), special_colour = darken(HEX("FCDBCB"), 0.3), contrast = 0.5})
+        if G.GAME.blind.config.blind.lobc_bg then
+            ease_background_colour(G.GAME.blind.config.blind.lobc_bg)
             return
         elseif G.GAME.blind.config.blind.time and (G.GAME.blind.config.blind.time == "dawn" or G.GAME.blind.config.blind.time == "noon") and G.GAME.blind.config.blind.color ~= "base" then
             ease_background_colour{new_colour = lighten(mix_colours(G.GAME.blind.config.blind.boss_colour, G.C.BLACK, 0.3), 0.1), special_colour = G.GAME.blind.config.blind.boss_colour, contrast = 2}

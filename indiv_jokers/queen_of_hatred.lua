@@ -3,7 +3,7 @@ local joker = {
     config = {extra = {x_mult = 3, loss = 0.25, hysteria = false, round_count = 0}}, rarity = 3, cost = 7,
     pos = {x = 3, y = 0}, 
     blueprint_compat = true, 
-    eternal_compat = false,
+    eternal_compat = true,
     perishable_compat = false,
     abno = true,
     risk = "waw",
@@ -37,10 +37,7 @@ joker.calculate = function(self, card, context)
             if card.ability.extra.x_mult - card.ability.extra.loss <= 1 then
                 abno_breach(card, 1)
                 G.GAME.pool_flags["queen_of_hatred_breach"] = true
-                return {
-                    message = localize('k_lobc_breached'),
-                    colour = G.C.FILTER
-                }
+                lobc_reroll_boss(card)
             else
                 card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.loss
                 return {
@@ -58,6 +55,7 @@ joker.calculate = function(self, card, context)
     if context.selling_self and not context.blueprint then
         abno_breach(card, 1)
         G.GAME.pool_flags["queen_of_hatred_breach"] = true
+        lobc_reroll_boss(card)
     end
 end
 

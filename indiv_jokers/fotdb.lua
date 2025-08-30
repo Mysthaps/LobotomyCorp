@@ -14,7 +14,7 @@ joker.calculate = function(self, card, context)
     if context.end_of_round and context.main_eval and G.GAME.blind.boss then
         local available_cards = {}
         for _, v in ipairs(G.jokers.cards) do
-            if v.config.center.eternal_compat and not v.ability.eternal and not v.ability.perishable then 
+            if v.config.center.eternal_compat and not SMODS.is_eternal(v, card) and not v.ability.perishable then 
                 available_cards[#available_cards+1] = v 
             end
         end

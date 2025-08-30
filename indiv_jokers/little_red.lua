@@ -4,12 +4,12 @@ local function mark_card()
     local available_cards = {}
     if next(wolves) then
         for _, v in ipairs(wolves) do
-            if v ~= card and not v.ability.eternal then available_cards[#available_cards + 1] = v end
+            if not SMODS.is_eternal(v) then available_cards[#available_cards + 1] = v end
         end
     end
     if #available_cards == 0 then -- all wolves are eternal, or no wolves
         for _, v in ipairs(G.playing_cards) do
-            if v ~= card and not v.ability.eternal then available_cards[#available_cards + 1] = v end
+            if not SMODS.is_eternal(v) then available_cards[#available_cards + 1] = v end
         end
     end
 
@@ -127,18 +127,6 @@ joker.update = function(self, card, dt)
             if not v.ability.little_red_marked then has_prey = false; break; end
         end
         if not has_prey then mark_card() end
-    end
-end
-
--- Restore Marked on reload
-local card_updateref = Card.update
-function Card.update(self, dt)
-    card_updateref(self, dt)
-    if self.ability.little_red_marked and not self.children.lobc_prey then
-        self.children.lobc_prey = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["lobc_LobotomyCorp_modifiers"], {x = 4, y = 0})
-        self.children.lobc_prey.role.major = self
-        self.children.lobc_prey.states.hover.can = false
-        self.children.lobc_prey.states.click.can = false
     end
 end
 

@@ -18,7 +18,7 @@ joker.update = function(self, card, dt)
 
         local available_cards = {}
         for _, v in ipairs(G.jokers.cards) do
-            if v ~= card and not v.ability.eternal then available_cards[#available_cards+1] = v end
+            if v ~= card and not SMODS.is_eternal(v, card) then available_cards[#available_cards+1] = v end
         end
 
         if #available_cards == 0 then
@@ -95,7 +95,7 @@ joker.calculate = function(self, card, context)
             local rightmost = context.scoring_hand[#context.scoring_hand]
             for i=1, #context.scoring_hand do if context.scoring_hand[i].T.x < leftmost.T.x then leftmost = context.scoring_hand[i] end end
             for i=1, #context.scoring_hand do if context.scoring_hand[i].T.x > rightmost.T.x then rightmost = context.scoring_hand[i] end end
-            if rightmost ~= leftmost and not rightmost.ability.eternal then
+            if rightmost ~= leftmost and not SMODS.is_eternal(rightmost, card) then
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     play_sound('card1')
                     rightmost:flip()

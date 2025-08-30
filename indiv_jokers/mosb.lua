@@ -16,7 +16,7 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.destroying_card and not context.blueprint and not context.destroying_card.ability.eternal then
+    if context.destroying_card and not context.blueprint and not SMODS.is_eternal(context.destroying_card, card) then
         return {
             remove = true
         }
@@ -26,7 +26,7 @@ joker.calculate = function(self, card, context)
         if context.before then
             card.ability.extra.destroyed = 0
             for _, v in ipairs(context.scoring_hand) do
-                if not v.ability.eternal then 
+                if not SMODS.is_eternal(v, card) then 
                     card.ability.extra.destroyed = card.ability.extra.destroyed + 1
                     card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain

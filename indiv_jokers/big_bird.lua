@@ -139,23 +139,6 @@ function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped
     draw_cardref(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
 end
 
--- Restore Enchanted particles on reload
-local card_updateref = Card.update
-function Card.update(self, dt)
-    card_updateref(self, dt)
-    if self.ability.big_bird_enchanted and not self.children.lobc_big_bird_particles and G.GAME.blind and G.GAME.blind.in_blind then
-        self.children.lobc_big_bird_particles = Particles(0, 0, 0,0, {
-            timer = self.ability.permanent_enchanted and 0.4 or 0.3,
-            scale = self.ability.permanent_enchanted and 0.3 or 0.45,
-            speed = 0.3,
-            lifespan = self.ability.permanent_enchanted and 3 or 4,
-            attach = self,
-            colours = {darken(G.C.MONEY, 0.1), darken(G.C.MONEY, 0.3), darken(G.C.MONEY, 0.5)},
-            fill = true
-        })
-    end
-end
-
 -- Remove Enchanted at end of round
 local update_new_roundref = Game.update_new_round
 function Game.update_new_round(self, dt)

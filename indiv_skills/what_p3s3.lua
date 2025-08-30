@@ -20,7 +20,7 @@ skill.calculate = function(self, skill, context)
                 --if G.GAME.blind.shield_value > 0 then
                     local available_cards = {}
                     for _, v in ipairs(G.hand.cards) do
-                        if not v.ability.eternal and not v.marked_destroy then available_cards[#available_cards+1] = v end
+                        if not SMODS.is_eternal(v) and not v.marked_destroy then available_cards[#available_cards+1] = v end
                     end
 
                     if #available_cards > 0 then

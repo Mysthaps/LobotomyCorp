@@ -4,7 +4,7 @@ local joker = {
     pos = {x = 0, y = 3}, 
     blueprint_compat = true, 
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     abno = true,
     risk = "teth",
     discover_rounds = {2, 4, 6},
@@ -36,6 +36,7 @@ joker.calculate = function(self, card, context)
                 end
             end
             G.GAME.pool_flags["apocalypse_bird_event"] = true
+            lobc_reroll_boss(card)
         else
             G.E_MANAGER:add_event(Event({
                 func = function()
