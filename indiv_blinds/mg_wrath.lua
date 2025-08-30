@@ -97,6 +97,7 @@ blind.lobc_loc_txt = function(self)
     if not G.GAME.blind.hands_sub then return end
     return {
         key = G.GAME.blind.hands_sub > 0 and "bl_lobc_mg_wrath_alt" or "bl_lobc_mg_wrath_effect",
+        upd_name = true
     }
 end
 
