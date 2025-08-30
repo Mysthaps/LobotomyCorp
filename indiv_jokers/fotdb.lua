@@ -56,7 +56,7 @@ joker.update = function(self, card, dt)
     if G.STAGE == G.STAGES.RUN then
         card.ability.extra.x_mult = 0
         for k, v in pairs(G.jokers.cards) do
-            if SMODS.is_eternal(v, card) then card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.gain end
+            if v.ability.eternal then card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.gain end
         end
     end
 end
