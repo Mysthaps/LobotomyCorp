@@ -43,7 +43,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.destroying_card and not context.blueprint and not context.destroying_card.ability.eternal then
+    if context.destroying_card and not context.blueprint and not SMODS.is_eternal(context.destroying_card, card) then
         local id = context.destroying_card:get_id()
         if G.GAME.lobc_long_arms[id] and G.GAME.lobc_long_arms[id] >= 5 then
             return {

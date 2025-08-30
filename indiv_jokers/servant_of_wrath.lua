@@ -57,7 +57,7 @@ joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and (card.ability.extra.from_blind or G.GAME.current_round.hands_played == 0) then
         if G.GAME.blind.config.blind.key == "bl_lobc_mg_wrath" and G.GAME.blind.discards_sub == G.GAME.blind.hands_sub then return end
         return {
-            x_mult = card.ability.extra.from_blind and 0.75 or card.ability.extra.x_mult,
+            x_mult = card.ability.extra.from_blind and 0.6 or card.ability.extra.x_mult,
             card = context.blueprint_card or card,
         }
     end
@@ -99,8 +99,8 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
-    return {vars = {card.ability.extra.x_mult}}
+    if card:check_rounds() >= 2 and G.GAME.blind.config.blind.key ~= "bl_lobc_mg_wrath" then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
+    return {vars = {card.ability.extra.x_mult, 0.6}, key = (G.GAME.blind.config.blind.key == "bl_lobc_mg_wrath" and "j_lobc_servant_of_wrath_alt" or nil)}
 end
 
 if JokerDisplay then

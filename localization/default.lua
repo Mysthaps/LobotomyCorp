@@ -1227,6 +1227,16 @@ return {
                     "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}"},
                 }
             },
+            j_lobc_servant_of_wrath_alt = {
+                name = "The Servant of Wrath",
+                text = {
+                    {"After hand is played, plays {C:attention}5{}",
+                    "random cards from your hand"},
+                    {"Scoring cards this way give {X:mult,C:white} X#2# {} Mult"},
+                    {"{C:inactive}If three hands played this way are",
+                    "{C:inactive}High Cards, this Abnormality breaches"},
+                }
+            },
             j_lobc_jolliest_jester = {
                 name = "The Jolliest Jester",
                 text = {
@@ -1418,7 +1428,7 @@ return {
                 name = "Hermit",
                 text = {
                     "The Servant of Wrath",
-                    "gives X0.75 Mult instead"
+                    "gives X0.6 Mult instead"
                 }
             },
 

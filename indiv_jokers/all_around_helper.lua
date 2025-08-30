@@ -21,7 +21,7 @@ joker.calculate = function(self, card, context)
             if card.ability.extra.counter >= 4 then
                 local available_cards = {}
                 for _, v in ipairs(G.jokers.cards) do
-                    if v ~= card and not v.ability.eternal then available_cards[#available_cards+1] = v end
+                    if v ~= card and not SMODS.is_eternal(v, card) then available_cards[#available_cards+1] = v end
                 end
 
                 if #available_cards > 0 then

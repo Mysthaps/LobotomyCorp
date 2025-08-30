@@ -4,12 +4,12 @@ local function mark_card()
     local available_cards = {}
     if next(wolves) then
         for _, v in ipairs(wolves) do
-            if v ~= card and not v.ability.eternal then available_cards[#available_cards + 1] = v end
+            if not SMODS.is_eternal(v) then available_cards[#available_cards + 1] = v end
         end
     end
     if #available_cards == 0 then -- all wolves are eternal, or no wolves
         for _, v in ipairs(G.playing_cards) do
-            if v ~= card and not v.ability.eternal then available_cards[#available_cards + 1] = v end
+            if not SMODS.is_eternal(v) then available_cards[#available_cards + 1] = v end
         end
     end
 

@@ -16,7 +16,7 @@ skill.calculate = function(self, skill, context)
     if context.after then
         local available_cards = {}
         for _, v in ipairs(context.scoring_hand) do
-            if not v.ability.prey_marked and not v.ability.eternal then available_cards[#available_cards+1] = v end
+            if not v.ability.prey_marked and not SMODS.is_eternal(v) then available_cards[#available_cards+1] = v end
         end
 
         if #available_cards > 0 then

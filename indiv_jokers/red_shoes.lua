@@ -55,7 +55,7 @@ joker.calculate = function(self, card, context)
     end
 
     if context.destroying_card and not context.blueprint and
-       context.destroying_card.ability.perma_bonus >= 100 and not context.destroying_card.ability.eternal then
+       context.destroying_card.ability.perma_bonus >= 100 and not SMODS.is_eternal(context.destroying_card, card) then
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()

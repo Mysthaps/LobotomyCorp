@@ -64,9 +64,9 @@ blind.calculate = function(self, blind, context)
                 local card = SMODS.add_card({
                     key = "j_lobc_servant_of_wrath",
                     no_edition = true,
-                    area = G.jokers,
-                    stickers = {"eternal"},
+                    area = G.jokers
                 })
+                card:set_eternal(true)
                 card.ability.extra.from_blind = true
                 lobc_abno_text("wrath", eval_func, 2, 4)
             return true end }))

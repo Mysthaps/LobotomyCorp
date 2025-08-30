@@ -54,7 +54,7 @@ end
 local function get_available_jokers()
     local jokers = {}
     for _, v in ipairs(G.jokers.cards) do
-        if not v.ability.eternal and not v.ability.hysteria then
+        if not SMODS.is_eternal(v) and not v.ability.hysteria then
             jokers[#jokers+1] = v
         end
     end

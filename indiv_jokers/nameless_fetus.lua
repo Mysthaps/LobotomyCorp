@@ -15,7 +15,7 @@ joker.calculate = function(self, card, context)
     if context.cardarea == G.jokers and not context.blueprint then
         if context.before then
             if #context.full_hand == 1 and 
-               not context.full_hand[1].ability.eternal and G.GAME.current_round.hands_played == 0 then
+               not SMODS.is_eternal(context.full_hand[1], card) and G.GAME.current_round.hands_played == 0 then
                 card.ability.extra.proc = true
             end
         elseif context.after then
@@ -32,7 +32,7 @@ joker.calculate = function(self, card, context)
     end
 
     if context.destroying_card and not context.blueprint and #context.full_hand == 1 and 
-       not context.full_hand[1].ability.eternal and G.GAME.current_round.hands_played == 0 then
+       not SMODS.is_eternal(context.full_hand[1], card) and G.GAME.current_round.hands_played == 0 then
         return {
             remove = true
         }

@@ -40,9 +40,9 @@ joker.calculate = function(self, card, context)
         local non_eternal = {}
         local eternal = {}
         for _, v in ipairs(G.jokers.cards) do
-            if v.config.center.key == "j_lobc_little_red" and not v.ability.eternal then little_red[#little_red+1] = v end
+            if v.config.center.key == "j_lobc_little_red" and not SMODS.is_eternal(v, card) then little_red[#little_red+1] = v end
             if v ~= card and not v.being_devoured and not v.children.lobc_devoured then 
-                if v.ability.eternal then eternal[#eternal+1] = v 
+                if SMODS.is_eternal(v, card) then eternal[#eternal+1] = v 
                 else non_eternal[#non_eternal+1] = v end
             end
         end

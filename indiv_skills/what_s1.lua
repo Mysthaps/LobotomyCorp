@@ -9,7 +9,7 @@ skill.set_ability = function(self, skill, initial, delay_sprites)
     skill.ability.id = 14
     local valid_cards = {}
     for k, v in ipairs(G.hand.cards) do
-        if not SMODS.has_no_rank(v) and not v.ability.eternal then
+        if not SMODS.has_no_rank(v) and not SMODS.is_eternal(v) then
             valid_cards[#valid_cards+1] = v
         end
     end
@@ -32,7 +32,7 @@ skill.calculate = function(self, skill, context)
             delay = 0.5,
             func = function()
                 for _, v in ipairs(G.play.cards) do
-                    if v.base.id == skill.ability.id and not v.ability.eternal then
+                    if v.base.id == skill.ability.id and not SMODS.is_eternal(v) then
                         skill.triggered = true
                         destroyed_cards[#destroyed_cards+1] = v
                         v:start_dissolve() 
