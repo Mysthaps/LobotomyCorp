@@ -1,6 +1,6 @@
 local joker = {
     name = "Plague Doctor",
-    config = {extra = {mult = 20, apostles = 0}}, rarity = 1, cost = 4,
+    config = {extra = {mult = 20, apostles = 10}}, rarity = 1, cost = 4,
     pos = {x = 1, y = 2}, 
     blueprint_compat = true,
     eternal_compat = true,

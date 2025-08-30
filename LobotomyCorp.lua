@@ -723,8 +723,10 @@ end
 
 -- Quickly rerolls a boss
 function lobc_reroll_boss(card)
-    lobc_screen_text({text = localize('k_lobc_warning_1'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.5}, noisy = false, float = false, colour = G.C.RED})
-    lobc_screen_text({text = localize{type = 'name_text', key = card.config.center.key, set = card.ability.set}..localize('k_lobc_warning_2'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.1}, noisy = false, float = false, colour = G.C.WHITE})
+    local offset = 0
+    if card.config.center.key == "j_lobc_plague_doctor" then offset = 0.8 end
+    lobc_screen_text({text = localize('k_lobc_warning_1'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.5 + offset}, noisy = false, float = false, colour = G.C.RED})
+    lobc_screen_text({text = localize{type = 'name_text', key = card.config.center.key, set = card.ability.set}..localize('k_lobc_warning_2'), scale = 0.35, hold = 6*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.1 + offset}, noisy = false, float = false, colour = G.C.WHITE})
     G.from_boss_tag = true
     G.FUNCS.reroll_boss()
 end
