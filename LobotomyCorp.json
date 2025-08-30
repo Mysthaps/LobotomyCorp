@@ -8,9 +8,9 @@
     "badge_colour": "FC3A3A",
     "badge_text_colour": "FFFFFF",
     "display_name": "L Corp.",
-    "version": "1.4.0~dev250801b",
+    "version": "1.4.0~dev250830a",
     "dependencies": [
-        "Steamodded (>=1.0.0~BETA-0626a)"
+        "Steamodded (>=1.0.0~BETA-0827c)"
     ],
     "provides": [
         "blindexpander (1.1.0)"
