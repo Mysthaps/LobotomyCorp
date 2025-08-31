@@ -2417,6 +2417,7 @@ return {
             lobc_credits_6 = "Apocalypse Bird Blind sprites: ",
             lobc_credits_7 = "Playing card modifiers sprites: ",
             lobc_credits_8 = "Energy Production concept: ",
+            lobc_credits_9 = "Chinese localization: ",
             lobc_credits_by = "by ",
             lobc_credits_pm = "Project Moon",
             lobc_credits_twi = "Twilight & Sunset",
@@ -2424,6 +2425,7 @@ return {
             lobc_credits_lym = "Lyman (spikeberd)",
             lobc_credits_sil = "SilverSnow",
             lobc_credits_sam = "Samario",
+            lobc_credits_a26 = "a2639443196",
 
             ---- First time text ----
             k_lobc_first_time_1 = "Manager, welcome to Lobotomy Corporation. Remember to take a look at the mod's settings.",

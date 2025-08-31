@@ -2599,6 +2599,10 @@ SMODS.current_mod.credits_tab = function()
             {n = G.UIT.T, config = { text = localize('lobc_credits_7'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
             {n = G.UIT.T, config = { text = localize('lobc_credits_sil'), scale = 0.3, colour = G.C.DARK_EDITION}},
         }},
+        {n = G.UIT.R, config = {align = "cl", padding = 0.05}, nodes = {
+            {n = G.UIT.T, config = { text = localize('lobc_credits_9'), scale = 0.3, colour = G.C.UI.TEXT_LIGHT}},
+            {n = G.UIT.T, config = { text = localize('lobc_credits_a26'), scale = 0.3, colour = G.C.DARK_EDITION}},
+        }},
     }}
 end
 
