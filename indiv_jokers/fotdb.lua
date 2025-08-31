@@ -41,8 +41,7 @@ joker.calculate = function(self, card, context)
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
         return {
-            message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}},
-            Xmult_mod = card.ability.extra.x_mult, 
+            x_mult = card.ability.extra.x_mult, 
             colour = G.C.MULT
         }
     end

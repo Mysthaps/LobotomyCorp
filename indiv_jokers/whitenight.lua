@@ -20,7 +20,6 @@ joker.calculate = function(self, card, context)
     if context.cardarea == G.play and context.other_card and context.other_card.ability.plague_doctor_baptism then
         if context.individual then
             return {
-                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
                 mult = card.ability.extra.mult,
                 card = context.blueprint_card or card,
             }
