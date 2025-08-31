@@ -48,7 +48,7 @@ joker.calculate = function(self, card, context)
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
         return {
-            Xmult_mod = card.ability.extra.x_mult, 
+            x_mult = card.ability.extra.x_mult, 
             colour = G.C.MULT
         }
     end
