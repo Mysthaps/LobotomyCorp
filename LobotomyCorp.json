@@ -15,9 +15,6 @@
     "provides": [
         "blindexpander (1.1.0)"
     ],
-    "conflicts": [
-        "3xCredits (1.0.0)"
-    ],
     "carmen_says": "You should distort yourself... NOW!",
     "matagan": "porreh",
     "cha": "maganera"
