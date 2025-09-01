@@ -46,7 +46,7 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 6 then info_queue[#info_queue+1] = G.P_CENTERS["m_lobc_worker_bee"] end
+    if not card.fake_card and card:check_rounds() >= 6 then info_queue[#info_queue+1] = G.P_CENTERS["m_lobc_worker_bee"] end
     return {vars = {card.ability.extra.mult}}
 end
 

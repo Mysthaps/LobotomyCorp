@@ -41,7 +41,7 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() > 4 then info_queue[#info_queue+1] = {key = 'lobc_pebble', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() > 4 then info_queue[#info_queue+1] = {key = 'lobc_pebble', set = 'Other'} end
     return {vars = {card.ability.extra.per/10, card.ability.extra.gain/10, card.ability.extra.loss/10}}
 end
 

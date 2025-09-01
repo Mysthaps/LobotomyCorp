@@ -99,7 +99,7 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 2 and G.GAME.blind.config.blind.key ~= "bl_lobc_mg_wrath" then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() >= 2 and G.GAME.blind.config.blind.key ~= "bl_lobc_mg_wrath" then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
     return {vars = {card.ability.extra.x_mult, 0.6}, key = (G.GAME.blind.config.blind.key == "bl_lobc_mg_wrath" and "j_lobc_servant_of_wrath_alt" or nil)}
 end
 

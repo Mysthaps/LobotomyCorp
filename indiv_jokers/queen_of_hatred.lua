@@ -60,8 +60,8 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 3 then info_queue[#info_queue+1] = {key = 'lobc_hysteria', set = 'Other'} end
-    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() >= 3 then info_queue[#info_queue+1] = {key = 'lobc_hysteria', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_magical_girl_temp', set = 'Other'} end
     return {vars = {card.ability.extra.x_mult}}
 end
 

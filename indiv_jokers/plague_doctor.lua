@@ -146,7 +146,7 @@ joker.discover_override = function(self, level, card)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_bless_order', set = 'Other'} end
     return {vars = {card.ability.extra.mult, card.ability.extra.apostles}}
 end
 

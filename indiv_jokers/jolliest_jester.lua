@@ -14,7 +14,7 @@ local joker = {
 }
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = G.P_CENTERS.j_jolly end
+    if not card.fake_card and card:check_rounds() >= 2 then info_queue[#info_queue+1] = G.P_CENTERS.j_jolly end
     return {vars = {G.GAME.probabilities["jolliest_jester"], card.ability.extra, G.GAME.probabilities["jolliest_jester_inc"]}}
 end
 

@@ -84,7 +84,7 @@ joker.calculate = function(self, card, context)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = G.P_CENTERS["c_lobc_wisdom"] end
+    if not card.fake_card and card:check_rounds() >= 2 then info_queue[#info_queue+1] = G.P_CENTERS["c_lobc_wisdom"] end
     return {vars = {card.ability.extra.created}}
 end
 

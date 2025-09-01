@@ -151,7 +151,7 @@ function Card.start_dissolve(self, ...)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 1 then info_queue[#info_queue+1] = {key = 'lobc_marked', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() >= 1 then info_queue[#info_queue+1] = {key = 'lobc_marked', set = 'Other'} end
     info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
     local bw = next(SMODS.find_card("j_lobc_big_bad_wolf"))
     return {vars = {card.ability.extra.money * (bw and 3 or 1), card.ability.extra.mult_gain * (bw and 3 or 1), 

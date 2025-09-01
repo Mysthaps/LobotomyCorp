@@ -95,31 +95,6 @@ joker.loc_vars = function(self, info_queue, card)
     }}
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { 
-        card.ability.extra.pos^(card.ability.extra.held+1), card.ability.extra.neg^(card.ability.extra.held+1), 
-        card.ability.extra.pos, card.ability.extra.neg, 
-        card:check_rounds(2), card:check_rounds(3), card:check_rounds(5), card.ability.extra.held
-    }
-    local desc_key = self.key
-    if card:check_rounds(2) < 2 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(3) < 3 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(5) < 5 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars, AUT = full_UI_table}
-    end
-end
-
 if JokerDisplay then
     -- tba
 end

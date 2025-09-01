@@ -73,7 +73,7 @@ joker.add_to_deck = function(self, card, from_debuff)
 end
 
 joker.loc_vars = function(self, info_queue, card)
-    if card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_sin', set = 'Other'} end
+    if not card.fake_card and card:check_rounds() >= 2 then info_queue[#info_queue+1] = {key = 'lobc_sin', set = 'Other'} end
     return {vars = {card.ability.extra.x_mult_gain, card.ability.extra.x_mult}}
 end
 
