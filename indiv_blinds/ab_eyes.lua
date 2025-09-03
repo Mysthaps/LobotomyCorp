@@ -19,7 +19,8 @@ local blind = {
     },
     summon = "bl_lobc_ab_beak",
     phase_refresh = true,
-    no_collection = true
+    no_collection = true,
+    lobc_bg = {new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1}
 }
 
 blind.lobc_loc_txt = function(self)

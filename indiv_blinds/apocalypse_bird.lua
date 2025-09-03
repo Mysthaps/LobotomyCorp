@@ -170,22 +170,25 @@ end
 blind.mod_score = function(self, score)
     local final_mult = 1
     local proc = false
-    for _, v in ipairs(G.play.cards) do
-        if v:is_suit(suits[G.GAME.blind.hands_sub], true) then 
-            final_mult = final_mult - 0.3
-            proc = true
+    if G.play and G.play.cards then
+        for _, v in ipairs(G.play.cards) do
+            if v:is_suit(suits[G.GAME.blind.hands_sub], true) then 
+                final_mult = final_mult - 0.3
+                proc = true
+            end
+        end
+        score = score * final_mult
+        if proc then G.GAME.blind:juice_up() end
+        if find_passive("psv_lobc_lamp") then
+            return math.floor(math.min(G.GAME.blind.chips*(1/4) - G.GAME.chips, score)+0.5)
+        elseif find_passive("psv_lobc_misdeeds") then
+            return math.floor(math.min(G.GAME.blind.chips*(2/4) - G.GAME.chips, score)+0.5)
+        elseif find_passive("psv_lobc_judgement") then
+            return math.floor(math.min(G.GAME.blind.chips*(3/4) - G.GAME.chips, score)+0.5)
+        else return score
         end
     end
-    score = score * final_mult
-    if proc then G.GAME.blind:juice_up() end
-    if find_passive("psv_lobc_lamp") then
-        return math.floor(math.min(G.GAME.blind.chips*(1/4) - G.GAME.chips, score)+0.5)
-    elseif find_passive("psv_lobc_misdeeds") then
-        return math.floor(math.min(G.GAME.blind.chips*(2/4) - G.GAME.chips, score)+0.5)
-    elseif find_passive("psv_lobc_judgement") then
-        return math.floor(math.min(G.GAME.blind.chips*(3/4) - G.GAME.chips, score)+0.5)
-    else return score
-    end
+    return score
 end
 
 return blind
