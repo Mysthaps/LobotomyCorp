@@ -161,7 +161,8 @@ end
 joker.loc_vars = function(self, info_queue, card)
     if not card.fake_card and card:check_rounds() >= 1 then info_queue[#info_queue+1] = {key = 'lobc_devoured', set = 'Other'} end
     info_queue[#info_queue+1] = {key = 'lobc_active_ability', set = 'Other'}
-    local lr = next(SMODS.find_card("j_lobc_little_red")) or (card.children.lobc_devoured and card.children.lobc_devoured.cards[1] and card.children.lobc_devoured.cards[1].config.center.key == "j_lobc_little_red")
+    local lr = false
+    if not card.fake_card and card.children then lr = next(SMODS.find_card("j_lobc_little_red")) or (card.children.lobc_devoured and card.children.lobc_devoured.cards[1] and card.children.lobc_devoured.cards[1].config.center.key == "j_lobc_little_red") end
     return {vars = {card.ability.extra.chips_gain * (lr and 3 or 1), card.ability.extra.chips}, key = (lr and "j_lobc_big_bad_wolf_alt" or nil)}
 end
 
