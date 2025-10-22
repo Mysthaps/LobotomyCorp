@@ -931,6 +931,7 @@ return {
                     "Increases cost by {C:money}$#9#{} after use"},
                     {"When the {C:marked}Prey{} is destroyed, earn {C:money}$#1#{},",
                     "and this Abnormality gains {C:mult}+#2#{} Mult",
+                    "{s:0.6}",
                     "If the {C:marked}Prey{} is removed in any other way,",
                     "this Abnormality loses {C:mult}200{} Mult and",
                     "becomes {C:dark_edition}Eternal{}",

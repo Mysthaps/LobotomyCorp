@@ -158,7 +158,7 @@ joker.loc_vars = function(self, info_queue, card)
                 card.ability.extra.mult, card.ability.extra.cost,
                 "unused", "unused", "unused",
                 "F-02-58", card.ability.extra.cost_increase, (card.ability.extra.mult >= 0 and "+" or "")
-    }, key = (bw and "lobc_j_little_red_alt" or nil)}
+    }, key = (bw and "j_lobc_little_red_alt" or nil)}
 end
 
 return joker
