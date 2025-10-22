@@ -4,12 +4,7 @@ local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 lobc_seen_what = config.seen_what
-local folder = nil
-if love.system.getOS() == 'Android' then
-    folder = string.match(mod_path, ".*_[Mm]ods.*")
-else
-    folder = string.match(mod_path, "[Mm]ods.*")
-end
+local folder = string.match(mod_path, "[Mm]ods.*")
 SMODS.load_file("blindexpander.lua")()
 SMODS.load_file("lyrics.lua")()
 
