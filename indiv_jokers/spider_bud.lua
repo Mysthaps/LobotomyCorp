@@ -25,6 +25,7 @@ joker.calculate = function(self, card, context)
     end
 
     if context.end_of_round and not context.blueprint and context.main_eval then
+        card.ability.extra.first = true
         if G.GAME.blind.boss then 
             G.hand:change_size(-card.ability.extra.cards)
             card.ability.extra.cards = 0 
@@ -32,7 +33,6 @@ joker.calculate = function(self, card, context)
                 message = localize('k_reset')
             }
         end
-        card.ability.extra.first = true
     end
 end
 
