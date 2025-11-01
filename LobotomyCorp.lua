@@ -478,6 +478,7 @@ SMODS.DrawStep({
     key = "modifiers",
     order = 45, -- Above stickers
     func = function(self)
+        if self.sprite_facing ~= 'front' then return end
         for _, v in ipairs(G.lobc_global_modifiers or {}) do
             if self.ability[v] then
                 G.lobc_shared_modifiers[v].role.draw_major = self

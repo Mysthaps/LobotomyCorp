@@ -53,5 +53,4 @@ end
 
 return joker
 
--- shoutouts to the sts card where it just kills your ears. 
--- i'm not that evil so i reduced the volume but you're still getting it on hover
+-- shoutouts to the sts card where it just kills your ears

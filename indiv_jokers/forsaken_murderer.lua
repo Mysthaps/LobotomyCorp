@@ -35,6 +35,14 @@ joker.calculate = function(self, card, context)
     end
 end
 
+-- Fix a crash
+local debuff_cardref = SMODS.debuff_card
+function SMODS.debuff_card(card, ...)
+    if card then
+        debuff_cardref(card, ...)
+    end
+end
+
 joker.loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.x_mult}}
 end
