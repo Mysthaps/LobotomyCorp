@@ -13,8 +13,8 @@ local joker = {
 joker.calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
         return {
-            chips = pseudorandom("mhz_chips", card.ability.extra.minc, card.ability.extra.maxc),
-            mult = pseudorandom("mhz_mult", card.ability.extra.minm, card.ability.extra.maxm),
+            chips = math.floor(card.ability.extra.minc + (card.ability.extra.maxc - card.ability.extra.minc) * math.pow(pseudorandom("mhz_chips"), 2)),
+            mult = math.floor(card.ability.extra.minm + (card.ability.extra.maxm - card.ability.extra.minm) * math.pow(pseudorandom("mhz_chips"), 2)),
             card = context.blueprint_card or card,
         }
     end
