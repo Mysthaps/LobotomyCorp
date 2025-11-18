@@ -227,7 +227,8 @@ return {
             und_j_lobc_price_of_silence = {
                 name = "O-05-65",
                 text = {
-                    "{C:red}시간은 인생처럼, 인생은 시간처럼 흐른다.{}"
+                    "{C:red}시간은 인생처럼,{}",
+                    "{C:red}인생은 시간처럼 흐른다.{}"
                 }
             },
             und_j_lobc_laetitia = {
@@ -241,26 +242,29 @@ return {
             und_j_lobc_fotdb = {
                 name = "T-01-68",
                 text = {
-                    "{C:red}사람이 죽으면 어디로 가나.{}"
+                    "{C:red}사람이 죽으면{}",
+                    "{C:red}어디로 가나.{}"
                 }
             },
             und_j_lobc_mosb = {
                 name = "T-01-75",
                 text = {
-                    "{C:red}웃는 얼굴들은 낯선 동시에 서글퍼.{}"
+                    "웃는 얼굴들은",
+                    "{C:red}낯선 동시에 서글퍼.{}"
                 }
             },
             und_j_lobc_heart_of_aspiration = {
                 name = "T-09-77",
                 text = {
-                    "과한 열망은 {C:red}그릇된 흥분{}을 초래했다."
+                    "과한 열망은",
+                    "{C:red}그릇된 흥분{}을 초래했다."
                 }
             },
             und_j_lobc_giant_tree_sap = {
                 name = "T-09-80",
                 text = {
                     "나무는 그저 베푼 만큼",
-                    "{C:red}돌려받았을 뿐인 거죠.{}"
+                    "{C:red}돌려받았을 뿐{}인 거죠."
                 }
             },
             und_j_lobc_shelter = {
@@ -303,66 +307,63 @@ return {
             und_j_lobc_scarecrow_searching = {
                 name = "F-01-87",
                 text = {
-                    "The city still remained",
-                    "a beautiful place where",
-                    "the emerald roads sparkled",
-                    "bright as ever.",
+                    "그곳은 여전히",
+                    "{C:red}에메랄드 빛의 길{}이 반짝이는",
+                    "아름다운 도시였다."
                 }
             },
             und_j_lobc_censored = {
                 name = "O-03-89",
                 text = {
-                    "If a flaw in the system disables",
-                    "the censors covering the Abnormality,",
-                    "we will once again have to sincerely",
-                    "consider how to dispose of the manager.",
+                    "만일 어떤 결함으로 인해",
+                    "{C:red}해당 환상체를 가리는 모자이크{}가",
+                    "보이지 않게 되는 순간, 우리는",
+                    "다시 한 번 관리자의 처분에 관하여",
+                    "진지하게 고민해 봐야 할 것이다."
                 }
             },
             und_j_lobc_skin_prophecy = {
                 name = "T-09-90",
                 text = {
-                    "Save us now and forevermore.",
-                    "The truth shall set us free.",
+                    "다만 구원해주시옵소서.",
+                    "{C:red}진리가 우리를 자유롭게 하리라.{}",
                 }
             },
             und_j_lobc_shy_look = {
                 name = "O-01-92",
                 text = {
-                    "It's a good day!",
-                    "Are you still shy today?",
+                    "오늘은 날이 좋네요.",
+                    "{C:red}당신은 오늘도 여전히 수줍나요?{}",
                 }
             },
             und_j_lobc_you_must_be_happy = {
                 name = "T-09-94",
                 text = {
-                    "Many of those who underwent",
-                    "an operation inside the machine",
-                    "have found themselves",
-                    "rested and healthy again."
+                    "기계 안에서 시술을 받은 많은 사람들이",
+                    "{C:red}안식을 되찾고 건강해졌다.{}"
                 }
             },
             und_j_lobc_old_faith = {
                 name = "T-09-97",
                 text = {
-                    "Those betrayed hearts",
-                    "sank into the depths,",
-                    "slowly forgotten in the",
-                    "ever-lengthening corridors of time.",
+                    "{C:red}보답받지 못한 마음들{}은",
+                    "밑바닥에서 조용히",
+                    "잠들어간 채 잊혀져갔다."
                 }
             },
             und_j_lobc_void_dream = {
                 name = "T-02-99",
                 text = {
-                    "Please, eat my dreams.",
+                    "내 {C:red}꿈{}을 먹어주세요.",
                 }
             },
             und_j_lobc_firebird = {
                 name = "O-02-101",
                 text = {
-                    "Those who succeed in the hunt",
-                    "are granted with one of the",
-                    "very feathers that countless",
-                    "hunters once yearned for.",
+                    "사냥에 성공한 이들에게는",
+                    "수많은 사냥꾼들이",
+                    "그토록 바랬던 {C:red}깃털{}이",
+                    "증표처럼 남겨진다.",
                 }
             },
             und_j_lobc_servant_of_wrath = {
@@ -376,31 +377,31 @@ return {
             und_j_lobc_jolliest_jester = {
                 name = "M-01-13",
                 text = {
-                    "The most exhilirating feelings",
-                    "of joy can be described",
-                    "with only a single letter.",
+                    "가장 격렬한 환희는",
+                    "{C:red}단 하나의 문자{}로만",
+                    "표현될 수 있다.",
                 }
             },
             und_j_lobc_sign_of_roses = {
                 name = "O-04-21-22",
                 text = {
-                    "{C:red}What {C:attention}do {C:money}you {C:green}wish {C:chips}for?",
-                    "A rose can bloom only when",
-                    "you clearly wish for something.",
+                    "\"{C:red}네가 {C:attention}바라는 {C:money}건 {C:green}무엇{C:chips}이니?\"",
+                    "\"너의 바람이 선명해야만",
+                    "꽃이 피어날 수 있단다.\"",
                 }
             },
             und_j_lobc_electric_sheep = {
                 name = "F-01-20-08",
                 text = {
-                    "The {C:purple}\"electric sheep\"{} seems to be in pain.",
-                    "Could it be dreaming?",
+                    "{C:purple}\"전기 양\"{}은 괴로워하는 것 같다.",
+                    "꿈을 꾸고 있는 걸까?",
                 }
             },
             und_j_lobc_youre_bald = {
                 name = "Bald-Is-Awesome!",
                 text = {
-                    "You turn on your",
-                    "electric hair clipper...",
+                    "당신은 {C:red}바리깡{}의 전원을",
+                    "켜기 시작했다...",
                 }
             },
 
@@ -434,7 +435,7 @@ return {
             },
             lobc_obs_active_1 = {
                 text = {
-                    "{C:purple}[활성화 능력]",
+                    "{C:purple}[액티브 효과]",
                     "{C:inactive}- 관찰 레벨 1 -",
                     "{C:attention}#1#/#2#"
                 }
@@ -449,24 +450,24 @@ return {
             lobc_obs_one_sin_2 = {
                 text = {
                     "{C:inactive}- 관찰 레벨 2 -",
-                    "={C:attention}??????????{} 제압."
+                    "{C:attention}??{} 제압"
                 }
             },
             lobc_obs_plague_doctor_3 = {
                 text = {
                     "{C:inactive}- 관찰 레벨 3 -",
-                    "{C:attention}??????????{} 제압."
+                    "{C:attention}??{} 제압"
                 }
             },
 
             ---- Other ----
             lobc_hysteria = {
-                name = "Hysteria",
+                name = "히스테리",
                 text = {
-                    "This Abnormality",
-                    "loses {X:mult,C:white} X0.25 {} Mult",
-                    "after each Blind",
-                    "and {C:red}cannot{} be sold",
+                    "이 환상체는",
+                    "매 블라인드마다",
+                    "{X:mult,C:white}X0.25{} 배수를 잃고",
+                    "판매되지 {C:red}않습니다{}",
                 }
             },
             lobc_magical_girl_temp = {
@@ -478,9 +479,9 @@ return {
             lobc_magical_girl = {
                 name = "마법 소녀",
                 text = {
-                    "When sold or {C:attention}breached{},",
-                    "fight this Abnormality at {C:attention}Boss Blind",
-                    "{C:inactive}(starting fron Ante {C:attention}6{C:inactive})",
+                    "팔거나 {C:attention}탈출{}했을 때,",
+                    "{C:attention}보스 블라인드{}에서 전투합니다",
+                    "{C:inactive}({C:attention}6{C:inactive} 앤티부터 적용됩니다)",
                 }
             },
             lobc_gift = {
@@ -511,50 +512,50 @@ return {
                 name = "사도",
                 text = {
                     "{C:red}디버프됨{}",
-                    "{C:attention}Perishes{} when played",
+                    "플레이 시 {C:attention}소멸{}합니다",
                 }
             },
             lobc_bless_order = {
-                name = "Bless Order",
+                name = "축복 순서",
                 text = {
-                    "First non-{C:attention}blessed{}",
-                    "playing card {C:attention}played{},",
-                    "then in {C:attention}hand{},",
-                    "then in {C:attention}deck{}"
+                    "{C:attention}축복{}받지 않은",
+                    "{C:attention}플레이{}한 카드,",
+                    "{C:attention}핸드{}의 카드,",
+                    "{C:attention}덱{}의 카드 순으로 축복합니다"
                 }
             },
             lobc_plague_doctor_debuffed = {
-                name = "Debuffed",
+                name = "디버프됨",
                 text = {
-                    "All abilities",
-                    "are disabled",
-                    "No duplicates"
+                    "모든 능력이",
+                    "비활성화됩니다",
+                    "복제가 불가능합니다"
                 }
             },
             lobc_amplified = {
-                name = "Amplified",
+                name = "증폭됨",
                 text = {
-                    "{C:attention}Enhancements{} on",
-                    "this card have",
-                    "{C:attention}doubled{} values"
+                    "이 카드가 보유한",
+                    "{C:attention}강화{} 효과가",
+                    "{C:attention}두 배{}로 적용됩니다"
                 }
             },
             lobc_amplified_1 = {
-                name = "Amplified",
+                name = "증폭됨",
                 text = {
                     "{C:inactive}...{}"
                 }
             },
             lobc_pebble = {
-                name = "Pebble",
+                name = "조약돌",
                 text = {
-                    "Given by {C:attention}O-01-55{}",
-                    "Effect removed at the",
-                    "start of each hand",
+                    "{C:attention}O-01-55{}이 건네줌",
+                    "각 핸드 시작 시",
+                    "효과가 제거됩니다",
                 }
             },
             lobc_pebble_1 = {
-                name = "Pebble",
+                name = "조약돌",
                 text = {
                     "{C:inactive}...{}"
                 }
@@ -562,208 +563,217 @@ return {
             lobc_enchanted = {
                 name = "Enchanted",
                 text = {
-                    "Always drawn to hand",
-                    "Returns after {C:blue}play{} or {C:red}discard{}",
-                    "Effect removed at the",
-                    "end of the {C:attention}Blind{}",
+                    "항상 손패로 들어옵니다",
+                    "{C:blue}플레이{}하거나 {C:red}버릴{} 시 돌아옵니다",
+                    "이 효과는 {C:attention}블라인드{} 종료 시",
+                    "제거됩니다",
                 }
             },
             lobc_perma_enchanted = {
-                name = "Enchanted",
+                name = "매혹당함",
                 text = {
-                    "Always drawn to hand",
-                    "Returns after {C:blue}play{} or {C:red}discard{}",
+                    "항상 손패로 들어옵니다",
+                    "{C:blue}플레이{}하거나 {C:red}버릴{} 시 돌아옵니다",
                 }
             },
             lobc_enchanted_1 = {
-                name = "Enchanted",
+                name = "매혹당함",
                 text = {
                     "{C:inactive}...{}"
                 }
             },
             lobc_active_ability = {
-                name = "Active Ability",
+                name = "액티브 효과",
                 text = {
-                    "One of this Abnormality's",
-                    "effects can be manually",
-                    "activated by selecting it",
-                    "then pressing {C:red}USE{}"
+                    "이 환상체의 일부 능력은",
+                    "환상체를 선택한 다음",
+                    "{C:red}사용{} 버튼을 눌러",
+                    "발동할 수 있습니다"
                 }
             },
             lobc_sin = {
-                name = "Sin",
+                name = "죄",
                 text = {
-                    "When {C:attention}Blind{} is defeated,",
-                    "decays by {C:attention}1{}",
-                    "plus {C:attention}half{} at {C:attention}10+ {C:red}Sin",
+                    "{C:attention}블라인드{}에 승리하면",
+                    "{C:red}죄{}가 {C:attention}10{} 이상일 때",
+                    "{C:attention}1 + 절반{}의 수치만큼 감소합니다",
                 }
             },
             lobc_marked = {
-                name = "Marked",
+                name = "표적",
                 text = {
-                    "Marked by {C:attention}F-01-57"
+                    "{C:attention}F-01-57{}에 의해 표적이 됨"
                 }
             },
             lobc_devoured = {
-                name = "Devoured",
+                name = "삼켜짐",
                 text = {
-                    "Devoured by {C:attention}F-02-58",
-                    "Removed from Joker Slots",
-                    "and becomes {C:red}debuffed"
+                    "{C:attention}F-02-58{}에 의해 삼켜짐",
+                    "조커 슬롯에서 제거됨",
+                    "{C:red}디버프됨{}"
                 }
             },
             lobc_prey_mark = {
-                name = "Prey Mark",
+                name = "사냥감의 징표",
                 text = {
-                    "Returns to hand after {C:blue}play{}",
-                    "{C:red}Destroyed{} when discarded"
+                    "{C:blue}플레이{}할 시 돌아옵니다",
+                    "버려질 시 {C:red}파괴{}됩니다"
                 }
             },
             lobc_villain = {
-                name = "Villain",
+                name = "악당",
                 text = {
-                    "Marked by {C:attention}Hatred{}~",
-                    "Removed after hand played",
+                    "{C:attention}증오{}에 의해 표식찍힘~",
+                    "핸드 플레이 후 제거됩니다",
                 }
             },
             lobc_shield = {
-                name = "Shield",
+                name = "보호막",
                 text = {
-                    "Reduces final score by {C:blue}Shield",
-                    "{C:green}[Hand Start]{} Removes {C:blue}Shield"
+                    "최종 점수를 {C:blue}보호막{}만큼 감소시킵니다",
+                    "{C:green}[핸드 시작 시]{} {C:blue}보호막{}을 제거합니다"
                 }
             },
             lobc_metallic = {
-                name = "Metallic Cards",
+                name = "금속제 카드",
                 text = {}
             }
         },
         Joker = {
             ---- Abnormalities' Observation Levels ----
             j_lobc_scorched_girl = {
-                name = "Scorched Girl",
+                name = "불타버린 소녀",
                 text = {
-                    {"When {C:attention}Blind{} is selected,",
-                    "{C:attention}-#1#%{} Blind Size"},
-                    {"{C:red}Debuffs{} first hand drawn"}
+                    {"{C:attention}블라인드{}를 선택하면,",
+                    "블라인드 크기가 {C:attention}#1#%{} 감소합니다"},
+                    {"첫 핸드가 {C:red}디버프{}됩니다"}
                 }
             },
             j_lobc_one_sin = {
-                name = "One Sin and Hundreds of Good Deeds",
+                name = "단 한번의 악과 수백 가지의 선행",
                 text = {
-                    {"Played cards give {C:mult}+#1#{} Mult when scored"},
-                    {"Punishment shall begin to",
-                    "rain down {C:attention}WhiteNight{}."}
+                    {"플레이해 득점한 카드가",
+                    "{C:mult}+#1#{} 배수를 부여합니다"},
+                    {"{C:attention}백야{}를 {C:red}처벌{}합니다"}
                 }
             },
             j_lobc_queen_of_hatred = {
-                name = "The Queen of Hatred",
+                name = "증오의 여왕",
                 text = {
-                    {"{X:mult,C:white} X#1# {} Mult"},
-                    {"If score is at least {X:mult,C:white} X3 {} {C:attention}Blind Size{},",
-                    "this Abnormality enters {C:red}Hysteria{}"},
-                    {"At {X:mult,C:white} X1 {} Mult,",
-                    "this Abnormality {C:attention}breaches{}"}
+                    {"{X:mult,C:white} X#1# {} 배수"},
+                    {"점수가 {C:attention}블라인드 크기{}의 {X:mult,C:white} X3 {}보다 높으면,",
+                    "이 환상체는 {C:red}히스테리{} 상태에 진입합니다"},
+                    {"{X:mult,C:white} X1 {} 배수에서,",
+                    "이 환상체가 {C:attention}탈출{}합니다"}
                 }
             },
-            j_lobc_happy_teddy_bear_name_1 = {name = "A Teddy Bear"},
+            j_lobc_happy_teddy_bear_name_1 = {name = "테디"},
             j_lobc_happy_teddy_bear = {
-                name = "Happy Teddy Bear",
+                name = "행복한 테디",
                 text = {
-                    {"Upgrades level of played",
-                    "{C:attention}poker hand{} once"},
-                    {"If {C:attention}consecutive{} hands are",
-                    "the same {C:attention}poker hand{},",
-                    "reduce its level to {C:attention}0{}",}
+                    {"이 라운드에서 플레이한 적 없는",
+                    "{C:attention}족보{} 레벨을",
+                    "최대 1회 업그레이드합니다"},
+                    {"{C:attention}연속{}으로 플레이한 핸드가",
+                    "동일한 {C:attention}족보{}일 경우,",
+                    "레벨을 {C:attention}0{}까지 감소시킵니다",}
                 }
             },
             j_lobc_red_shoes = {
-                name = "Red Shoes",
+                name = "빨간 구두",
                 text = {
-                    {"Played cards permanently gain",
-                    "{C:chips}+#1#{} Chips when scored"},
-                    {"When {C:attention}Blind{} is selected, forces",
-                    "{C:attention}2{} cards to always be selected"},
-                    {"Destroys scoring cards with",
-                    "{C:chips}100{} or more bonus Chips"}
+                    {"플레이해 득점한 카드에",
+                    "칩 {C:chips}+#1#{}개를 영구적으로",
+                    "추가합니다"},
+                    {"{C:attention}블라인드{}를 선택하면",
+                    "항상 카드 {C:attention}2{}장이",
+                    "강제 선택됩니다"},
+                    {"{C:chips}100{}개 이상의",
+                    "추가 칩이 있는 카드 득점 시",
+                    "해당 카드를 파괴합니다"}
                 }
             },
             j_lobc_theresia = {
-                name = "Theresia",
+                name = "테레시아",
                 text = {
-                    {"This Abnormality gains",
-                    "{C:chips}+#2#{} Chips each hand",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)"},
-                    {"After the third hand played,",
-                    "{C:red}debuffs{} all {C:attention}playing cards{}",}
+                    {"이 환상체는 손패에 남아 있는",
+                    "카드마다 {C:chips}+#2#{} 칩을 얻습니다",
+                    "{C:inactive}(현재 {C:chips}+#1#{C:inactive} 칩)"},
+                    {"세 번째 핸드 플레이 후,",
+                    "모든 {C:attention}플레잉 카드{}를",
+                    "{C:red}디버프{}합니다",}
                 }
             },
             j_lobc_old_lady = {
-                name = "Old Lady",
+                name = "늙은 여인",
                 text = {
-                    {"This Abnormality gains",
-                    "{C:mult}+#2#{} Mult each hand"},
-                    {"When another Joker is added,",
-                    "this Abnormality loses {C:mult}#3#{} Mult",
-                    "{C:inactive}(Currently {C:mult}#6##1#{C:inactive} Mult)"}
+                    {"이 환상체는 핸드마다",
+                    "{C:mult}+#2#{} 배수를 얻습니다"},
+                    {"다른 조커를 획득 시,",
+                    "이 환상체는 배수를 {C:mult}#3#{} 잃습니다",
+                    "{C:inactive}(현재 {C:mult}#6##1#{C:inactive} 배수)"}
                 }
             },
             j_lobc_nameless_fetus = {
-                name = "Nameless Fetus",
+                name = "이름이 없는 태아",
                 text = {
-                    {"{X:mult,C:white} X#2# {} Mult after playing chosen hand type"},
-                    {"{X:mult,C:white} X#3# {} Mult if other hand types are played"},
-                    {"If the {C:attention}first hand{} of round has",
-                    "only {C:attention}1{} card, destroy it",
-                    "and change chosen hand type",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
+                    {"선택된 족보 플레이 시 {X:mult,C:white} X#2# {} 배수"},
+                    {"선택되지 않은 족보 플레이 시 {X:mult,C:white} X#3# {} 배수"},
+                    {"라운드의 {C:attention}첫 번째 핸드{}가",
+                    "카드 {C:attention}1{}장 뿐이라면",
+                    "그 카드를 파괴하고",
+                    "선택된 족보를 변경합니다",
+                    "{C:inactive}(선택된 족보: {C:attention}#1#{C:inactive})"},
                 }
             },
-            j_lobc_wall_gazer_name_1 = {name = "Wall Gazer"},
+            j_lobc_wall_gazer_name_1 = {name = "벽을 보는 여인"},
             j_lobc_wall_gazer = {
-                name = "The Lady Facing the Wall",
+                name = "벽을 보는 여인",
                 text = {
-                    {"Retriggers the {C:attention}lowest{} ranked",
-                    "scoring card in {C:attention}first hand{}",
-                    "randomly from {C:attention}#1#{} to {C:attention}#2#{} times"},
-                    {"{C:attention}Playing cards{} are drawn {C:attention}face{}",
-                    "{C:attention}down{} until hand is played"}
+                    {"{C:attention}첫 핸드{}에서 득점한",
+                    "가장 {C:attention}낮은{} 랭크의 카드를",
+                    "무작위로 {C:attention}#1#{}에서 {C:attention}#2#{}회",
+                    "다시 트리거합니다."},
+                    {"핸드를 플레이하기 전까지",
+                    "{C:attention}플레잉 카드{}가",
+                    "{C:attention}뒤집혀서{} 나옵니다"}
                 }
             },
             j_lobc_nothing_there = {
-                name = "Nothing There",
+                name = "아무 것도 없는",
                 text = {
-                    {"Copies the abilities of adjacent {C:attention}Jokers{}"},
-                    {"When {C:attention}Blind{} is defeated, moves to",
-                    "a random Joker Slot"},
-                    {"{C:red}Destroys{} Jokers copied last round and",
-                    "take its skin if this Abnormality",
-                    "is adjacent to one",
-                    "{C:inactive}(once per round)"}
+                    {"인접한 {C:attention}조커{}의 능력을 복사합니다"},
+                    {"{C:attention}블라인드{}에 승리하면",
+                    "무작위 조커 슬롯으로 이동합니다"},
+                    {"이 환상체 옆에 마지막 라운드에",
+                    "복사된 조커가 있을 경우",
+                    "그 조커를 {C:red}파괴{}하고",
+                    "그 조커의 외형을 가져옵니다",
+                    "{C:inactive}(라운드 당 1회)"}
                 }
             },
             j_lobc_mhz = {
                 name = "1.76 MHz",
                 text = {
-                    {"Removes visible playing card",
-                    "ranks and suits",},
-                    {"Played cards give {C:chips}+???{} chips",
-                    "and {C:mult}+???{} Mult when scored"}
+                    {"카드의 랭크와 수트 표기를",
+                    "제거합니다",},
+                    {"플레이해 득점한 카드가",
+                    "{C:chips}+???{} 칩과 {C:mult}+???{} 배수를 부여합니다"}
                 }
             },
             j_lobc_silent_orchestra = {
-                name = "The Silent Orchestra",
+                name = "고요한 오케스트라",
                 text = {
-                    {"When round starts, shuffles",
-                    "{C:attention}#1#{} into the deck"},
-                    {"When {C:attention}#1#{} is drawn,",
-                    "{C:attention}#2#{} is shuffled next Blind"},
-                    {"When round ends, or when this Abnormality",
-                    "is removed, removes all {C:attention}Movements"},
+                    {"라운드 시작 시, 덱에",
+                    "{C:attention}#1#{}를 섞어넣습니다"},
+                    {"{C:attention}#1#{}가 나올 경우,",
+                    "다음 블라인드에 {C:attention}#2#{}를 섞어넣습니다"},
+                    {"라운드가 종료되거나, 이 환상체가 제거될 시",
+                    "덱의 모든 {C:attention}악장{}을 제거합니다"},
                 }
             },
             j_lobc_big_bird = {
-                name = "Big Bird",
+                name = "큰 새",
                 text = {
                     {"When round begins, {C:enchanted}enchants{}",
                     "a random playing card"},
@@ -774,7 +784,7 @@ return {
                 }
             },
             j_lobc_all_around_helper = {
-                name = "All-Around Helper",
+                name = "무엇이든 도와드립니다",
                 text = {
                     {"This Abnormality gains {X:mult,C:white} X#2# {} Mult",
                     "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand"},
@@ -785,7 +795,7 @@ return {
                 }
             },
             j_lobc_spider_bud = {
-                name = "Spider Bud",
+                name = "거미봉오리",
                 text = {
                     {"{C:attention}+#1#{} hand size"},
                     {"{C:red}Destroys{} the first {C:red}discarded{} card",
@@ -794,7 +804,7 @@ return {
                 }
             },
             j_lobc_plague_doctor = {
-                name = "Plague Doctor",
+                name = "역병 의사",
                 text = {
                     {"{C:attention}Baptizes{} a playing card each hand"},
                     {"Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult"},
@@ -804,7 +814,7 @@ return {
                 }
             },
             j_lobc_whitenight = {
-                name = "WhiteNight",
+                name = "백야",
                 text = {
                     {"{C:dark_edition}+1{} Joker Slot"},
                     {"{C:attention}Baptizes{} a playing card each hand",
@@ -813,7 +823,7 @@ return {
                 }
             },
             j_lobc_rudolta = {
-                name = "Rudolta of the Sleigh",
+                name = "썰매의 루돌타",
                 text = {
                     {"When a card is sold, lose {C:attention}money{}",
                     "equals to {X:money,C:white} X#3# {} its sell cost,",
@@ -825,7 +835,7 @@ return {
                 }
             },
             j_lobc_queen_bee = {
-                name = "Queen Bee",
+                name = "여왕벌",
                 text = {
                     {"Playing cards permanently gain",
                     "{C:mult}+#1#{} Mult when scored"},
@@ -836,7 +846,7 @@ return {
                 }
             },
             j_lobc_forsaken_murderer = {
-                name = "Forsaken Murderer",
+                name = "버려진 살인마",
                 text = {
                     {"First scoring card",
                     "gives {X:mult,C:white} X#1# {} Mult"},
@@ -844,7 +854,7 @@ return {
                 }
             },
             j_lobc_wellcheers = {
-                name = "Opened Can of WellCheers",
+                name = "뚜껑 따인 웰치어스",
                 text = {
                     {"On {C:blue}play{} or {C:red}discard{},",
                     "changes the displayed can's color"},
@@ -856,7 +866,7 @@ return {
                 }
             },
             j_lobc_child_galaxy = {
-                name = "Child of the Galaxy",
+                name = "은하수의 아이",
                 text = {
                     {"At the start of each hand, gives",
                     "{C:pebble}Pebble{} to {C:attention}5{} random cards in hand"},
@@ -866,31 +876,32 @@ return {
                     "and loses {X:purple,C:white} X#3# {} per scoring card without"},
                 }
             },
-            j_lobc_punishing_bird_name_2 = {name = "Small Bird"},
+            j_lobc_punishing_bird_name_2 = {name = "작은 새"},
             j_lobc_punishing_bird = {
-                name = "Punishing Bird",
+                name = "징벌 새",
                 text = {
                     {"{C:mult}+#1#{} Mult"},
-                    {"This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"},
-                    {"If this Abnormality is {C:attention}sold{},",
-                    "immediately {C:attention}lose{} the game"},
+                    {"이 환상체는 {C:attention}9{}라운드 이후",
+                    "{C:dark_edition}네거티브{}를 얻습니다.",
+                    "{C:inactive}(현재 {C:attention}#2#{C:inactive} 라운드){}"},
+                    {"이 환상체를 {C:attention}판매{}할 경우,",
+                    "게임에서 즉시 {C:attention}패배{}합니다"},
                 }
             },
             j_lobc_punishing_bird_apoc = {
-                name = "Punishing Bird",
+                name = "징벌 새",
                 text = {
                     {"{C:mult}+#1#{} Mult"},
-                    {"This Abnormality gains",
-                    "{C:dark_edition}Negative{} after {C:attention}9{} rounds",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} round(s)){}"},
-                    {"When this Abnormality is {C:attention}sold{}, encounter",
-                    "an {C:attention}Abnormality{} next {C:attention}Boss Blind"}
+                    {"이 환상체는 {C:attention}9{}라운드 이후",
+                    "{C:dark_edition}네거티브{}를 얻습니다.",
+                    "{C:inactive}(현재 {C:attention}#2#{C:inactive} 라운드){}"},
+                    {"이 환상체를 {C:attention}판매{}할 경우,",
+                    "다음 {C:attention}보스 블라인드{}에서",
+                    "{C:attention}환상체{}를 조우합니다"}
                 }
             },
             j_lobc_little_red = {
-                name = "Little Red Riding Hooded Mercenary",
+                name = "붉은 두건의 용병",
                 text = {
                     {"If there is no {C:marked}Prey{}, a random",
                     "playing card becomes {C:marked}Marked{}"},
@@ -903,7 +914,7 @@ return {
                 }
             },
             j_lobc_little_red_alt = {
-                name = "Little Red Riding Hooded Mercenary",
+                name = "붉은 두건의 용병",
                 text = {
                     {"{C:marked}Marks{} {C:attention}F-02-58{}"},
                     {"{C:purple}[Active Ability]",
@@ -918,7 +929,7 @@ return {
                 }
             },
             j_lobc_big_bad_wolf = {
-                name = "Big and Will be Bad Wolf",
+                name = "커다랗고 나쁠 늑대",
                 text = {
                     {"When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours{} a random Joker"},
@@ -931,7 +942,7 @@ return {
                 }
             },
             j_lobc_big_bad_wolf_alt = {
-                name = "Big and Will be Bad Wolf",
+                name = "커다랗고 나쁠 늑대",
                 text = {
                     {"When {C:attention}Blind{} is selected,",
                     "{C:devoured}devours {C:attention}F-01-57"},
@@ -944,7 +955,7 @@ return {
                 }
             },
             j_lobc_fragment_universe = {
-                name = "Fragment of the Universe",
+                name = "우주 속의 조각",
                 text = {
                     {"If {C:attention}poker hand{} contains {C:attention}3{}",
                     "different suits, {C:green}#1# in #2#{} chance to",
@@ -954,9 +965,9 @@ return {
                     "{C:inactive}(Must have room)"}
                 }
             },
-            j_lobc_judgement_bird_name_2 = {name = "Long Bird"},
+            j_lobc_judgement_bird_name_2 = {name = "긴 새"},
             j_lobc_judgement_bird = {
-                name = "Judgement Bird",
+                name = "심판 새",
                 text = {
                     {"Each card in full hand adds {C:attention}+1 {C:red}Sin",
                     "to all playing cards of that rank"},
@@ -967,7 +978,7 @@ return {
                 }
             },
             j_lobc_apocalypse_bird = {
-                name = "Apocalypse Bird",
+                name = "종말새",
                 text = {
                     {"{C:dark_edition}+1{} Joker Slot"},
                     {"{C:attention}Permanently{} {C:enchanted}enchants{} leftmost",
@@ -977,7 +988,7 @@ return {
                 }
             },
             j_lobc_king_of_greed = {
-                name = "The King of Greed",
+                name = "탐욕의 왕",
                 text = {
                     {"Played {C:attention}Kings{} give {C:money}$#1#{} when scored",},
                     {"Decreases money given by {C:money}$#2#{}",
@@ -987,7 +998,7 @@ return {
                 }
             },
             j_lobc_price_of_silence = {
-                name = "The Price of Silence",
+                name = "침묵의 대가",
                 text = {
                     {"Converts the {C:attention}rightmost{} scoring",
                     "card to the {C:attention}leftmost{} scoring card"},
@@ -999,7 +1010,7 @@ return {
             },
             j_lobc_laetitia_name_1 = {name = "A Wee Witch"},
             j_lobc_laetitia = {
-                name = "Laetitia",
+                name = "래티씨아",
                 text = {
                     {"If only {C:hearts}Hearts{} cards score, copy",
                     "non-{C:attention}marked{}, scoring cards to hand"},
@@ -1010,7 +1021,7 @@ return {
                 }
             },
             j_lobc_fotdb = {
-                name = "Funeral of the Dead Butterflies",
+                name = "죽은 나비들의 장례",
                 text = {
                     {"This Abnormality is always {C:dark_edition}Eternal{}"},
                     {"{X:mult,C:white} X#2# {} Mult for each {C:dark_edition}Eternal{} Joker",
@@ -1020,7 +1031,7 @@ return {
                 }
             },
             j_lobc_mosb = {
-                name = "The Mountain of Smiling Bodies",
+                name = "웃는 시체들의 산",
                 text = {
                     {"Destroys all {C:attention}scored{} cards"},
                     {"This Abnormality gains {C:chips}+#3#{} Chips and",
@@ -1031,7 +1042,7 @@ return {
                 }
             },
             j_lobc_heart_of_aspiration = {
-                name = "The Heart of Aspiration",
+                name = "열망하는 심장",
                 text = {
                     {"{C:blue}Hands{} and {C:red}Discards{} are",
                     "not reset after each {C:attention}Blind{}"},
@@ -1043,7 +1054,7 @@ return {
                 }
             },
             j_lobc_giant_tree_sap = {
-                name = "Giant Tree Sap",
+                name = "거목수액",
                 text = {
                     {"{C:purple}[Active Ability]",
                     "Gives {C:money}$#2#{} and {C:blue}+#1#{} hand this round",},
@@ -1054,9 +1065,9 @@ return {
                 }
             },
             j_lobc_shelter = {
-                name = "Shelter from the 27th of March",
+                name = "3월 27일의 방공호",
                 text = {
-                    {"{C:purple}[Active Ability]",
+                    {"{C:purple}[액티브 효과]",
                     "Become {C:attention}Sheltered{}, {C:attention}halving{} this Abnormality's {C:mult}Mult{}"},
                     {"Use {C:purple}[Active Ability]{} again to remove",
                     "{C:attention}Sheltered{}, {C:attention}doubling{} this Abnormality's {C:mult}Mult{}",},
@@ -1066,7 +1077,7 @@ return {
                 }
             },
             j_lobc_fairy_festival = {
-                name = "Fairy Festival",
+                name = "요정의 축제",
                 text = {
                     {"When entering a shop, sets a",
                     "random shop item's price to {C:money}$0{}",
@@ -1077,7 +1088,7 @@ return {
                 }
             },
             j_lobc_meat_lantern = {
-                name = "Meat Lantern",
+                name = "고기 초롱",
                 text = {
                     {"When shop is {C:attention}rerolled{}, add a",
                     "random {C:attention}Booster Pack{} to the shop",
@@ -1089,7 +1100,7 @@ return {
                 }
             },
             j_lobc_iron_maiden = {
-                name = "We Can Change Anything",
+                name = "무엇이든 바꿔드립니다",
                 text = {
                     {"{C:purple}[Active Ability]",
                     "Every {C:attention}#1#{} seconds, {C:blue}-#2#{} hands and",
@@ -1102,7 +1113,7 @@ return {
                 }
             },
             j_lobc_express_train = {
-                name = "Express Train to Hell",
+                name = "지옥행 급행열차",
                 text = {
                     {"Every {C:attention}#3#{} seconds when in control,",
                     "a light will be {C:enchanted}illuminated{}"},
@@ -1116,7 +1127,7 @@ return {
                 }
             },
             j_lobc_scarecrow_searching = {
-                name = "Scarecrow Searching for Wisdom",
+                name = "지혜를 구하는 허수아비",
                 text = {
                     {"After each Blind, create {C:attention}2{}",
                     "{C:tarot}Wisdom{} cards {C:inactive}(Must have room)"},
@@ -1128,7 +1139,7 @@ return {
                 }
             },
             j_lobc_censored = {
-                name = "CENSORED",
+                name = "검열삭제",
                 text = {
                     {"When acquired, {C:red}[CENSORED]{} {C:attention}10{} random cards",
                     "Removes all other descriptions"},
@@ -1140,7 +1151,7 @@ return {
                 }
             },
             j_lobc_skin_prophecy = {
-                name = "Skin Prophecy",
+                name = "살갗 예언",
                 text = {
                     {"{C:purple}[Active Ability]",
                     "{C:attention}Halves{} reroll cost this shop",
@@ -1149,7 +1160,7 @@ return {
                 }
             },
             j_lobc_shy_look = {
-                name = "Today's Shy Look",
+                name = "수줍은 오늘의 표정",
                 text = {
                     {"+{C:attention}Variable{} {C:chips}Chips{} and {C:mult}Mult{}"},
                     {"The face changes every {C:attention}#1#{} seconds"},
@@ -1157,7 +1168,7 @@ return {
                 }
             },
             j_lobc_you_must_be_happy = {
-                name = "You Must Be Happy",
+                name = "당신은 행복해야합니다.",
                 text = {
                     {"When sold, modify {C:chips}Chips{}, {C:mult}Mult{} and {X:mult,C:white} XMult {}",
                     "sources for this {C:attention}Ante{} by {X:blue,C:white} X#1# {} or {X:red,C:white} X#2# {}"},
@@ -1169,7 +1180,7 @@ return {
                 }
             },
             j_lobc_old_faith = {
-                name = "Old Faith and Promise",
+                name = "오래전의 믿음과 약속",
                 text = {
                     {"When {C:attention}Blind{} is selected, add",
                     "an {C:dark_edition}edition{} to a random card",
@@ -1179,7 +1190,7 @@ return {
                 }
             },
             j_lobc_void_dream = {
-                name = "Void Dream",
+                name = "공허한 꿈",
                 text = {
                     {"Played cards have a {C:green}#1# in #2#{} chance",
                     "to give {C:money}$#3#{} when scored"},
@@ -1188,7 +1199,7 @@ return {
                 }
             },
             j_lobc_firebird = {
-                name = "The Firebird",
+                name = "불새",
                 text = {
                     {"Cannot earn more than {C:money}$5{} at once"},
                     {"This Abnormality gains {X:mult,C:white} X#2# {} Mult",
@@ -1198,39 +1209,39 @@ return {
                 }
             },
             j_lobc_servant_of_wrath = {
-                name = "The Servant of Wrath",
+                name = "분노의 시종",
                 text = {
                     {"When round starts, plays {C:attention}5{}",
                     "random cards from your hand"},
                     {"Scoring cards this way give {X:mult,C:white} X#1# {} Mult"},
-                    {"If {C:attention}three{} hands played this way are",
-                    "{C:attention}High Cards{}, this Abnormality {C:attention}breaches{}"},
+                    {"이 방식으로 플레이된 {C:attention}3{}번의 족보가",
+                    "{C:attention}하이 카드{}일 경우, 이 환상체가 {C:attention}탈출{}합니다"},
                 }
             },
             j_lobc_servant_of_wrath_alt = {
-                name = "The Servant of Wrath",
+                name = "분노의 시종",
                 text = {
                     {"After hand is played, plays {C:attention}5{}",
                     "random cards from your hand"},
                     {"Scoring cards this way give {X:mult,C:white} X#2# {} Mult"},
-                    {"{C:inactive}If three hands played this way are",
-                    "{C:inactive}High Cards, this Abnormality breaches"},
+                    {"{C:inactive}이 방식으로 플레이된 3번의 족보가",
+                    "{C:inactive}하이 카드일 경우, 이 환상체가 탈출합니다"},
                 }
             },
             j_lobc_jolliest_jester = {
-                name = "The Jolliest Jester",
+                name = "가장 쾌활한 광대",
                 text = {
-                    {"{C:attention}Jolly Jokers{} can be bought",
-                    "ignoring {C:attention}Joker Slot{} limit"},
-                    {"{C:green}#1# in #2#{} chance for cards in shop",
-                    "to be replaced by {C:attention}Jolly Joker"},
-                    {"Increase base chance by {C:green}#3#{} if failed,",
-                    "otherwise, {C:attention}halves{} chance",
-                    "{C:inactive,s:0.8}(chance shared by all copies of this Abnormality)"},
+                    {"{C:attention}쾌활한 조커{}를 {C:attention}조커 슬롯{}에",
+                    "관계 없이 구입할 수 있습니다"},
+                    {"{C:green}#1#/#2#{} 확률로 상점의 조커가",
+                    "{C:attention}쾌활한 조커{}로 대체됩니다"},
+                    {"실패 시 {C:green}#3#{}만큼 확률이 증가합니다",
+                    "성공 시 확률이 {C:attention}절반{}이 됩니다",
+                    "{C:inactive,s:0.8}(복사된 환상체도 확률을 공유합니다)"},
                 }
             },
             j_lobc_sign_of_roses = {
-                name = "Sign of Roses",
+                name = "장미 표지판",
                 text = {
                     {"Adds {C:attention}#1#{} round to held {C:colourcard}Colour Cards{} for",
                     "every {C:attention}2{} unique suits in played hand"},
@@ -1240,7 +1251,7 @@ return {
                 }
             },
             j_lobc_sign_of_roses_alt = {
-                name = "Sign of Roses",
+                name = "장미 표지판",
                 text = {
                     {"This Abnormality gains {X:mult,C:white} X#3# {} Mult for",
                     "every {C:attention}2{} unique suits in played hand",
@@ -1251,7 +1262,7 @@ return {
                 }
             },
             j_lobc_electric_sheep = {
-                name = "Dreaming Electric Sheep",
+                name = "꿈꾸는 전기양",
                 text = {
                     {"All non-{C:attention}Metallic Cards{} held in hand",
                     "are {C:red}debuffed{} for the entire round"},
@@ -1263,101 +1274,99 @@ return {
                 }
             },
             j_lobc_youre_bald = {
-                name = "You're Bald...",
+                name = "너 대머리야...",
                 text = {
-                    {"Future Jokers may",
-                    "become {C:attention}bald{}"},
+                    {"조커들이 {C:attention}대머리{}가 됩니다"},
                 }
             },
         },
         EGO_Gift = {
             c_lobc_wisdom = {
-                name = "Wisdom",
+                name = "지혜",
                 text = {
-                    "Creates a",
-                    "{C:attention}playing card{}",
+                    "{C:attention}플레잉 카드{}를",
+                    "생성합니다",
                 }
             },
             c_lobc_tt2 = {
-                name = "TT2 Protocol",
+                name = "TT2 프로토콜",
                 text = {
-                    "Sets {C:attention}Ante{} to next",
-                    "multiple of {C:attention}8{}, minus {C:attention}1{}",
-                    "Destroy {C:attention}#1#{} playing cards",
-                    "per {C:attention}Ante{} skipped"
+                    "{C:attention}앤티{}를 다음 {C:attention}8{} 배수 - {C:attention}1{}로",
+                    "설정합니다",
+                    "건너뛴 {C:attention}앤티{} 당 {C:attention}#1#{}개의",
+                    "플레잉 카드를 파괴합니다"
                 }
             }
         },
         Enhanced = {
             m_lobc_worker_bee = {
-                name = "Worker Bee",
+                name = "일벌",
                 text = {
-                    "No rank or suit",
-                    "Cannot change",
-                    "enhancements"
+                    "랭크 혹은 수트가 없습니다",
+                    "강화 변경 불가능"
                 }
             }
         },
         Blind = {
             -- Abnormalities
             bl_lobc_whitenight = {
-                name = "WhiteNight",
+                name = "백야",
                 text = {
-                    "Destroyed Apostles reduce",
-                    "Blind Size by 5X Base",
+                    "사도 파괴 시 블라인드 크기가",
+                    "기본 라운드 점수의 5배만큼 감소합니다"
                 }
             },
             
             bl_lobc_apocalypse_bird = {
-                name = "Apocalypse Bird",
+                name = "종말새",
                 text = {
-                    "\"It's the monster!",
-                    "Big, terrible monster",
-                    "lives in the dark,",
-                    "black forest!\""
+                    "\"저기 괴수가 있다!",
+                    "검고 어두운 숲에는",
+                    "크고 무서운",
+                    "괴물이 산다!\""
                 }
             },
             bl_lobc_apocalypse_bird_effect = {
-                name = "Apocalypse Bird",
+                name = "종말새",
                 text = {
                     "Hand scores X0.3 less",
                     "for each #1# played",
                 }
             },
             bl_lobc_ab_beak = {
-                name = "Small Beak",
+                name = "작은 부리",
                 text = {
                     "???",
                 }
             },
             bl_lobc_ab_beak_effect = {
-                name = "Small Beak",
+                name = "작은 부리",
                 text = {
                     "No repeat hands",
                     "this Blind",
                 }
             },
             bl_lobc_ab_eyes = {
-                name = "Big Eyes",
+                name = "큰 눈",
                 text = {
                     "???",
                 }
             },
             bl_lobc_ab_eyes_effect = {
-                name = "Big Eyes",
+                name = "큰 눈",
                 text = {
                     "Enchants leftmost unenchanted",
                     "playing card each hand",
                 }
             },
             bl_lobc_ab_arms = {
-                name = "Long Arms",
+                name = "긴 팔",
                 text = {
                     "???",
                 }
             },
             bl_lobc_ab_arms_effect = {
-                name = "Long Arms",
+                name = "긴 팔",
                 text = {
                     "Each unique rank in",
                     "played hand gains +1 Sin",
@@ -1365,7 +1374,7 @@ return {
             },
 
             bl_lobc_mg_hatred = {
-                name = "Hatred",
+                name = "증오",
                 text = {
                     "In the name of",
                     "Love and Justice~",
@@ -1373,7 +1382,7 @@ return {
                 }
             },
             bl_lobc_mg_hatred_effect = {
-                name = "Hatred",
+                name = "증오",
                 text = {
                     "Hysteria: #1#",
                     "Mark #2# card(s) each hand,",
@@ -1382,7 +1391,7 @@ return {
                 }
             },
             bl_lobc_mg_hatred_alt = {
-                name = "Hatred",
+                name = "증오",
                 text = {
                     "Hysteria: #1#",
                     "Total ranks of poker hand",
@@ -1391,21 +1400,21 @@ return {
                 }
             },
             bl_lobc_mg_wrath = {
-                name = "Wrath",
+                name = "분노",
                 text = {
                     "SINNERS OF THE OTHERWORLD!!!",
                     "EMBODIMENTS OF EVIL!!!",
                 }
             },
             bl_lobc_mg_wrath_effect = {
-                name = "Hermit",
+                name = "은자",
                 text = {
                     "Creates The Servant",
                     "of Wrath for the round",
                 }
             },
             bl_lobc_mg_wrath_alt = {
-                name = "Hermit",
+                name = "은자",
                 text = {
                     "The Servant of Wrath",
                     "gives X0.6 Mult instead"
@@ -1414,28 +1423,28 @@ return {
 
             -- Dawn Ordeals
             bl_lobc_dawn_base = {
-                name = "Dawn Ordeal",
+                name = "여명의 시련",
                 text = {
-                    "Fight against a",
-                    "random Dawn Ordeal"
+                    "무작위 여명의 시련을",
+                    "상대합니다"
                 }
             },
             bl_lobc_dawn_green = {
-                name = "Green Dawn",
+                name = "녹빛 여명",
                 text = {
-                    "Reduces the level of",
-                    "first hand played"
+                    "첫 핸드의 레벨을",
+                    "감소시킵니다"
                 }
             },
             bl_lobc_dawn_amber = {
-                name = "Amber Dawn",
+                name = "호박색 여명",
                 text = {
                     "Debuffs 4 cards in deck",
                     "after playing a hand"
                 }
             },
             bl_lobc_dawn_crimson = {
-                name = "Crimson Dawn",
+                name = "핏빛 여명",
                 text = {
                     "If 4 or more hands",
                     "played this round, all",
@@ -1444,7 +1453,7 @@ return {
                 }
             },
             bl_lobc_dawn_violet = {
-                name = "Violet Dawn",
+                name = "자색 여명",
                 text = {
                     "-1 hand if hand doesn't",
                     "score at least 20% Blind Size"
@@ -1453,10 +1462,10 @@ return {
 
             -- Noon Ordeals
             bl_lobc_noon_base = {
-                name = "Noon Ordeal",
+                name = "정오의 시련",
                 text = {
-                    "Fight against a",
-                    "random Noon Ordeal"
+                    "무작위 정오의 시련을",
+                    "상대합니다"
                 }
             },
             bl_lobc_noon_green = {
@@ -1492,10 +1501,10 @@ return {
 
             -- Dusk Ordeals
             bl_lobc_dusk_base = {
-                name = "Dusk Ordeal",
+                name = "어스름의 시련",
                 text = {
-                    "Fight against a",
-                    "random Dusk Ordeal",
+                    "무작위 어스름의 시련을",
+                    "상대합니다"
                 }
             },
             bl_lobc_dusk_green = {
@@ -1523,10 +1532,10 @@ return {
 
             -- Midnight Ordeals
             bl_lobc_midnight_base = {
-                name = "Midnight Ordeal",
+                name = "자정의 시련",
                 text = {
-                    "Fight against a",
-                    "random Midnight Ordeal"
+                    "무작위 자정의 시련을",
+                    "상대합니다"
                 }
             },
             bl_lobc_midnight_green = {
@@ -1556,16 +1565,16 @@ return {
             },
 
             bl_lobc_erlking_heathcliff = {
-                name = "Erlking Heathcliff",
+                name = "마왕 히스클리프",
                 text = {}
             },
 
             -- The Red Mist
             bl_lobc_red_mist = {
-                name = "The Red Mist",
+                name = "붉은 안개",
                 text = {
-                    "The Red Mist",
-                    "makes her return."
+                    "붉은 안개가",
+                    "돌아옵니다."
                 }
             },
             bl_lobc_red_mist_effect_1 = { text = {
@@ -1701,69 +1710,67 @@ return {
                 text = {}
             },
             bl_lobc_what_blind_name = {
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {"­", "­"}
             },
             bl_lobc_what_blind_name_copy = {
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {"­", "­"}
             },
             bl_lobc_what_blind_cutscene_1 = {
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {
-                    "The time is finally upon",
-                    "us, my dear crew!"
+                    "때가 왔다, 선원들이여!"
                 }
             },
             bl_lobc_what_blind_cutscene_2 = {
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {
-                    "Now, carve yourself",
-                    "in my stead!"
+                    "자, 너를 깎아 내라!"
                 }
             },
             bl_lobc_what_pip = { 
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {
-                    "Pip's Ego: #1#",
+                    "핍의 자아: #1#",
                 }
             },
             bl_lobc_what_starbuck = { 
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {
-                    "Starbuck's Ego: #1#",
+                    "스타벅의 자아: #1#",
                 }
             },
             bl_lobc_what_queequeg = { 
-                name = "GasHarpoon",
+                name = "가스하푼",
                 text = {
-                    "Queequeg's Ego: #1#",
+                    "퀴케그의 자아: #1#",
                 }
             }
         },
         Passive = {
             -- General
             psv_lobc_fixed_encounter = {
-                name = "Fixed Encounter",
+                name = "고정 조우",
                 text = {
-                    "This {C:attention}Blind{} cannot be {C:red}disabled{}",
+                    "이 {C:attention}블라인드{}는 {C:red}비활성화{}할 수 없습니다",
                 }
             },
             psv_lobc_final_battle = {
-                name = "Final Battle",
+                name = "최종 전투",
                 text = {
                     "{C:blue}+1{} hand when hand is played"
                 }
             },
             psv_lobc_suppression = {
-                name = "Abnormality Suppression",
+                name = "환상체 제압",
                 text = {
-                    "When this {C:attention}Blind{} is suppressed,",
-                    "create a special {C:attention}Abnormality{} card"
+                    "이 {C:attention}블라인드{} 제압 시,",
+                    "특별한 {C:attention}환상체{} 카드를 얻습니다"
                 }
             },
             psv_lobc_magical_girl = {
-                name = "Magical Girl",
+                name = "마법 소녀",
                 text = {
                     "???"
                     --"When this {C:attention}Blind{} is suppressed,",
@@ -1771,10 +1778,10 @@ return {
                 }
             },
             psv_lobc_refracted = {
-                name = "Refracted Struggle",
+                name = "굴절된 힘겨루기",
                 text = {
-                    "When a card is retriggered {C:attention}10{} times",
-                    "in a hand, destroy it instead"
+                    "카드가 {C:attention}10{}회 이상 재발동 시",
+                    "발동하는 대신 파괴합니다"
                 }
             },
             -- Crimson Noon & Crimson Dusk
@@ -2227,48 +2234,48 @@ return {
         },
         MovementLobc = {
             mvm_lobc_first = {
-                name = "The First Movement",
+                name = "제 1 악장",
                 text = {
-                    "When drawn, {C:red}destroys{} a random playing card,",
-                    "then permanently gives all playing cards",
-                    "{C:chips}+#1#{} chips",
-                    "{S:1.1,C:red,E:2}self-destructs{}"
+                    "뽑았을 때 무작위 플레잉 카드를 {C:red}파괴{}하며",
+                    "모든 플레잉 카드에 영구적으로",
+                    "{C:chips}+#1#{} 칩을 추가하고",
+                    "{S:1.1,C:red,E:2}스스로 파괴됩니다{}"
                 }
             },
             mvm_lobc_second = {
-                name = "The Second Movement",
+                name = "제 2 악장",
                 text = {
-                    "When drawn, permanently {C:red}debuffs{} two playing cards,",
-                    "then permanently gives all playing cards",
-                    "{C:chips}+#1#{} chips and {C:mult}+#2#{} Mult",
-                    "{S:1.1,C:red,E:2}self-destructs{}"
+                    "뽑았을 때 영구적으로 플레잉 카드 두 장을 {C:red}디버프{}하며",
+                    "모든 플레잉 카드에 영구적으로",
+                    "{C:chips}+#1#{} 칩과 {C:mult}+#2#{} 배수를 추가하고",
+                    "{S:1.1,C:red,E:2}스스로 파괴됩니다{}"
                 }
             },
             mvm_lobc_third = {
-                name = "The Third Movement",
+                name = "제 3 악장",
                 text = {
-                    "When drawn, randomizes the rank and suit of three",
-                    "playing cards, then permanently gives all playing cards",
-                    "{C:chips}+#1#{} chips, {C:mult}+#2#{} Mult and {X:mult,C:white} X#3# {} Mult",
-                    "{S:1.1,C:red,E:2}self-destructs{}"
+                    "뽑았을 때 플레잉 카드 세 장의 랭크와 수트를",
+                    "무작위로 변경하며, 모든 플레잉 카드에 영구적으로",
+                    "{C:chips}+#1#{} 칩, {C:mult}+#2#{} 배수와 {X:mult,C:white} X#3# {} 배수를 추가하고",
+                    "{S:1.1,C:red,E:2}스스로 파괴됩니다{}"
                 }
             },
             mvm_lobc_fourth = {
-                name = "The Fourth Movement",
+                name = "제 4 악장",
                 text = {
-                    "When drawn, removes the rank and suit of four",
-                    "playing cards, then permanently gives all playing cards",
-                    "{C:chips}+#1#{} chips, {C:mult}+#2#{} Mult, {X:mult,C:white} X#3# {} Mult,",
-                    "and they give {C:money}$#4#{} when played",
-                    "{S:1.1,C:red,E:2}self-destructs{}"
+                    "뽑았을 때 영구적으로 플레잉 카드 네 장의 랭크와 수트를",
+                    "제거하고, 다른 모든 플레잉 카드에",
+                    "{C:chips}+#1#{} 칩, {C:mult}+#2#{} 배수, {X:mult,C:white} X#3# {} 배수를 추가하고",
+                    "플레이 시 {C:money}$#4#{}를 획득하며",
+                    "{S:1.1,C:red,E:2}스스로 파괴됩니다{}"
                 }
             },
             mvm_lobc_finale = {
-                name = "Finale",
+                name = "피날레",
                 text = {
-                    "When drawn, removes all permanent bonuses",
-                    "given by {C:attention}Movements",
-                    "{S:1.1,C:red,E:2}self-destructs{}"
+                    "뽑았을 때 모든 {C:attention}악장{} 효과로 얻은",
+                    "영구적 추가 효과를 제거하고",
+                    "{S:1.1,C:red,E:2}스스로 파괴됩니다{}"
                 }
             }
         }
@@ -2276,24 +2283,24 @@ return {
     misc = {
         labels = {
             lobc_gift = "A Wee Witch's Gift",
-            lobc_blessed = "Blessed",
-            lobc_blessed_wn = "Blessed",
-            lobc_apostle = "Apostle",
-            lobc_amplified = "Amplified",
-            lobc_pebble = "Pebble",
-            lobc_enchanted = "Enchanted",
-            lobc_perma_enchanted = "Enchanted",
-            lobc_devoured = "Devoured",
-            lobc_marked = "Prey",
-            lobc_prey_mark = "Prey Mark",
-            lobc_lantern = "Lantern",
-            lobc_villain = "Villain",
+            lobc_blessed = "축복받음",
+            lobc_blessed_wn = "축복받음",
+            lobc_apostle = "사도",
+            lobc_amplified = "증폭됨",
+            lobc_pebble = "조약돌",
+            lobc_enchanted = "매혹당함",
+            lobc_perma_enchanted = "매혹당함",
+            lobc_devoured = "삼켜짐",
+            lobc_marked = "표적",
+            lobc_prey_mark = "사냥감의 징표",
+            lobc_lantern = "초롱",
+            lobc_villain = "악당",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
             lobc_waw = "WAW",
             lobc_aleph = "ALEPH",
-            ego_gift = "E.G.O Gift",
+            ego_gift = "E.G.O 기프트",
         },
         challenge_names = {
             c_lobc_dark_days = "Dark Days",
@@ -2357,21 +2364,21 @@ return {
         },
         dictionary = {
             k_lobc_breached = "Breached!",
-            k_lobc_downgrade = "Downgrade...",
+            k_lobc_downgrade = "다운그레이드...",
             k_lobc_asleep = "Asleep...",
-            k_lobc_extraction_pack = "Extraction Pack",
+            k_lobc_extraction_pack = "추출 팩",
             k_lobc_active = "active",
             k_lobc_inactive = "inactive",
             k_lobc_rank_sin = "Rank's Sin: ",
-            k_ego_gift = "E.G.O Gift",
-            b_ego_gift_cards = "E.G.O Gifts",
+            k_ego_gift = "E.G.O 기프트",
+            b_ego_gift_cards = "E.G.O 기프트",
             k_activated = "Activated!",
             k_conduct = "Conduct!",
             k_ambush = "Ambushed!",
             k_shelter = "Sheltered!",
 
-            k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
-            k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
+            k_lobc_lamp = "패시브 효과: [A Lamp that Burns Forever]",
+            k_lobc_misdeeds = "패시브 효과: [Misdeeds Not Allowed!]",
 
             lobc_show_art_undiscovered = "Show Abnormality Art when Undiscovered",
             lobc_disable_ordeals = "Disable Random Ordeals",
@@ -2397,7 +2404,7 @@ return {
             lobc_credits_6 = "Apocalypse Bird Blind sprites: ",
             lobc_credits_7 = "Playing card modifiers sprites: ",
             lobc_credits_8 = "Energy Production concept: ",
-            lobc_credits_9 = "Chinese localization: ",
+            lobc_credits_9 = "한국어 번역: ",
             lobc_credits_by = "by ",
             lobc_credits_pm = "Project Moon",
             lobc_credits_twi = "Twilight & Sunset",
@@ -2408,14 +2415,14 @@ return {
             lobc_credits_a26 = "a2639443196",
 
             ---- First time text ----
-            k_lobc_first_time_1 = "Manager, welcome to Lobotomy Corporation. Remember to take a look at the mod's settings.",
-            k_lobc_first_time_2 = "(Open the mod in the in-game mod list. This message will only appear once.)",
-            k_lobc_first_time_passive_1 = "Manager, the current Blind has Passive Effects. Hover over the Blind to see them.",
-            k_lobc_first_time_passive_2 = "(Note: There is no Controller support. This message will only appear once.)",
+            k_lobc_first_time_1 = "로보토미 코퍼레이션에 오신 것을 환영합니다, 관리자님. 모드 설정을 확인해주세요.",
+            k_lobc_first_time_2 = "(인게임 모드 리스트에서 모드를 열어주세요. 이 메세지는 한 번만 표시됩니다.)",
+            k_lobc_first_time_passive_1 = "관리자님, 현재 블라인드는 패시브 효과를 보유하고 있습니다. 블라인드에 마우스를 올려 확인하세요.",
+            k_lobc_first_time_passive_2 = "(추신: 컨트롤러를 지원하지 않습니다. 이 메세지는 한 번만 표시됩니다..)",
 
             ---- Breaching text ----
-            k_lobc_warning_1 = "!!! WARNING !!!",
-            k_lobc_warning_2 = " has just breached. Manager, please immediately suppress the Abnormality.",
+            k_lobc_warning_1 = "!!! 경고 !!!",
+            k_lobc_warning_2 = " 환상체가 탈출했습니다. 관리자님, 신속히 제압하여 주시기 바랍니다.",
 
             ---- Ordeals ----
 
@@ -2838,9 +2845,9 @@ return {
             ach_lobc_atziluth = "Beat \"Atziluth\"",
         },
         v_dictionary = {
-            lobc_sp = "Your SP - #1# (#3#%) #2# - Blind SP",
-            lobc_shield = "Shield Value: #1#",
-            lobc_round = "+#1# Round#2#",
+            lobc_sp = "플레이어 정신력 - #1# (#3#%) #2# - 블라인드 정신력",
+            lobc_shield = "보호막 수치: #1#",
+            lobc_round = "+#1# 라운드#2#",
         }
     },
 }
