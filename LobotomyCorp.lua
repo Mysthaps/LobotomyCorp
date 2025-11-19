@@ -540,6 +540,7 @@ function lobc_screen_text(args)
     args.pos = args.pos or {x = 0, y = 0}
     args.align = args.align or 'cm'
     args.emboss = args.emboss or nil
+    args.timer = args.timer or nil
     if args.float == nil then args.float = true end
 
     args.fade = 1
@@ -581,6 +582,8 @@ function lobc_screen_text(args)
         delay = args.hold,
         blockable = false,
         blocking = false,
+        timer = args.timer,
+        pause_force = args.pause_force,
         func = function()
             if not args.start_time then
                 args.start_time = G.TIMERS.TOTAL
@@ -651,7 +654,7 @@ function lobc_abno_text(key, eval_func, delay, quips)
         timer = 'REAL',
         func = function() 
             if eval_func() and key and chosen_quip then 
-                lobc_screen_text({scale = 0.6, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5*G.SETTINGS.GAMESPEED, align = 'cm', offset = offset, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.25, pop_out = 0.1*G.SETTINGS.GAMESPEED})
+                lobc_screen_text({scale = 0.6, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5, align = 'cm', offset = offset, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.2, pop_out = 0.5, timer = "REAL", pause_force = true})
                 lobc_abno_text(key, eval_func, math.random(2, 10), quips) 
             end 
         return true 
@@ -1163,7 +1166,6 @@ function display_cutscene(pos, c_type, delay_pause)
                 offset = {x = 0, y = 0},
                 major = G.ROOM_ATTACH,
                 bond = 'Strong',
-                no_esc = true
             }
         }
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = delay_pause, timer = "REAL", func = function() 
@@ -1189,7 +1191,6 @@ function display_cutscene(pos, c_type, delay_pause)
                 offset = {x = 0, y = 0},
                 major = G.ROOM_ATTACH,
                 bond = 'Strong',
-                no_esc = true
             }
         }
     end

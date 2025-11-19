@@ -248,7 +248,7 @@ blind.calculate = function(self, blind, context)
 
     -- Activate Skills
     -- Passive: [Price of Nobility] - SP on Clash Win/Lose
-    if G.skill_deck then
+    if G.skill_deck and G.skill_deck.cards then
         for i = 1, #G.skill_deck.cards do
             local skill = G.skill_deck.cards[i]
             local res = skill.config.center:calculate(skill, context)
@@ -350,6 +350,8 @@ end
 
 local messaged = false
 blind.mod_score = function(self, score)
+    if not G.GAME.blind or not G.GAME.blind.b_sp then return 0 end
+
     local score_modifier = 1
     -- Passive: [Ahab] - Score increases by 20% at -45 SP
     if G.GAME.blind.b_sp <= -45 then
@@ -387,20 +389,6 @@ blind.mod_score = function(self, score)
 
     local final_score = score * score_modifier
     if G.GAME.blind.shield_value then final_score = math.max(final_score - G.GAME.blind.shield_value, to_big(0)) end
-    if not messaged then
-        if score_modifier ~= 1 then
-            G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
-                SMODS.calculate_effect({
-                    message = (score_modifier * 100).."% Score",
-                    colour = score_modifier > 1 and G.C.BLUE or G.C.RED,
-                    no_juice = true
-                }, G.GAME.blind)
-            return true end }))
-        end
-        messaged = true
-    else
-        messaged = false
-    end
 
     -- Passive: [Ahab] - Score is capped at 30% Blind Size
     return math.floor(math.min(0.3*G.GAME.blind.chips, final_score)+0.5)

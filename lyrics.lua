@@ -5,18 +5,21 @@ function lobc_generate_screen_lyric(beat, str, duration, pop_in_rate)
     return {
         beat = beat, 
         func = function()
+            if SMODS.previous_track ~= "lobc_music_compass" then return end
             lobc_screen_text({
                 scale = 0.8, 
                 text = str, 
                 colour = lighten(G.C.IMPORTANT, 0.7), 
-                hold = duration*(60/lobc_conductor.bpm)*G.SETTINGS.GAMESPEED, 
-                pop_out = 0.1*G.SETTINGS.GAMESPEED,
+                hold = duration*(60/lobc_conductor.bpm), 
+                pop_out = 0.5,
                 pop_in_rate = pop_in_rate or 0.3,
                 align = 'cm', 
                 offset = offset, 
                 text_rot = rotation,
                 major = G.play, 
                 noisy = false, 
+                timer = 'REAL',
+                pause_force = true,
             })
         end
     }
@@ -46,7 +49,7 @@ function lobc_generate_compass_lyrics()
         lobc_generate_screen_lyric(318, "Hold on tight", 13),
         lobc_generate_screen_lyric(329, "My compass is curiosity", 18),
         lobc_generate_screen_lyric(345, "My compass is curiosity", 18),
-        lobc_generate_screen_lyric(361, "I'm piercing the rope that strangled you and me", 22),
+        lobc_generate_screen_lyric(361, "I'm piercing through the rope that strangled you and me", 22),
         lobc_generate_screen_lyric(381, "Let us be free", 9, 0.6),
         lobc_generate_screen_lyric(388, "(High tide, low tide)", 18),
         lobc_generate_screen_lyric(404, "(High tide, low tide)", 18),
