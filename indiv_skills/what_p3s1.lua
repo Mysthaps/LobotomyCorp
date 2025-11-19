@@ -31,7 +31,7 @@ skill.calculate = function(self, skill, context)
                 colour = G.C.RED,
                 no_juice = true
             }, G.deck)
-            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
+            SMODS.destroy_cards(destroyed_cards)
             return {
                 remove_from_hand = true
             }

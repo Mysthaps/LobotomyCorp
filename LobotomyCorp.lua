@@ -834,7 +834,7 @@ local reset_blindsref = reset_blinds
 function reset_blinds()
     reset_blindsref()
     -- Hide Small and Big Blind (Gebura)
-    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante > G.GAME.win_ante) or 
+    if (G.GAME.modifiers.lobc_gebura and G.GAME.round_resets.ante >= G.GAME.win_ante) or 
        ((string.lower(G.PROFILES[G.SETTINGS.profile].name or '') == "ishmael" or (os.date("%d%m") == "0104" and not config.seen_what)) and G.GAME.round_resets.ante == G.GAME.win_ante) then
         G.GAME.round_resets.blind_states.Small = 'Hide'
         G.GAME.round_resets.blind_states.Big = 'Hide'
@@ -1360,12 +1360,11 @@ function Blind.drawn_to_hand(self)
                 local chosen_card, chosen_card_key = pseudorandom_element(available_cards, pseudoseed("lobc_gebura_destroy"))
                 table.remove(available_cards, chosen_card_key)
                 destroyed_cards[#destroyed_cards+1] = chosen_card
-                chosen_card:start_dissolve() 
-                if first then play_sound("lobc_gebura_slash", math.random(90, 110)/100, 0.5) end
+                if first then play_sound("lobc_gebura_slash", math.random(80, 120)/100, 0.5) end
                 first = nil
             end
             delay(0.2)
-            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
+            SMODS.destroy_cards(destroyed_cards)
         end
     end
 

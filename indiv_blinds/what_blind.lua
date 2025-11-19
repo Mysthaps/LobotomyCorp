@@ -68,7 +68,7 @@ blind.set_blind = function(self)
     if os.date("%d%m") == "0104" then config.seen_what = true; SMODS.save_mod_config(current_mod) end
     G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
         lobc_restart_music()
-        display_cutscene({x = 0, y = 0}, "what", 0.1)
+        --display_cutscene({x = 0, y = 0}, "what", 0.1)
     return true end }))
     G.E_MANAGER:add_event(Event({func = function() 
         -- Sanity
@@ -481,6 +481,6 @@ function Blind:roll_skill()
         G.GAME.blind:set_text()
     end
 end
--- eval _G.force_skills = {"what_p3s3"}; G.GAME.blind:roll_skill()
+-- eval _G.force_skills = {"what_p3s1"}; G.GAME.blind:roll_skill()
 
 return blind
