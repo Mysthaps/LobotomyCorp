@@ -61,7 +61,8 @@ return {
                 name = "O-01-15",
                 text = {
                     "\"언젠가 너도 알 수 있는 날이 오겠지.",
-                    "룰렛이 돌아갈 때 사람들의 표정에서 떠오르는",
+                    "룰렛이 돌아갈 때",
+                    "사람들의 표정에서 떠오르는",
                     "{C:red}간절함의 의미{}를.\""
                 }
             },
@@ -182,7 +183,8 @@ return {
                 name = "F-01-57",
                 text = {
                     "{C:red}그 머리통을 침대 위에 매달 거야.{}",
-                    "그럼 나는 아침마다 악몽을 꾸지 않은 채로",
+                    "그럼 나는 아침마다",
+                    "악몽을 꾸지 않은 채로",
                     "잠에서 깨겠지.",
                 }
             },
@@ -204,8 +206,9 @@ return {
             und_j_lobc_judgement_bird = {
                 name = "O-02-62",
                 text = {
-                    "그의 천칭은 항상 어떤 죄의 무게도",
-                    "{C:red}소홀히 여기지 않았다.{}"
+                    "그의 {C:red}천칭{}은 항상",
+                    "어떤 죄의 무게도",
+                    "소홀히 여기지 않았다."
                 }
             },
             und_j_lobc_king_of_greed = {
@@ -234,7 +237,8 @@ return {
             und_j_lobc_laetitia = {
                 name = "O-01-67",
                 text = {
-                    "소중한 친구들을 두고 올 수 없어서",
+                    "소중한 친구들을",
+                    "두고 올 수 없어서",
                     "슬펐던 아이는",
                     "{C:red}기막힌 생각{}을 해냈지!"
                 }
@@ -501,7 +505,7 @@ return {
                 }
             },
             lobc_blessed_wn = {
-                name = "Blessed",
+                name = "축복받음",
                 text = {
                     "이 카드는",
                     "{C:attention}T-03-46{}에 의해",
@@ -521,7 +525,8 @@ return {
                     "{C:attention}축복{}받지 않은",
                     "{C:attention}플레이{}한 카드,",
                     "{C:attention}핸드{}의 카드,",
-                    "{C:attention}덱{}의 카드 순으로 축복합니다"
+                    "{C:attention}덱{}의 카드 순으로",
+                    "축복합니다"
                 }
             },
             lobc_plague_doctor_debuffed = {
@@ -561,10 +566,11 @@ return {
                 }
             },
             lobc_enchanted = {
-                name = "Enchanted",
+                name = "매혹당함",
                 text = {
                     "항상 손패로 들어옵니다",
-                    "{C:blue}플레이{}하거나 {C:red}버릴{} 시 돌아옵니다",
+                    "{C:blue}플레이{}하거나 {C:red}버릴{} 시",
+                    "돌아옵니다",
                     "이 효과는 {C:attention}블라인드{} 종료 시",
                     "제거됩니다",
                 }
@@ -573,7 +579,8 @@ return {
                 name = "매혹당함",
                 text = {
                     "항상 손패로 들어옵니다",
-                    "{C:blue}플레이{}하거나 {C:red}버릴{} 시 돌아옵니다",
+                    "{C:blue}플레이{}하거나 {C:red}버릴{} 시",
+                    "돌아옵니다",
                 }
             },
             lobc_enchanted_1 = {
@@ -596,7 +603,8 @@ return {
                 text = {
                     "{C:attention}블라인드{}에 승리하면",
                     "{C:red}죄{}가 {C:attention}10{} 이상일 때",
-                    "{C:attention}1 + 절반{}의 수치만큼 감소합니다",
+                    "{C:attention}1 + 절반{}의 수치만큼",
+                    "감소합니다",
                 }
             },
             lobc_marked = {
@@ -733,7 +741,7 @@ return {
                     {"{C:attention}첫 핸드{}에서 득점한",
                     "가장 {C:attention}낮은{} 랭크의 카드를",
                     "무작위로 {C:attention}#1#{}에서 {C:attention}#2#{}회",
-                    "다시 트리거합니다."},
+                    "다시 발동합니다."},
                     {"핸드를 플레이하기 전까지",
                     "{C:attention}플레잉 카드{}가",
                     "{C:attention}뒤집혀서{} 나옵니다"}
@@ -775,51 +783,62 @@ return {
             j_lobc_big_bird = {
                 name = "큰 새",
                 text = {
-                    {"When round begins, {C:enchanted}enchants{}",
-                    "a random playing card"},
-                    {"Scoring {C:enchanted}Enchanted{} cards give {X:mult,C:white} X#1# {} Mult"},
-                    {"When round ends, if no {C:enchanted}Enchanted{}",
-                    "cards were scored this round, destroy",
-                    "them and lose {C:money}$#2#{} per card"}
+                    {"라운드 시작 시, 무작위 카드를 ",
+                    "{C:enchanted}매혹{}합니다"},
+                    {"{C:enchanted}매혹{}당한 카드는 {X:mult,C:white} X#1# {} 배수를",
+                    "부여합니다"},
+                    {"라운드 종료 시, 이번 라운드에",
+                    "{C:enchanted}매혹{}당한 카드로 득점하지 못했다면",
+                    "{C:enchanted}매혹{}당한 카드를 모두 파괴하고",
+                    "카드 당 {C:money}$#2#{}를 잃습니다"}
                 }
             },
             j_lobc_all_around_helper = {
                 name = "무엇이든 도와드립니다",
                 text = {
-                    {"This Abnormality gains {X:mult,C:white} X#2# {} Mult",
-                    "after a {C:attention}Blind{} is defeated in {C:attention}1{} hand"},
-                    {"After gaining Mult {C:attention}4{} times,",
-                    "destroys a random Joker",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
-                    "{C:inactive}Activates after {C:attention}#3#{C:inactive} Blind(s)"}
+                    {"이 환상체는 {C:attention}1{}번의 핸드로만",
+                    "{C:attention}블라인드{}에서 승리할 시",
+                    "{X:mult,C:white} X#2# {} 배수를 얻습니다",
+                    "{C:inactive}(현재 {X:mult,C:white} X#1# {C:inactive} 배수){}"},
+                    {"배수를 {C:attention}4{}회 얻을 때마다",
+                    "무작위 조커를 파괴합니다",
+                    "{C:attention}#3#{C:inactive} 블라인드 남음{}"}
                 }
             },
             j_lobc_spider_bud = {
                 name = "거미봉오리",
                 text = {
-                    {"{C:attention}+#1#{} hand size"},
-                    {"{C:red}Destroys{} the first {C:red}discarded{} card",
-                    "each round for {C:attention}+#2#{} hand size,",
-                    "resets when {C:attention}Boss Blind{} is defeated"},
+                    {"손패 크기 {C:attention}+#1#{}장"},
+                    {"처음으로 {C:red}버린{} 카드를 {C:red}파괴{}합니다",
+                    "라운드별 손패 크기 {C:attention}+#2#{}장",
+                    "{C:attention}보스 블라인드{}에 승리하면",
+                    "초기화됩니다"},
                 }
             },
             j_lobc_plague_doctor = {
                 name = "역병 의사",
                 text = {
-                    {"{C:attention}Baptizes{} a playing card each hand"},
-                    {"Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult"},
-                    {"After {C:attention}12{} cards are {C:attention}blessed{},",
-                    "{C:attention}breach{}.",
-                    "{C:inactive}(Currently {C:attention}#2#{C:inactive})"}
+                    {"핸드를 플레이할 시",
+                    "카드 1장을",
+                    "{C:attention}세례{}합니다"},
+                    {"플레이한 {C:attention}세례{}받은 카드가",
+                    "{C:mult}+#1#{} 배수를 부여합니다"},
+                    {"{C:attention}12{}장의 카드가 {C:attention}축복{}받을 시",
+                    "{C:attention}탈출{}합니다",
+                    "{C:inactive}(현재 {C:attention}#2#{C:inactive})"}
                 }
             },
             j_lobc_whitenight = {
                 name = "백야",
                 text = {
-                    {"{C:dark_edition}+1{} Joker Slot"},
-                    {"{C:attention}Baptizes{} a playing card each hand",
-                    "Played {C:attention}blessed{} cards give {C:mult}+#1#{} Mult"},
-                    {"Retrigger {C:attention}blessed{} cards {C:attention}#2#{} times"},
+                    {"{C:dark_edition}+1{} 조커 슬롯"},
+                    {"핸드를 플레이할 시",
+                    "카드 1장을",
+                    "{C:attention}세례{}합니다",
+                    "플레이한 {C:attention}세례{}받은 카드가",
+                    "{C:mult}+#1#{} 배수를 부여합니다"},
+                    {"{C:attention}축복{}받은 카드를 {C:attention}#2#{}회",
+                    "다시 발동합니다"},
                 }
             },
             j_lobc_rudolta = {
@@ -880,9 +899,9 @@ return {
             j_lobc_punishing_bird = {
                 name = "징벌 새",
                 text = {
-                    {"{C:mult}+#1#{} Mult"},
+                    {"{C:mult}+#1#{} 배수"},
                     {"이 환상체는 {C:attention}9{}라운드 이후",
-                    "{C:dark_edition}네거티브{}를 얻습니다.",
+                    "{C:dark_edition}네거티브{}를 얻습니다",
                     "{C:inactive}(현재 {C:attention}#2#{C:inactive} 라운드){}"},
                     {"이 환상체를 {C:attention}판매{}할 경우,",
                     "게임에서 즉시 {C:attention}패배{}합니다"},
