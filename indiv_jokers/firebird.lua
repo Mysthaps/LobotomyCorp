@@ -30,7 +30,7 @@ end
 local ease_dollarsref = ease_dollars
 function ease_dollars(mod, instant)
     local firebirds = SMODS.find_card("j_lobc_firebird")
-    if firebirds[1] and mod > to_big(5) then
+    if firebirds[1] and to_big(mod) > to_big(5) then
         for _, v in ipairs(firebirds) do
             v.ability.extra.x_mult = v.ability.extra.x_mult + v.ability.extra.incr * (mod - 5)
             if v.ability.extra.x_mult >= 6 then check_for_unlock({type = 'lobc_feather_of_honor'}) end
