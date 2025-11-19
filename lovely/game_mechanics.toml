@@ -218,7 +218,7 @@ payload = "if vals.neg then col = G.C.RED end"
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = '''if hand_chips*mult > 0 then 
+pattern = '''if  SMODS.calculate_round_score()  > 0 then 
         delay(0.8)
         G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
@@ -228,17 +228,26 @@ pattern = '''if hand_chips*mult > 0 then
 position = 'after'
 match_indent = true
 payload = '''
-if G.GAME.blind.shield_value and hand_chips*mult > 0 then
+local score_shielded = G.GAME.blind.shield_value and (SMODS.calculate_round_score() > G.GAME.blind.shield_value and G.GAME.blind.shield_value or SMODS.calculate_round_score()) or 0
+if G.GAME.blind.shield_value and SMODS.calculate_round_score() > 0 then
     G.E_MANAGER:add_event(Event({
         trigger = 'ease',
         blocking = false,
         ref_table = G.GAME.blind,
         ref_value = 'shield_value',
-        ease_to = math.max(G.GAME.blind.shield_value - hand_chips*mult, 0),
+        ease_to = math.max(G.GAME.blind.shield_value - SMODS.calculate_round_score(), 0),
         delay =  0.5,
         func = (function(t) return math.floor(t) end)
     }))
 end'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() ),"
+position = 'at'
+match_indent = true
+payload = "ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() - score_shielded ),"
 
 # Patch a crash
 [[patches]]
