@@ -449,7 +449,7 @@ blind.lobc_loc_txt = function(self)
         end
         for k, v in ipairs(rarities) do
             if v == highest and v > 0 then 
-                return { vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[k]} }
+                return { key = key, vars = {({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[k]} }
             end
         end
         return { key = key, vars = {localize('k_common')} }
