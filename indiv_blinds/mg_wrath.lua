@@ -21,6 +21,10 @@ local blind = {
     lobc_bg = {new_colour = darken(HEX("413536"), 0.15), special_colour = lighten(HEX("413536"), 0.1), contrast = 0.7}
 }
 
+-- Add Wrath to list of modify draws
+SMODS.Blinds.modifies_draw = SMODS.Blinds.modifies_draw or {}
+SMODS.Blinds.modifies_draw.bl_lobc_mg_wrath = true
+
 local eval_func = function()
     return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_mg_wrath'
 end
