@@ -2123,8 +2123,7 @@ return {
                 text = {
                     "핸드 당 점수가 블라인드 크기의 {C:attention}30%{}를 넘을 수 없습니다",
                     "{C:green}[핸드 시작 시]{} 정신력이 {C:blue}-45{}가 아닐 경우 정신력을 {C:blue}15{} 회복합니다",
-                    "{C:green}[핸드 종료 시]{} 정신력이 {C:blue}-45{}일 경우 이번 핸드의 최종 점수가 {C:attention}20%{} 증가하고",
-                    "다음 핸드에 {C:blue}정신력{}을 {C:blue}0{}으로 설정합니다",
+                    "{C:green}[핸드 종료 시]{} 정신력이 {C:blue}-45{}일 경우 이번 핸드의 최종 점수가 {C:attention}20%{} 증가하고 다음 핸드에 {C:blue}정신력{}을 {C:blue}0{}으로 설정합니다",
                     "{C:green}[패배 시] {C:attention}페이즈 변경{}, {C:red}버리기{}를 초기화하고 모든 카드를 덱으로 되돌립니다{C:inactive(최대 2회)"
                 }
             },
@@ -2133,8 +2132,7 @@ return {
                 text = {
                     "{C:green}[페이즈 시작 시]{} {C:devoured}핍의 자아{}를 {C:attention}20{} 얻습니다",
                     "{C:green}[핸드 종료 시]{} {C:devoured}핍의 자아{} {C:attention}2{}당 {C:blue}정신력{}을 {C:blue}3{} 회복합니다",
-                    "{C:green}[핸드 종료 시]{} {C:devoured}핍의 자아{}가 {C:attention}0{}이면",
-                    "최종 점수를 {C:attention}50%{} 증가시킵니다",
+                    "{C:green}[핸드 종료 시]{} {C:devoured}핍의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
                     "일부 스킬이 {C:devoured}핍의 자아{}를 소모합니다"
                 }
             },
