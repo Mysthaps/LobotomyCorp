@@ -2104,10 +2104,8 @@ return {
                 name = "{C:o_indigo}정신력",
                 text = {
                     "플레이어와 {C:attention}가스하푼{}의 {C:blue}정신력{}이 {C:blue}0{}에서 시작합니다",
-                    "{C:green}[득점 전]{} 각 플레이한 카드가 {C:attention}100%{}의 득점 확률을 가지며",
-                    "{C:blue}정신력{}이 {C:attention}가스하푼{}보다 낮은 만큼 확률이 감소합니다",
-                    "{C:green}[페이즈 변경 시]{} {C:blue}정신력{}이 0보다 낮을 경우",
-                    "{C:blue}정신력{}을 {C:blue}0{}으로 초기화합니다"
+                    "{C:green}[득점 전]{} 각 플레이한 카드가 {C:attention}100%{}의 득점 확률을 가지며 {C:blue}정신력{}이 {C:attention}가스하푼{}보다 낮은 만큼 확률이 감소합니다",
+                    "{C:green}[페이즈 변경 시]{} {C:blue}정신력{}이 0보다 낮을 경우 {C:blue}정신력{}을 {C:blue}0{}으로 초기화합니다"
                 }
             },
             psv_lobc_what_1 = {
@@ -2140,8 +2138,7 @@ return {
                 name = "스타벅의 두려움",
                 text = {
                     "{C:green}[페이즈 시작 시]{} {C:o_green}스타벅의 자아{}를 {C:attention}20{} 얻습니다",
-                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{} {C:attention}6{}당",
-                    "최종 점수가 {C:attention}20% 감소합니다",
+                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{} {C:attention}6{}당 최종 점수가 {C:attention}20% 감소합니다",
                     "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
                     "{C:green}탄식의 메아리{} 스킬이 적중하지 않을 때마다 {C:o_green}스타벅의 자아{}가 {C:attention}1{} 감소합니다"
                 }
@@ -2152,8 +2149,7 @@ return {
                     "{C:green}[페이즈 시작 시]{} {C:o_violet}퀴케그의 자아{}를 {C:attention}30{} 얻습니다",
                     "{C:green}[페이즈 시작 시]{} {C:red}+3{} 버리기를 얻습니다",
                     "{C:green}[핸드 종료 시]{} {C:blue}보호막{}이 남아있으면 {C:o_violet}퀴케그의 자아{}를 {C:attention}5{} 회복하고 보호막이 없으면 {C:attention}10{} 감소합니다",
-                    "{C:green}[핸드 종료 시]{} {C:o_violet}퀴케그의 자아{}가 {C:attention}0{}이면",
-                    "최종 점수를 {C:attention}50%{} 증가시킵니다",
+                    "{C:green}[핸드 종료 시]{} {C:o_violet}퀴케그의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
                 }
             }
         },
