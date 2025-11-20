@@ -2166,9 +2166,9 @@ function first_time_passive()
 end
 
 -- Late patches
-local boot_timerref = boot_timer
-function boot_timer(_label, _next, progress)
-    if _label == 'prep stage' then
+local injectItemsref = SMODS.injectItems
+function SMODS.injectItems()
+    injectItemsref()
         -- Global variables
         G.lobc_global_modifiers = {
             "laetitia_gift",
@@ -2275,42 +2275,6 @@ function boot_timer(_label, _next, progress)
             end
         end
 
-        -- Add different Enhancements to Metallic Cards
-        local metallic = {
-            {"m_gold"},
-            {"m_steel"},
-            {"m_bunc_copper", "Bunco"},
-            {"m_grim_iron", "Grim"},
-            {"m_grim_lead", "Grim"},
-            {"m_grim_platinum", "Grim"},
-            {"m_grim_radium", "Grim"},
-            {"m_grim_silver", "Grim"},
-            {"m_kino_sci_fi", "Kino"},
-            {"m_mills_cinna", "MillsCookbook"}, {"m_mills_cinnabar", "MillsCookbook"}, -- vro why do you have two of the same enhancements
-            {"m_mills_cob", "MillsCookbook"}, {"m_mills_cobalt", "MillsCookbook"},
-            {"m_mills_elec", "MillsCookbook"}, {"m_mills_electrum", "MillsCookbook"},
-            {"m_mills_ir", "MillsCookbook"}, {"m_mills_iron", "MillsCookbook"},
-            {"m_mills_titanium", "MillsCookbook"},
-            {"m_mf_brass", "MoreFluff"},
-            {"m_ortalab_rusty", "Ortalab"},
-            {"m_jen_potassium", "POLTERWORX"},
-            {"m_reverse_copper", "ReverseTarot+"},
-            {"m_reverse_iridium", "ReverseTarot+"},
-            {"m_crv_coatedcopper", "RevosVault"},
-            {"m_toga_bronze", "TOGAPack"},
-            {"m_toga_copper", "TOGAPack"},
-            {"m_toga_electrum", "TOGAPack"},
-            {"m_toga_iron", "TOGAPack"},
-            {"m_toga_osmium", "TOGAPack"},
-            {"m_toga_silver", "TOGAPack"},
-            {"m_toga_tin", "TOGAPack"},
-        }
-        for _, v in ipairs(metallic) do
-            if G.localization.descriptions.Enhanced[v[1]] then
-                table.insert(G.localization.descriptions.Other.lobc_metallic.text, "{C:attention}"..G.localization.descriptions.Enhanced[v[1]].name..(v[2] and "{} ("..v[2]..")" or ""))
-            end
-        end
-
         -- NotJustYet compat with phase blinds
         local njy_endround_ref = G.FUNCS.njy_attempt_endround
         if njy_endround_ref then
@@ -2324,8 +2288,9 @@ function boot_timer(_label, _next, progress)
                 end
             end
         end
-    end
-    return boot_timerref(_label, _next, progress)
+
+    -- Generate Compass lyrics
+    SMODS.Sounds.lobc_music_compass.sync_events = lobc_generate_compass_lyrics()
 end
 
 --=============== OBSERVATION ===============--
@@ -2758,4 +2723,4 @@ SMODS.Shader({
 })
 
 -- Clear all Cathys
-sendInfoMessage("Loaded LobotomyCorp~")
+sendInfoMessage("Loaded LobotomyCorp~", "LobotomyCorp")

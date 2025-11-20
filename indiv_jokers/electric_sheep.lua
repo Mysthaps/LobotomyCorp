@@ -1,32 +1,33 @@
 local metallic = {
-    "m_gold",
-    "m_steel",
-    "m_bunc_copper",
-    "m_grim_iron",
-    "m_grim_lead",
-    "m_grim_platinum",
-    "m_grim_radium",
-    "m_grim_silver",
-    "m_kino_sci_fi",
-    "m_mills_cinna", "m_mills_cinnabar",
-    "m_mills_cob", "m_mills_cobalt",
-    "m_mills_elec", "m_mills_electrum",
-    "m_mills_ir", "m_mills_iron",
-    "m_mills_titanium",
-    "m_mf_brass",
-    "m_ortalab_rusty",
-    "m_jen_potassium",
-    "m_reverse_copper",
-    "m_reverse_iridium",
-    "m_crv_coatedcopper",
-    "m_toga_bronze",
-    "m_toga_copper",
-    "m_toga_electrum",
-    "m_toga_iron",
-    "m_toga_osmium",
-    "m_toga_silver",
-    "m_toga_tin",
+    {"m_gold"},
+    {"m_steel"},
+    {"m_bunc_copper", "Bunco"},
+    {"m_grim_iron", "Grim"},
+    {"m_grim_lead", "Grim"},
+    {"m_grim_platinum", "Grim"},
+    {"m_grim_radium", "Grim"},
+    {"m_grim_silver", "Grim"},
+    {"m_kino_sci_fi", "Kino"},
+    {"m_mills_cinna", "MillsCookbook"}, {"m_mills_cinnabar", "MillsCookbook"}, -- vro why do you have two of the same enhancements
+    {"m_mills_cob", "MillsCookbook"}, {"m_mills_cobalt", "MillsCookbook"},
+    {"m_mills_elec", "MillsCookbook"}, {"m_mills_electrum", "MillsCookbook"},
+    {"m_mills_ir", "MillsCookbook"}, {"m_mills_iron", "MillsCookbook"},
+    {"m_mills_titanium", "MillsCookbook"},
+    {"m_mf_brass", "MoreFluff"},
+    {"m_ortalab_rusty", "Ortalab"},
+    {"m_jen_potassium", "POLTERWORX"},
+    {"m_reverse_copper", "ReverseTarot+"},
+    {"m_reverse_iridium", "ReverseTarot+"},
+    {"m_crv_coatedcopper", "RevosVault"},
+    {"m_toga_bronze", "TOGAPack"},
+    {"m_toga_copper", "TOGAPack"},
+    {"m_toga_electrum", "TOGAPack"},
+    {"m_toga_iron", "TOGAPack"},
+    {"m_toga_osmium", "TOGAPack"},
+    {"m_toga_silver", "TOGAPack"},
+    {"m_toga_tin", "TOGAPack"},
 }
+
 local joker = {
     name = "Dreaming Electric Sheep",
     config = {extra = {can_trig = false}}, rarity = 2, cost = 7,
@@ -119,6 +120,19 @@ joker.calculate = function(self, card, context)
     end
 end
 
+joker.set_ability = function(self, card)
+    -- Add different Enhancements to Metallic Cards
+    local to_loc = G.localization.descriptions.Other.lobc_metallic
+    if #to_loc.text == 0 then
+        for _, v in ipairs(metallic) do
+            if G.localization.descriptions.Enhanced[v[1]] then
+                table.insert(to_loc.text, "{C:attention}"..G.localization.descriptions.Enhanced[v[1]].name..(v[2] and "{} ("..v[2]..")" or ""))
+                table.insert(to_loc.text_parsed, loc_parse_string(to_loc.text[#to_loc.text]))
+            end
+        end
+    end
+end
+
 joker.remove_from_deck = function(self, card, from_debuff)
     for _, v in ipairs(G.playing_cards) do
         SMODS.debuff_card(v, false, 'electric_sheep_debuff')
@@ -139,7 +153,7 @@ joker.update = function(self, card, dt)
             for _, vv in ipairs(metallic) do if _card.config.center.key == vv then
                 is_metallic = true
             end end
-            if not is_metallic then SMODS.debuff_card(_card, (count > 0 and count <= 5), "electric_sheep_debuff") end
+            SMODS.debuff_card(_card, (count > 0 and count <= 5 and not is_metallic), "electric_sheep_debuff")
         end
     end
 end
