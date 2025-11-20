@@ -140,8 +140,7 @@ return {
             return (G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_lobc_what_blind") and 536000 or false
         end,
         bpm = 176.25,
-        offset = -0.180,
-        sync_events = lobc_generate_compass_lyrics()
+        offset = -0.180
     },
 
     -- Roland01, Roland02, Roland03: Apocalypse Bird

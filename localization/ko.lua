@@ -2796,6 +2796,28 @@ return {
 
             k_lobc_gebura_4_1 = "가야 할 길은 너무 멀어, 멀다고.",
             k_lobc_gebura_4_2 = "분노는 가라앉지 않아, 나는 계속 달려간다.",
+
+            ---- Compass ----
+            k_lobc_compass_1 = "Bon Voyage",
+            k_lobc_compass_2 = "그대의 인어가 출항하네",
+            k_lobc_compass_3 = "이제서야",
+            k_lobc_compass_4 = "그대의 심장을 향해 전속력으로",
+            k_lobc_compass_5 = "이제 그만해도 돼",
+            k_lobc_compass_6 = "이제 내 자신을 되찾을 거야",
+            k_lobc_compass_7 = "후미",
+            k_lobc_compass_8 = "고통을 뒤로하고",
+            k_lobc_compass_9 = "그것이 끊어졌을 때",
+            k_lobc_compass_10 = "나의 나침반은 대양에 먹혀버렸어",
+            k_lobc_compass_11 = "그대와 나의 이 연결을 저주했지",
+            k_lobc_compass_12 = "피가 보고 싶었어",
+            k_lobc_compass_13 = "흑백이기를 원했어",
+            k_lobc_compass_14 = "모든 게 단정된",
+            k_lobc_compass_15 = "네 악을 규정해놓고",
+            k_lobc_compass_16 = "꽉 붙들어 매",
+            k_lobc_compass_17 = "나의 호기심을 나침반 삼아",
+            k_lobc_compass_18 = "난 우리의 목을 조르던 밧줄을 끊어내고",
+            k_lobc_compass_19 = "자유롭게 될 거야",
+            k_lobc_compass_20 = "밀물, 썰물",
         },
         achievement_names = {
             ach_lobc_penitence = "참회",

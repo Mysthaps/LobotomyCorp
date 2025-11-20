@@ -1,5 +1,5 @@
 -- Compass
-function lobc_generate_screen_lyric(beat, str, duration, pop_in_rate)
+function lobc_generate_screen_lyric(beat, str, duration, pop_in_rate, colour)
     local rotation = math.random(-50, 50)/100
     local offset = {x = math.random(-100, 100)/100, y = math.random(-150, 150)/100}
     return {
@@ -9,7 +9,7 @@ function lobc_generate_screen_lyric(beat, str, duration, pop_in_rate)
             lobc_screen_text({
                 scale = 0.8, 
                 text = str, 
-                colour = lighten(G.C.IMPORTANT, 0.7), 
+                colour = colour or lighten(G.C.IMPORTANT, 0.7), 
                 hold = duration*(60/lobc_conductor.bpm), 
                 pop_out = 0.5,
                 pop_in_rate = pop_in_rate or 0.3,
@@ -27,34 +27,34 @@ end
 
 function lobc_generate_compass_lyrics()
     return {
-        lobc_generate_screen_lyric(66, "Bon Voyage", 13),
-        lobc_generate_screen_lyric(77, "Your mermaid's setting sail", 14),
-        lobc_generate_screen_lyric(89, "At last", 6, 0.6),
-        lobc_generate_screen_lyric(93, "Full speed towards your heart", 18),
-        lobc_generate_screen_lyric(109, "Full speed towards your heart", 15),
-        lobc_generate_screen_lyric(122, "I've had enough", 21),
-        lobc_generate_screen_lyric(141, "I'm reclaiming myself", 14),
-        lobc_generate_screen_lyric(153, "The aft", 6, 0.6),
-        lobc_generate_screen_lyric(157, "Leaving behind the hurt", 18),
-        lobc_generate_screen_lyric(173, "Leaving behind the hurt", 19),
-        lobc_generate_screen_lyric(190, "When it snapped", 13),
-        lobc_generate_screen_lyric(201, "My compass was swallowed by the sea", 18),
-        lobc_generate_screen_lyric(217, "My compass was swallowed by the sea", 18),
-        lobc_generate_screen_lyric(233, "I cursed this relationship between you and me", 23),
-        lobc_generate_screen_lyric(254, "I wanted blood", 17),
-        lobc_generate_screen_lyric(269, "I wanted black and white", 14),
-        lobc_generate_screen_lyric(281, "Clear cut", 6, 0.6),
-        lobc_generate_screen_lyric(285, "Your evils predefined", 18),
-        lobc_generate_screen_lyric(301, "Your evils predefined", 18),
-        lobc_generate_screen_lyric(318, "Hold on tight", 13),
-        lobc_generate_screen_lyric(329, "My compass is curiosity", 18),
-        lobc_generate_screen_lyric(345, "My compass is curiosity", 18),
-        lobc_generate_screen_lyric(361, "I'm piercing through the rope that strangled you and me", 22),
-        lobc_generate_screen_lyric(381, "Let us be free", 9, 0.6),
-        lobc_generate_screen_lyric(388, "(High tide, low tide)", 18),
-        lobc_generate_screen_lyric(404, "(High tide, low tide)", 18),
-        lobc_generate_screen_lyric(420, "(High tide, low tide)", 18),
-        lobc_generate_screen_lyric(436, "(High tide, low tide)", 18),
+        lobc_generate_screen_lyric(66, localize("k_lobc_compass_1"), 13),
+        lobc_generate_screen_lyric(77, localize("k_lobc_compass_2"), 14),
+        lobc_generate_screen_lyric(89, localize("k_lobc_compass_3"), 6, 0.6),
+        lobc_generate_screen_lyric(93, localize("k_lobc_compass_4"), 18),
+        lobc_generate_screen_lyric(109, localize("k_lobc_compass_4"), 15),
+        lobc_generate_screen_lyric(122, localize("k_lobc_compass_5"), 21),
+        lobc_generate_screen_lyric(141, localize("k_lobc_compass_6"), 14),
+        lobc_generate_screen_lyric(153, localize("k_lobc_compass_7"), 6, 0.6),
+        lobc_generate_screen_lyric(157, localize("k_lobc_compass_8"), 18),
+        lobc_generate_screen_lyric(173, localize("k_lobc_compass_8"), 19),
+        lobc_generate_screen_lyric(190, localize("k_lobc_compass_9"), 13),
+        lobc_generate_screen_lyric(201, localize("k_lobc_compass_10"), 18),
+        lobc_generate_screen_lyric(217, localize("k_lobc_compass_10"), 18),
+        lobc_generate_screen_lyric(233, localize("k_lobc_compass_11"), 23),
+        lobc_generate_screen_lyric(254, localize("k_lobc_compass_12"), 17, nil, G.C.RED),
+        lobc_generate_screen_lyric(269, localize("k_lobc_compass_13"), 14, nil, G.C.RED),
+        lobc_generate_screen_lyric(281, localize("k_lobc_compass_14"), 6, 0.6, G.C.RED),
+        lobc_generate_screen_lyric(285, localize("k_lobc_compass_15"), 18, nil, G.C.RED),
+        lobc_generate_screen_lyric(301, localize("k_lobc_compass_15"), 18, nil, G.C.RED),
+        lobc_generate_screen_lyric(318, localize("k_lobc_compass_16"), 13),
+        lobc_generate_screen_lyric(329, localize("k_lobc_compass_17"), 18),
+        lobc_generate_screen_lyric(345, localize("k_lobc_compass_17"), 18),
+        lobc_generate_screen_lyric(361, localize("k_lobc_compass_18"), 22),
+        lobc_generate_screen_lyric(381, localize("k_lobc_compass_19"), 9, 0.6),
+        lobc_generate_screen_lyric(388, localize("k_lobc_compass_20"), 18),
+        lobc_generate_screen_lyric(404, localize("k_lobc_compass_20"), 18),
+        lobc_generate_screen_lyric(420, localize("k_lobc_compass_20"), 18),
+        lobc_generate_screen_lyric(436, localize("k_lobc_compass_20"), 18),
     }
 end
 

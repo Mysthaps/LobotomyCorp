@@ -2767,6 +2767,28 @@ return {
 
             k_lobc_gebura_4_1 = "The right path is too far away, and I have too far to go.",
             k_lobc_gebura_4_2 = "My heart is pulsing with anger, and I must keep pushing.",
+
+            ---- Compass ----
+            k_lobc_compass_1 = "Bon Voyage",
+            k_lobc_compass_2 = "Your mermaid's setting sail",
+            k_lobc_compass_3 = "At last",
+            k_lobc_compass_4 = "Full speed towards your heart",
+            k_lobc_compass_5 = "I've had enough",
+            k_lobc_compass_6 = "I'm reclaiming myself",
+            k_lobc_compass_7 = "The aft",
+            k_lobc_compass_8 = "Leaving behind the hurt",
+            k_lobc_compass_9 = "When it snapped",
+            k_lobc_compass_10 = "My compass was swallowed by the sea",
+            k_lobc_compass_11 = "I cursed this relationship between you and me",
+            k_lobc_compass_12 = "I wanted blood",
+            k_lobc_compass_13 = "I wanted black and white",
+            k_lobc_compass_14 = "Clear cut",
+            k_lobc_compass_15 = "Your evils predefined",
+            k_lobc_compass_16 = "Hold on tight",
+            k_lobc_compass_17 = "My compass is curiosity",
+            k_lobc_compass_18 = "I'm piercing through the rope that strangled you and me",
+            k_lobc_compass_19 = "Let us be free",
+            k_lobc_compass_20 = "High tide, low tide",
         },
         achievement_names = {
             ach_lobc_penitence = "Penitence",

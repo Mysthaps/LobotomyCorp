@@ -64,11 +64,13 @@ blind.setup_sprites = function(self)
 end
 
 blind.set_blind = function(self)
+    -- Generate Compass lyrics
+    SMODS.Sounds.lobc_music_compass.sync_events = lobc_generate_compass_lyrics()
     self:setup_sprites()
     if os.date("%d%m") == "0104" then config.seen_what = true; SMODS.save_mod_config(current_mod) end
     G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
         lobc_restart_music()
-        --display_cutscene({x = 0, y = 0}, "what", 0.1)
+        display_cutscene({x = 0, y = 0}, "what", 0.1)
     return true end }))
     G.E_MANAGER:add_event(Event({func = function() 
         -- Sanity
