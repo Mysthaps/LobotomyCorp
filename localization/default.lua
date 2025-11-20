@@ -2472,8 +2472,8 @@ return {
             -- Noon
             k_lobc_noon_green = "The Noon of Green",
             k_lobc_noon_green_name = "Process of Understanding",
-            k_lobc_noon_green_start_1 = "In the end, they were bound to life. We existed only to express despair and ire.",
-            k_lobc_noon_green_start_2 = "We will understand life and the soul with our own hands.",
+            k_lobc_noon_green_start_1 = "In the end, they were bound to life.",
+            k_lobc_noon_green_start_2 = "We existed only to express despair and ire.",
             k_lobc_noon_green_end_1 = "We will understand life and the soul with our own hands.",
             k_lobc_noon_green_end_2 = "",
 
