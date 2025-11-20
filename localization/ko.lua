@@ -1754,11 +1754,11 @@ return {
             },
             bl_lobc_what_blind_name = {
                 name = "가스하푼",
-                text = {"­", "­"}
+                text = {" ", " "}
             },
             bl_lobc_what_blind_name_copy = {
                 name = "가스하푼",
-                text = {"­", "­"}
+                text = {" ", " "}
             },
             bl_lobc_what_blind_cutscene_1 = {
                 name = "가스하푼",
@@ -2104,9 +2104,8 @@ return {
                 name = "{C:o_indigo}정신력",
                 text = {
                     "플레이어와 {C:attention}가스하푼{}의 {C:blue}정신력{}이 {C:blue}0{}에서 시작합니다",
-                    "{C:green}[득점 전]{} 각 플레이한 카드가",
-                    "{C:attention}100%{}의 득점 확률을 가지며 {C:blue}정신력{}이",
-                    "{C:attention}가스하푼{}보다 낮은 만큼 확률이 감소합니다",
+                    "{C:green}[득점 전]{} 각 플레이한 카드가 {C:attention}100%{}의 득점 확률을 가지며",
+                    "{C:blue}정신력{}이 {C:attention}가스하푼{}보다 낮은 만큼 확률이 감소합니다",
                     "{C:green}[페이즈 변경 시]{} {C:blue}정신력{}이 0보다 낮을 경우",
                     "{C:blue}정신력{}을 {C:blue}0{}으로 초기화합니다"
                 }
@@ -2124,11 +2123,9 @@ return {
                 text = {
                     "핸드 당 점수가 블라인드 크기의 {C:attention}30%{}를 넘을 수 없습니다",
                     "{C:green}[핸드 시작 시]{} 정신력이 {C:blue}-45{}가 아닐 경우 정신력을 {C:blue}15{} 회복합니다",
-                    "{C:green}[핸드 종료 시]{} 정신력이 {C:blue}-45 SP{}일 경우",
-                    "이번 핸드의 최종 점수가 {C:attention}20%{} 증가하고",
+                    "{C:green}[핸드 종료 시]{} 정신력이 {C:blue}-45{}일 경우 이번 핸드의 최종 점수가 {C:attention}20%{} 증가하고",
                     "다음 핸드에 {C:blue}정신력{}을 {C:blue}0{}으로 설정합니다",
-                    "{C:green}[패배 시] {C:attention}페이즈 변경{}, {C:red}버리기{}를 초기화하고",
-                    "모든 카드를 덱으로 되돌립니다{C:inactive(최대 2회)"
+                    "{C:green}[패배 시] {C:attention}페이즈 변경{}, {C:red}버리기{}를 초기화하고 모든 카드를 덱으로 되돌립니다{C:inactive(최대 2회)"
                 }
             },
             psv_lobc_what_3_pip = {
@@ -2147,10 +2144,8 @@ return {
                     "{C:green}[페이즈 시작 시]{} {C:o_green}스타벅의 자아{}를 {C:attention}20{} 얻습니다",
                     "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{} {C:attention}6{}당",
                     "최종 점수가 {C:attention}20% 감소합니다",
-                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{}가 {C:attention}0{}이면",
-                    "최종 점수를 {C:attention}50%{} 증가시킵니다",
-                    "{C:green}탄식의 메아리{} 스킬이 적중하지 않을 때마다",
-                    "{C:o_green}스타벅의 자아{}가 {C:attention}1{} 감소합니다"
+                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
+                    "{C:green}탄식의 메아리{} 스킬이 적중하지 않을 때마다 {C:o_green}스타벅의 자아{}가 {C:attention}1{} 감소합니다"
                 }
             },
             psv_lobc_what_3_queequeg = {
@@ -2158,8 +2153,7 @@ return {
                 text = {
                     "{C:green}[페이즈 시작 시]{} {C:o_violet}퀴케그의 자아{}를 {C:attention}30{} 얻습니다",
                     "{C:green}[페이즈 시작 시]{} {C:red}+3{} 버리기를 얻습니다",
-                    "{C:green}[핸드 종료 시]{} {C:blue}보호막{}이 남아있으면 {C:o_violet}퀴케그의 자아{}를",
-                    "{C:attention}5{} 회복하고 보호막이 없으면 {C:attention}10{} 감소합니다",
+                    "{C:green}[핸드 종료 시]{} {C:blue}보호막{}이 남아있으면 {C:o_violet}퀴케그의 자아{}를 {C:attention}5{} 회복하고 보호막이 없으면 {C:attention}10{} 감소합니다",
                     "{C:green}[핸드 종료 시]{} {C:o_violet}퀴케그의 자아{}가 {C:attention}0{}이면",
                     "최종 점수를 {C:attention}50%{} 증가시킵니다",
                 }
@@ -2188,7 +2182,7 @@ return {
                     "스킬이 2회 이상 적중하지 않을 경우 스킬을 비활성화합니다",
                     "{C:attention}[숭고의 대가]{}를 발동시키지 않습니다",
                     "{C:green}[각 카드 득점 시작 시]{} 랭크가 {C:attention}8{}보다 낮을 경우",
-                    "{C:blue}(50 + SP)% {C:inactive}(#1#%){} 확률로 득점하지 않습니다",
+                    "{C:blue}(50 + 정신력)% {C:inactive}(#1#%){} 확률로 득점하지 않습니다",
                     "{C:green}[실패 시]{} {C:devoured}핍의 자아{}가 {C:attention}2{} 감소합니다"
                 }
             },
