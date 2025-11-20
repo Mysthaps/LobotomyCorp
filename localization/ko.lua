@@ -679,9 +679,8 @@ return {
             j_lobc_happy_teddy_bear = {
                 name = "행복한 테디",
                 text = {
-                    {"이 라운드에서 플레이한 적 없는",
-                    "{C:attention}족보{} 레벨을",
-                    "최대 1회 업그레이드합니다"},
+                    {"플레이한 {C:attention}족보{} 레벨을",
+                    "업그레이드합니다"},
                     {"{C:attention}연속{}으로 플레이한 핸드가",
                     "동일한 {C:attention}족보{}일 경우",
                     "레벨을 {C:attention}0{}까지 감소시킵니다",}
