@@ -10,6 +10,6 @@ pattern = "if key == \"2\" then"
 position = "after"
 payload = '''
 if _card.config.center.discover_rounds then
-    G.PROFILES[G.SETTINGS.profile].joker_usage[_card.config.center.key] = { count = _card.config.center.discover_rounds[#_card.config.center.discover_rounds] or 0 }
+    G.PROFILES[G.SETTINGS.profile].joker_usage[_card.config.center.key] = { count = _card.config.center.discover_rounds[#_card.config.center.discover_rounds] or 0, losses_by_key = {}, wins_by_key = {} }
 end'''
 match_indent = true
