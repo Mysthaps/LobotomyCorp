@@ -11,27 +11,30 @@ local joker = {
 }
 
 joker.calculate = function(self, card, context)
-    if context.before and not context.blueprint then
-        if context.scoring_hand and context.scoring_hand[#context.scoring_hand] then
-            SMODS.debuff_card(context.scoring_hand[#context.scoring_hand], true, "forsaken_murderer")
+    if context.cardarea == G.jokers and not context.blueprint then
+        if context.before then
+            if context.scoring_hand and context.scoring_hand[#context.scoring_hand] then
+                SMODS.debuff_card(context.scoring_hand[#context.scoring_hand], true, "forsaken_murderer")
+            end
+            card:juice_up()
         end
-        card:juice_up()
+
+        if context.after and context.scoring_hand then
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                if context.scoring_hand[1] == context.scoring_hand[#context.scoring_hand] then
+                    check_for_unlock({type = "lobc_regret"})
+                end
+                SMODS.debuff_card(context.scoring_hand[#context.scoring_hand], false, "forsaken_murderer")
+            return true end }))
+        end
     end
+    
 
     if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
         return {
             x_mult = card.ability.extra.x_mult,
             card = context.blueprint_card or card,
         }
-    end
-
-    if context.after and not context.blueprint and context.scoring_hand then
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            if context.scoring_hand[1] == context.scoring_hand[#context.scoring_hand] then
-                check_for_unlock({type = "lobc_regret"})
-            end
-            SMODS.debuff_card(context.scoring_hand[#context.scoring_hand], false, "forsaken_murderer")
-        return true end }))
     end
 end
 

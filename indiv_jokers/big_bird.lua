@@ -42,7 +42,7 @@ joker.calculate = function(self, card, context)
             end
         end
 
-        if context.after then
+        if context.after and context.cardarea == G.jokers and context.scoring_hand then
             for _, v in ipairs(context.scoring_hand) do
                 v.ability.big_bird_counted = nil
             end
