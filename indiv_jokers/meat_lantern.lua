@@ -17,9 +17,10 @@ joker.calculate = function(self, card, context)
             SMODS.add_booster_to_shop()
             card.ability.extra.cur = card.ability.extra.cur + 1
         end
+        return {}
     end
 
-    if context.ending_shop then
+    if context.ending_shop and not context.blueprint then
         card.ability.extra.cur = 0
     end
 

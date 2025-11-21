@@ -3,10 +3,12 @@ local joker = {
     config = {extra = {
         pos = 0,
         copying = "j_lobc_nothing_there",
-        copied_cur = {},
-        copied_last = {},
         left_compat = false,
-        right_compat = false
+        right_compat = false,
+        shield = 0.1,
+        shield_mult = 1.15,
+        denom = 4,
+        moved = false,
     }}, rarity = 3, cost = 11,
     pos = {x = 0, y = 1}, 
     blueprint_compat = false, 
@@ -14,44 +16,64 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "aleph",
-    discover_rounds = 9,
+    discover_rounds = {4, 7, 9},
 }
 
 joker.calculate = function(self, card, context)
+    if context.before and context.cardarea == G.jokers and not context.blueprint then
+        card.ability.extra.moved = false
+        G.GAME.blind.shield_value = math.floor(math.floor(card.ability.extra.shield * 100)/100 * G.GAME.blind.chips)
+        card:juice_up()
+    end
+
+    local effects = {}
     local left_joker = G.jokers.cards[card.ability.extra.pos-1]
-    if left_joker and left_joker ~= card and left_joker ~= card.ability.extra.copying then
-        context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
-        context.blueprint_card = context.blueprint_card or card
-        if context.blueprint > #G.jokers.cards + 1 then return end
-        local left_joker_ret = left_joker:calculate_joker(context)
-        context.blueprint = nil
-        local eff_card = context.blueprint_card or card
-        context.blueprint_card = nil
-        if left_joker_ret then
-            left_joker_ret.card = eff_card
-            left_joker_ret.colour = G.C.RED
-            SMODS.calculate_effect(left_joker_ret)
-            if not card.ability.extra.copied_last[card.sort_id] then 
-                card.ability.extra.copied_last[card.sort_id] = true
-            end
+    local right_joker = G.jokers.cards[card.ability.extra.pos+1]
+
+    if left_joker and left_joker ~= card then 
+        local effect = SMODS.blueprint_effect(card, left_joker, context)
+        if effect then
+            effect.colour = G.C.RED
+            card.ability.extra.shield = card.ability.extra.shield * card.ability.extra.shield_mult
+            effects[#effects+1] = effect
+        end
+    end
+    if right_joker and right_joker ~= card then 
+        local effect = SMODS.blueprint_effect(card, right_joker, context)
+        if effect then
+            effect.colour = G.C.RED
+            card.ability.extra.shield = card.ability.extra.shield * card.ability.extra.shield_mult
+            effects[#effects+1] = effect
         end
     end
 
-    local right_joker = G.jokers.cards[card.ability.extra.pos+1]
-    if right_joker and right_joker ~= card and left_joker ~= card.ability.extra.copying then
-        context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
-        context.blueprint_card = context.blueprint_card or card
-        if context.blueprint > #G.jokers.cards + 1 then return end
-        local right_joker_ret = right_joker:calculate_joker(context)
-        context.blueprint = nil
-        local eff_card = context.blueprint_card or card
-        context.blueprint_card = nil
-        if right_joker_ret then
-            right_joker_ret.card = eff_card
-            right_joker_ret.colour = G.C.RED
-            SMODS.calculate_effect(right_joker_ret)
+    if context.end_of_round and not context.blueprint and not card.ability.extra.moved then
+        card.ability.extra.moved = true
+        if left_joker and not left_joker.ability.abno and (right_joker and pseudorandom("nothing_there_select", 1, 2) == 1 or not right_joker) then
+            G.E_MANAGER:add_event(Event({trigger = "after", func = function()
+                card.ability.extra.copying = left_joker.config.center.key
+                card:set_sprites(left_joker.config.center)
+                card:juice_up()
+                if SMODS.pseudorandom_probability(card, "nothing_there_swap", 1, card.ability.extra.denom) then
+                    local tmp = G.jokers.cards[card.ability.extra.pos]
+                    G.jokers.cards[card.ability.extra.pos] = G.jokers.cards[card.ability.extra.pos-1]
+                    G.jokers.cards[card.ability.extra.pos-1] = tmp
+                end
+            return true end })) 
+        elseif right_joker and not right_joker.ability.abno then
+            G.E_MANAGER:add_event(Event({trigger = "after", func = function()
+                card.ability.extra.copying = right_joker.config.center.key
+                card:set_sprites(right_joker.config.center)
+                card:juice_up()
+                if SMODS.pseudorandom_probability(card, "nothing_there_swap", 1, card.ability.extra.denom) then
+                    local tmp = G.jokers.cards[card.ability.extra.pos]
+                    G.jokers.cards[card.ability.extra.pos] = G.jokers.cards[card.ability.extra.pos+1]
+                    G.jokers.cards[card.ability.extra.pos+1] = tmp
+                end
+            return true end })) 
         end
     end
+    if next(effects) then return SMODS.merge_effects(effects) end
 end
 
 joker.update = function(self, card, dt)
@@ -75,52 +97,10 @@ joker.update = function(self, card, dt)
     end
 end
 
-joker.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    local vars = { 
-        card:check_rounds(4), card:check_rounds(7), card:check_rounds(9),
-    }
-    local desc_key = self.key
-    if card:check_rounds(4) < 4 then
-        desc_key = 'dis_'..desc_key..'_1'
-    elseif card:check_rounds(7) < 7 then
-        desc_key = 'dis_'..desc_key..'_2'
-    elseif card:check_rounds(9) < 9 then
-        desc_key = 'dis_'..desc_key..'_3'
-    end
-
-    full_UI_table.name = localize{type = 'name', key = desc_key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    if not self.discovered and card.area ~= G.jokers then
-        localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = vars}
-    elseif specific_vars and specific_vars.debuffed then
-        localize{type = 'other', key = 'debuffed_default', nodes = desc_nodes}
-    else
-        localize{type = 'descriptions', key = desc_key, set = self.set, nodes = desc_nodes, vars = vars, AUT = full_UI_table}
-        if card.area and card.area == G.jokers then
-            -- left compat
-            desc_nodes[#desc_nodes+1] = {
-                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                        {n=G.UIT.T, config={text = 'left card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
-                    }},
-                    {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.left_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.left_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-                    }}
-                }}
-            }
-
-            -- right compat
-            desc_nodes[#desc_nodes+1] = {
-                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                        {n=G.UIT.T, config={text = 'right card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
-                    }},
-                    {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.right_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.right_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-                    }}
-                }}
-            }
-        end
-    end
+joker.loc_vars = function(self, info_queue, card)
+    if not card.fake_card and card:check_rounds() >= 7 then info_queue[#info_queue+1] = {key = 'lobc_shield', set = 'Other'} end
+    local numer, denom = SMODS.get_probability_vars(card, 1, card.ability.extra.denom)
+    return {vars = {card.ability.extra.shield, card.ability.extra.shield_mult, numer, denom}}
 end
 
 return joker

@@ -650,7 +650,8 @@ return {
                 name = "Shield",
                 text = {
                     "Reduces final score by {C:blue}Shield",
-                    "{C:green}[Hand Start]{} Removes {C:blue}Shield"
+                    "At the end of hand,",
+                    "all {C:blue}Shield{} is removed"
                 }
             },
             lobc_metallic = {
@@ -731,12 +732,12 @@ return {
             j_lobc_nameless_fetus = {
                 name = "Nameless Fetus",
                 text = {
-                    {"{X:mult,C:white} X#2# {} Mult after playing chosen hand type"},
+                    {"{X:mult,C:white} X#2# {} Mult after playing chosen hand type",
+                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
                     {"{X:mult,C:white} X#3# {} Mult if other hand types are played"},
                     {"If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
-                    "and change chosen hand type",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
+                    "and change chosen hand type"},
                 }
             },
             j_lobc_wall_gazer_name_1 = {name = "Wall Gazer"},
@@ -754,12 +755,14 @@ return {
                 name = "Nothing There",
                 text = {
                     {"Copies the abilities of adjacent {C:attention}Jokers{}"},
-                    {"When {C:attention}Blind{} is defeated, moves to",
-                    "a random Joker Slot"},
-                    {"{C:red}Destroys{} Jokers copied last round and",
-                    "take its skin if this Abnormality",
-                    "is adjacent to one",
-                    "{C:inactive}(once per round)"}
+                    {"When hand starts, creates a {C:blue}Shield{} for",
+                    "the Blind equal to {X:attention,C:white} X#1# {} Blind Size",
+                    "Multiply this value by {X:attention,C:white} X#2# {} for",
+                    "each ability copied by this Abnormality"},
+                    {"When round ends, copies the skin of a",
+                    "random adjacent {C:attention}Joker",
+                    "{C:green}#3# in #4#{} chance to swap positions with it",
+                    "{C:inactive}(Does not activate for Abnormalities)"}
                 }
             },
             j_lobc_mhz = {

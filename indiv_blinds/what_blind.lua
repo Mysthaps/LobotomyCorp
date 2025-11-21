@@ -171,8 +171,6 @@ blind.drawn_to_hand = function(self)
             G.GAME.blind.discards_sub = (G.GAME.blind.discards_sub or 0) + 1
             -- Roll skills
             G.GAME.blind:roll_skill()
-            -- Remove shield
-            G.GAME.blind.shield_value = nil
             -- Passive: [Ahab] - Heal SP to self each turn/Resets SP at -45 SP
             if G.GAME.blind.b_sp > -45 then
                 G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
