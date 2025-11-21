@@ -5,8 +5,8 @@ local joker = {
         copying = "j_lobc_nothing_there",
         left_compat = false,
         right_compat = false,
-        shield = 0.1,
-        shield_mult = 1.15,
+        shield = 0.2,
+        shield_mult = 1.2,
         denom = 4,
         moved = false,
     }}, rarity = 3, cost = 11,
@@ -72,6 +72,8 @@ joker.calculate = function(self, card, context)
                 end
             return true end })) 
         end
+
+        if card.ability.extra.shield >= 20 then check_for_unlock({type = "lobc_mimicry"}) end
     end
     if next(effects) then return SMODS.merge_effects(effects) end
 end

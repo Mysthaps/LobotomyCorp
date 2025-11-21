@@ -138,7 +138,7 @@ local achievement_list = {
     "solitude",
     --"syrinx",
     --"screaming_wedge",
-    --"mimicry",
+    "mimicry",
     "lamp",
     "grinder_mk4",
     "red_eyes",
