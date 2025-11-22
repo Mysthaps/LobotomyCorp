@@ -726,13 +726,15 @@ return {
             j_lobc_nameless_fetus = {
                 name = "이름이 없는 태아",
                 text = {
-                    {"선택된 족보 플레이 시 {X:mult,C:white} X#2# {} 배수"},
-                    {"선택되지 않은 족보 플레이 시 {X:mult,C:white} X#3# {} 배수"},
+                    {"선택된 족보 플레이 시",
+                    "{X:mult,C:white} X#2# {} 배수를 제공합니다",
+                    "{C:inactive}(선택된 족보: {C:attention}#1#{C:inactive})"},
+                    {"선택되지 않은 족보 플레이 시",
+                    "{X:mult,C:white} X#3# {} 배수를 제공합니다"},
                     {"라운드의 {C:attention}첫 번째 핸드{}가",
                     "카드 {C:attention}1{}장 뿐일 경우",
                     "그 카드를 파괴하고",
-                    "선택된 족보를 변경합니다",
-                    "{C:inactive}(선택된 족보: {C:attention}#1#{C:inactive})"},
+                    "선택된 족보를 변경합니다"},
                 }
             },
             j_lobc_wall_gazer_name_1 = {name = "벽을 보는 여인"},
@@ -752,13 +754,15 @@ return {
                 name = "아무 것도 없는",
                 text = {
                     {"인접한 {C:attention}조커{}의 능력을 복사합니다"},
-                    {"{C:attention}블라인드{}에 승리하면",
-                    "무작위 조커 슬롯으로 이동합니다"},
-                    {"이 환상체 옆에 마지막 라운드에",
-                    "복사된 조커가 있을 경우",
-                    "그 조커를 {C:red}파괴{}하고",
-                    "그 조커의 외형을 가져옵니다",
-                    "{C:inactive}(라운드 당 1회)"}
+                    {"핸드 플레이 시 블라인드 크기의 {X:attention,C:white} X#1# {}만큼",
+                    "{C:blue}보호막{}을 생성합니다",
+                    "이 수치는 이 환상체가 능력을 복사한 조커 개수의",
+                    "{X:attention, C:white} X#2# {}배 만큼 증가합니다"},
+                    {"라운드 종료 시, 인접한 무작위 {C:attention}조커{}의",
+                    "외형을 복사합니다",
+                    "{C:green}#3#/#4#{} 확률로 해당 조커와",
+                    "자리를 변경합니다",
+                    "{C:inactive}(환상체에는 발동하지 않습니다)"}
                 }
             },
             j_lobc_mhz = {
