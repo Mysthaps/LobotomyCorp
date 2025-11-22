@@ -902,7 +902,7 @@ return {
             j_lobc_punishing_bird_apoc = {
                 name = "징벌 새",
                 text = {
-                    {"{C:mult}+#1#{} Mult"},
+                    {"{C:mult}+#1#{} 배수"},
                     {"이 환상체는 {C:attention}9{}라운드 이후",
                     "{C:dark_edition}네거티브{}를 얻습니다.",
                     "{C:inactive}(현재 {C:attention}#2#{C:inactive} 라운드){}"},
@@ -1293,7 +1293,7 @@ return {
                 text = {
                     {"This Abnormality gains {X:mult,C:white} X#3# {} Mult for",
                     "every {C:attention}2{} unique suits in played hand",
-                    "{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)"},
+                    "{C:inactive}(현재 {X:mult,C:white} X#4# {C:inactive} 배수)"},
                     {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
                     "a playing card of the same suit",
                     "has already been scored this hand"}
