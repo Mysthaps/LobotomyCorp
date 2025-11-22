@@ -45,7 +45,7 @@ joker.calculate = function(self, card, context)
             G.hand:change_size(-card.ability.extra.reduce)
             play_sound("lobc_meat_lantern", 1, 0.4)
             return {
-                message = localize("k_ambush"),
+                message = localize("k_lobc_ambush"),
             }
         end
     end
@@ -60,7 +60,7 @@ joker.calculate = function(self, card, context)
                 return true
             end}))
             return {
-                message = localize("k_ambush"),
+                message = localize("k_lobc_ambush"),
             }
         end
     end
@@ -73,7 +73,7 @@ joker.calculate = function(self, card, context)
                 G.hand:change_size(-card.ability.extra.reduce)
                 play_sound("lobc_meat_lantern", 1, 0.4)
                 return {
-                    message = localize("k_ambush"),
+                    message = localize("k_lobc_ambush"),
                 }
             end
         end

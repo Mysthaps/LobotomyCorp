@@ -42,7 +42,7 @@ joker.lobc_active = function(self, card)
         card.ability.extra.x_mult = card.ability.extra.x_mult / 2
         card.ability.extra.active = true
         SMODS.calculate_effect({
-            message = localize("k_shelter"),
+            message = localize("k_lobc_shelter"),
             colour = G.C.IMPORTANT,
         }, card)
     else

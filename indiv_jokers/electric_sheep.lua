@@ -60,7 +60,7 @@ joker.calculate = function(self, card, context)
                     play_sound("lobc_electric_sheep", 1, 0.7)
                 return true end }))
                 SMODS.calculate_effect({
-                    message = localize("k_conduct"),
+                    message = localize("k_lobc_conduct"),
                     colour = G.C.PURPLE,
                 }, context.blueprint_card or card)
 

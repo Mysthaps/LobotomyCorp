@@ -137,7 +137,7 @@ blind.phase_change = function(self)
                 G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                     mod_sp("b", "set", 0)
                     SMODS.calculate_effect({
-                        message = "Reset SP",
+                        message = localize("k_lobc_reset_sp"),
                         colour = G.C.BLUE,
                         no_juice = true
                     }, G.GAME.blind)
@@ -176,7 +176,7 @@ blind.drawn_to_hand = function(self)
                 G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                     mod_sp("b", "add", 15)
                     SMODS.calculate_effect({
-                        message = "+15 SP",
+                        message = localize{type = 'variable', key = 'lobc_a_sp', vars = {15}},
                         colour = G.C.BLUE,
                         no_juice = true
                     }, G.GAME.blind)
@@ -196,7 +196,7 @@ blind.drawn_to_hand = function(self)
                     G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                         mod_sp("b", "set", 0)
                         SMODS.calculate_effect({
-                            message = "Reset SP",
+                            message = localize("k_lobc_reset_sp"),
                             colour = G.C.BLUE,
                             no_juice = true
                         }, G.GAME.blind)
@@ -256,7 +256,7 @@ blind.calculate = function(self, blind, context)
                         G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                             mod_sp("p", "add", 10)
                             SMODS.calculate_effect({
-                                message = "+10 SP",
+                                message = localize{type = 'variable', key = 'lobc_a_sp', vars = {10}},
                                 colour = G.C.BLUE,
                                 no_juice = true
                             }, G.deck)
@@ -264,7 +264,7 @@ blind.calculate = function(self, blind, context)
                         G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                             mod_sp("b", "add", -10)
                             SMODS.calculate_effect({
-                                message = "-10 SP",
+                                message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {10}},
                                 colour = G.C.RED,
                             }, blind)
                         return true end }))
@@ -273,7 +273,7 @@ blind.calculate = function(self, blind, context)
                             G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                                 mod_sp("b", "add", -5)
                                 SMODS.calculate_effect({
-                                    message = "-5 SP",
+                                    message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {5}},
                                     colour = G.C.RED,
                                 }, blind)
                             return true end }))
@@ -297,7 +297,7 @@ blind.calculate = function(self, blind, context)
             return true end }))
             return {
                 card = context.other_card,
-                message = "+1 SP",
+                message = localize{type = 'variable', key = 'lobc_a_sp', vars = {1}},
                 colour = G.C.BLUE,
                 no_juice = true
             }
@@ -310,7 +310,7 @@ blind.calculate = function(self, blind, context)
             G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
                 mod_sp("b", "add", math.floor(blind.ego/2))
                 SMODS.calculate_effect({
-                    message = "+"..math.floor(blind.ego/2).." SP",
+                    message = localize{type = 'variable', key = 'lobc_a_sp', vars = {math.floor(blind.ego/2)}},
                     colour = G.C.BLUE,
                 }, blind)
             return true end }))

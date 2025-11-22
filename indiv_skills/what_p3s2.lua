@@ -37,14 +37,14 @@ skill.calculate = function(self, skill, context)
             if skill.triggered then
                 mod_sp("p", "add", -15)
                 SMODS.calculate_effect({
-                    message = "-15 SP",
+                    message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {15}},
                     colour = G.C.RED,
                     no_juice = true
                 }, G.deck)
             else
                 mod_sp("b", "add", -5)
                 SMODS.calculate_effect({
-                    message = "-5 SP",
+                    message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {5}},
                     colour = G.C.RED,
                 }, G.GAME.blind)
             end

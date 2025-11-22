@@ -2389,10 +2389,14 @@ return {
             k_lobc_rank_sin = "Rank's Sin: ",
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
-            k_activated = "Activated!",
-            k_conduct = "Conduct!",
-            k_ambush = "Ambushed!",
-            k_shelter = "Sheltered!",
+            k_lobc_activated = "Activated!",
+            k_lobc_conduct = "Conduct!",
+            k_lobc_ambush = "Ambushed!",
+            k_lobc_shelter = "Sheltered!",
+            k_lobc_evade = "Evaded!",
+            k_lobc_fail_evade = "Failed Evade!",
+            k_lobc_skill_disable = "Skill Disabled!",
+            k_lobc_reset_sp = "Reset SP",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
@@ -2889,6 +2893,8 @@ return {
             lobc_sp = "Your SP - #1# (#3#%) #2# - Blind SP",
             lobc_shield = "Shield Value: #1#",
             lobc_round = "+#1# Round#2#",
+            lobc_a_sp = "+#1# SP",
+            lobc_a_sp_minus = "-#1# SP",
         }
     },
 }
