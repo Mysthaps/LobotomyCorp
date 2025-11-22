@@ -250,6 +250,13 @@ return {
                     "{C:red}어디로 가나.{}"
                 }
             },
+            und_j_lobc_knight_of_despair = {
+                name = "O-01-73",
+                text = {
+                    "남은 건 닳디 닳은 기사라는",
+                    "볼품없는 긍지 하나 뿐이다."
+                }
+            },
             und_j_lobc_mosb = {
                 name = "T-01-75",
                 text = {
