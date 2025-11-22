@@ -631,6 +631,19 @@ return {
                     "{C:green}[핸드 시작 시]{} {C:blue}보호막{}을 제거합니다"
                 }
             },
+            lobc_blessing_1 = {
+                name = "가호",
+                text = {
+                    "{C:inactive}...{}"
+                }
+            },
+            lobc_blessing = {
+                name = "가호",
+                text = {
+                    "{X:mult,C:white} X2 {} 배수",
+                    "{C:red}디버프{}되지 않음"
+                }
+            },
             lobc_metallic = {
                 name = "금속제 카드",
                 text = {}
@@ -1052,8 +1065,8 @@ return {
                     "이 환상체가 깊은 눈물을 {C:attention}1{} 얻습니다",
                     "{C:inactive}(현재 {C:attention}#1#{C:inactive} 깊은 눈물)"},
                     {"깊은 눈물이 {C:attention}10{} 이상일 경우 모두 소비하여",
-                    "첫 득점한 카드에 {C:lobc_prey_mark}가호{}를 내립니다"},
-                    {"{C:lobc_prey_mark}가호{}가 부여된 카드가 파괴될 경우",
+                    "첫 득점한 카드에 {C:blessing}가호{}를 내립니다"},
+                    {"{C:blessing}가호{}가 부여된 카드가 파괴될 경우",
                     "이 환상체가 {C:attention}탈출{}합니다"},
                     {"이 환상체가 {C:attention}탈출{}했을 때",
                     "모든 {C:lobc_prey_mark}가호{}가 부여된 카드를 {C:red}파괴{}합니다"},
@@ -2304,6 +2317,7 @@ return {
             lobc_prey_mark = "사냥감의 징표",
             lobc_lantern = "초롱",
             lobc_villain = "악당",
+            lobc_blessing = "가호",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -2348,7 +2362,7 @@ return {
             -- Yesod
             ch_c_lobc_yesod = {"대부분의 이미지가 수정됩니다"},
             ch_c_lobc_yesod_2 = {"카드에 {C:dark_edition}에디션{}을 적용할 수 없습니다"},
-            ch_c_lobc_yesod_3 = {"앤티 {C:attention}3{} 이후, 모든 {C:attention}카드의 설명{}을 제거합니다"},
+            ch_c_lobc_yesod_3 = {"앤티 {C:attention}3{} 이후, 모든 카드의 설명을 제거합니다"},
             ch_c_lobc_yesod_4 = {"앤티 {C:attention}6{} 이후, 모든 텍스트를 제거합니다"},
 
             -- Hod
@@ -2389,6 +2403,7 @@ return {
             k_lobc_fail_evade = "회피 실패!",
             k_lobc_skill_disable = "스킬 비활성화!",
             k_lobc_reset_sp = "정신력 초기화",
+            k_lobc_blessed = "가호받음!",
 
             k_lobc_lamp = "패시브 효과: [영원히 타오르는 램프]",
             k_lobc_misdeeds = "패시브 효과: [나쁜 짓은 안 돼!]",
@@ -2887,6 +2902,7 @@ return {
             lobc_round = "+#1# 라운드#2#",
             lobc_a_sp = "정신력 +#1#",
             lobc_a_sp_minus = "정신력 -#1#",
+            lobc_a_deep_tears = "깊은 눈물 +#1#",
         }
     },
 }
