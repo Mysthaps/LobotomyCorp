@@ -13,24 +13,27 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if card.ability.extra.active and not context.blueprint then
-        if context.before and not G.GAME.blind.disabled then
-            -- From Chicot
-            G.GAME.blind:disable()
-            play_sound('timpani')
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+        if context.cardarea == G.jokers then
+            if context.before and not G.GAME.blind.disabled then
+                -- From Chicot
+                G.GAME.blind:disable()
+                play_sound('timpani')
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+            end
+            if context.after then
+                card.ability.extra.x_mult = card.ability.extra.x_mult / 2
+                return {
+                    message = localize("k_lobc_downgrade"),
+                    colour = G.C.MULT
+                }
+            end
         end
         if context.final_scoring_step then
             return {
                 x_mult = card.ability.extra.x_mult
             }
         end
-        if context.after then
-            card.ability.extra.x_mult = card.ability.extra.x_mult / 2
-            return {
-                message = localize("k_lobc_downgrade"),
-                colour = G.C.MULT
-            }
-        end
+        
     end
 end
 
@@ -39,7 +42,7 @@ joker.lobc_active = function(self, card)
         card.ability.extra.x_mult = card.ability.extra.x_mult / 2
         card.ability.extra.active = true
         SMODS.calculate_effect({
-            message = localize("k_shelter"),
+            message = localize("k_lobc_shelter"),
             colour = G.C.IMPORTANT,
         }, card)
     else

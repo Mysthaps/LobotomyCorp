@@ -61,7 +61,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.after and not context.blueprint then
+    if context.after and context.cardarea == G.jokers and not context.blueprint then
         for _, v in ipairs(G.playing_cards) do
             v.ability.void_dream_activated = nil
         end

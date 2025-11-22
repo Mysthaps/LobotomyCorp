@@ -26,7 +26,7 @@ joker.lobc_active = function(self, card)
     calculate_reroll_cost(true)
     card.ability.extra = card.ability.extra + 1
     SMODS.calculate_effect({
-        message = localize("k_activated"),
+        message = localize("k_lobc_activated"),
         colour = G.C.IMPORTANT,
     }, card)
 end

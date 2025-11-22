@@ -33,7 +33,7 @@ local function create_cardarea(card)
 end
 
 joker.calculate = function(self, card, context)
-    if context.setting_blind and not card.getting_sliced then
+    if context.setting_blind and not card.getting_sliced and not context.blueprint then
         local available_cards = {}
         -- Priority: Little Red > Non-Eternal > Eternal
         local little_red = {}
@@ -61,7 +61,6 @@ joker.calculate = function(self, card, context)
             card.children.lobc_devoured:emplace(selected_card)
             play_sound("lobc_wolf_bite", 1, 0.4)
         end
-        return nil, true
     end
 
     if context.end_of_round and context.main_eval and not context.blueprint then

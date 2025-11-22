@@ -249,6 +249,18 @@ position = 'at'
 match_indent = true
 payload = "ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() - score_shielded ),"
 
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "-- TARGET: effects after hand evaluation"
+position = 'after'
+match_indent = true
+payload = """
+-- Remove shield
+G.E_MANAGER:add_event(Event({trigger = 'after', func = function() 
+    G.GAME.blind.shield_value = nil
+return true end }))"""
+
 # Patch a crash
 [[patches]]
 [patches.pattern]

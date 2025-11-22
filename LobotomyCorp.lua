@@ -22,7 +22,7 @@ local joker_list = {
     "old_lady",
     "nameless_fetus",
     "wall_gazer", -- The Lady Facing the Wall
-    --"nothing_there",
+    "nothing_there",
     "mhz",
     --"silent_orchestra",
     "big_bird",
@@ -323,6 +323,35 @@ for _, v in ipairs(joker_list) do
             localize{type = 'descriptions', key = 'und_'..self.key, set = "Other", nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
         else
             localize{type = 'descriptions', key = res.key or self.key, set = self.set, nodes = desc_nodes, vars = res.vars, AUT = full_UI_table}
+        end
+
+        -- Nothing There
+        if self.key == "j_lobc_nothing_there" then
+            if card.area and card.area == G.jokers and not specific_vars.debuffed then
+                -- left compat
+                desc_nodes[#desc_nodes+1] = {
+                    {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                        {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                            {n=G.UIT.T, config={text = 'left card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
+                        }},
+                        {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.left_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                            {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.left_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                        }}
+                    }}
+                }
+
+                -- right compat
+                desc_nodes[#desc_nodes+1] = {
+                    {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                        {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                            {n=G.UIT.T, config={text = 'right card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
+                        }},
+                        {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.right_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                            {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.right_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                        }}
+                    }}
+                }
+            end
         end
 
         -- For Undiscovered Abnormalities
@@ -2135,7 +2164,7 @@ end
 
 -- First time against a Boss Blind with passives
 function first_time_passive()
-    if not config.first_time_passive then
+    if false then --if not config.first_time_passive then
         config.first_time_passive = true
         SMODS.save_mod_config(current_mod)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()

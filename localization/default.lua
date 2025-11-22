@@ -650,7 +650,8 @@ return {
                 name = "Shield",
                 text = {
                     "Reduces final score by {C:blue}Shield",
-                    "{C:green}[Hand Start]{} Removes {C:blue}Shield"
+                    "At the end of hand,",
+                    "all {C:blue}Shield{} is removed"
                 }
             },
             lobc_metallic = {
@@ -731,12 +732,12 @@ return {
             j_lobc_nameless_fetus = {
                 name = "Nameless Fetus",
                 text = {
-                    {"{X:mult,C:white} X#2# {} Mult after playing chosen hand type"},
+                    {"{X:mult,C:white} X#2# {} Mult after playing chosen hand type",
+                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
                     {"{X:mult,C:white} X#3# {} Mult if other hand types are played"},
                     {"If the {C:attention}first hand{} of round has",
                     "only {C:attention}1{} card, destroy it",
-                    "and change chosen hand type",
-                    "{C:inactive}(Chosen hand type: {C:attention}#1#{C:inactive})"},
+                    "and change chosen hand type"},
                 }
             },
             j_lobc_wall_gazer_name_1 = {name = "Wall Gazer"},
@@ -754,12 +755,14 @@ return {
                 name = "Nothing There",
                 text = {
                     {"Copies the abilities of adjacent {C:attention}Jokers{}"},
-                    {"When {C:attention}Blind{} is defeated, moves to",
-                    "a random Joker Slot"},
-                    {"{C:red}Destroys{} Jokers copied last round and",
-                    "take its skin if this Abnormality",
-                    "is adjacent to one",
-                    "{C:inactive}(once per round)"}
+                    {"When hand starts, creates a {C:blue}Shield{} for",
+                    "the Blind equal to {X:attention,C:white} X#1# {} Blind Size",
+                    "Multiply this value by {X:attention,C:white} X#2# {} for",
+                    "each ability copied by this Abnormality"},
+                    {"When round ends, copies the skin of a",
+                    "random adjacent {C:attention}Joker",
+                    "{C:green}#3# in #4#{} chance to swap positions with it",
+                    "{C:inactive}(Does not activate for Abnormalities)"}
                 }
             },
             j_lobc_mhz = {
@@ -2386,10 +2389,14 @@ return {
             k_lobc_rank_sin = "Rank's Sin: ",
             k_ego_gift = "E.G.O Gift",
             b_ego_gift_cards = "E.G.O Gifts",
-            k_activated = "Activated!",
-            k_conduct = "Conduct!",
-            k_ambush = "Ambushed!",
-            k_shelter = "Sheltered!",
+            k_lobc_activated = "Activated!",
+            k_lobc_conduct = "Conduct!",
+            k_lobc_ambush = "Ambushed!",
+            k_lobc_shelter = "Sheltered!",
+            k_lobc_evade = "Evaded!",
+            k_lobc_fail_evade = "Failed Evade!",
+            k_lobc_skill_disable = "Skill Disabled!",
+            k_lobc_reset_sp = "Reset SP",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
@@ -2795,6 +2802,7 @@ return {
             ach_lobc_love_and_hate = "In the Name of Love and Hate",
             ach_lobc_bear_paws = "Bear Paws",
             ach_lobc_solitude = "Solitude",
+            ach_lobc_mimicry = "Mimicry",
             ach_lobc_lamp = "Lamp",
             ach_lobc_grinder_mk4 = "Grinder Mk4",
             ach_lobc_red_eyes = "Red Eyes",
@@ -2840,6 +2848,7 @@ return {
             ach_lobc_love_and_hate = "Have The Queen of Hatred for 9 rounds in one game without going into Hysteria",
             ach_lobc_bear_paws = "Upgrade the same hand type using Happy Teddy Bear 10 times in one game without resetting it",
             ach_lobc_solitude = "Reach -20 Mult or lower on Old Lady",
+            ach_lobc_mimicry = "Reach Shield equal to X20 Blind Size on Nothing There",
             ach_lobc_lamp = "With Big Bird, score the same Enchanted card 3 times in one round",
             ach_lobc_grinder_mk4 = "Reach X5 Mult or higher on All-Around Helper",
             ach_lobc_red_eyes = "Destroy 10 cards in one game with Spider Bud",
@@ -2884,6 +2893,8 @@ return {
             lobc_sp = "Your SP - #1# (#3#%) #2# - Blind SP",
             lobc_shield = "Shield Value: #1#",
             lobc_round = "+#1# Round#2#",
+            lobc_a_sp = "+#1# SP",
+            lobc_a_sp_minus = "-#1# SP",
         }
     },
 }

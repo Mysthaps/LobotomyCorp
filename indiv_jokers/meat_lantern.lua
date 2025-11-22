@@ -17,9 +17,10 @@ joker.calculate = function(self, card, context)
             SMODS.add_booster_to_shop()
             card.ability.extra.cur = card.ability.extra.cur + 1
         end
+        return {}
     end
 
-    if context.ending_shop then
+    if context.ending_shop and not context.blueprint then
         card.ability.extra.cur = 0
     end
 
@@ -44,7 +45,7 @@ joker.calculate = function(self, card, context)
             G.hand:change_size(-card.ability.extra.reduce)
             play_sound("lobc_meat_lantern", 1, 0.4)
             return {
-                message = localize("k_ambush"),
+                message = localize("k_lobc_ambush"),
             }
         end
     end
@@ -59,7 +60,7 @@ joker.calculate = function(self, card, context)
                 return true
             end}))
             return {
-                message = localize("k_ambush"),
+                message = localize("k_lobc_ambush"),
             }
         end
     end
@@ -72,7 +73,7 @@ joker.calculate = function(self, card, context)
                 G.hand:change_size(-card.ability.extra.reduce)
                 play_sound("lobc_meat_lantern", 1, 0.4)
                 return {
-                    message = localize("k_ambush"),
+                    message = localize("k_lobc_ambush"),
                 }
             end
         end

@@ -13,7 +13,7 @@ skill.calculate = function(self, skill, context)
         play_sound("lobc_what_p2", 1, 0.7)
         mod_sp("b", "add", 10)
         SMODS.calculate_effect({
-            message = "+10 SP",
+            message = localize{type = 'variable', key = 'lobc_a_sp', vars = {10}},
             colour = G.C.BLUE,
         }, G.GAME.blind)
     end
@@ -32,7 +32,7 @@ skill.calculate = function(self, skill, context)
                 }, context.destroying_card)
                 mod_sp("p", "add", -5)
                 SMODS.calculate_effect({
-                    message = "-5 SP",
+                    message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {5}},
                     colour = G.C.RED,
                     no_juice = true
                 }, G.deck)
@@ -55,7 +55,7 @@ skill.calculate = function(self, skill, context)
         G.E_MANAGER:add_event(Event({trigger = 'before', func = function() 
             mod_sp("b", "add", -5)
             SMODS.calculate_effect({
-                message = "-5 SP",
+                message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {5}},
                 colour = G.C.RED,
             }, G.GAME.blind)
         return true end }))

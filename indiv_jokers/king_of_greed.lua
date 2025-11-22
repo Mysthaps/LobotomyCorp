@@ -39,7 +39,7 @@ joker.calculate = function(self, card, context)
         end
     end
 
-    if context.after and not context.blueprint then
+    if context.cardarea == G.jokers and context.after and not context.blueprint then
         if card.ability.extra.proc and card.ability.extra.dollars > 0 then
             card.ability.extra.proc = false
             card.ability.extra.dollars = card.ability.extra.dollars - card.ability.extra.decrease

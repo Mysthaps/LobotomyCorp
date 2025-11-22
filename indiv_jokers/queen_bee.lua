@@ -20,7 +20,7 @@ joker.calculate = function(self, card, context)
         }
     end
 
-    if context.after and not context.blueprint then
+    if context.cardarea == G.jokers and context.after and context.scoring_hand and not context.blueprint then
         for k, v in ipairs(context.scoring_hand) do
             local rank_data = SMODS.Ranks[v.base.value]
             local behavior = rank_data.prev_behavior or {fixed = 1, ignore = false, random = false}

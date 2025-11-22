@@ -34,7 +34,7 @@ skill.calculate = function(self, skill, context)
                 return true end }))
                 mod_sp("p", "add", -10)
                 SMODS.calculate_effect({
-                    message = "-10 SP",
+                    message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {10}},
                     colour = G.C.RED,
                     no_juice = true
                 }, G.deck)

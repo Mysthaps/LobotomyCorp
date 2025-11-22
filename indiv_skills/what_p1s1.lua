@@ -26,7 +26,7 @@ skill.calculate = function(self, skill, context)
                                 play_sound("lobc_evade", 1, 0.8)
                             return true end }))
                             SMODS.calculate_effect({
-                                message = "Evaded!",
+                                message = localize("k_lobc_evade"),
                                 colour = G.C.RED,
                             }, context.other_card)
                             delay(0.2)
@@ -40,9 +40,9 @@ skill.calculate = function(self, skill, context)
                                 mod_ego("add", -2)
                             return true end }))
                             SMODS.calculate_effect({
-                                message = "Failed Evade!",
+                                message = localize("k_lobc_fail_evade"),
                                 colour = G.C.BLUE,
-                                extra = (skill.ability.extra.triggers == 1 and {message = "Skill Disabled!", colour = G.C.RED})
+                                extra = (skill.ability.extra.triggers == 1 and {message = localize("k_lobc_skill_disable"), colour = G.C.RED})
                             }, context.other_card)
                             delay(0.2)
                             

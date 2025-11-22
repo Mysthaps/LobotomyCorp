@@ -48,7 +48,7 @@ skill.calculate = function(self, skill, context)
                 if #destroyed_cards > 0 and sp_loss > 0 then
                     mod_sp("p", "add", -sp_loss)
                     SMODS.calculate_effect({
-                        message = "-"..sp_loss.." SP",
+                        message = localize{type = 'variable', key = 'lobc_a_sp_minus', vars = {sp_loss}},
                         colour = G.C.RED,
                         no_juice = true
                     }, G.deck)
