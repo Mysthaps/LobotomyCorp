@@ -1023,7 +1023,8 @@ return {
                     {"{C:attention}영구적으로{} 득점한 가장 왼쪽의",
                     "{C:enchanted}매혹되지 않은{} 카드를 {C:enchanted}매혹{}하고",
                     "{C:dark_edition}네거티브{}로 만듭니다"},
-                    {"득점한 {C:enchanted}매혹{}된 카드가 {X:mult,C:white} X#1# {} 배수를 제공합니다"},
+                    {"득점한 {C:enchanted}매혹{}된 카드가",
+                    "{X:mult,C:white} X#1# {} 배수를 제공합니다"},
                 }
             },
             j_lobc_king_of_greed = {
@@ -1945,7 +1946,7 @@ return {
                 name = "나쁜 짓은 안 돼!",
                 text = {
                     "{C:dark_edition}[지속성]",
-                    "핸드 유형을 한 번씩만 플레이할 수 있습니다",
+                    "{C:attention}작은 부리{} 전투 도중 플레이한 핸드 유형이 남은 라운드 동안 허용되지 않습니다",
                 }
             },
             psv_lobc_lamp = {
@@ -2649,6 +2650,42 @@ return {
             k_lobc_apocalypse_bird_10 = "공포를 마주하기 전에 먼저 해방되자.",
             k_lobc_apocalypse_bird_11 = "속삭인다. 끊임없이...",
             k_lobc_apocalypse_bird_12 = "널 정죄하지만, 다시 죄를 쌓아감은 끝이 없겠지.",
+
+            k_lobc_ab_cutscene_0_0_1 = "",
+            k_lobc_ab_cutscene_0_0_2 = "옛날 옛적, 따뜻하고 나무가 울창했던 숲에 세 마리의 행복한 새가 살고 있었습니다.",
+            k_lobc_ab_cutscene_0_0_3 = "",
+
+            k_lobc_ab_cutscene_1_0_1 = "큰 새는 숲에 침입자가 없는지 감시하기로 했어요.",
+            k_lobc_ab_cutscene_1_0_2 = "큰 새의 눈은 먼 곳까지 볼 수 있었고 우리가 볼 수 없고, 보지 못하는 것까지 볼 수",
+            k_lobc_ab_cutscene_1_0_3 = "있었기 때문이죠.",
+
+            k_lobc_ab_cutscene_2_0_1 = "",
+            k_lobc_ab_cutscene_2_0_2 = "작은 새는 자신의 부리를 이용하여 나쁜 짓을 저지른 생물들에게 벌을 주기로",
+            k_lobc_ab_cutscene_2_0_3 = "했습니다.",
+
+            k_lobc_ab_cutscene_3_0_1 = "긴 새는 숲의 평화를 위해서 숲에 들어오는 자들의 죄의 무게를 재었습니다.",
+            k_lobc_ab_cutscene_3_0_2 = "긴 새의 저울은 공명정대했고 모든 죄의 무게를 잴 수 있었기 때문이죠.",
+            k_lobc_ab_cutscene_3_0_3 = "",
+
+            k_lobc_ab_cutscene_4_0_1 = "",
+            k_lobc_ab_cutscene_4_0_2 = "늘 우주를 응시하던 머리는 고개를 떨구었고,",
+            k_lobc_ab_cutscene_4_0_3 = "",
+
+            k_lobc_ab_cutscene_0_1_1 = "",
+            k_lobc_ab_cutscene_0_1_2 = "그때, 아우성 속에서 누군가 소리쳤습니다.",
+            k_lobc_ab_cutscene_0_1_3 = "\"저기 괴수가 있다! 검고 어두운 숲에는 크고 무서운 괴물이 산다!\"",
+
+            k_lobc_ab_cutscene_1_1_1 = "",
+            k_lobc_ab_cutscene_1_1_2 = "백 리 밖도 볼 수 있는 큰 새의 눈은 멀었고,",
+            k_lobc_ab_cutscene_1_1_3 = "",
+
+            k_lobc_ab_cutscene_2_1_1 = "",
+            k_lobc_ab_cutscene_2_1_2 = "어떤 것이라도 삼킬 수 있는 작은 새의 입은 다물어졌고,",
+            k_lobc_ab_cutscene_2_1_3 = "",
+
+            k_lobc_ab_cutscene_3_1_1 = "",
+            k_lobc_ab_cutscene_3_1_2 = "새들은 숲 속을 배회하며 괴수를 찾기 시작했지만 아무도 없었습니다.",
+            k_lobc_ab_cutscene_3_1_3 = "생물들도, 해와 달도, 괴수도. 남은 건 그저 한 마리의 새와 검은 숲이었지요.",
 
             ---- Hatred ----
             k_lobc_hatred_entry = "사랑과 정의의 이름으로~ 지금 이 곳에 등장!",
