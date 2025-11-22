@@ -1293,7 +1293,7 @@ return {
                 text = {
                     {"This Abnormality gains {X:mult,C:white} X#3# {} Mult for",
                     "every {C:attention}2{} unique suits in played hand",
-                    "{C:inactive}(현재 {X:mult,C:white} X#4# {C:inactive} 배수)"},
+                    "{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)"},
                     {"Scoring cards give {X:mult,C:white} X#2# {} Mult if",
                     "a playing card of the same suit",
                     "has already been scored this hand"}
@@ -1367,8 +1367,8 @@ return {
             bl_lobc_apocalypse_bird_effect = {
                 name = "종말새",
                 text = {
-                    "Hand scores X0.3 less",
-                    "for each #1# played",
+                    "플레이한 #1#마다",
+                    "점수가 X0.3배 감소합니다",
                 }
             },
             bl_lobc_ab_beak = {
@@ -1380,8 +1380,8 @@ return {
             bl_lobc_ab_beak_effect = {
                 name = "작은 부리",
                 text = {
-                    "이 블라인드에서",
-                    "핸드 반복이 금지됩니다",
+                    "핸드 유형을 한 번씩만",
+                    "플레이할 수 있습니다",
                 }
             },
             bl_lobc_ab_eyes = {
@@ -1811,8 +1811,7 @@ return {
             psv_lobc_suppression = {
                 name = "환상체 제압",
                 text = {
-                    "이 {C:attention}블라인드{} 제압 시,",
-                    "특별한 {C:attention}환상체{} 카드를 얻습니다"
+                    "이 {C:attention}블라인드{} 제압 시, 특별한 {C:attention}환상체{} 카드를 얻습니다"
                 }
             },
             psv_lobc_magical_girl = {
@@ -1826,8 +1825,7 @@ return {
             psv_lobc_refracted = {
                 name = "굴절된 힘겨루기",
                 text = {
-                    "카드가 {C:attention}10{}회 이상 재발동 시",
-                    "발동하는 대신 파괴합니다"
+                    "카드가 {C:attention}10{}회 이상 재발동 시 대신 파괴합니다"
                 }
             },
             -- Crimson Noon & Crimson Dusk
@@ -1863,9 +1861,7 @@ return {
             psv_lobc_kali = {
                 name = "칼리",
                 text = {
-                    "블라인드 크기를 넘어서는 득점 시",
-                    "{C:red}버리기{}를 초기화하고 덱으로 카드를 되돌리며",
-                    "다음 페이즈로 넘어갑니다"
+                    "블라인드 크기를 넘어서는 득점 시 {C:red}버리기{}를 초기화하고 덱으로 카드를 되돌리며 다음 페이즈로 넘어갑니다"
                 }
             },
             psv_lobc_the_strongest = {
@@ -1893,41 +1889,35 @@ return {
             psv_lobc_the_three_birds = {
                 name = "세 마리의 새",
                 text = {
-                    "{C:attention}블라인드{} 시작 시",
-                    "{C:dark_edition}종말새{}와 전투하기 전",
-                    "{C:attention}큰 눈{}, {C:red}작은 부리{}, {C:purple}긴 팔{}과 전투합니다",
+                    "{C:attention}블라인드{} 시작 시 {C:dark_edition}종말새{}와 전투하기 전 {C:attention}큰 눈{}, {C:red}작은 부리{}, {C:purple}긴 팔{}과 전투합니다",
                 }
             },
             psv_lobc_cracking_eggs = {
                 name = "부서지는 알",
                 text = {
-                    "{C:attention}블라인드{}에 승리하면 {C:blue}+1{} 핸드, {C:red}+1{} 버리기를 얻고",
-                    "모든 카드를 덱으로 되돌립니다",
-                    "{C:purple}긴 팔{}에 승리하면",
-                    "{C:blue}핸드{}와 {C:red}버리기{}를 초기화합니다"
+                    "{C:attention}블라인드{}에 승리하면 {C:blue}+1{} 핸드, {C:red}+1{} 버리기를 얻고 모든 카드를 덱으로 되돌립니다",
+                    "{C:purple}긴 팔{}에 승리하면 {C:blue}핸드{}와 {C:red}버리기{}를 초기화합니다"
                 }
             },
             psv_lobc_monster_of_the_forest = {
                 name = "검은 숲의 괴수",
                 text = {
-                    "페이즈 변경 시 선택된 문양 변경",
-                    "페이즈 변경 시 {C:attention}큰 눈{}, {C:red}작은 부리{},",
-                    "{C:purple}긴 팔{}의 {C:dark_edition}[지속성]{} 효과를 제거합니다",
+                    "페이즈 변경 시 선택된 문양이 변경됩니다",
+                    "페이즈 변경 시 {C:attention}큰 눈{}, {C:red}작은 부리{}, {C:purple}긴 팔{}의 {C:dark_edition}[지속성]{} 효과를 제거합니다",
                     "페이즈 변경 시 {C:blue}+1{} 핸드를 얻습니다",
                 }
             },
             psv_lobc_eternal_peace = {
                 name = "영원한 평화/안정/침묵",
                 text = {
-                    "최초 1회에 한해 블라인드 크기의",
-                    "{C:attention}25{}/{C:attention}50{}/{C:attention}75%{} 이상 득점할 수 없습니다",
+                    "최초 1회에 한해 블라인드 크기의 {C:attention}25{}/{C:attention}50{}/{C:attention}75%{} 이상 득점할 수 없습니다",
                 }
             },
             psv_lobc_misdeeds = {
                 name = "나쁜 짓은 안 돼!",
                 text = {
                     "{C:dark_edition}[지속성]",
-                    "{C:red}작은 부리{} 상대 중 카드가 재발동하지 않습니다",
+                    "핸드 유형을 한 번씩만 플레이할 수 있습니다",
                 }
             },
             psv_lobc_lamp = {
@@ -1941,8 +1931,7 @@ return {
                 name = "멈추지 않는 심판",
                 text = {
                     "{C:dark_edition}[지속성]",
-                    "핸드에 포함된 각 카드가 동일한 모든 랭크의 카드에",
-                    "{C:attention}+1 {C:red}죄를 부여합니다",
+                    "핸드에 포함된 각 카드가 동일한 모든 랭크의 카드에 {C:attention}+1 {C:red}죄를 부여합니다",
                     "{C:attention}5{} 이상의 {C:red}죄{}가 부여된 카드가 {C:red}디버프{}됩니다",
                 }
             },
@@ -1950,54 +1939,42 @@ return {
             psv_lobc_hatred = {
                 name = "증오의 이름으로",
                 text = {
-                    "핸드 플레이 시 이번 블라인드에서 플레이한 핸드의 수와",
-                    "내 덱의 {C:attention}표식{}찍힌 카드의 수만큼",
-                    "{C:red}히스테리{}가 증가합니다",
-                    "{C:attention}표식{}찍힌 카드가 {C:red}파괴{}될 시",
-                    "{C:red}히스테리{}가 {C:attention}1{}만큼 감소합니다{C:inactive}(최소 0){}",
+                    "핸드 플레이 시 이번 블라인드에서 플레이한 핸드의 수와 내 덱의 {C:attention}표식{}찍힌 카드의 수만큼 {C:red}히스테리{}가 증가합니다",
+                    "{C:attention}표식{}찍힌 카드가 {C:red}파괴{}될 시 {C:red}히스테리{}가 {C:attention}1{}만큼 감소합니다{C:inactive}(최소 0){}",
                 }
             },
             psv_lobc_adverse = {
                 name = "역변",
                 text = {
-                    "점수가 블라인드 크기의 {C:attention}50%{} 도달 시",
-                    "{C:red}히스테리{}를 {C:attention}남은 핸드{}만큼 증가시키고",
-                    "{C:attention}+1 {C:blue}핸드{}와 {C:red}버리기{}를 얻습니다",
-                    "이 효과 발동 전까지 점수가 블라인드 크기의",
-                    "{C:attention}50%{}를 넘길 수 없습니다"
+                    "점수가 블라인드 크기의 {C:attention}50%{} 도달 시 {C:red}히스테리{}를 {C:attention}남은 핸드{}만큼 증가시키고 {C:attention}+1 {C:blue}핸드{}와 {C:red}버리기{}를 얻습니다",
+                    "이 효과 발동 전까지 점수가 블라인드 크기의 {C:attention}50%{}를 넘길 수 없습니다"
                 }
             },
             psv_lobc_arcana = {
                 name = "아르카나 슬레이브",
                 text = {
-                    "블라인드 능력 효과가 {C:red}히스테리{} 수치에",
-                    "비례해 증가합니다",
-                    "매 {C:attention}3{}번째 핸드 또는 {C:purple}역변{} 발동 시",
-                    "핸드에 적용되는 블라인드 능력을 변경합니다",
+                    "블라인드 능력 효과가 {C:red}히스테리{} 수치에 비례해 증가합니다",
+                    "매 {C:attention}3{}번째 핸드 또는 {C:purple}역변{} 발동 시 핸드에 적용되는 블라인드 능력을 변경합니다",
                 }
             },
             psv_lobc_power = {
                 name = "사랑과 정의의 이름으로",
                 text = {
-                    "{C:hearts}하트{} 문양이 이 블라인드 능력 계산 시",
-                    "{C:attention}5{}개의 추가 랭크로 계산됩니다"
+                    "{C:hearts}하트{} 문양이 이 블라인드 능력 계산 시 {C:attention}5{}개의 추가 랭크로 계산됩니다"
                 }
             },
             -- Wrath
             psv_lobc_realm = {
                 name = "두 세계의 만남",
                 text = {
-                    "첫 핸드가 득점하지 않고",
-                    "핸드 플레이 시 {C:blue}+1{} 핸드를 얻습니다",
+                    "첫 핸드가 득점하지 않고 핸드 플레이 시 {C:blue}+1{} 핸드를 얻습니다",
                     "첫 핸드 이후 블라인드 능력이 변경됩니다"
                 }
             },
             psv_lobc_exploited = {
                 name = "이용되는 이",
                 text = {
-                    "점수가 블라인드 크기의 {C:attention}90%{} 이상이고",
-                    "{C:purple}오늘의 연극{} 효과로 승리하지 않았을 경우",
-                    "점수를 블라인드 크기의 {C:attention}50%{}로 설정합니다"
+                    "점수가 블라인드 크기의 {C:attention}90%{} 이상이고 {C:purple}오늘의 연극{} 효과로 승리하지 않았을 경우 점수를 블라인드 크기의 {C:attention}50%{}로 설정합니다"
                 }
             },
             psv_lobc_today_play = {
@@ -2005,17 +1982,14 @@ return {
                 text = {
                     "{C:attention}분노의 시종{}만이 은자를 처치할 수 있습니다",
                     "{C:attention}은자{}를 처치하면 승리합니다",
-                    "그렇지 않을 경우 {C:purple}눈 먼 분노{} 효과가 발동하지 않고",
-                    "이번 핸드로는 승리할 수 없습니다"
+                    "그렇지 않을 경우 {C:purple}눈 먼 분노{} 효과가 발동하지 않고 이번 핸드로는 승리할 수 없습니다"
                 }
             },
             psv_lobc_blind_rage = {
                 name = "눈 먼 분노",
                 text = {
-                    "{C:attention}분노의 시종{}이 매 핸드 플레이 이후 발동하며",
-                    "핸드를 소모하지 않습니다",
-                    "{C:attention}분노의 시종{}이 발동한 뒤에",
-                    "카드를 드로우합니다"
+                    "{C:attention}분노의 시종{}이 매 핸드 플레이 이후 발동하며 핸드를 소모하지 않습니다",
+                    "{C:attention}분노의 시종{}이 발동한 뒤에 카드를 드로우합니다"
                 }
             },
             -- Erlking Heathcliff
@@ -2400,7 +2374,7 @@ return {
             k_lobc_extraction_pack = "추출 팩",
             k_lobc_active = "활성화",
             k_lobc_inactive = "비활성화",
-            k_lobc_rank_sin = "랭크의 죄악: ",
+            k_lobc_rank_sin = "랭크의 죄: ",
             k_ego_gift = "E.G.O 기프트",
             b_ego_gift_cards = "E.G.O 기프트",
             k_lobc_activated = "활성화됨!",
