@@ -45,10 +45,11 @@ local joker_list = {
     "price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
+    --"knight_of_despair",
     "mosb", -- The Mountain of Smiling Bodies
     "heart_of_aspiration",
     "giant_tree_sap",
-    "shelter",
+    "shelter", -- Shelter from the 27th of March
     "fairy_festival",
     "meat_lantern",
     "iron_maiden", -- We Can Change Anything
@@ -370,12 +371,12 @@ for _, v in ipairs(joker_list) do
                     -- First level is in desc_nodes
                     if k == 1 then
                         full_UI_table.main = {}
-                        localize{type = 'descriptions', key = (override or "lobc_obs_"..k), set = "Other", nodes = full_UI_table.main, vars = {card:check_rounds(), v}}
+                        localize{type = 'descriptions', key = (override or "lobc_obs"), set = "Other", nodes = full_UI_table.main, vars = {card:check_rounds(), v, k}}
                         full_UI_table.main.main_box_flag = true
                     else
                     -- The rest are in AUT.multi_box
                         full_UI_table.multi_box[k-1] = {}
-                        localize{type = 'descriptions', key = (override or "lobc_obs_"..k), set = "Other", nodes = full_UI_table.multi_box[k-1], vars = {card:check_rounds(), v}}
+                        localize{type = 'descriptions', key = (override or "lobc_obs"), set = "Other", nodes = full_UI_table.multi_box[k-1], vars = {card:check_rounds(), v, k}}
                     end
                 end
             end

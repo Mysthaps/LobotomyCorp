@@ -419,21 +419,9 @@ return {
             },
 
             ---- Observation Levels ----
-            lobc_obs_1 = {
+            lobc_obs = {
                 text = {
-                    "{C:inactive}- 관찰 레벨 1 -",
-                    "{C:attention}#1#/#2#"
-                }
-            },
-            lobc_obs_2 = {
-                text = {
-                    "{C:inactive}- 관찰 레벨 2 -",
-                    "{C:attention}#1#/#2#"
-                }
-            },
-            lobc_obs_3 = {
-                text = {
-                    "{C:inactive}- 관찰 레벨 3 -",
+                    "{C:inactive}- 관찰 레벨 #3# -",
                     "{C:attention}#1#/#2#"
                 }
             },

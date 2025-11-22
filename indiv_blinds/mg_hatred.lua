@@ -38,10 +38,6 @@ blind.set_blind = function(self)
 end
 
 blind.drawn_to_hand = function(self)
-    if G.GAME.current_round.hands_left <= 0 then
-        G.STATE = G.STATES.NEW_ROUND
-        G.STATE_COMPLETE = false
-    end
     if G.GAME.blind.prepped then
         lamped = false
         -- Reset marked cards
@@ -54,6 +50,30 @@ blind.drawn_to_hand = function(self)
         if G.GAME.blind.hands_sub == 0 then
             G.GAME.blind.alt_skill = true
         end
+
+        -- [Adverse Change] Move to phase 2
+        if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) / 2 and not G.GAME.blind.transformed then
+            G.GAME.blind.transformed = true
+            -- [Arcana Slave] Switch to alt skill when Adverse Change triggers
+            G.GAME.blind.alt_skill = true
+
+            G.GAME.blind.hysteria = G.GAME.blind.hysteria + G.GAME.current_round.hands_left
+            ease_hands_played(1)
+            ease_discard(1)
+            G.E_MANAGER:add_event(Event({func = function()
+                play_sound("lobc_hatred_switch", 1, 0.8)
+                lobc_screen_text({text = localize('k_lobc_hatred_switch'), scale = 0.35, hold = 7*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.1}, noisy = false, colour = HEX("ffedf5")})
+                local eval_func = function()
+                    return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_mg_hatred' and G.GAME.blind.transformed
+                end
+                lobc_abno_text("hatred_alt", eval_func, 2, 6)
+                G.GAME.lobc_maiden_active = false
+            return true end}))
+        elseif G.GAME.current_round.hands_left <= 0 then
+            G.STATE = G.STATES.NEW_ROUND
+            G.STATE_COMPLETE = false
+        end
+
         -- Mark cards
         if not G.GAME.blind.alt_skill then
             local available_cards = {}
@@ -147,24 +167,7 @@ blind.mod_score = function(self, score)
     if lamped then return 0 end
     -- [Adverse Change] Up to 50% Blind Size
     if to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) / 2 and to_big(G.GAME.chips) + score >= to_big(G.GAME.blind.chips) / 2 then
-        G.GAME.blind.transformed = true
-        -- [Arcana Slave] Switch to alt skill when Adverse Change triggers
-        G.GAME.blind.alt_skill = true
-        -- [Adverse Change] Trigger transform voiceline, do the effects once
-        if not run_once then
-            run_once = true
-            G.E_MANAGER:add_event(Event({func = function()
-                play_sound("lobc_hatred_switch", 1, 0.8)
-                lobc_screen_text({text = localize('k_lobc_hatred_switch'), scale = 0.35, hold = 7*G.SETTINGS.GAMESPEED, major = G.play, align = 'cm', offset = {x = 0, y = -3.1}, noisy = false, colour = HEX("ffedf5")})
-                local eval_func = function()
-                    return G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_lobc_mg_hatred' and not G.GAME.blind.transformed
-                end
-                lobc_abno_text("hatred_alt", eval_func, 2, 6)
-            return true end}))
-            G.GAME.blind.hysteria = G.GAME.blind.hysteria + G.GAME.current_round.hands_left
-            ease_hands_played(1)
-            ease_discard(1)
-        end
+        if G.GAME.current_round.hands_left == 0 then G.GAME.lobc_maiden_active = true; print("proc") end
         return to_big(G.GAME.blind.chips) / 2 - to_big(G.GAME.chips)
     end
     return score
