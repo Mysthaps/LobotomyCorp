@@ -650,6 +650,19 @@ return {
                     "all {C:blue}Shield{} is removed"
                 }
             },
+            lobc_blessing_1 = {
+                name = "Blessing",
+                text = {
+                    "{C:inactive}...{}"
+                }
+            },
+            lobc_blessing = {
+                name = "Blessing",
+                text = {
+                    "{X:mult,C:white} X2 {} Mult",
+                    "Cannot be {C:red}debuffed{}"
+                }
+            },
             lobc_metallic = {
                 name = "Metallic Cards",
                 text = {}
@@ -1046,11 +1059,11 @@ return {
                     "this Abnormality gains {C:attention}1{} Deep Tears",
                     "{C:inactive}(Currently {C:attention}#1# {C:inactive}Deep Tears)"},
                     {"At {C:attention}10+{} Deep Tears, consume all of it",
-                    "to give the first scoring card {C:lobc_prey_mark}Blessing"},
-                    {"If a card with {C:lobc_prey_mark}Blessing{} is removed,",
+                    "to give the first scoring card {C:blessing}Blessing"},
+                    {"If a card with {C:blessing}Blessing{} is removed,",
                     "this Abnormality {C:attention}breaches"},
-                    {"When this Abnormality {C:attention}breaches{},",
-                    "{C:red}destroy{} all cards with {C:lobc_prey_mark}Blessing{}"},
+                    {"When this Abnormality is removed,",
+                    "{C:red}destroy{} all cards with {C:blessing}Blessing{}"},
                 }
             },
             j_lobc_mosb = {
@@ -2322,6 +2335,7 @@ return {
             lobc_prey_mark = "Prey Mark",
             lobc_lantern = "Lantern",
             lobc_villain = "Villain",
+            lobc_blessing = "Blessing",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -2366,7 +2380,7 @@ return {
             -- Yesod
             ch_c_lobc_yesod = {"Most sprites are modified"},
             ch_c_lobc_yesod_2 = {"No cards can have {C:dark_edition}Editions{}"},
-            ch_c_lobc_yesod_3 = {"After Ante {C:attention}3{}, removes all {C:attention}Jokers{}' text"},
+            ch_c_lobc_yesod_3 = {"After Ante {C:attention}3{}, removes all descriptions"},
             ch_c_lobc_yesod_4 = {"After Ante {C:attention}6{}, removes all text"},
 
             -- Hod
@@ -2407,6 +2421,7 @@ return {
             k_lobc_fail_evade = "Failed Evade!",
             k_lobc_skill_disable = "Skill Disabled!",
             k_lobc_reset_sp = "Reset SP",
+            k_lobc_blessed = "Blessed!",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
@@ -2905,6 +2920,7 @@ return {
             lobc_round = "+#1# Round#2#",
             lobc_a_sp = "+#1# SP",
             lobc_a_sp_minus = "-#1# SP",
+            lobc_a_deep_tears = "+#1# Deep Tears",
         }
     },
 }

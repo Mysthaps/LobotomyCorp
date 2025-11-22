@@ -45,7 +45,7 @@ local joker_list = {
     "price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
-    --"knight_of_despair",
+    "knight_of_despair",
     "mosb", -- The Mountain of Smiling Bodies
     "heart_of_aspiration",
     "giant_tree_sap",
@@ -238,6 +238,7 @@ local badge_colors = {
     lobc_prey_mark = HEX("1506A5"),
     lobc_lantern = HEX("88CA42"),
     lobc_villain = HEX("CB34B4"),
+    lobc_blessing = HEX("1506A5"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -718,6 +719,7 @@ function abno_breach(card, delay)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_lobc_breached'), colour = G.C.FILTER, instant = true})
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
                 func = function()
+                    card.getting_sliced = true
                     G.jokers:remove_card(card)
                     card:remove()
                     card = nil
@@ -1836,6 +1838,7 @@ local should_debuff_ability = {
 }
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
+        if card.ability.knight_of_despair_blessing then return false end
         for _, v in ipairs(should_debuff_ability) do
             if card.ability[v] then 
                 --card:set_debuff(true)
@@ -2205,6 +2208,7 @@ function SMODS.injectItems()
             "price_of_silence_amplified",
             "plague_doctor_baptism",
             "child_galaxy_pebble",
+            "knight_of_despair_blessing",
         }
         G.lobc_global_meltdowns = {
             "malkuth",
@@ -2226,6 +2230,7 @@ function SMODS.injectItems()
             price_of_silence_amplified = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 1, y = 0}),
             plague_doctor_baptism = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 2, y = 0}),
             child_galaxy_pebble = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 3, y = 0}),
+            knight_of_despair_blessing = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 0, y = 1}),
         }
         
         -- Card popup UI effects
