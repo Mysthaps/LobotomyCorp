@@ -330,24 +330,12 @@ for _, v in ipairs(joker_list) do
         -- Nothing There
         if self.key == "j_lobc_nothing_there" then
             if card.area and card.area == G.jokers and not specific_vars.debuffed then
-                -- left compat
                 desc_nodes[#desc_nodes+1] = {
                     {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                        {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                            {n=G.UIT.T, config={text = 'left card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
-                        }},
                         {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.left_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
                             {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.left_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-                        }}
-                    }}
-                }
-
-                -- right compat
-                desc_nodes[#desc_nodes+1] = {
-                    {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                        {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                            {n=G.UIT.T, config={text = 'right card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
                         }},
+                        {n=G.UIT.C, config={minw = 0.3, align = "m", padding = 0.06}},
                         {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.right_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
                             {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.right_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
                         }}
@@ -2441,7 +2429,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         end
 
         if v.yes_pool_flag and v.yes_pool_flag ~= "allow_abnormalities_in_shop" 
-           and not G.GAME.pool_flags[v.no_pool_flag] then 
+           and not G.GAME.pool_flags[v.yes_pool_flag] then 
             add = false
         end
         if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
