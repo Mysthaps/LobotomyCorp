@@ -650,6 +650,19 @@ return {
                     "all {C:blue}Shield{} is removed"
                 }
             },
+            lobc_blessing_1 = {
+                name = "Blessing",
+                text = {
+                    "{C:inactive}...{}"
+                }
+            },
+            lobc_blessing = {
+                name = "Blessing",
+                text = {
+                    "{X:mult,C:white} X2 {} Mult",
+                    "Cannot be {C:red}debuffed{}"
+                }
+            },
             lobc_metallic = {
                 name = "Metallic Cards",
                 text = {}
@@ -752,12 +765,12 @@ return {
                 text = {
                     {"Copies the abilities of adjacent {C:attention}Jokers{}"},
                     {"When hand starts, creates a {C:blue}Shield{} for",
-                    "the Blind equal to {X:attention,C:white} X#1# {} Blind Size",
-                    "Multiply this value by {X:attention,C:white} X#2# {} for",
+                    "the Blind equal to {X:attention,C:white} X#1# {} Blind Size",},
+                    {"Multiply above value by {X:attention,C:white} X#2# {} for",
                     "each ability copied by this Abnormality"},
                     {"When round ends, copies the skin of a",
-                    "random adjacent {C:attention}Joker",
-                    "{C:green}#3# in #4#{} chance to swap positions with it",
+                    "random adjacent {C:attention}Joker",},
+                    {"{C:green}#3# in #4#{} chance to swap positions with it",
                     "{C:inactive}(Does not activate for Abnormalities)"}
                 }
             },
@@ -1046,11 +1059,11 @@ return {
                     "this Abnormality gains {C:attention}1{} Deep Tears",
                     "{C:inactive}(Currently {C:attention}#1# {C:inactive}Deep Tears)"},
                     {"At {C:attention}10+{} Deep Tears, consume all of it",
-                    "to give the first scoring card {C:lobc_prey_mark}Blessing"},
-                    {"If a card with {C:lobc_prey_mark}Blessing{} is removed,",
+                    "to give the first scoring card {C:blessing}Blessing"},
+                    {"If a card with {C:blessing}Blessing{} is removed,",
                     "this Abnormality {C:attention}breaches"},
-                    {"When this Abnormality {C:attention}breaches{},",
-                    "{C:red}destroy{} all cards with {C:lobc_prey_mark}Blessing{}"},
+                    {"When this Abnormality is removed,",
+                    "{C:red}destroy{} all cards with {C:blessing}Blessing{}"},
                 }
             },
             j_lobc_mosb = {
@@ -2322,6 +2335,7 @@ return {
             lobc_prey_mark = "Prey Mark",
             lobc_lantern = "Lantern",
             lobc_villain = "Villain",
+            lobc_blessing = "Blessing",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -2366,7 +2380,7 @@ return {
             -- Yesod
             ch_c_lobc_yesod = {"Most sprites are modified"},
             ch_c_lobc_yesod_2 = {"No cards can have {C:dark_edition}Editions{}"},
-            ch_c_lobc_yesod_3 = {"After Ante {C:attention}3{}, removes all {C:attention}Jokers{}' text"},
+            ch_c_lobc_yesod_3 = {"After Ante {C:attention}3{}, removes all descriptions"},
             ch_c_lobc_yesod_4 = {"After Ante {C:attention}6{}, removes all text"},
 
             -- Hod
@@ -2407,6 +2421,7 @@ return {
             k_lobc_fail_evade = "Failed Evade!",
             k_lobc_skill_disable = "Skill Disabled!",
             k_lobc_reset_sp = "Reset SP",
+            k_lobc_blessed = "Blessed!",
 
             k_lobc_lamp = "Passive: [A Lamp that Burns Forever]",
             k_lobc_misdeeds = "Passive: [Misdeeds Not Allowed!]",
@@ -2639,6 +2654,42 @@ return {
             k_lobc_apocalypse_bird_10 = "Let's be free before we have to face that fear...",
             k_lobc_apocalypse_bird_11 = "I whisper, without cessation...",
             k_lobc_apocalypse_bird_12 = "I condemn you, but you will still commit more sin without end...",
+
+            k_lobc_ab_cutscene_0_0_1 = "",
+            k_lobc_ab_cutscene_0_0_2 = "Once upon a time, three happy birds lived",
+            k_lobc_ab_cutscene_0_0_3 = "in a warm and lush forest.",
+
+            k_lobc_ab_cutscene_1_0_1 = "Big Bird, with its many eyes, decided to watch over the forest for",
+            k_lobc_ab_cutscene_1_0_2 = "intruders.",
+            k_lobc_ab_cutscene_1_0_3 = "For Big Bird's eyes could see very far, and see things we cannot see.",
+
+            k_lobc_ab_cutscene_2_0_1 = "",
+            k_lobc_ab_cutscene_2_0_2 = "Small Bird decided to punish the creatures'",
+            k_lobc_ab_cutscene_2_0_3 = "wrongdoings with its beak.",
+
+            k_lobc_ab_cutscene_3_0_1 = "To keep the forest's peace, Long Bird weighed the sins of those who entered the",
+            k_lobc_ab_cutscene_3_0_2 = "forest.",
+            k_lobc_ab_cutscene_3_0_3 = "For Long Bird's scale was fair and just, and could weigh any and all kinds of sin.",
+
+            k_lobc_ab_cutscene_4_0_1 = "",
+            k_lobc_ab_cutscene_4_0_2 = "The head that always gazed upon the",
+            k_lobc_ab_cutscene_4_0_3 = "cosmos was lowered,",
+
+            k_lobc_ab_cutscene_0_1_1 = "Then, in the middle of all the chaotic cries, someone shouted:",
+            k_lobc_ab_cutscene_0_1_2 = "\"It's the beast! A big, scary monster lives in the black, dusky ",
+            k_lobc_ab_cutscene_0_1_3 = "forest!\"",
+
+            k_lobc_ab_cutscene_1_1_1 = "",
+            k_lobc_ab_cutscene_1_1_2 = "",
+            k_lobc_ab_cutscene_1_1_3 = "Big Bird's far seeing eyes were blinded,",
+
+            k_lobc_ab_cutscene_2_1_1 = "",
+            k_lobc_ab_cutscene_2_1_2 = "Small Bird's mouth that could devour",
+            k_lobc_ab_cutscene_2_1_3 = "anything was shut,",
+
+            k_lobc_ab_cutscene_3_1_1 = "The bird began to prowl the forest, but there was nothing.",
+            k_lobc_ab_cutscene_3_1_2 = "There were no creatures, no sun and moon, and no beast.",
+            k_lobc_ab_cutscene_3_1_3 = "All that was left was just a bird and the Black Forest.",
 
             ---- Hatred ----
             k_lobc_hatred_entry = "In the name of Love and Justice~ Here comes Magical Girl!",
@@ -2905,6 +2956,7 @@ return {
             lobc_round = "+#1# Round#2#",
             lobc_a_sp = "+#1# SP",
             lobc_a_sp_minus = "-#1# SP",
+            lobc_a_deep_tears = "+#1# Deep Tears",
         }
     },
 }

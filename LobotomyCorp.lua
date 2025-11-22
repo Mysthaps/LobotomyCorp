@@ -45,7 +45,7 @@ local joker_list = {
     "price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
-    --"knight_of_despair",
+    "knight_of_despair",
     "mosb", -- The Mountain of Smiling Bodies
     "heart_of_aspiration",
     "giant_tree_sap",
@@ -238,6 +238,7 @@ local badge_colors = {
     lobc_prey_mark = HEX("1506A5"),
     lobc_lantern = HEX("88CA42"),
     lobc_villain = HEX("CB34B4"),
+    lobc_blessing = HEX("1506A5"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
@@ -329,24 +330,12 @@ for _, v in ipairs(joker_list) do
         -- Nothing There
         if self.key == "j_lobc_nothing_there" then
             if card.area and card.area == G.jokers and not specific_vars.debuffed then
-                -- left compat
                 desc_nodes[#desc_nodes+1] = {
                     {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                        {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                            {n=G.UIT.T, config={text = 'left card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
-                        }},
                         {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.left_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
                             {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.left_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-                        }}
-                    }}
-                }
-
-                -- right compat
-                desc_nodes[#desc_nodes+1] = {
-                    {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                        {n=G.UIT.C, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                            {n=G.UIT.T, config={text = 'right card ',colour = G.C.UI.TEXT_INACTIVE, scale = 0.32*0.8}},
                         }},
+                        {n=G.UIT.C, config={minw = 0.3, align = "m", padding = 0.06}},
                         {n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.extra.right_compat and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
                             {n=G.UIT.T, config={text = ' '..localize(card.ability.extra.right_compat and 'k_compatible' or 'k_incompatible')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
                         }}
@@ -718,6 +707,7 @@ function abno_breach(card, delay)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_lobc_breached'), colour = G.C.FILTER, instant = true})
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
                 func = function()
+                    card.getting_sliced = true
                     G.jokers:remove_card(card)
                     card:remove()
                     card = nil
@@ -1139,6 +1129,23 @@ function Blind.set_text(self)
 end
 
 -- Blind cutscenes
+function create_UIBox_ab_cutscene(pos)
+    return 
+    {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.C, config = {align = 'cm', colour = G.C.CLEAR}, nodes = {
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, padding = 0.08}, nodes={
+                {n=G.UIT.T, config={text = localize("k_lobc_ab_cutscene_"..pos.x.."_"..pos.y.."_1"), scale = 0.55, colour = G.C.WHITE, float = true}}
+            }},
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, padding = 0.08}, nodes={
+                {n=G.UIT.T, config={text = localize("k_lobc_ab_cutscene_"..pos.x.."_"..pos.y.."_2"), scale = 0.55, colour = G.C.WHITE, float = true}}
+            }},
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, padding = 0.08}, nodes={
+                {n=G.UIT.T, config={text = localize("k_lobc_ab_cutscene_"..pos.x.."_"..pos.y.."_3"), scale = 0.55, colour = G.C.WHITE, float = true}}
+            }},
+        }}
+    }}
+end
+
 function display_cutscene(pos, c_type, delay_pause)
     local atlas = nil
     local mod_x, mod_y = 1, 1
@@ -1181,6 +1188,16 @@ function display_cutscene(pos, c_type, delay_pause)
             self:draw_boundingrect()
             if self.shader_tab then love.graphics.setShader() end
         end
+        G.lobc_cutscene.children.text = UIBox{
+            definition = create_UIBox_ab_cutscene(pos),
+            config = {
+                align = "tm",
+                offset = {
+                    x = -1, y = 11.8
+                },
+                parent = G.lobc_cutscene
+            }
+        }
         ui_nodes = {
             {n = G.UIT.R, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
                 { n = G.UIT.O, config = { object = G.lobc_cutscene }},
@@ -1836,6 +1853,7 @@ local should_debuff_ability = {
 }
 function SMODS.current_mod.set_debuff(card, should_debuff)
     if card.ability then
+        if card.ability.knight_of_despair_blessing then return false end
         for _, v in ipairs(should_debuff_ability) do
             if card.ability[v] then 
                 --card:set_debuff(true)
@@ -2205,6 +2223,7 @@ function SMODS.injectItems()
             "price_of_silence_amplified",
             "plague_doctor_baptism",
             "child_galaxy_pebble",
+            "knight_of_despair_blessing",
         }
         G.lobc_global_meltdowns = {
             "malkuth",
@@ -2226,6 +2245,7 @@ function SMODS.injectItems()
             price_of_silence_amplified = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 1, y = 0}),
             plague_doctor_baptism = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 2, y = 0}),
             child_galaxy_pebble = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 3, y = 0}),
+            knight_of_despair_blessing = Sprite(0, 0, G.CARD_W, G.CARD_H, modifiers_atlas, {x = 0, y = 1}),
         }
         
         -- Card popup UI effects
@@ -2436,7 +2456,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
         end
 
         if v.yes_pool_flag and v.yes_pool_flag ~= "allow_abnormalities_in_shop" 
-           and not G.GAME.pool_flags[v.no_pool_flag] then 
+           and not G.GAME.pool_flags[v.yes_pool_flag] then 
             add = false
         end
         if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
