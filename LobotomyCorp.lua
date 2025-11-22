@@ -1129,6 +1129,23 @@ function Blind.set_text(self)
 end
 
 -- Blind cutscenes
+function create_UIBox_ab_cutscene(pos)
+    return 
+    {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.C, config = {align = 'cm', colour = G.C.CLEAR}, nodes = {
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, padding = 0.08}, nodes={
+                {n=G.UIT.T, config={text = localize("k_lobc_ab_cutscene_"..pos.x.."_"..pos.y.."_1"), scale = 0.55, colour = G.C.WHITE, float = true}}
+            }},
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, padding = 0.08}, nodes={
+                {n=G.UIT.T, config={text = localize("k_lobc_ab_cutscene_"..pos.x.."_"..pos.y.."_2"), scale = 0.55, colour = G.C.WHITE, float = true}}
+            }},
+            {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, padding = 0.08}, nodes={
+                {n=G.UIT.T, config={text = localize("k_lobc_ab_cutscene_"..pos.x.."_"..pos.y.."_3"), scale = 0.55, colour = G.C.WHITE, float = true}}
+            }},
+        }}
+    }}
+end
+
 function display_cutscene(pos, c_type, delay_pause)
     local atlas = nil
     local mod_x, mod_y = 1, 1
@@ -1171,6 +1188,16 @@ function display_cutscene(pos, c_type, delay_pause)
             self:draw_boundingrect()
             if self.shader_tab then love.graphics.setShader() end
         end
+        G.lobc_cutscene.children.text = UIBox{
+            definition = create_UIBox_ab_cutscene(pos),
+            config = {
+                align = "tm",
+                offset = {
+                    x = -1, y = 11.8
+                },
+                parent = G.lobc_cutscene
+            }
+        }
         ui_nodes = {
             {n = G.UIT.R, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
                 { n = G.UIT.O, config = { object = G.lobc_cutscene }},

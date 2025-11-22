@@ -2655,6 +2655,42 @@ return {
             k_lobc_apocalypse_bird_11 = "I whisper, without cessation...",
             k_lobc_apocalypse_bird_12 = "I condemn you, but you will still commit more sin without end...",
 
+            k_lobc_ab_cutscene_0_0_1 = "",
+            k_lobc_ab_cutscene_0_0_2 = "Once upon a time, three happy birds lived",
+            k_lobc_ab_cutscene_0_0_3 = "in a warm and lush forest.",
+
+            k_lobc_ab_cutscene_1_0_1 = "Big Bird, with its many eyes, decided to watch over the forest for",
+            k_lobc_ab_cutscene_1_0_2 = "intruders.",
+            k_lobc_ab_cutscene_1_0_3 = "For Big Bird's eyes could see very far, and see things we cannot see.",
+
+            k_lobc_ab_cutscene_2_0_1 = "",
+            k_lobc_ab_cutscene_2_0_2 = "Small Bird decided to punish the creatures'",
+            k_lobc_ab_cutscene_2_0_3 = "wrongdoings with its beak.",
+
+            k_lobc_ab_cutscene_3_0_1 = "To keep the forest's peace, Long Bird weighed the sins of those who entered the",
+            k_lobc_ab_cutscene_3_0_2 = "forest.",
+            k_lobc_ab_cutscene_3_0_3 = "For Long Bird's scale was fair and just, and could weigh any and all kinds of sin.",
+
+            k_lobc_ab_cutscene_4_0_1 = "",
+            k_lobc_ab_cutscene_4_0_2 = "The head that always gazed upon the",
+            k_lobc_ab_cutscene_4_0_3 = "cosmos was lowered,",
+
+            k_lobc_ab_cutscene_0_1_1 = "Then, in the middle of all the chaotic cries, someone shouted:",
+            k_lobc_ab_cutscene_0_1_2 = "\"It's the beast! A big, scary monster lives in the black, dusky ",
+            k_lobc_ab_cutscene_0_1_3 = "forest!\"",
+
+            k_lobc_ab_cutscene_1_1_1 = "",
+            k_lobc_ab_cutscene_1_1_2 = "",
+            k_lobc_ab_cutscene_1_1_3 = "Big Bird's far seeing eyes were blinded,",
+
+            k_lobc_ab_cutscene_2_1_1 = "",
+            k_lobc_ab_cutscene_2_1_2 = "Small Bird's mouth that could devour",
+            k_lobc_ab_cutscene_2_1_3 = "anything was shut,",
+
+            k_lobc_ab_cutscene_3_1_1 = "The bird began to prowl the forest, but there was nothing.",
+            k_lobc_ab_cutscene_3_1_2 = "There were no creatures, no sun and moon, and no beast.",
+            k_lobc_ab_cutscene_3_1_3 = "All that was left was just a bird and the Black Forest.",
+
             ---- Hatred ----
             k_lobc_hatred_entry = "In the name of Love and Justice~ Here comes Magical Girl!",
             k_lobc_hatred_s1 = "With Love!",
