@@ -667,9 +667,8 @@ return {
             j_lobc_happy_teddy_bear = {
                 name = "행복한 테디",
                 text = {
-                    {"이 라운드에서 플레이한 적 없는",
-                    "{C:attention}족보{} 레벨을",
-                    "최대 1회 업그레이드합니다"},
+                    {"플레이한 {C:attention}족보{} 레벨을",
+                    "업그레이드합니다"},
                     {"{C:attention}연속{}으로 플레이한 핸드가",
                     "동일한 {C:attention}족보{}일 경우",
                     "레벨을 {C:attention}0{}까지 감소시킵니다",}
@@ -751,7 +750,7 @@ return {
             j_lobc_mhz = {
                 name = "1.76 MHz",
                 text = {
-                    {"카드의 랭크와 수트 표기를",
+                    {"카드의 랭크와 문양 표기를",
                     "제거합니다",},
                     {"플레이해 득점한 카드가",
                     "{C:chips}+???{} 칩과 {C:mult}+???{} 배수를 부여합니다"}
@@ -970,7 +969,7 @@ return {
                 name = "우주 속의 조각",
                 text = {
                     {"플레이한 {C:attention}핸드{}가 {C:attention}3{}개의",
-                    "수트를 포함 시 {C:green}#1#/#2#{} 확률로",
+                    "문양을 포함 시 {C:green}#1#/#2#{} 확률로",
                     "무작위 {C:dark_edition}소멸성 {C:planet}행성{} 카드를 얻습니다"},
                     {"{C:green}#1#/#3#{} 확률로",
                     "무작위 {C:dark_edition}영구 {C:spectral}유령{} 카드를 얻습니다",
@@ -981,7 +980,8 @@ return {
             j_lobc_judgement_bird = {
                 name = "심판 새",
                 text = {
-                    {"핸드에 포함된 각 카드가 동일한 모든 랭크의 카드에",
+                    {"핸드에 포함된 각 카드가",
+                    "동일한 모든 랭크의 카드에",
                     "{C:attention}+1 {C:red}죄를 부여합니다",},
                     {"{C:attention}5{} 이상의 {C:red}죄{}가 부여된 카드를",
                     "득점 시 {C:red}파괴{}합니다",},
@@ -1326,7 +1326,7 @@ return {
             m_lobc_worker_bee = {
                 name = "일벌",
                 text = {
-                    "랭크 혹은 수트가 없습니다",
+                    "랭크 또는 문양이 없습니다",
                     "강화 변경 불가능"
                 }
             }
@@ -1670,7 +1670,7 @@ return {
                 "무작위 1~3장의 조커를 디버프합니다",
             }},
             bl_lobc_red_mist_effect_18 = { text = {
-                "핸드에 반드시 다른 수트",
+                "핸드에 반드시 다른 문양",
                 "세 가지가 포함되어야 합니다"
             }},
             bl_lobc_red_mist_effect_19 = { text = {
@@ -1743,11 +1743,11 @@ return {
             },
             bl_lobc_what_blind_name = {
                 name = "가스하푼",
-                text = {"­", "­"}
+                text = {" ", " "}
             },
             bl_lobc_what_blind_name_copy = {
                 name = "가스하푼",
-                text = {"­", "­"}
+                text = {" ", " "}
             },
             bl_lobc_what_blind_cutscene_1 = {
                 name = "가스하푼",
@@ -1896,7 +1896,7 @@ return {
             psv_lobc_monster_of_the_forest = {
                 name = "검은 숲의 괴수",
                 text = {
-                    "페이즈 변경 시 선택된 수트 변경",
+                    "페이즈 변경 시 선택된 문양 변경",
                     "페이즈 변경 시 {C:attention}큰 눈{}, {C:red}작은 부리{},",
                     "{C:purple}긴 팔{}의 {C:dark_edition}[지속성]{} 효과를 제거합니다",
                     "페이즈 변경 시 {C:blue}+1{} 핸드를 얻습니다",
@@ -1965,7 +1965,7 @@ return {
             psv_lobc_power = {
                 name = "사랑과 정의의 이름으로",
                 text = {
-                    "{C:hearts}하트{} 수트가 이 블라인드 능력 계산 시",
+                    "{C:hearts}하트{} 문양이 이 블라인드 능력 계산 시",
                     "{C:attention}5{}개의 추가 랭크로 계산됩니다"
                 }
             },
@@ -2093,11 +2093,8 @@ return {
                 name = "{C:o_indigo}정신력",
                 text = {
                     "플레이어와 {C:attention}가스하푼{}의 {C:blue}정신력{}이 {C:blue}0{}에서 시작합니다",
-                    "{C:green}[득점 전]{} 각 플레이한 카드가",
-                    "{C:attention}100%{}의 득점 확률을 가지며 {C:blue}정신력{}이",
-                    "{C:attention}가스하푼{}보다 낮은 만큼 확률이 감소합니다",
-                    "{C:green}[페이즈 변경 시]{} {C:blue}정신력{}이 0보다 낮을 경우",
-                    "{C:blue}정신력{}을 {C:blue}0{}으로 초기화합니다"
+                    "{C:green}[득점 전]{} 각 플레이한 카드가 {C:attention}100%{}의 득점 확률을 가지며 {C:blue}정신력{}이 {C:attention}가스하푼{}보다 낮은 만큼 확률이 감소합니다",
+                    "{C:green}[페이즈 변경 시]{} {C:blue}정신력{}이 0보다 낮을 경우 {C:blue}정신력{}을 {C:blue}0{}으로 초기화합니다"
                 }
             },
             psv_lobc_what_1 = {
@@ -2113,11 +2110,8 @@ return {
                 text = {
                     "핸드 당 점수가 블라인드 크기의 {C:attention}30%{}를 넘을 수 없습니다",
                     "{C:green}[핸드 시작 시]{} 정신력이 {C:blue}-45{}가 아닐 경우 정신력을 {C:blue}15{} 회복합니다",
-                    "{C:green}[핸드 종료 시]{} 정신력이 {C:blue}-45 SP{}일 경우",
-                    "이번 핸드의 최종 점수가 {C:attention}20%{} 증가하고",
-                    "다음 핸드에 {C:blue}정신력{}을 {C:blue}0{}으로 설정합니다",
-                    "{C:green}[패배 시] {C:attention}페이즈 변경{}, {C:red}버리기{}를 초기화하고",
-                    "모든 카드를 덱으로 되돌립니다{C:inactive(최대 2회)"
+                    "{C:green}[핸드 종료 시]{} 정신력이 {C:blue}-45{}일 경우 이번 핸드의 최종 점수가 {C:attention}20%{} 증가하고 다음 핸드에 {C:blue}정신력{}을 {C:blue}0{}으로 설정합니다",
+                    "{C:green}[패배 시] {C:attention}페이즈 변경{}, {C:red}버리기{}를 초기화하고 모든 카드를 덱으로 되돌립니다{C:inactive(최대 2회)"
                 }
             },
             psv_lobc_what_3_pip = {
@@ -2125,8 +2119,7 @@ return {
                 text = {
                     "{C:green}[페이즈 시작 시]{} {C:devoured}핍의 자아{}를 {C:attention}20{} 얻습니다",
                     "{C:green}[핸드 종료 시]{} {C:devoured}핍의 자아{} {C:attention}2{}당 {C:blue}정신력{}을 {C:blue}3{} 회복합니다",
-                    "{C:green}[핸드 종료 시]{} {C:devoured}핍의 자아{}가 {C:attention}0{}이면",
-                    "최종 점수를 {C:attention}50%{} 증가시킵니다",
+                    "{C:green}[핸드 종료 시]{} {C:devoured}핍의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
                     "일부 스킬이 {C:devoured}핍의 자아{}를 소모합니다"
                 }
             },
@@ -2134,12 +2127,9 @@ return {
                 name = "스타벅의 두려움",
                 text = {
                     "{C:green}[페이즈 시작 시]{} {C:o_green}스타벅의 자아{}를 {C:attention}20{} 얻습니다",
-                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{} {C:attention}6{}당",
-                    "최종 점수가 {C:attention}20% 감소합니다",
-                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{}가 {C:attention}0{}이면",
-                    "최종 점수를 {C:attention}50%{} 증가시킵니다",
-                    "{C:green}탄식의 메아리{} 스킬이 적중하지 않을 때마다",
-                    "{C:o_green}스타벅의 자아{}가 {C:attention}1{} 감소합니다"
+                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{} {C:attention}6{}당 최종 점수가 {C:attention}20% 감소합니다",
+                    "{C:green}[핸드 종료 시]{} {C:o_green}스타벅의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
+                    "{C:green}탄식의 메아리{} 스킬이 적중하지 않을 때마다 {C:o_green}스타벅의 자아{}가 {C:attention}1{} 감소합니다"
                 }
             },
             psv_lobc_what_3_queequeg = {
@@ -2147,10 +2137,8 @@ return {
                 text = {
                     "{C:green}[페이즈 시작 시]{} {C:o_violet}퀴케그의 자아{}를 {C:attention}30{} 얻습니다",
                     "{C:green}[페이즈 시작 시]{} {C:red}+3{} 버리기를 얻습니다",
-                    "{C:green}[핸드 종료 시]{} {C:blue}보호막{}이 남아있으면 {C:o_violet}퀴케그의 자아{}를",
-                    "{C:attention}5{} 회복하고 보호막이 없으면 {C:attention}10{} 감소합니다",
-                    "{C:green}[핸드 종료 시]{} {C:o_violet}퀴케그의 자아{}가 {C:attention}0{}이면",
-                    "최종 점수를 {C:attention}50%{} 증가시킵니다",
+                    "{C:green}[핸드 종료 시]{} {C:blue}보호막{}이 남아있으면 {C:o_violet}퀴케그의 자아{}를 {C:attention}5{} 회복하고 보호막이 없으면 {C:attention}10{} 감소합니다",
+                    "{C:green}[핸드 종료 시]{} {C:o_violet}퀴케그의 자아{}가 {C:attention}0{}이면 최종 점수를 {C:attention}50%{} 증가시킵니다",
                 }
             }
         },
@@ -2177,7 +2165,7 @@ return {
                     "스킬이 2회 이상 적중하지 않을 경우 스킬을 비활성화합니다",
                     "{C:attention}[숭고의 대가]{}를 발동시키지 않습니다",
                     "{C:green}[각 카드 득점 시작 시]{} 랭크가 {C:attention}8{}보다 낮을 경우",
-                    "{C:blue}(50 + SP)% {C:inactive}(#1#%){} 확률로 득점하지 않습니다",
+                    "{C:blue}(50 + 정신력)% {C:inactive}(#1#%){} 확률로 득점하지 않습니다",
                     "{C:green}[실패 시]{} {C:devoured}핍의 자아{}가 {C:attention}2{} 감소합니다"
                 }
             },
@@ -2204,7 +2192,7 @@ return {
                 text = {
                     "{C:green}[득점 시작 시]{} {C:prey_mark}사냥감의 징표{}가 없는",
                     "득점한 가장 왼쪽의 카드에 {C:prey_mark}사냥감의 징표{}를 부착합니다",
-                    "{C:green}[득정 종료 시]{} {C:prey_mark}사냥감의 징표{}가 없는",
+                    "{C:green}[득점 종료 시]{} {C:prey_mark}사냥감의 징표{}가 없는",
                     "득점한 무작위 카드를 파괴합니다",
                 }
             },
@@ -2283,7 +2271,7 @@ return {
             mvm_lobc_third = {
                 name = "제 3악장",
                 text = {
-                    "뽑았을 때 플레잉 카드 세 장의 랭크와 수트를",
+                    "뽑았을 때 플레잉 카드 세 장의 랭크와 문양을",
                     "무작위로 변경하며, 모든 플레잉 카드에 영구적으로",
                     "{C:chips}+#1#{} 칩, {C:mult}+#2#{} 배수와 {X:mult,C:white} X#3# {} 배수를 추가하고",
                     "{S:1.1,C:red,E:2}스스로 파괴됩니다{}"
@@ -2292,7 +2280,7 @@ return {
             mvm_lobc_fourth = {
                 name = "제 4악장",
                 text = {
-                    "뽑았을 때 영구적으로 플레잉 카드 네 장의 랭크와 수트를",
+                    "뽑았을 때 영구적으로 플레잉 카드 네 장의 랭크와 문양을",
                     "제거하며, 다른 모든 플레잉 카드에",
                     "{C:chips}+#1#{} 칩, {C:mult}+#2#{} 배수, {X:mult,C:white} X#3# {} 배수를 추가하고",
                     "플레이 시 {C:money}$#4#{}를 획득한 뒤",
@@ -2401,10 +2389,14 @@ return {
             k_lobc_rank_sin = "랭크의 죄악: ",
             k_ego_gift = "E.G.O 기프트",
             b_ego_gift_cards = "E.G.O 기프트",
-            k_lobc_activated = "Activated!",
+            k_lobc_activated = "활성화됨!",
             k_lobc_conduct = "전도!",
-            k_lobc_ambush = "Ambushed!",
+            k_lobc_ambush = "매복함!",
             k_lobc_shelter = "보호됨!",
+            k_lobc_evade = "회피!",
+            k_lobc_fail_evade = "회피 실패!",
+            k_lobc_skill_disable = "스킬 비활성화!",
+            k_lobc_reset_sp = "정신력 초기화",
 
             k_lobc_lamp = "패시브 효과: [영원히 타오르는 램프]",
             k_lobc_misdeeds = "패시브 효과: [나쁜 짓은 안 돼!]",
@@ -2901,6 +2893,8 @@ return {
             lobc_sp = "플레이어 정신력 - #1# (#3#%) #2# - 블라인드 정신력",
             lobc_shield = "보호막 수치: #1#",
             lobc_round = "+#1# 라운드#2#",
+            lobc_a_sp = "정신력 +#1#",
+            lobc_a_sp_minus = "정신력 -#1#",
         }
     },
 }
