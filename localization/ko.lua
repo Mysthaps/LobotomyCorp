@@ -2401,10 +2401,14 @@ return {
             k_lobc_rank_sin = "랭크의 죄악: ",
             k_ego_gift = "E.G.O 기프트",
             b_ego_gift_cards = "E.G.O 기프트",
-            k_activated = "Activated!",
-            k_conduct = "전도!",
-            k_ambush = "Ambushed!",
-            k_shelter = "보호됨!",
+            k_lobc_activated = "활성화됨!",
+            k_lobc_conduct = "전도!",
+            k_lobc_ambush = "매복함!",
+            k_lobc_shelter = "보호됨!",
+            k_lobc_evade = "회피!",
+            k_lobc_fail_evade = "회피 실패!",
+            k_lobc_skill_disable = "스킬 비활성화!",
+            k_lobc_reset_sp = "정신력 초기화",
 
             k_lobc_lamp = "패시브 효과: [영원히 타오르는 램프]",
             k_lobc_misdeeds = "패시브 효과: [나쁜 짓은 안 돼!]",
@@ -2901,6 +2905,8 @@ return {
             lobc_sp = "플레이어 정신력 - #1# (#3#%) #2# - 블라인드 정신력",
             lobc_shield = "보호막 수치: #1#",
             lobc_round = "+#1# 라운드#2#",
+            lobc_a_sp = "정신력 +#1#",
+            lobc_a_sp_minus = "정신력 -#1#",
         }
     },
 }
