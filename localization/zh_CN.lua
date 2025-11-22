@@ -432,21 +432,9 @@ return {
             },
 
             ---- Observation Levels ----
-            lobc_obs_1 = {
+            lobc_obs = {
                 text = {
-                    "{C:inactive}- 观测等级 1 -",
-                    "{C:attention}#1#/#2#"
-                }
-            },
-            lobc_obs_2 = {
-                text = {
-                    "{C:inactive}- 观测等级 2 -",
-                    "{C:attention}#1#/#2#"
-                }
-            },
-            lobc_obs_3 = {
-                text = {
-                    "{C:inactive}- 观测等级 3 -",
+                    "{C:inactive}- 观测等级 #3# -",
                     "{C:attention}#1#/#2#"
                 }
             },

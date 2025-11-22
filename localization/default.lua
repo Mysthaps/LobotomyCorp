@@ -260,6 +260,14 @@ return {
                     "when they die?",
                 }
             },
+            und_j_lobc_knight_of_despair = {
+                name = "O-01-73",
+                text = {
+                    "All that remains is the",
+                    "hollow pride of a",
+                    "weathered knight."
+                }
+            },
             und_j_lobc_mosb = {
                 name = "T-01-75",
                 text = {
@@ -434,21 +442,9 @@ return {
             },
 
             ---- Observation Levels ----
-            lobc_obs_1 = {
+            lobc_obs = {
                 text = {
-                    "{C:inactive}- Observation Level 1 -",
-                    "{C:attention}#1#/#2#"
-                }
-            },
-            lobc_obs_2 = {
-                text = {
-                    "{C:inactive}- Observation Level 2 -",
-                    "{C:attention}#1#/#2#"
-                }
-            },
-            lobc_obs_3 = {
-                text = {
-                    "{C:inactive}- Observation Level 3 -",
+                    "{C:inactive}- Observation Level #3# -",
                     "{C:attention}#1#/#2#"
                 }
             },
@@ -1041,6 +1037,20 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)"},
                     {"When {C:attention}Boss Blind{} is defeated,",
                     "adds {C:dark_edition}Eternal{} to a random Joker"},
+                }
+            },
+            j_lobc_knight_of_despair = {
+                name = "The Knight of Despair",
+                text = {
+                    {"When a card is used, sold, or destroyed,",
+                    "this Abnormality gains {C:attention}1{} Deep Tears",
+                    "{C:inactive}(Currently {C:attention}#1# {C:inactive}Deep Tears)"},
+                    {"At {C:attention}10+{} Deep Tears, consume all of it",
+                    "to give the first scoring card {C:lobc_prey_mark}Blessing"},
+                    {"If a card with {C:lobc_prey_mark}Blessing{} is removed,",
+                    "this Abnormality {C:attention}breaches"},
+                    {"When this Abnormality {C:attention}breaches{},",
+                    "{C:red}destroy{} all cards with {C:lobc_prey_mark}Blessing{}"},
                 }
             },
             j_lobc_mosb = {
