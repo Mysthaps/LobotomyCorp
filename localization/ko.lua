@@ -590,9 +590,10 @@ return {
                 name = "죄",
                 text = {
                     "{C:attention}블라인드{}에 승리하면",
-                    "1만큼 감소합니다",
+                    "1 감소합니다",
                     "{C:red}죄{}가 {C:attention}10{}이상이라면",
-                    "{C:attention}절반{} 감소합니다",
+                    "{C:attention}절반{}으로 줄인 뒤",
+                    "1 감소합니다",
                 }
             },
             lobc_marked = {
