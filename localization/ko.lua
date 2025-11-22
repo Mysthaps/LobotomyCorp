@@ -2348,7 +2348,7 @@ return {
             -- Yesod
             ch_c_lobc_yesod = {"대부분의 이미지가 수정됩니다"},
             ch_c_lobc_yesod_2 = {"카드에 {C:dark_edition}에디션{}을 적용할 수 없습니다"},
-            ch_c_lobc_yesod_3 = {"앤티 {C:attention}3{} 이후, 모든 {C:attention}조커{}의 텍스트를 제거합니다"},
+            ch_c_lobc_yesod_3 = {"앤티 {C:attention}3{} 이후, 모든 {C:attention}카드의 설명{}을 제거합니다"},
             ch_c_lobc_yesod_4 = {"앤티 {C:attention}6{} 이후, 모든 텍스트를 제거합니다"},
 
             -- Hod
