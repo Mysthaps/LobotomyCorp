@@ -986,8 +986,9 @@ return {
                     "{C:attention}+1 {C:red}죄를 부여합니다",},
                     {"{C:attention}5{} 이상의 {C:red}죄{}가 부여된 카드를",
                     "득점 시 {C:red}파괴{}합니다",},
-                    {"이 환상체는 어떠한 방식으로든 파괴된 카드의",
-                    "{C:red}죄{} 수치만큼 {X:mult,C:white} X#1# {} 배수를 얻습니다",
+                    {"이 환상체는 어떠한 방식으로든",
+                    "파괴된 카드의 {C:red}죄{} 수치만큼",
+                    "{X:mult,C:white} X#1# {} 배수를 얻습니다",
                     "{C:inactive}(현재 {X:mult,C:white} X#2# {C:inactive} 배수)"}
                 }
             },
