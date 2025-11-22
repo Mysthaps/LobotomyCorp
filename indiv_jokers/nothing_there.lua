@@ -16,7 +16,7 @@ local joker = {
     perishable_compat = true,
     abno = true,
     risk = "aleph",
-    discover_rounds = {4, 7, 9},
+    discover_rounds = {2, 4, 5, 7, 8},
 }
 
 joker.calculate = function(self, card, context)

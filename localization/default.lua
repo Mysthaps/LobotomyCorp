@@ -765,12 +765,12 @@ return {
                 text = {
                     {"Copies the abilities of adjacent {C:attention}Jokers{}"},
                     {"When hand starts, creates a {C:blue}Shield{} for",
-                    "the Blind equal to {X:attention,C:white} X#1# {} Blind Size",
-                    "Multiply this value by {X:attention,C:white} X#2# {} for",
+                    "the Blind equal to {X:attention,C:white} X#1# {} Blind Size",},
+                    {"Multiply above value by {X:attention,C:white} X#2# {} for",
                     "each ability copied by this Abnormality"},
                     {"When round ends, copies the skin of a",
-                    "random adjacent {C:attention}Joker",
-                    "{C:green}#3# in #4#{} chance to swap positions with it",
+                    "random adjacent {C:attention}Joker",},
+                    {"{C:green}#3# in #4#{} chance to swap positions with it",
                     "{C:inactive}(Does not activate for Abnormalities)"}
                 }
             },
