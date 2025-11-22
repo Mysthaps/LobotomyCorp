@@ -1055,6 +1055,20 @@ return {
                     "무작위 조커에 {C:dark_edition}영구{} 스티커를 부착합니다"},
                 }
             },
+            j_lobc_knight_of_despair = {
+                name = "절망의 기사",
+                text = {
+                    {"카드가 사용되거나 팔리거나 파괴될 경우",
+                    "이 환상체가 깊은 눈물을 {C:attention}1{} 얻습니다",
+                    "{C:inactive}(현재 {C:attention}#1#{C:inactive} 깊은 눈물)"},
+                    {"깊은 눈물이 {C:attention}10{} 이상일 경우 모두 소비하여",
+                    "첫 득점한 카드에 {C:lobc_prey_mark}가호{}를 내립니다"},
+                    {"{C:lobc_prey_mark}가호{}가 부여된 카드가 파괴될 경우",
+                    "이 환상체가 {C:attention}탈출{}합니다"},
+                    {"이 환상체가 {C:attention}탈출{}했을 때",
+                    "모든 {C:lobc_prey_mark}가호{}가 부여된 카드를 {C:red}파괴{}합니다"},
+                }
+            },
             j_lobc_mosb = {
                 name = "웃는 시체들의 산",
                 text = {
