@@ -1983,7 +1983,7 @@ return {
                 name = "When Two Realms Meet",
                 text = {
                     "On the first hand, score does not increase,",
-                    "and {C:blue}+1{} hand when hand is played",
+                    "and does not cost hands",
                     "After the first hand, change Blind effect"
                 }
             },
