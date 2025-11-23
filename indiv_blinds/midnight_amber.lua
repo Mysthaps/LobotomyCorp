@@ -31,7 +31,7 @@ blind.press_play = function(self)
         func = function()
             for _, v in ipairs(G.play.cards) do
                 if v.debuff then
-                    destroyed_cards[#destroyed_cards+1] = card
+                    destroyed_cards[#destroyed_cards+1] = v
                     v:start_dissolve() 
                 end
             end
