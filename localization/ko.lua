@@ -2663,9 +2663,9 @@ return {
             k_lobc_ab_cutscene_2_0_2 = "작은 새는 자신의 부리를 이용하여 나쁜 짓을 저지른 생물들에게 벌을 주기로",
             k_lobc_ab_cutscene_2_0_3 = "했습니다.",
 
-            k_lobc_ab_cutscene_3_0_1 = "긴 새는 숲의 평화를 위해서 숲에 들어오는 자들의 죄의 무게를 재었습니다.",
-            k_lobc_ab_cutscene_3_0_2 = "긴 새의 저울은 공명정대했고 모든 죄의 무게를 잴 수 있었기 때문이죠.",
-            k_lobc_ab_cutscene_3_0_3 = "",
+            k_lobc_ab_cutscene_3_0_1 = "",
+            k_lobc_ab_cutscene_3_0_2 = "긴 새는 숲의 평화를 위해서 숲에 들어오는 자들의 죄의 무게를 재었습니다.",
+            k_lobc_ab_cutscene_3_0_3 = "긴 새의 저울은 공명정대했고 모든 죄의 무게를 잴 수 있었기 때문이죠.",
 
             k_lobc_ab_cutscene_4_0_1 = "",
             k_lobc_ab_cutscene_4_0_2 = "늘 우주를 응시하던 머리는 고개를 떨구었고,",
