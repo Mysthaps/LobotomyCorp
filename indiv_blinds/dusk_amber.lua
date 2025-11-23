@@ -12,22 +12,19 @@ local blind = {
 }
 
 blind.press_play = function(self)
-    local destroyed_cards = {}
     G.E_MANAGER:add_event(Event({
         func = function()
+            local destroyed_cards = {}
             for _, v in ipairs(G.play.cards) do
                 if v.debuff then
                     destroyed_cards[#destroyed_cards+1] = v
                     v:start_dissolve() 
                 end
             end
+            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
             return true 
         end 
     }))
-    delay(0.2)
-    SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
-    if #destroyed_cards > 0 then G.GAME.blind:wiggle() end
-    return #destroyed_cards > 0
 end
 
 blind.defeat = function(self)
