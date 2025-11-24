@@ -12,22 +12,19 @@ local blind = {
 }
 
 blind.press_play = function(self)
-    local destroyed_cards = {}
     G.E_MANAGER:add_event(Event({
         func = function()
+            local destroyed_cards = {}
             for _, v in ipairs(G.play.cards) do
                 if v.debuff then
-                    destroyed_cards[#destroyed_cards+1] = card
+                    destroyed_cards[#destroyed_cards+1] = v
                     v:start_dissolve() 
                 end
             end
+            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
             return true 
         end 
     }))
-    delay(0.2)
-    SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
-    if #destroyed_cards > 0 then G.GAME.blind:wiggle() end
-    return #destroyed_cards > 0
 end
 
 blind.defeat = function(self)
@@ -42,12 +39,8 @@ blind.disable = function(self)
     end
 end
 
--- Amber Dusk's debuff per card drawn
-local draw_from_deck_to_handref = G.FUNCS.draw_from_deck_to_hand
-function G.FUNCS.draw_from_deck_to_hand(e)
-    draw_from_deck_to_handref(e)
-    if G.GAME.blind.config.blind.key == "bl_lobc_dusk_amber" and not G.GAME.blind.disabled then
-        local cards_drawn = e or math.min(#G.deck.cards, G.hand.config.card_limit - #G.hand.cards)
+blind.calculate = function(self, blind, context)
+    if context.hand_drawn then
         local available_cards = {}
         local proc = false
 
@@ -58,7 +51,7 @@ function G.FUNCS.draw_from_deck_to_hand(e)
             if not v.ability.amber_debuff then available_cards[#available_cards+1] = v end
         end
 
-        for i = 1, cards_drawn do
+        for i = 1, #SMODS.drawn_cards do
             if #available_cards > 0 then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',

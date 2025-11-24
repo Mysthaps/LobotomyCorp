@@ -769,9 +769,9 @@ return {
                     {"Multiply above value by {X:attention,C:white} X#2# {} for",
                     "each ability copied by this Abnormality"},
                     {"When round ends, copies the skin of a",
-                    "random adjacent {C:attention}Joker",},
-                    {"{C:green}#3# in #4#{} chance to swap positions with it",
-                    "{C:inactive}(Does not activate for Abnormalities)"}
+                    "random adjacent {C:attention}Joker",
+                    "{C:inactive}(Does not activate for Abnormalities)"},
+                    {"{C:green}#3# in #4#{} chance to swap positions with it",}
                 }
             },
             j_lobc_mhz = {
@@ -1983,7 +1983,7 @@ return {
                 name = "When Two Realms Meet",
                 text = {
                     "On the first hand, score does not increase,",
-                    "and {C:blue}+1{} hand when hand is played",
+                    "and does not cost hands",
                     "After the first hand, change Blind effect"
                 }
             },

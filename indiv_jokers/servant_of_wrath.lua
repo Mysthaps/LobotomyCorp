@@ -13,10 +13,14 @@ local joker = {
 
 joker.calculate = function(self, card, context)
     if (context.first_hand_drawn or context.lobc_proc_wrath) and not context.blueprint and not G.GAME.servant_triggered then
+        G.GAME.servant_triggered = true
         if context.lobc_proc_wrath and to_big(G.GAME.chips) < to_big(G.GAME.blind.chips) then
             G.GAME.lobc_maiden_active = nil
+        else
+            G.GAME.blind.hands_sub = G.GAME.blind.hands_sub + 1
+            G.FUNCS.draw_from_deck_to_hand()
+            return
         end
-        G.GAME.servant_triggered = true
         G.E_MANAGER:add_event(Event({
             func = function() 
                 local available_cards = {}
