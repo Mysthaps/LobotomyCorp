@@ -560,6 +560,8 @@ function lobc_screen_text(args)
     args.align = args.align or 'cm'
     args.emboss = args.emboss or nil
     args.timer = args.timer or nil
+    args.quiver = args.quiver or {speed = 0.07, amount = 0.15, silent = true}
+    args.spacing = args.spacing or 0
     if args.float == nil then args.float = true end
 
     args.fade = 1
@@ -581,7 +583,7 @@ function lobc_screen_text(args)
                 T = {args.pos.x,args.pos.y,0,0},
                 definition = 
                     {n=G.UIT.ROOT, config = {align = args.cover_align or 'cm', minw = (args.cover and args.cover.T.w or 0.001) + (args.cover_padding or 0), minh = (args.cover and args.cover.T.h or 0.001) + (args.cover_padding or 0), padding = 0.03, r = 0.1, emboss = args.emboss, colour = args.cover_colour}, nodes={
-                        {n=G.UIT.O, config = { draw_layer = 1, object = DynaText({scale = args.scale, string = args.text, maxw = args.maxw, colours = {args.colour}, float = args.float, shadow = true, silent = not args.noisy, pop_in = args.pop_in or 0, pop_in_rate = args.pop_in_rate or 3, rotate = args.rotate or nil, text_rot = args.text_rot or 0, font = G.LANGUAGES[G.SETTINGS.language].font })}},
+                        {n=G.UIT.O, config = { draw_layer = 1, object = DynaText({scale = args.scale, string = args.text, maxw = args.maxw, spacing = args.spacing, colours = {args.colour}, float = args.float, quiver = args.quiver, shadow = true, silent = not args.noisy, pop_in = args.pop_in or 0, pop_in_rate = args.pop_in_rate or 3, rotate = args.rotate or nil, text_rot = args.text_rot or 0, font = G.LANGUAGES[G.SETTINGS.language].font })}},
                     }}, 
                 config = args.uibox_config
             }
@@ -662,8 +664,9 @@ function lobc_abno_text(key, eval_func, delay, quips)
 
         chosen_quip = all_quips[math.random(#all_quips)]
     end
-    local rotation = math.random(-50, 50)/100
-    local offset = {x = math.random(-100, 100)/100, y = math.random(-150, 150)/100}
+    local rotation = math.random(-75, 75)/100
+    local offset = {x = math.random(-300, 300)/100, y = math.random(-300, 300)/100}
+    local spacing = math.random(0, 8)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
@@ -673,7 +676,7 @@ function lobc_abno_text(key, eval_func, delay, quips)
         timer = 'REAL',
         func = function() 
             if eval_func() and key and chosen_quip then 
-                lobc_screen_text({scale = 0.6, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5, align = 'cm', offset = offset, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.2, pop_out = 0.5, timer = "REAL", pause_force = true})
+                lobc_screen_text({scale = 0.65, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5, align = 'cm', offset = offset, spacing = spacing, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.2, pop_out = 0.5, timer = "REAL", pause_force = true})
                 lobc_abno_text(key, eval_func, math.random(2, 10), quips) 
             end 
         return true 
