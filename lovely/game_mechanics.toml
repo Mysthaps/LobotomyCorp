@@ -312,4 +312,9 @@ target = 'functions/state_events.lua'
 pattern = "draw_card(G.deck,G.hand, i*100/hand_space,'up', true, cards_to_draw[i])"
 position = 'at'
 match_indent = true
-payload = "draw_card(cards_to_draw[i].area, G.hand, i*100/hand_space, 'up', true, cards_to_draw[i])"
+payload = """
+if cards_to_draw[i].area == G.deck then
+    draw_card(G.deck,G.hand, i*100/hand_space,'up', true, cards_to_draw[i])
+else
+    draw_card(G.discard,G.hand, i*100/hand_space, 'up', true, cards_to_draw[i])
+end"""

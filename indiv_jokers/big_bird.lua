@@ -111,34 +111,6 @@ joker.loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.x_mult, card.ability.extra.cost}}
 end
 
--- Big Bird draw Enchanted cards
-local draw_cardref = draw_card
-function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
-    if from == G.deck and to == G.hand and not card then
-        local enchanted = {}
-        for _, v in ipairs(G.discard.cards) do
-            if v.ability.big_bird_enchanted and not v.ability.big_bird_enchanted_marked_for_draw then enchanted[#enchanted+1] = v end
-        end
-        for _, v in ipairs(G.deck.cards) do
-            if v.ability.big_bird_enchanted and not v.ability.big_bird_enchanted_marked_for_draw then enchanted[#enchanted+1] = v end
-        end
-        if #enchanted > 0 then
-            local e_card = pseudorandom_element(enchanted, pseudoseed("enchanted_draw"))
-            e_card.ability.big_bird_enchanted_marked_for_draw = true
-            play_sound("lobc_big_bird_attract", 1, 0.8)
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    e_card.ability.big_bird_enchanted_marked_for_draw = nil
-                return true
-                end
-            }))
-            return draw_cardref(e_card.area, G.hand, percent, dir, sort, e_card, delay, mute, stay_flipped, vol, discarded_only)
-        end
-    end
-    draw_cardref(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
-end
-
 -- Remove Enchanted at end of round
 local update_new_roundref = Game.update_new_round
 function Game.update_new_round(self, dt)
