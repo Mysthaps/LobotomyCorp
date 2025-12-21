@@ -250,6 +250,13 @@ return {
                     "{C:red}어디로 가나.{}"
                 }
             },
+            und_j_lobc_knight_of_despair = {
+                name = "O-01-73",
+                text = {
+                    "남은 건 닳디 닳은 기사라는",
+                    "볼품없는 긍지 하나 뿐이다."
+                }
+            },
             und_j_lobc_mosb = {
                 name = "T-01-75",
                 text = {
@@ -590,9 +597,10 @@ return {
                 name = "죄",
                 text = {
                     "{C:attention}블라인드{}에 승리하면",
-                    "{C:red}죄{}가 {C:attention}10{} 이상일 때",
-                    "{C:attention}1 + 절반{}의 수치만큼",
-                    "감소합니다",
+                    "1 감소합니다",
+                    "{C:red}죄{}가 {C:attention}10{} 이상이라면",
+                    "{C:attention}절반{}으로 줄인 뒤",
+                    "1 감소합니다",
                 }
             },
             lobc_marked = {
@@ -627,7 +635,20 @@ return {
                 name = "보호막",
                 text = {
                     "최종 점수를 {C:blue}보호막{}만큼 감소시킵니다",
-                    "{C:green}[핸드 시작 시]{} {C:blue}보호막{}을 제거합니다"
+                    "핸드 종료 시 {C:blue}보호막{}을 제거합니다"
+                }
+            },
+            lobc_blessing_1 = {
+                name = "가호",
+                text = {
+                    "{C:inactive}...{}"
+                }
+            },
+            lobc_blessing = {
+                name = "가호",
+                text = {
+                    "{X:mult,C:white} X2 {} 배수",
+                    "{C:red}디버프{}되지 않음"
                 }
             },
             lobc_metallic = {
@@ -712,13 +733,15 @@ return {
             j_lobc_nameless_fetus = {
                 name = "이름이 없는 태아",
                 text = {
-                    {"선택된 족보 플레이 시 {X:mult,C:white} X#2# {} 배수"},
-                    {"선택되지 않은 족보 플레이 시 {X:mult,C:white} X#3# {} 배수"},
+                    {"선택된 족보 플레이 시",
+                    "{X:mult,C:white} X#2# {} 배수를 제공합니다",
+                    "{C:inactive}(선택된 족보: {C:attention}#1#{C:inactive})"},
+                    {"선택되지 않은 족보 플레이 시",
+                    "{X:mult,C:white} X#3# {} 배수를 제공합니다"},
                     {"라운드의 {C:attention}첫 번째 핸드{}가",
                     "카드 {C:attention}1{}장 뿐일 경우",
                     "그 카드를 파괴하고",
-                    "선택된 족보를 변경합니다",
-                    "{C:inactive}(선택된 족보: {C:attention}#1#{C:inactive})"},
+                    "선택된 족보를 변경합니다"},
                 }
             },
             j_lobc_wall_gazer_name_1 = {name = "벽을 보는 여인"},
@@ -738,13 +761,15 @@ return {
                 name = "아무 것도 없는",
                 text = {
                     {"인접한 {C:attention}조커{}의 능력을 복사합니다"},
-                    {"{C:attention}블라인드{}에 승리하면",
-                    "무작위 조커 슬롯으로 이동합니다"},
-                    {"이 환상체 옆에 마지막 라운드에",
-                    "복사된 조커가 있을 경우",
-                    "그 조커를 {C:red}파괴{}하고",
-                    "그 조커의 외형을 가져옵니다",
-                    "{C:inactive}(라운드 당 1회)"}
+                    {"핸드 플레이 시 블라인드 크기의 {X:attention,C:white} X#1# {}만큼",
+                    "{C:blue}보호막{}을 생성합니다"},
+                    {"이 환상체가 능력을 복사할 때마다",
+                    "위 효과의 수치가 {X:attention,C:white} X#2# {}배 증가합니다"},
+                    {"라운드 종료 시, 인접한 무작위 {C:attention}조커{}의",
+                    "외형을 복사합니다",
+                    "{C:inactive}(환상체에는 발동하지 않습니다)"},
+                    {"{C:green}#3#/#4#{} 확률로 해당 조커와",
+                    "자리를 변경합니다"}
                 }
             },
             j_lobc_mhz = {
@@ -902,7 +927,7 @@ return {
             j_lobc_punishing_bird_apoc = {
                 name = "징벌 새",
                 text = {
-                    {"{C:mult}+#1#{} Mult"},
+                    {"{C:mult}+#1#{} 배수"},
                     {"이 환상체는 {C:attention}9{}라운드 이후",
                     "{C:dark_edition}네거티브{}를 얻습니다.",
                     "{C:inactive}(현재 {C:attention}#2#{C:inactive} 라운드){}"},
@@ -985,8 +1010,9 @@ return {
                     "{C:attention}+1 {C:red}죄를 부여합니다",},
                     {"{C:attention}5{} 이상의 {C:red}죄{}가 부여된 카드를",
                     "득점 시 {C:red}파괴{}합니다",},
-                    {"이 환상체는 어떠한 방식으로든 파괴된 카드의",
-                    "{C:red}죄{} 수치만큼 {X:mult,C:white} X#1# {} 배수를 얻습니다",
+                    {"이 환상체는 어떠한 방식으로든",
+                    "파괴된 카드의 {C:red}죄{} 수치만큼",
+                    "{X:mult,C:white} X#1# {} 배수를 얻습니다",
                     "{C:inactive}(현재 {X:mult,C:white} X#2# {C:inactive} 배수)"}
                 }
             },
@@ -997,7 +1023,8 @@ return {
                     {"{C:attention}영구적으로{} 득점한 가장 왼쪽의",
                     "{C:enchanted}매혹되지 않은{} 카드를 {C:enchanted}매혹{}하고",
                     "{C:dark_edition}네거티브{}로 만듭니다"},
-                    {"득점한 {C:enchanted}매혹{}된 카드가 {X:mult,C:white} X#1# {} 배수를 제공합니다"},
+                    {"득점한 {C:enchanted}매혹{}된 카드가",
+                    "{X:mult,C:white} X#1# {} 배수를 제공합니다"},
                 }
             },
             j_lobc_king_of_greed = {
@@ -1041,6 +1068,20 @@ return {
                     "{C:inactive}(현재 {X:mult,C:white} X#1# {C:inactive} 배수)"},
                     {"{C:attention}보스 블라인드{}에 승리 시",
                     "무작위 조커에 {C:dark_edition}영구{} 스티커를 부착합니다"},
+                }
+            },
+            j_lobc_knight_of_despair = {
+                name = "절망의 기사",
+                text = {
+                    {"카드가 사용되거나 팔리거나 파괴될 경우",
+                    "이 환상체가 깊은 눈물을 {C:attention}1{} 얻습니다",
+                    "{C:inactive}(현재 {C:attention}#1#{C:inactive} 깊은 눈물)"},
+                    {"깊은 눈물이 {C:attention}10{} 이상일 경우 모두 소비하여",
+                    "첫 득점한 카드에 {C:blessing}가호{}를 내립니다"},
+                    {"{C:blessing}가호{}가 부여된 카드가 파괴될 경우",
+                    "이 환상체가 {C:attention}탈출{}합니다"},
+                    {"이 환상체가 {C:attention}탈출{}했을 때",
+                    "모든 {C:lobc_prey_mark}가호{}가 부여된 카드를 {C:red}파괴{}합니다"},
                 }
             },
             j_lobc_mosb = {
@@ -1215,7 +1256,8 @@ return {
             j_lobc_void_dream = {
                 name = "공허한 꿈",
                 text = {
-                    {"플레이한 카드가 득점 시 {C:green}#1#/#2#{} 확률로",
+                    {"플레이한 카드가 득점 시",
+                    "{C:green}#1#/#2#{} 확률로",
                     "{C:money}$#3#{}를 획득합니다"},
                     {"득점에 포함된 카드가",
                     "{C:green}1/4{} 고정 확률로",
@@ -1237,7 +1279,8 @@ return {
                 text = {
                     {"라운드 시작 시 손패에서",
                     "{C:attention}5{}장의 카드를 무작위로 플레이합니다"},
-                    {"이 방식으로 득점한 카드가 {X:mult,C:white} X#1# {} 배수를 제공합니다"},
+                    {"이 방식으로 득점한 카드가",
+                    "{X:mult,C:white} X#1# {} 배수를 제공합니다"},
                     {"이 방식으로 플레이된 {C:attention}3{}번의 족보가",
                     "{C:attention}하이 카드{}일 경우 이 환상체가 {C:attention}탈출{}합니다"},
                 }
@@ -1247,7 +1290,8 @@ return {
                 text = {
                     {"핸드를 플레이한 뒤 남은 손패에서",
                     "{C:attention}5{}장의 카드를 무작위로 플레이합니다"},
-                    {"이 방식으로 득점한 카드가 {X:mult,C:white} X#2# {} 배수를 제공합니다"},
+                    {"이 방식으로 득점한 카드가",
+                    "{X:mult,C:white} X#2# {} 배수를 제공합니다"},
                     {"{C:inactive}이 방식으로 플레이된 3번의 족보가",
                     "{C:inactive}하이 카드일 경우 이 환상체가 탈출합니다"},
                 }
@@ -1353,8 +1397,8 @@ return {
             bl_lobc_apocalypse_bird_effect = {
                 name = "종말새",
                 text = {
-                    "Hand scores X0.3 less",
-                    "for each #1# played",
+                    "플레이한 #1#마다",
+                    "점수가 X0.3배 감소합니다",
                 }
             },
             bl_lobc_ab_beak = {
@@ -1366,8 +1410,8 @@ return {
             bl_lobc_ab_beak_effect = {
                 name = "작은 부리",
                 text = {
-                    "이 블라인드에서",
-                    "핸드 반복이 금지됩니다",
+                    "핸드 유형을 한 번씩만",
+                    "플레이할 수 있습니다",
                 }
             },
             bl_lobc_ab_eyes = {
@@ -1797,8 +1841,7 @@ return {
             psv_lobc_suppression = {
                 name = "환상체 제압",
                 text = {
-                    "이 {C:attention}블라인드{} 제압 시,",
-                    "특별한 {C:attention}환상체{} 카드를 얻습니다"
+                    "이 {C:attention}블라인드{} 제압 시, 특별한 {C:attention}환상체{} 카드를 얻습니다"
                 }
             },
             psv_lobc_magical_girl = {
@@ -1812,8 +1855,7 @@ return {
             psv_lobc_refracted = {
                 name = "굴절된 힘겨루기",
                 text = {
-                    "카드가 {C:attention}10{}회 이상 재발동 시",
-                    "발동하는 대신 파괴합니다"
+                    "카드가 {C:attention}10{}회 이상 재발동 시 대신 파괴합니다"
                 }
             },
             -- Crimson Noon & Crimson Dusk
@@ -1849,9 +1891,7 @@ return {
             psv_lobc_kali = {
                 name = "칼리",
                 text = {
-                    "블라인드 크기를 넘어서는 득점 시",
-                    "{C:red}버리기{}를 초기화하고 덱으로 카드를 되돌리며",
-                    "다음 페이즈로 넘어갑니다"
+                    "블라인드 크기를 넘어서는 득점 시 {C:red}버리기{}를 초기화하고 덱으로 카드를 되돌리며 다음 페이즈로 넘어갑니다"
                 }
             },
             psv_lobc_the_strongest = {
@@ -1879,41 +1919,35 @@ return {
             psv_lobc_the_three_birds = {
                 name = "세 마리의 새",
                 text = {
-                    "{C:attention}블라인드{} 시작 시",
-                    "{C:dark_edition}종말새{}와 전투하기 전",
-                    "{C:attention}큰 눈{}, {C:red}작은 부리{}, {C:purple}긴 팔{}과 전투합니다",
+                    "{C:attention}블라인드{} 시작 시 {C:dark_edition}종말새{}와 전투하기 전 {C:attention}큰 눈{}, {C:red}작은 부리{}, {C:purple}긴 팔{}과 전투합니다",
                 }
             },
             psv_lobc_cracking_eggs = {
                 name = "부서지는 알",
                 text = {
-                    "{C:attention}블라인드{}에 승리하면 {C:blue}+1{} 핸드, {C:red}+1{} 버리기를 얻고",
-                    "모든 카드를 덱으로 되돌립니다",
-                    "{C:purple}긴 팔{}에 승리하면",
-                    "{C:blue}핸드{}와 {C:red}버리기{}를 초기화합니다"
+                    "{C:attention}블라인드{}에 승리하면 {C:blue}+1{} 핸드, {C:red}+1{} 버리기를 얻고 모든 카드를 덱으로 되돌립니다",
+                    "{C:purple}긴 팔{}에 승리하면 {C:blue}핸드{}와 {C:red}버리기{}를 초기화합니다"
                 }
             },
             psv_lobc_monster_of_the_forest = {
                 name = "검은 숲의 괴수",
                 text = {
-                    "페이즈 변경 시 선택된 문양 변경",
-                    "페이즈 변경 시 {C:attention}큰 눈{}, {C:red}작은 부리{},",
-                    "{C:purple}긴 팔{}의 {C:dark_edition}[지속성]{} 효과를 제거합니다",
+                    "페이즈 변경 시 선택된 문양이 변경됩니다",
+                    "페이즈 변경 시 {C:attention}큰 눈{}, {C:red}작은 부리{}, {C:purple}긴 팔{}의 {C:dark_edition}[지속성]{} 효과를 제거합니다",
                     "페이즈 변경 시 {C:blue}+1{} 핸드를 얻습니다",
                 }
             },
             psv_lobc_eternal_peace = {
                 name = "영원한 평화/안정/침묵",
                 text = {
-                    "최초 1회에 한해 블라인드 크기의",
-                    "{C:attention}25{}/{C:attention}50{}/{C:attention}75%{} 이상 득점할 수 없습니다",
+                    "최초 1회에 한해 블라인드 크기의 {C:attention}25{}/{C:attention}50{}/{C:attention}75%{} 이상 득점할 수 없습니다",
                 }
             },
             psv_lobc_misdeeds = {
                 name = "나쁜 짓은 안 돼!",
                 text = {
                     "{C:dark_edition}[지속성]",
-                    "{C:red}작은 부리{} 상대 중 카드가 재발동하지 않습니다",
+                    "{C:attention}작은 부리{} 전투 도중 플레이한 핸드 유형이 남은 라운드 동안 허용되지 않습니다",
                 }
             },
             psv_lobc_lamp = {
@@ -1927,8 +1961,7 @@ return {
                 name = "멈추지 않는 심판",
                 text = {
                     "{C:dark_edition}[지속성]",
-                    "핸드에 포함된 각 카드가 동일한 모든 랭크의 카드에",
-                    "{C:attention}+1 {C:red}죄를 부여합니다",
+                    "핸드에 포함된 각 카드가 동일한 모든 랭크의 카드에 {C:attention}+1 {C:red}죄를 부여합니다",
                     "{C:attention}5{} 이상의 {C:red}죄{}가 부여된 카드가 {C:red}디버프{}됩니다",
                 }
             },
@@ -1936,54 +1969,43 @@ return {
             psv_lobc_hatred = {
                 name = "증오의 이름으로",
                 text = {
-                    "핸드 플레이 시 이번 블라인드에서 플레이한 핸드의 수와",
-                    "내 덱의 {C:attention}표식{}찍힌 카드의 수만큼",
-                    "{C:red}히스테리{}가 증가합니다",
-                    "{C:attention}표식{}찍힌 카드가 {C:red}파괴{}될 시",
-                    "{C:red}히스테리{}가 {C:attention}1{}만큼 감소합니다{C:inactive}(최소 0){}",
+                    "핸드 플레이 시 이번 블라인드에서 플레이한 핸드의 수와 내 덱의 {C:attention}표식{}찍힌 카드의 수만큼 {C:red}히스테리{}가 증가합니다",
+                    "{C:attention}표식{}찍힌 카드가 {C:red}파괴{}될 시 {C:red}히스테리{}가 {C:attention}1{}만큼 감소합니다{C:inactive}(최소 0){}",
                 }
             },
             psv_lobc_adverse = {
                 name = "역변",
                 text = {
-                    "점수가 블라인드 크기의 {C:attention}50%{} 도달 시",
-                    "{C:red}히스테리{}를 {C:attention}남은 핸드{}만큼 증가시키고",
-                    "{C:attention}+1 {C:blue}핸드{}와 {C:red}버리기{}를 얻습니다",
-                    "이 효과 발동 전까지 점수가 블라인드 크기의",
-                    "{C:attention}50%{}를 넘길 수 없습니다"
+                    "점수가 블라인드 크기의 {C:attention}50%{} 도달 시 {C:red}히스테리{}를 {C:attention}남은 핸드{}만큼 증가시키고 {C:attention}+1 {C:blue}핸드{}와 {C:red}버리기{}를 얻습니다",
+                    "이 효과 발동 전까지 점수가 블라인드 크기의 {C:attention}50%{}를 넘길 수 없습니다"
                 }
             },
             psv_lobc_arcana = {
                 name = "아르카나 슬레이브",
                 text = {
-                    "블라인드 능력 효과가 {C:red}히스테리{} 수치에",
-                    "비례해 증가합니다",
-                    "매 {C:attention}3{}번째 핸드 또는 {C:purple}역변{} 발동 시",
-                    "핸드에 적용되는 블라인드 능력을 변경합니다",
+                    "블라인드 능력 효과가 {C:red}히스테리{} 수치에 비례해 증가합니다",
+                    "매 {C:attention}3{}번째 핸드 또는 {C:purple}역변{} 발동 시 핸드에 적용되는 블라인드 능력을 변경합니다",
                 }
             },
             psv_lobc_power = {
                 name = "사랑과 정의의 이름으로",
                 text = {
-                    "{C:hearts}하트{} 문양이 이 블라인드 능력 계산 시",
-                    "{C:attention}5{}개의 추가 랭크로 계산됩니다"
+                    "{C:hearts}하트{} 문양이 이 블라인드 능력 계산 시 {C:attention}5{}개의 추가 랭크로 계산됩니다"
                 }
             },
             -- Wrath
             psv_lobc_realm = {
                 name = "두 세계의 만남",
                 text = {
-                    "첫 핸드가 득점하지 않고",
-                    "핸드 플레이 시 {C:blue}+1{} 핸드를 얻습니다",
+                    "첫 핸드가 득점하지 않습니다.",
+                    "핸드 플레이 시 핸드를 소모하지 않습니다",
                     "첫 핸드 이후 블라인드 능력이 변경됩니다"
                 }
             },
             psv_lobc_exploited = {
                 name = "이용되는 이",
                 text = {
-                    "점수가 블라인드 크기의 {C:attention}90%{} 이상이고",
-                    "{C:purple}오늘의 연극{} 효과로 승리하지 않았을 경우",
-                    "점수를 블라인드 크기의 {C:attention}50%{}로 설정합니다"
+                    "점수가 블라인드 크기의 {C:attention}90%{} 이상이고 {C:purple}오늘의 연극{} 효과로 승리하지 않았을 경우 점수를 블라인드 크기의 {C:attention}50%{}로 설정합니다"
                 }
             },
             psv_lobc_today_play = {
@@ -1991,17 +2013,14 @@ return {
                 text = {
                     "{C:attention}분노의 시종{}만이 은자를 처치할 수 있습니다",
                     "{C:attention}은자{}를 처치하면 승리합니다",
-                    "그렇지 않을 경우 {C:purple}눈 먼 분노{} 효과가 발동하지 않고",
-                    "이번 핸드로는 승리할 수 없습니다"
+                    "그렇지 않을 경우 {C:purple}눈 먼 분노{} 효과가 발동하지 않고 이번 핸드로는 승리할 수 없습니다"
                 }
             },
             psv_lobc_blind_rage = {
                 name = "눈 먼 분노",
                 text = {
-                    "{C:attention}분노의 시종{}이 매 핸드 플레이 이후 발동하며",
-                    "핸드를 소모하지 않습니다",
-                    "{C:attention}분노의 시종{}이 발동한 뒤에",
-                    "카드를 드로우합니다"
+                    "{C:attention}분노의 시종{}이 매 핸드 플레이 이후 발동하며 핸드를 소모하지 않습니다",
+                    "{C:attention}분노의 시종{}이 발동한 뒤에 카드를 드로우합니다"
                 }
             },
             -- Erlking Heathcliff
@@ -2312,6 +2331,7 @@ return {
             lobc_prey_mark = "사냥감의 징표",
             lobc_lantern = "초롱",
             lobc_villain = "악당",
+            lobc_blessing = "가호",
             lobc_zayin = "ZAYIN",
             lobc_teth = "TETH",
             lobc_he = "HE",
@@ -2356,7 +2376,7 @@ return {
             -- Yesod
             ch_c_lobc_yesod = {"대부분의 이미지가 수정됩니다"},
             ch_c_lobc_yesod_2 = {"카드에 {C:dark_edition}에디션{}을 적용할 수 없습니다"},
-            ch_c_lobc_yesod_3 = {"앤티 {C:attention}3{} 이후, 모든 {C:attention}조커{}의 텍스트를 제거합니다"},
+            ch_c_lobc_yesod_3 = {"앤티 {C:attention}3{} 이후, 모든 카드의 설명을 제거합니다"},
             ch_c_lobc_yesod_4 = {"앤티 {C:attention}6{} 이후, 모든 텍스트를 제거합니다"},
 
             -- Hod
@@ -2386,7 +2406,7 @@ return {
             k_lobc_extraction_pack = "추출 팩",
             k_lobc_active = "활성화",
             k_lobc_inactive = "비활성화",
-            k_lobc_rank_sin = "랭크의 죄악: ",
+            k_lobc_rank_sin = "랭크의 죄: ",
             k_ego_gift = "E.G.O 기프트",
             b_ego_gift_cards = "E.G.O 기프트",
             k_lobc_activated = "활성화됨!",
@@ -2397,6 +2417,7 @@ return {
             k_lobc_fail_evade = "회피 실패!",
             k_lobc_skill_disable = "스킬 비활성화!",
             k_lobc_reset_sp = "정신력 초기화",
+            k_lobc_blessed = "가호받음!",
 
             k_lobc_lamp = "패시브 효과: [영원히 타오르는 램프]",
             k_lobc_misdeeds = "패시브 효과: [나쁜 짓은 안 돼!]",
@@ -2631,6 +2652,42 @@ return {
             k_lobc_apocalypse_bird_10 = "공포를 마주하기 전에 먼저 해방되자.",
             k_lobc_apocalypse_bird_11 = "속삭인다. 끊임없이...",
             k_lobc_apocalypse_bird_12 = "널 정죄하지만, 다시 죄를 쌓아감은 끝이 없겠지.",
+
+            k_lobc_ab_cutscene_0_0_1 = "",
+            k_lobc_ab_cutscene_0_0_2 = "옛날 옛적, 따뜻하고 나무가 울창했던 숲에 세 마리의 행복한 새가 살고 있었습니다.",
+            k_lobc_ab_cutscene_0_0_3 = "",
+
+            k_lobc_ab_cutscene_1_0_1 = "큰 새는 숲에 침입자가 없는지 감시하기로 했어요.",
+            k_lobc_ab_cutscene_1_0_2 = "큰 새의 눈은 먼 곳까지 볼 수 있었고 우리가 볼 수 없고, 보지 못하는 것까지 볼 수",
+            k_lobc_ab_cutscene_1_0_3 = "있었기 때문이죠.",
+
+            k_lobc_ab_cutscene_2_0_1 = "",
+            k_lobc_ab_cutscene_2_0_2 = "작은 새는 자신의 부리를 이용하여 나쁜 짓을 저지른 생물들에게 벌을 주기로",
+            k_lobc_ab_cutscene_2_0_3 = "했습니다.",
+
+            k_lobc_ab_cutscene_3_0_1 = "",
+            k_lobc_ab_cutscene_3_0_2 = "긴 새는 숲의 평화를 위해서 숲에 들어오는 자들의 죄의 무게를 재었습니다.",
+            k_lobc_ab_cutscene_3_0_3 = "긴 새의 저울은 공명정대했고 모든 죄의 무게를 잴 수 있었기 때문이죠.",
+
+            k_lobc_ab_cutscene_4_0_1 = "",
+            k_lobc_ab_cutscene_4_0_2 = "늘 우주를 응시하던 머리는 고개를 떨구었고,",
+            k_lobc_ab_cutscene_4_0_3 = "",
+
+            k_lobc_ab_cutscene_0_1_1 = "",
+            k_lobc_ab_cutscene_0_1_2 = "그때, 아우성 속에서 누군가 소리쳤습니다.",
+            k_lobc_ab_cutscene_0_1_3 = "\"저기 괴수가 있다! 검고 어두운 숲에는 크고 무서운 괴물이 산다!\"",
+
+            k_lobc_ab_cutscene_1_1_1 = "",
+            k_lobc_ab_cutscene_1_1_2 = "백 리 밖도 볼 수 있는 큰 새의 눈은 멀었고,",
+            k_lobc_ab_cutscene_1_1_3 = "",
+
+            k_lobc_ab_cutscene_2_1_1 = "",
+            k_lobc_ab_cutscene_2_1_2 = "어떤 것이라도 삼킬 수 있는 작은 새의 입은 다물어졌고,",
+            k_lobc_ab_cutscene_2_1_3 = "",
+
+            k_lobc_ab_cutscene_3_1_1 = "",
+            k_lobc_ab_cutscene_3_1_2 = "새들은 숲 속을 배회하며 괴수를 찾기 시작했지만 아무도 없었습니다.",
+            k_lobc_ab_cutscene_3_1_3 = "생물들도, 해와 달도, 괴수도. 남은 건 그저 한 마리의 새와 검은 숲이었지요.",
 
             ---- Hatred ----
             k_lobc_hatred_entry = "사랑과 정의의 이름으로~ 지금 이 곳에 등장!",
@@ -2895,6 +2952,7 @@ return {
             lobc_round = "+#1# 라운드#2#",
             lobc_a_sp = "정신력 +#1#",
             lobc_a_sp_minus = "정신력 -#1#",
+            lobc_a_deep_tears = "깊은 눈물 +#1#",
         }
     },
 }
