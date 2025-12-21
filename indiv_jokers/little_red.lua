@@ -113,7 +113,6 @@ joker.lobc_active = function(self, card)
             return true
         end
     }))
-    G.FUNCS.draw_from_deck_to_hand(1)
 end
 
 joker.update = function(self, card, dt)
