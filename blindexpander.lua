@@ -9,7 +9,7 @@
 --- If passive description is too long, changing how it is formatted instead of changing UIBox width is preferred
 
 to_big = to_big or function(x) return x end
-BLINDEXPANDER_VERSION = 101000
+local BLINDEXPANDER_VERSION = 101000
 
 local function startup()
     if blindexpander.started_up then return end
