@@ -8,6 +8,17 @@ local folder = string.match(mod_path, "[Mm]ods.*")
 SMODS.load_file("blindexpander.lua")()
 SMODS.load_file("lyrics.lua")()
 
+-- copied from cryptid's cry_deep_copy
+function lobc_deep_copy(obj, seen)
+    if type(obj) ~= 'table' then return obj end
+    if seen and seen[obj] then return seen[obj] end
+    local s = seen or {}
+    local res = setmetatable({}, getmetatable(obj))
+    s[obj] = res
+    for k, v in pairs(obj) do res[lobc_deep_copy(k, s)] = lobc_deep_copy(v, s) end
+    return res
+end
+
 --=============== STEAMODDED OBJECTS ===============--
 
 -- To disable any object, comment it out by adding -- at the start of the line.
