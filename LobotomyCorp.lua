@@ -965,6 +965,8 @@ function Blind.defeat(self, silent)
     if not find_passive("psv_lobc_lamp") then
         for _, v in ipairs(G.playing_cards) do
             if v.ability.big_bird_enchanted and not v.ability.permanent_enchanted then
+                v.children.lobc_big_bird_particles:remove()
+                v.children.lobc_big_bird_particles = nil
                 v.ability.big_bird_enchanted = nil
             end
         end
