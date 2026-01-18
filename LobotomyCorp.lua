@@ -819,7 +819,7 @@ function lobc_condupd(dt)
             end
         end
 
-        if beat - last_beat < (beat / 2) then -- bandage fix for looping
+        if beat ~= last_beat and beat - last_beat < (beat / 2) then -- bandage fix for looping
             for _, v in ipairs(SMODS.Sounds[lobc_conductor.track].sync_events) do
                 if v.beat > last_beat and v.beat <= beat then
                     v.func()
