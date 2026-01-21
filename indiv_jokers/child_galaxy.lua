@@ -1,6 +1,6 @@
 local joker = {
     name = "Child of the Galaxy",
-    config = {extra = {per = 0, gain = 2, loss = 2}}, rarity = 2, cost = 6,
+    config = {extra = {per = 0, gain = 1, loss = 1}}, rarity = 2, cost = 6,
     pos = {x = 9, y = 2}, 
     blueprint_compat = true, 
     eternal_compat = true,
