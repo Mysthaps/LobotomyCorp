@@ -32,7 +32,7 @@ end
 local joker = {
     name = "Little Red Riding Hooded Mercenary",
     config = {extra = {
-        money = 7, cost = 7, mult = 0, mult_gain = 15, cost_increase = 7
+        money = 7, cost = 5, mult = 0, mult_gain = 15, cost_increase = 5
     }}, rarity = 3, cost = 7,
     pos = {x = 1, y = 3}, 
     blueprint_compat = true, 
