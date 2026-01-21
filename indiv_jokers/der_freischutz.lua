@@ -87,6 +87,7 @@ joker.calculate = function(self, card, context)
                         destroyed_cards[#destroyed_cards + 1] = v
                     end
                 end
+                if #destroyed_cards >= 7 then check_for_unlock({type = "lobc_magic_bullet"}) end
                 SMODS.destroy_cards(destroyed_cards)
                 add_bullet(card)
                 card.ability.extra.active = false

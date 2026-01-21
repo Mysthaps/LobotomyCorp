@@ -2952,7 +2952,7 @@ return {
             ach_lobc_dead_silence = "Convert 10 cards using The Price of Silence in one game without destroying a Joker",
             ach_lobc_laetitia = "Have 30 or more cards in deck be A Wee Witch's Gift",
             ach_lobc_solemn_lament = "Fill all Joker slots and make all non-Negative Jokers Eternal using Funeral of the Dead Butterflies",
-            ach_lobc_magic_bullet = "Automatically activate Der Freischütz's Active Ability and have it destroy no playing cards",
+            ach_lobc_magic_bullet = "Automatically activate Der Freischütz's Active Ability and have it destroy 7 playing cards",
             ach_lobc_sword_sharpened = "Have 30 or more Deep Tears at once on The Knight of Despair",
             ach_lobc_smile = "Reach +15 Mult per card destroyed or higher on The Mountain of Smiling Bodies",
             ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each Blind",

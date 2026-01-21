@@ -157,6 +157,8 @@ local achievement_list = {
     "dead_silence",
     "laetitia",
     "solemn_lament",
+    "magic_bullet",
+    "sword_sharpened",
     "smile",
     "aspiration",
     "wingbeat",

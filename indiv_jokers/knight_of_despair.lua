@@ -15,6 +15,7 @@ joker.calculate = function(self, card, context)
     if context.joker_type_destroyed or context.selling_card or context.using_consumeable then
         if context.card ~= card and not card.ability.extra.breaching then
             card.ability.extra.charge = card.ability.extra.charge + 1
+            if card.ability.extra.charge >= 30 then check_for_unlock({type = "lobc_sword_sharpened"}) end
             return {
                 message = localize{type = 'variable', key = 'lobc_a_deep_tears', vars = {1}},
                 colour = HEX("1506A5")
@@ -33,6 +34,7 @@ joker.calculate = function(self, card, context)
 
         if not blessed then
             card.ability.extra.charge = card.ability.extra.charge + #context.removed
+            if card.ability.extra.charge >= 30 then check_for_unlock({type = "lobc_sword_sharpened"}) end
             return {
                 message = localize{type = 'variable', key = 'lobc_a_deep_tears', vars = {#context.removed}},
                 colour = HEX("1506A5")
