@@ -1080,9 +1080,9 @@ return {
                 name = "The Knight of Despair",
                 text = {
                     {"When a card is used, sold, or destroyed,",
-                    "this Abnormality gains {C:attention}1{} Deep Tears",
+                    "this Abnormality gains {C:attention}1 {C:o_indigo}Deep Tears",
                     "{C:inactive}(Currently {C:attention}#1# {C:inactive}Deep Tears)"},
-                    {"At {C:attention}10+{} Deep Tears, consume all of it",
+                    {"At {C:attention}10+ {C:o_indigo}Deep Tears{}, consume all of it",
                     "to give the first scoring card {C:blessing}Blessing"},
                     {"If a card with {C:blessing}Blessing{} is removed,",
                     "this Abnormality {C:attention}breaches"},
