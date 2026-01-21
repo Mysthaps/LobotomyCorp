@@ -574,7 +574,7 @@ function lobc_screen_text(args)
     args.align = args.align or 'cm'
     args.emboss = args.emboss or nil
     args.timer = args.timer or nil
-    args.quiver = args.quiver or {speed = 0.07, amount = 0.15, silent = true}
+    args.quiver = args.quiver or nil
     args.spacing = args.spacing or 0
     if args.float == nil then args.float = true end
 
@@ -690,7 +690,7 @@ function lobc_abno_text(key, eval_func, delay, quips)
         timer = 'REAL',
         func = function() 
             if eval_func() and key and chosen_quip then 
-                lobc_screen_text({scale = 0.65, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5, align = 'cm', offset = offset, spacing = spacing, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.2, pop_out = 0.5, timer = "REAL", pause_force = true})
+                lobc_screen_text({scale = 0.65, text = localize("k_lobc_"..key.."_"..chosen_quip), colour = G.C.RED, hold = 5, align = 'cm', offset = offset, spacing = spacing, major = G.play, noisy = false, text_rot = rotation, pop_in_rate = 0.2, pop_out = 0.5, timer = "REAL", pause_force = true, quiver = {speed = 0.07, amount = 0.15, silent = true}})
                 lobc_abno_text(key, eval_func, math.random(2, 10), quips) 
             end 
         return true 
