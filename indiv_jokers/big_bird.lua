@@ -114,13 +114,11 @@ end
 -- Remove Enchanted at end of round
 local update_new_roundref = Game.update_new_round
 function Game.update_new_round(self, dt)
-    if G.STATE ~= G.STATES.DRAW_TO_HAND then
-        update_new_roundref(self, dt)
-        for _, v in ipairs(G.playing_cards) do
-            if v.ability.big_bird_enchanted and v.children.lobc_big_bird_particles then
-                v.children.lobc_big_bird_particles:remove()
-                v.children.lobc_big_bird_particles = nil
-            end
+    update_new_roundref(self, dt)
+    for _, v in ipairs(G.playing_cards) do
+        if v.ability.big_bird_enchanted and v.children.lobc_big_bird_particles then
+            v.children.lobc_big_bird_particles:remove()
+            v.children.lobc_big_bird_particles = nil
         end
     end
 end

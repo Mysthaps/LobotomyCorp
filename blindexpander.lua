@@ -232,6 +232,10 @@ local function startup()
                 }))
             end
         end
+
+        if G.STATE ~= G.STATES.DRAW_TO_HAND then
+            update_new_roundref(self, dt)
+        end
     end
 
     local new_roundref = new_round

@@ -56,6 +56,7 @@ local joker_list = {
     "price_of_silence",
     "laetitia",
     "fotdb", -- Funeral of the Dead Butterflies
+    "der_freischutz",
     "knight_of_despair",
     "mosb", -- The Mountain of Smiling Bodies
     "heart_of_aspiration",
@@ -175,6 +176,8 @@ local sound_list = {
     queen_bee = "QueenBee_Funga_01",
     electric_sheep = "sheep_3_1-1",
     meat_lantern = "Bunny_Start",
+    freischutz_create = "Freischutz_Create",
+    freischutz_shot = "Freischutz_Shot",
 
     evade = "what/evade",
     coin_fail = "what/coin_fail",

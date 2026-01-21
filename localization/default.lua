@@ -260,6 +260,13 @@ return {
                     "when they die?",
                 }
             },
+            und_j_lobc_der_freischutz = {
+                name = "F-01-69",
+                text = {
+                    "\"This magical bullet can truly",
+                    "hit anyone, just like you say.\"",
+                }
+            },
             und_j_lobc_knight_of_despair = {
                 name = "O-01-73",
                 text = {
@@ -1052,6 +1059,23 @@ return {
                     "adds {C:dark_edition}Eternal{} to a random Joker"},
                 }
             },
+            j_lobc_der_freischutz = {
+                name = "Der Freischütz",
+                text = {
+                    {"{C:purple}[Active Ability]",
+                    "Costs {C:money}#2#%{} of current {C:money}$ {C:inactive,s:0.9}(min. {C:money,s:0.9}$#4#{C:inactive,s:0.9}, rounded down)",
+                    "Next hand, {red}destroys{} all {C:attention}Enhanced{} cards, then",
+                    "enhances all unenhanced cards to {C:attention}Mult Cards{}"},
+                    {"{C:attention}Mult Cards{} give {X:mult,C:white} X#1# {} Mult"},
+                    {"Every {C:purple}Active Ability{}, or every hand",
+                    "that contains a scoring non-{C:attention}Mult Card{}",
+                    "increases {C:prey_mark}Magic Bullet{} by {C:attention}1",
+                    "{C:inactive}(Currently {C:attention}#3# {C:inactive}Magic Bullet)",},
+                    {"At {C:attention}7 {C:prey_mark}Magic Bullet{}, automatically uses",
+                    "{C:purple}Active Ability{} that targets {C:attention}7{} random",
+                    "playing cards instead, then resets {C:prey_mark}Magic Bullet"},
+                }
+            },
             j_lobc_knight_of_despair = {
                 name = "The Knight of Despair",
                 text = {
@@ -1165,12 +1189,12 @@ return {
             j_lobc_scarecrow_searching = {
                 name = "Scarecrow Searching for Wisdom",
                 text = {
-                    {"After each Blind, create {C:attention}2{}",
-                    "{C:tarot}Wisdom{} cards {C:inactive}(Must have room)"},
+                    {"After each Blind, create a",
+                    "{C:tarot}Wisdom{} card {C:inactive}(Must have room)"},
                     {"After each hand, destroy a {C:tarot}Wisdom{} to give",
                     "scoring cards an {C:red}Enhancement{}, {C:blue}Seal{} or {C:dark_edition}Edition{}"},
                     {"If there are none, increase Blind Size by",
-                    "{C:attention}10%{} per {C:tarot}Wisdom{} created {C:inactive}(once per round){}",
+                    "{C:attention}50%{} per {C:tarot}Wisdom{} created {C:inactive}(once per round){}",
                     "{C:inactive}({C:tarot}Wisdoms{C:inactive} created: {C:attention}#1#{C:inactive})"}
                 }
             },
@@ -2880,6 +2904,8 @@ return {
             ach_lobc_dead_silence = "Dead Silence",
             ach_lobc_laetitia = "Laetitia",
             ach_lobc_solemn_lament = "Solemn Lament",
+            ach_lobc_magic_bullet = "Magic Bullet",
+            ach_lobc_sword_sharpened = "The Sword Sharpened with Tears",
             ach_lobc_smile = "Smile",
             ach_lobc_aspiration = "Aspiration",
             ach_lobc_wingbeat = "Wingbeat",
@@ -2926,6 +2952,8 @@ return {
             ach_lobc_dead_silence = "Convert 10 cards using The Price of Silence in one game without destroying a Joker",
             ach_lobc_laetitia = "Have 30 or more cards in deck be A Wee Witch's Gift",
             ach_lobc_solemn_lament = "Fill all Joker slots and make all non-Negative Jokers Eternal using Funeral of the Dead Butterflies",
+            ach_lobc_magic_bullet = "Automatically activate Der Freischütz's Active Ability and have it destroy no playing cards",
+            ach_lobc_sword_sharpened = "Have 30 or more Deep Tears at once on The Knight of Despair",
             ach_lobc_smile = "Reach +15 Mult per card destroyed or higher on The Mountain of Smiling Bodies",
             ach_lobc_aspiration = "Have The Heart of Aspiration for 6 rounds in one game with at most 4 hands after each Blind",
             ach_lobc_wingbeat = "Buy 8 or more items affected by Fairy Festival without any being destroyed",
@@ -2957,6 +2985,7 @@ return {
             lobc_a_sp = "+#1# SP",
             lobc_a_sp_minus = "-#1# SP",
             lobc_a_deep_tears = "+#1# Deep Tears",
+            lobc_a_magic_bullet = "+#1# Magic Bullet"
         }
     },
 }
