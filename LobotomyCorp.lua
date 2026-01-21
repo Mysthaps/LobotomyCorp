@@ -968,7 +968,7 @@ function Blind.defeat(self, silent)
     if not find_passive("psv_lobc_lamp") then
         for _, v in ipairs(G.playing_cards) do
             if v.ability.big_bird_enchanted and not v.ability.permanent_enchanted then
-                v.children.lobc_big_bird_particles:remove()
+                if v.children.lobc_big_bird_particles then v.children.lobc_big_bird_particles:remove() end
                 v.children.lobc_big_bird_particles = nil
                 v.ability.big_bird_enchanted = nil
             end
@@ -1332,6 +1332,32 @@ function Card.align_h_popup(self)
 end
 
 --=============== JOKERS ===============--
+
+-- Global mod calculation
+function current_mod.calculate(self, context)
+    -- Enchanted cards, thank you Eremel for the help!!
+    if context.drawing_cards then
+        local moved = 0
+        for i=#G.deck.cards, 1, -1 do
+            if G.deck.cards[i].ability.big_bird_enchanted then
+                play_sound("lobc_big_bird_attract", 1, 0.8)
+                moved = moved + 1
+                local _c = G.deck.cards[i]
+                table.remove(G.deck.cards, i)
+                table.insert(G.deck.cards, _c)
+            end
+            if moved == context.amount then return end
+        end
+    end
+
+    if context.stay_flipped and context.to_area == G.discard then
+        if context.other_card.ability.big_bird_enchanted then
+            return {
+                modify = {to_area = G.deck}
+            }
+        end
+    end
+end
 
 -- E.G.O Gift sell costs / Fairy Festival
 local set_costref = Card.set_cost

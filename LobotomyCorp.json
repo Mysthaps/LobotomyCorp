@@ -10,7 +10,7 @@
     "display_name": "L Corp.",
     "version": "1.4.1~dev260103a",
     "dependencies": [
-        "Steamodded (>=1.0.0~BETA-1221a)"
+        "Steamodded (>=1.0.0~BETA-1317a)"
     ],
     "provides": [
         "blindexpander (1.1.0)"
