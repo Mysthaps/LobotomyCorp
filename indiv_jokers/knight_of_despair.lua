@@ -88,7 +88,7 @@ end
 local get_chip_x_multref = Card.get_chip_x_mult
 function Card.get_chip_x_mult(self, context)
     local ret = get_chip_x_multref(self, context)
-    ret = SMODS.multiplicative_stacking(ret, self.ability.knight_of_despair_blessing and 1 or 0)
+    ret = SMODS.multiplicative_stacking(ret, self.ability.knight_of_despair_blessing and 2 or 0)
     return ret
 end
 

@@ -666,7 +666,7 @@ return {
             lobc_blessing = {
                 name = "Blessing",
                 text = {
-                    "{X:mult,C:white} X2 {} Mult",
+                    "{X:mult,C:white} X3 {} Mult",
                     "Cannot be {C:red}debuffed{}"
                 }
             },
