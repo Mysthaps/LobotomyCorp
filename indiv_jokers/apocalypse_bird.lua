@@ -40,12 +40,12 @@ joker.calculate = function(self, card, context)
         end
     end
     if context.individual and context.cardarea == G.play then
-        local id = context.other_card:get_id()
-        local temp = context.other_card.ability.big_bird_enchanted and card.ability.extra.x_mult or 1
-        return {
-            x_mult = temp,
-            card = context.blueprint_card or card,
-        }
+        if context.other_card.ability.big_bird_enchanted then
+            return {
+                x_mult = card.ability.extra.x_mult,
+                card = context.blueprint_card or card,
+            }
+        end
     end
 end
 
