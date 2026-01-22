@@ -5,8 +5,8 @@ local mod_path = SMODS.current_mod.path
 local config = SMODS.current_mod.config
 lobc_seen_what = config.seen_what
 local folder = string.match(mod_path, "[Mm]ods.*")
-SMODS.load_file("blindexpander.lua")()
-SMODS.load_file("lyrics.lua")()
+SMODS.load_file("libs/blindexpander.lua")()
+SMODS.load_file("libs/lyrics.lua")()
 
 -- copied from cryptid's cry_deep_copy
 function lobc_deep_copy(obj, seen)
@@ -281,7 +281,7 @@ end
 SMODS.Joker.discover_override = nil
 SMODS.Joker.discover_rounds = nil
 for _, v in ipairs(joker_list) do
-    local joker = SMODS.load_file("indiv_jokers/" .. v .. ".lua")()
+    local joker = SMODS.load_file("items/jokers/" .. v .. ".lua")()
 
     --joker.discovered = true
     joker.alerted = true
@@ -431,16 +431,14 @@ end
 
 -- Load all blinds
 for _, v in ipairs(blind_list) do
-    local blind = SMODS.load_file("indiv_blinds/" .. v .. ".lua")
-    if not blind then goto continue else blind = blind() end
-
+    local blind = SMODS.load_file("items/blinds/" .. v .. ".lua")()
     blind.key = v
     blind.atlas = blind.atlas or "LobotomyCorp_Blind"
-    if not blind.pos then blind.pos = {x = 0, y = 0} end
+    if not blind.pos then blind.pos = { x = 0, y = 0 } end
     if blind.atlas == "v" then blind.atlas = nil end
     --blind.discovered = true
-    if blind.color then
-        blind.boss_colour = badge_colors["lobc_o_" .. blind.color]
+    if blind.lobc_color then
+        blind.boss_colour = badge_colors["lobc_o_" .. blind.lobc_color]
     end
 
     local blind_obj = SMODS.Blind(blind)
@@ -450,7 +448,6 @@ for _, v in ipairs(blind_list) do
             blind_obj[k_] = blind[k_]
         end
     end
-    ::continue::
 end
 
 -- Load all sounds
@@ -464,7 +461,7 @@ for k, v in pairs(sound_list) do
         no_sync = true,
     })
     
-    for _, vv in ipairs(SMODS.load_file("sound_conditionals.lua")()) do
+    for _, vv in ipairs(SMODS.load_file("items/sounds.lua")()) do
         if k == vv.key then
             sound.select_music_track = vv.select_music_track
             sound.bpm = vv.bpm
@@ -478,14 +475,14 @@ end
 
 -- Load challenges
 for _, v in ipairs(challenge_list) do
-    local chal = SMODS.load_file("challenges/" .. v .. ".lua")()
+    local chal = SMODS.load_file("items/challenges/" .. v .. ".lua")()
     chal.key = v
     local chal_obj = SMODS.Challenge(chal)
 end
 
 -- Load consumables
 for _, v in ipairs(consumable_list) do
-    local cons = SMODS.load_file("indiv_consumable/" .. v .. ".lua")()
+    local cons = SMODS.load_file("items/consumables/" .. v .. ".lua")()
 
     cons.key = v
     cons.atlas = "LobotomyCorp_consumable"
@@ -502,7 +499,7 @@ for _, v in ipairs(consumable_list) do
 end
 
 -- Load achievements
-SMODS.load_file("achievements.lua")()
+SMODS.load_file("items/achievements.lua")()
 
 --=============== DRAW STEPS ===============--
 
@@ -920,7 +917,7 @@ end
 local set_blindref = Blind.set_blind
 function Blind.set_blind(self, blind, reset, silent)
     if not reset then
-        if blind and blind.color and blind.color == "base" then
+        if blind and blind.lobc_color and blind.lobc_color == "base" then
             local chosen_blind = pseudorandom_element(blind.blind_list, pseudoseed("dusk_ordeal"))
             return self:set_blind(G.P_BLINDS['bl_lobc_'..chosen_blind], reset, silent)
         end
@@ -949,7 +946,7 @@ function Blind.set_blind(self, blind, reset, silent)
         end
     end
     set_blindref(self, blind, reset, silent)
-    if not reset and blind and (blind.time == "dusk" or blind.time == "midnight") then
+    if not reset and blind and (blind.lobc_time == "dusk" or blind.lobc_time == "midnight") then
         G.E_MANAGER:add_event(Event({trigger = 'before', func = function()
             lobc_restart_music()
         return true end }))
@@ -979,7 +976,7 @@ end
 -- WhiteNight confession win round
 local alert_debuffref = Blind.alert_debuff
 function Blind.alert_debuff(self, first)
-    if self.config.blind.color and self.config.blind.color == "base" then return end
+    if self.config.blind.lobc_color and self.config.blind.lobc_color == "base" then return end
     if self.config.blind.phases then return end
     if self.config.blind.key == "bl_lobc_apocalypse_bird" or find_passive("psv_lobc_cracking_eggs") then return end
     if self.config.blind.key == "bl_lobc_mg_hatred" then
@@ -1064,7 +1061,7 @@ function Blind.alert_debuff(self, first)
             end
         }))
     else
-        if self.config.blind.color and not config.disable_all_text then
+        if self.config.blind.lobc_color and not config.disable_all_text then
             self:ordeal_alert()
         else 
             alert_debuffref(self, first) 
@@ -1075,7 +1072,7 @@ end
 -- Make Ordeals not end the game on win ante hopefully
 local get_typeref = Blind.get_type
 function Blind.get_type(self)
-    if self.config.blind.color and not self.config.bonus then
+    if self.config.blind.lobc_color and not self.config.bonus then
         return G.GAME.blind_on_deck
     end
     return get_typeref(self)
@@ -1313,7 +1310,7 @@ local skill_list = {
 }
 -- Load all skills
 for k, v in pairs(skill_list) do
-    local skill = SMODS.load_file("indiv_skills/" .. v .. ".lua")()
+    local skill = SMODS.load_file("items/skills/" .. v .. ".lua")()
     skill.key = v
     local skill_obj = SMODS.SkillLobc(skill)
 end
@@ -1734,7 +1731,7 @@ function ease_background_colour_blind(state, blind_override)
         if G.GAME.blind.config.blind.lobc_bg then
             ease_background_colour(G.GAME.blind.config.blind.lobc_bg)
             return
-        elseif G.GAME.blind.config.blind.time and (G.GAME.blind.config.blind.time == "dawn" or G.GAME.blind.config.blind.time == "noon") and G.GAME.blind.config.blind.color ~= "base" then
+        elseif G.GAME.blind.config.blind.lobc_time and (G.GAME.blind.config.blind.lobc_time == "dawn" or G.GAME.blind.config.blind.lobc_time == "noon") and G.GAME.blind.config.blind.lobc_color ~= "base" then
             ease_background_colour{new_colour = lighten(mix_colours(G.GAME.blind.config.blind.boss_colour, G.C.BLACK, 0.3), 0.1), special_colour = G.GAME.blind.config.blind.boss_colour, contrast = 2}
             return
         end
@@ -1954,9 +1951,9 @@ function Blind:ordeal_alert()
                     delay = G.SETTINGS.GAMESPEED * 0.05,
                     blockable = false,
                     func = (function()
-                        play_sound('lobc_'..self.config.blind.color..'_start', 1, 0.3)
+                        play_sound('lobc_'..self.config.blind.lobc_color..'_start', 1, 0.3)
                         local hold_time = G.SETTINGS.GAMESPEED * 5
-                        local loc_key = 'k_lobc_'..self.config.blind.time..'_'..self.config.blind.color
+                        local loc_key = 'k_lobc_'..self.config.blind.lobc_time..'_'..self.config.blind.lobc_color
                         lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false})
                         lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false})
                         lobc_screen_text({scale = 0.35, text = localize(loc_key..'_start_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false})
@@ -1987,7 +1984,7 @@ end
 -- Announce Ordeal during end_round
 local draw_from_hand_to_discardref = G.FUNCS.draw_from_hand_to_discard
 function G.FUNCS.draw_from_hand_to_discard(e)
-    if G.GAME.blind.config.blind.color then
+    if G.GAME.blind.config.blind.lobc_color then
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
             delay = not config.disable_all_text and G.SETTINGS.GAMESPEED * 4 or 0,
@@ -1996,8 +1993,8 @@ function G.FUNCS.draw_from_hand_to_discard(e)
                 if config.disable_all_text then return true end
                 local hold_time = G.SETTINGS.GAMESPEED * 5
                 local blind = G.GAME.blind
-                local loc_key = 'k_lobc_'..blind.config.blind.time..'_'..blind.config.blind.color
-                play_sound('lobc_'..blind.config.blind.color..'_end', 1, 0.3)
+                local loc_key = 'k_lobc_'..blind.config.blind.lobc_time..'_'..blind.config.blind.lobc_color
+                play_sound('lobc_'..blind.config.blind.lobc_color..'_end', 1, 0.3)
                 lobc_screen_text({scale = 0.3, text = localize(loc_key), hold = hold_time, align = 'cm', offset = { x = 0, y = -3.5 }, major = G.play, noisy = false, float = false})
                 lobc_screen_text({scale = 1, text = localize(loc_key..'_name'), hold = hold_time, align = 'cm', offset = { x = 0, y = -2.5 }, major = G.play, noisy = false, float = false})
                 lobc_screen_text({scale = 0.35, text = localize(loc_key..'_end_1'), hold = hold_time, align = 'cm', offset = { x = 0, y = -1 }, major = G.play, noisy = false, float = false})

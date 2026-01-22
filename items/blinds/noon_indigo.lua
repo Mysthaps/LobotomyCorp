@@ -1,7 +1,7 @@
 local blind = {
     name = "Indigo Noon",
-    color = "indigo",
-    time = "noon",
+    lobc_color = "indigo",
+    lobc_time = "noon",
     pos = {x = 0, y = 14},
     dollars = 4, 
     mult = 1.5, 

@@ -197,7 +197,7 @@ return {
             end
             if G.GAME.blind and G.GAME.blind.config.blind.phases and G.GAME.current_round.phases_beaten == 0 then return 1e5 end
             return (G.GAME and G.GAME.blind and 
-            ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "midnight") or
+            ((G.GAME.blind.config.blind.lobc_time and G.GAME.blind.config.blind.lobc_time == "midnight") or
             (config.lobcorp_music and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown))) and 1e4 or false
         end,
     },
@@ -208,7 +208,7 @@ return {
         select_music_track = function()
             if config.no_music then return false end
             return (G.GAME and G.GAME.blind and 
-            ((G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == "dusk") or
+            ((G.GAME.blind.config.blind.lobc_time and G.GAME.blind.config.blind.lobc_time == "dusk") or
             (G.GAME.blind.original_blind and G.GAME.blind.original_blind == "bl_lobc_dusk_crimson") or
             (config.lobcorp_music and G.GAME.blind.config.blind.boss and not G.GAME.blind.config.blind.boss.showdown))) and 1e3 or false
         end,

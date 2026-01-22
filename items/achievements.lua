@@ -58,7 +58,7 @@ local achievements = {
     midnight = {
         unlock_condition = function(self, args)
             if args.type == "round_win" then
-                if G.GAME.blind.config.blind.time and G.GAME.blind.config.blind.time == 'midnight' then
+                if G.GAME.blind.config.blind.lobc_time and G.GAME.blind.config.blind.lobc_time == 'midnight' then
                     return true
                 end
             end
