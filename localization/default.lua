@@ -440,11 +440,116 @@ return {
             },
 
             ---- Boosters ----
-            p_lobc_extraction_normal = {
-                name = "Extraction Pack",
+            p_lobc_extraction_base = {
+                name = "Base Extraction Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:joker} Abnormality{} cards"
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_risky = {
+                name = "Risky Extraction Pack",
+                text = {
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_calm = {
+                name = "Calm Extraction Pack",
+                text = {
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_mega = {
+                name = "Mega Extraction Pack",
+                text = {
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_base_elite = {
+                name = "Base Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_risky_elite = {
+                name = "Risky Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_calm_elite = {
+                name = "Calm Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_mega_elite = {
+                name = "Mega Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
                 }
             },
 

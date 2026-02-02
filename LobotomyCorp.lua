@@ -500,6 +500,8 @@ end
 
 -- Load achievements
 SMODS.load_file("items/achievements.lua")()
+-- Load boosters
+SMODS.load_file("items/boosters.lua")()
 
 --=============== DRAW STEPS ===============--
 
@@ -1864,6 +1866,8 @@ function current_mod.reset_game_globals(start_run)
         G.GAME.lobc_hod_modifier = 1
         -- Rank's Sin
         G.GAME.lobc_long_arms = {}
+        -- Risk multi
+        G.GAME.lobc_risk_modifier = {1, 1, 1, 1, 1}
     else
         for k, _ in pairs(G.GAME.lobc_long_arms) do
             if G.GAME.lobc_long_arms[k] >= 10 then G.GAME.lobc_long_arms[k] = G.GAME.lobc_long_arms[k] / 2 end
@@ -2451,99 +2455,6 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
     end
     return t
 end
-
---=============== BOOSTER PACK ===============--
-
--- Get Abnormality pool
--- Implementation somewhat borrowed from Sylvie's Sillyness and based on get_current_pool()
-local function get_abno_pool(_type, _rarity, legendary, key_append)
-    --create the pool
-    G.ARGS.TEMP_POOL = EMPTY(G.ARGS.TEMP_POOL)
-    local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, {}, 'Abnormality'..(_rarity or ''), 0
-    
-    -- Increased chance to get birds when you get a bird
-    local bird = false
-    local birds = {}
-    for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
-        local birbs = SMODS.find_card(birb)
-        if next(birbs) then
-            bird = true
-            birds[birb] = #birbs
-        end
-    end
-    local roll = pseudorandom("birb_chance")
-    if not _rarity and bird and roll < 0.1 and not G.GAME.pool_flags.apocalypse_bird_event then
-        for _, birb in ipairs({"j_lobc_punishing_bird", "j_lobc_big_bird", "j_lobc_judgement_bird"}) do
-            if not birds[birb] then
-                _starting_pool[#_starting_pool+1] = G.P_CENTERS[birb]
-            end
-            bird = false
-        end
-    end
-
-    if #_starting_pool == 0 then
-        for _, v in ipairs(joker_list) do
-            if G.P_CENTERS["j_lobc_"..v] and ((_rarity and G.P_CENTERS["j_lobc_"..v].risk == _rarity) or not _rarity) then 
-                _starting_pool[#_starting_pool+1] = G.P_CENTERS["j_lobc_"..v]
-            end
-        end
-    end
-
-    --cull the pool
-    for k, v in ipairs(_starting_pool) do
-        local add = true
-        
-        if G.GAME.used_jokers[v.key] then
-            add = false
-        end
-
-        if v.yes_pool_flag and v.yes_pool_flag ~= "allow_abnormalities_in_shop" 
-           and not G.GAME.pool_flags[v.yes_pool_flag] then 
-            add = false
-        end
-        if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = false end
-
-        if add and not G.GAME.banned_keys[v.key] then
-           _pool[#_pool+1] = v.key
-           _pool_size = _pool_size + 1
-        end
-    end
-
-    --if pool is empty
-    if _pool_size == 0 then
-        _pool = EMPTY(G.ARGS.TEMP_POOL)
-        _pool[#_pool + 1] = "j_lobc_youre_bald"
-    end
-
-    return _pool, _pool_key..G.GAME.round_resets.ante
-end
-
-local get_current_poolref = get_current_pool
-function get_current_pool(_type, _rarity, _legendary, _append)
-    if _type == "Abnormality" then return get_abno_pool(_type, _rarity, _legendary, _append) end
-    if _append == "lobc_rudolta" then _rarity = ({"Common", "Uncommon", "Rare", "Legendary"})[_rarity] or _rarity end
-    return get_current_poolref(_type, _rarity, _legendary, _append)
-end
-
--- Make Extraction Pack
-SMODS.Booster({
-    key = 'extraction_normal',
-    weight = 1.75,
-    kind = "Abnormality",
-    cost = 5,
-    atlas = "LobotomyCorp_Booster",
-    config = {extra = 3, choose = 1},
-    create_card = function(self, card)
-        return { set = 'Abnormality', area = G.pack_cards, skip_materialize = true, soulable = true, key_append = 'abn' }
-    end,
-    ease_background_colour = function(self)
-        ease_background_colour_blind(G.STATES.PLANET_PACK)
-    end,
-    loc_vars = function(self, info_queue, card)
-		return { vars = {card.config.center.config.choose, card.ability.extra} }
-	end,
-    group_key = "k_lobc_extraction_pack",
-})
 
 --=============== CONFIG UI ===============--
 
