@@ -2498,8 +2498,9 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
 
             -- Energy Production
-            ch_c_lobc_production = {"After each {C:attention}Ante{}, open an {C:attention}Extraction Pack"},
-            ch_c_lobc_production_2 = {"All {C:attention}Boss Blinds{} are replaced with {C:attention}Ordeals{}"},
+            ch_c_lobc_production = {"After each {C:attention}Ante{}, open a {C:attention}Base Extraction Pack (Elite)"},
+            ch_c_lobc_production_2 = {"{C:attention}Base Extraction Pack (Elite){} does not apply {C:attention}Stickers"},
+            ch_c_lobc_production_3 = {"All {C:attention}Boss Blinds{} are replaced with {C:attention}Ordeals{}"},
 
             -- Malkuth
             ch_c_lobc_malkuth = {"After Ante {C:attention}3{}, all {C:attention}Consumables{} are faced down"},

@@ -121,31 +121,31 @@ local ExtractionPack = SMODS.Booster:extend({
 -- Normal Extraction Packs
 ExtractionPack({
     key = 'extraction_base',
-    weight = 1,
-    cost = 5,
+    weight = 0.6,
+    cost = 4,
     pos = {x = 0, y = 0},
     config = {extra = 3, choose = 1, risk = {30, 25, 20, 15, 10}},
 })
 
 ExtractionPack({
     key = 'extraction_risky',
-    weight = 1,
-    cost = 7,
+    weight = 0.6,
+    cost = 6,
     pos = {x = 2, y = 0},
     config = {extra = 3, choose = 1, risk = {0, 0, 40, 35, 25}},
 })
 
 ExtractionPack({
     key = 'extraction_calm',
-    weight = 1,
-    cost = 3,
+    weight = 0.6,
+    cost = 4,
     pos = {x = 0, y = 1},
     config = {extra = 3, choose = 1, risk = {60, 30, 10, 0, 0}},
 })
 
 ExtractionPack({
     key = 'extraction_mega',
-    weight = 1,
+    weight = 0.15,
     cost = 8,
     pos = {x = 2, y = 1},
     config = {extra = 5, choose = 2, risk = {15, 20, 30, 20, 15}},
@@ -154,32 +154,32 @@ ExtractionPack({
 -- Elite Extraction Packs
 ExtractionPack({
     key = 'extraction_base_elite',
-    weight = 1,
-    cost = 5,
+    weight = 0.3,
+    cost = 6,
     pos = {x = 1, y = 0},
     config = {extra = 3, choose = 1, risk = {15, 20, 30, 20, 15}, elite = true},
 })
 
 ExtractionPack({
     key = 'extraction_risky_elite',
-    weight = 1,
-    cost = 7,
+    weight = 0.3,
+    cost = 8,
     pos = {x = 3, y = 0},
     config = {extra = 3, choose = 1, risk = {0, 0, 30, 40, 30}, elite = true},
 })
 
 ExtractionPack({
     key = 'extraction_calm_elite',
-    weight = 1,
-    cost = 3,
+    weight = 0.3,
+    cost = 6,
     pos = {x = 1, y = 1},
     config = {extra = 3, choose = 1, risk = {40, 30, 30, 0, 0}, elite = true},
 })
 
 ExtractionPack({
     key = 'extraction_mega_elite',
-    weight = 1,
-    cost = 8,
+    weight = 0.075,
+    cost = 10,
     pos = {x = 3, y = 1},
     config = {extra = 5, choose = 2, risk = {10, 15, 30, 25, 20}, elite = true},
 })
