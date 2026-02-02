@@ -1064,7 +1064,7 @@ return {
                 text = {
                     {"{C:purple}[Active Ability]",
                     "Costs {C:money}#2#%{} of current {C:money}$ {C:inactive,s:0.9}(min. {C:money,s:0.9}$#4#{C:inactive,s:0.9}, rounded down)",
-                    "Next hand, {red}destroys{} all {C:attention}Enhanced{} cards, then",
+                    "Next hand, {C:red}destroys{} all {C:attention}Enhanced{} cards, then",
                     "enhances all unenhanced cards to {C:attention}Mult Cards{}"},
                     {"{C:attention}Mult Cards{} give {X:mult,C:white} X#1# {} Mult"},
                     {"Every {C:purple}Active Ability{}, or every hand",

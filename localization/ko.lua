@@ -250,6 +250,13 @@ return {
                     "{C:red}어디로 가나.{}"
                 }
             },
+            und_j_lobc_der_freischutz = {
+                name = "F-01-69",
+                text = {
+                    "\"역시 네 말대로 어떤 사람이라도",
+                    "맞출 수 있는 마법의 탄환이로구나.\"",
+                }
+            },
             und_j_lobc_knight_of_despair = {
                 name = "O-01-73",
                 text = {
@@ -647,7 +654,7 @@ return {
             lobc_blessing = {
                 name = "가호",
                 text = {
-                    "{X:mult,C:white} X2 {} 배수",
+                    "{X:mult,C:white} X3 {} 배수",
                     "{C:red}디버프{}되지 않음"
                 }
             },
@@ -1070,13 +1077,32 @@ return {
                     "무작위 조커에 {C:dark_edition}영구{} 스티커를 부착합니다"},
                 }
             },
+            j_lobc_der_freischutz = {
+                name = "마탄의 사수",
+                text = {
+                    {"{C:purple}[액티브 효과]",
+                    "현재 {C:money}돈{}의 {C:money}#2#%{}를 소비합니다",
+                    "{C:inactive,s:0.9}(최소 {C:money,s:0.9}$#4#{C:inactive,s:0.9}, 반내림함)",
+                    "다음 핸드의 모든 {C:attention}강화{}된 카드를 {C:red}파괴하고{},",
+                    "모든 강화되지 않은 카드를 {C:attention}배수 카드{}로 강화합니다"},
+                    {"{C:attention}배수 카드{}가 {X:mult,C:white} X#1# {} 배수를 제공합니다"},
+                    {"매 {C:purple}액티브 효과 발동{} 또는 핸드에 득점한",
+                    "{C:attention}배수 카드{}가 아닌 카드가 있을 경우",
+                    "{C:prey_mark}마탄{}을 {C:attention}1{}만큼 증가시킵니다",
+                    "{C:inactive}(현재 마탄 {C:attention}#3# {C:inactive}개)",},
+                    {"{C:prey_mark}마탄{}이 {C:attention}7{}에 도달 시, 자동으로",
+                    "무작위 {C:attention}7{}장의 카드를 대상으로",
+                    "{C:purple}액티브 효과{}를 발동하고",
+                    "{C:prey_mark}마탄{}을 초기화합니다"},
+                }
+            },
             j_lobc_knight_of_despair = {
                 name = "절망의 기사",
                 text = {
                     {"카드가 사용되거나 팔리거나 파괴될 경우",
-                    "이 환상체가 깊은 눈물을 {C:attention}1{} 얻습니다",
+                    "이 환상체가 {C:o_indigo}깊은 눈물{}을 {C:attention}1{} 얻습니다",
                     "{C:inactive}(현재 {C:attention}#1#{C:inactive} 깊은 눈물)"},
-                    {"깊은 눈물이 {C:attention}10{} 이상일 경우 모두 소비하여",
+                    {"{C:o_indigo}깊은 눈물{}이 {C:attention}10{} 이상일 경우 모두 소비하여",
                     "첫 득점한 카드에 {C:blessing}가호{}를 내립니다"},
                     {"{C:blessing}가호{}가 부여된 카드가 파괴될 경우",
                     "이 환상체가 {C:attention}탈출{}합니다"},
@@ -1189,13 +1215,12 @@ return {
             j_lobc_scarecrow_searching = {
                 name = "지혜를 구하는 허수아비",
                 text = {
-                    {"매 블라인드 이후 {C:attention}2{}장의 ",
-                    "{C:tarot}지혜{} 카드를 생성합니다",
-                    "{C:inactive}(Must have room){}"},
+                    {"매 블라인드 이후 {C:tarot}지혜{} 카드를 1장 생성합니다",
+                    "{C:inactive}(공간이 있어야 합니다){}"},
                     {"매 핸드 이후 {C:tarot}지혜{} 카드를 파괴하고",
                     "득점한 카드에 {C:red}강화{}, {C:blue}인장{} 또는 {C:dark_edition}에디션{}을 부여합니다"},
                     {"지혜 카드가 없다면, 블라인드 크기를",
-                    "생성한 {C:tarot}지혜{}마다 {C:attention}10%{} 증가시킵니다",
+                    "생성한 {C:tarot}지혜{}마다 {C:attention}50%{} 증가시킵니다",
                     "{C:inactive}(라운드 당 1회){}",
                     "{C:inactive}(생성한 {C:tarot}지혜{C:inactive}: {C:attention}#1#{C:inactive}장)"}
                 }
@@ -2877,6 +2902,8 @@ return {
             ach_lobc_dead_silence = "침묵",
             ach_lobc_laetitia = "래티씨아",
             ach_lobc_solemn_lament = "엄숙한 애도",
+            ach_lobc_magic_bullet = "마탄",
+            ach_lobc_sword_sharpened = "눈물로 벼려낸 검",
             ach_lobc_smile = "웃음",
             ach_lobc_aspiration = "열망",
             ach_lobc_wingbeat = "날갯짓",
@@ -2922,6 +2949,8 @@ return {
             ach_lobc_dead_silence = "침묵의 대가로 조커를 파괴하지 않고 카드를 10장 변환하기",
             ach_lobc_laetitia = "덱에 30장 이상의 카드를 꼬마 마녀의 선물로 만들기",
             ach_lobc_solemn_lament = "죽은 나비들의 장례로 모든 조커를 네거티브 없이 영구 스티커를 부착하기",
+            ach_lobc_magic_bullet = "자동으로 활성화된 마탄의 사수의 액티브 효과로 카드 7장 파괴하기",
+            ach_lobc_sword_sharpened = "절망의 기사로 한 번에 깊은 눈물 30 이상에 도달하기",
             ach_lobc_smile = "웃는 시체들의 산으로 카드당 +15 배수에 도달하기",
             ach_lobc_aspiration = "한 게임에서 열망하는 심장을 보유하고 남은 핸드가 4 이하인 상태로 연속 6라운드 진행하기",
             ach_lobc_wingbeat = "요정의 축제로 아무 카드도 파괴되지 않고 8개 이상의 상품 구매하기",
@@ -2929,7 +2958,7 @@ return {
             ach_lobc_todays_expression = "수줍은 오늘의 표정으로 10번 연속 가장 행복한 표정하기",
             ach_lobc_feather_of_honor = "불새로 X6 배수 도달하기",
             ach_lobc_tough = "\"너 대머리야...\" 완전히 관찰하기",
-            ach_lobc_blind_rage = "한 게임에서 분노의 시종을 보유한 상태로 6라운드 동안 1번의 핸드로만 각 블라인드에게 승리하기",
+            ach_lobc_blind_rage = "한 게임에서 분노의 시종을 보유하고 6라운드 동안 1 핸드로만 승리하기",
             ach_lobc_midnight = "도전이 아닌 게임에서 자정의 시련에게 승리하기",
             ach_lobc_white_nights = "\"흑주\" 클리어",
             ach_lobc_malkuth = "\"지휘\" 클리어",
@@ -2953,6 +2982,7 @@ return {
             lobc_a_sp = "정신력 +#1#",
             lobc_a_sp_minus = "정신력 -#1#",
             lobc_a_deep_tears = "깊은 눈물 +#1#",
+            lobc_a_magic_bullet = "마탄 +#1#"
         }
     },
 }
