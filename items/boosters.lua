@@ -68,12 +68,12 @@ local ExtractionPack = SMODS.Booster:extend({
             weight_i = weight_i + v * G.GAME.lobc_risk_modifier[k]
             if edition_poll > 1 - (weight_i) / total_weight then
                 _card = SMODS.create_card { set = 'Abnormality', area = G.pack_cards, rarity = ({"ZAYIN", "TETH", "HE", "WAW", "ALEPH"})[k], skip_materialize = true, soulable = true, key_append = 'abn' }
-                if self.config.elite then
+                if self.config.elite and not G.GAME.modifiers.lobc_production then
                     _card:set_edition('e_negative')
                     for _ = 1, pseudorandom("elite_sticker_count", 1, 3) do
                         local sticker = pseudorandom_element(SMODS.Stickers, pseudoseed("elite_sticker")).key
                         if not card.ability[sticker] then
-                            _card:add_sticker(sticker)
+                            _card:add_sticker(sticker, true)
                         end
                     end
                 end
