@@ -8,7 +8,7 @@
     "badge_colour": "FC3A3A",
     "badge_text_colour": "FFFFFF",
     "display_name": "L Corp.",
-    "version": "1.5.0~dev260122b",
+    "version": "1.5.0~dev260204a",
     "dependencies": [
         "Steamodded (>=1.0.0~BETA-1317a)"
     ],
