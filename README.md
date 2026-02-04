@@ -13,11 +13,13 @@ This may hinder your playing experience, but I am sure you will do just fine.</i
 **Lobotomy Corporation** is about discovery and experiment with different Abnormalities. 
 It is recommended to play with **Lobotomy Corporation** by itself on your first playthrough, regardless of this mod's cross-mod content.
 The **Discover All** functionality does not discover Abnormalities from this mod, since it can be overwhelming for new players with the amount of text each Abnormality has.
+To properly discover all Abnormalities immediately, run the function ``G.FUNCS.lobc_discover_all`` with **DebugPlus**.
 
 # Features
 ## Abnormalities, as Jokers
 Each added Abnormality have different Observation Levels that unlock more of their Information. 
 This is based on the amount of rounds played with that Abnormality in your Joker slots.
+Most Abnormalities have a downside that needs to be played around, so plan ahead accordingly.
 
 ## Abnormalities, as Boss Blinds
 Some Abnormalities are able to ***breach***. 
@@ -25,8 +27,9 @@ In addition, some breaching Abnormalities can change the upcoming fights to be a
 These blinds are very hard to take down, make sure you're well-prepared before tackling on these challenges.
 
 ## Extraction Pack
-To help with discovering Abnormalities, a new **Booster Pack** type is added. 
-This pack allows you to pick one of three Abnormalities to add to your Joker slots.
+To help with discovering Abnormalities, several new **Booster Packs** are added. 
+These pack allow you to pick one of few Abnormalities to add to your Joker slots.
+Some packs may be **Elite**, granting you a **Negative** Abnormality at the cost of dealing with extra Stickers (and their downsides). 
 
 ## Ordeals
 During the run, **Ordeals** can replace some blinds. These blinds are generally more difficult to take down compared to the other blinds, 
@@ -59,4 +62,4 @@ Please check the mod's configurations after installation.
 ### **[Limbus Company](https://store.steampowered.com/app/1973530/Limbus_Company/)** 
 
 All music used are listed in the ``music.txt`` file, found [here](https://github.com/Mysthaps/LobotomyCorp/blob/main/music.txt).
-Other credits can be found in the **Credits** tab in the mod's menu
+Other credits can be found in the **Credits** tab in the mod's menu.
