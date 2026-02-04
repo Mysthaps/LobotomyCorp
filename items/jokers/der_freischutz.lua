@@ -20,7 +20,7 @@ joker.lobc_active = function(self, card)
 end
 
 joker.lobc_can_use_active = function(self, card)
-    return G.GAME.dollars >= card.ability.extra.min_cost * card.ability.extra.cost / 100 and not card.ability.extra.active
+    return G.GAME.dollars * card.ability.extra.cost / 100 >= card.ability.extra.min_cost and not card.ability.extra.active
 end
 
 local function add_bullet(card)
