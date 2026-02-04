@@ -440,11 +440,116 @@ return {
             },
 
             ---- Boosters ----
-            p_lobc_extraction_normal = {
-                name = "Extraction Pack",
+            p_lobc_extraction_base = {
+                name = "Base Extraction Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:joker} Abnormality{} cards"
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_risky = {
+                name = "Risky Extraction Pack",
+                text = {
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_calm = {
+                name = "Calm Extraction Pack",
+                text = {
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_mega = {
+                name = "Mega Extraction Pack",
+                text = {
+                    {"Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_base_elite = {
+                name = "Base Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_risky_elite = {
+                name = "Risky Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_calm_elite = {
+                name = "Calm Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_mega_elite = {
+                name = "Mega Extraction Pack (Elite)",
+                text = {
+                    {"Must choose {C:attention}#1#{} of",
+                    "{C:attention}#2#{C:joker} Abnormality{} cards",},
+                    {"All {C:joker}Abnormality{} cards are",
+                    "{C:dark_edition}Negative{} and {C:attention}stickered{}"},
+                    {"Extraction chances:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
                 }
             },
 
@@ -2393,8 +2498,9 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}WhiteNight{C:inactive} cannot go below {C:attention}X6.66{C:inactive} Blind Size from {C:attention}Apostles{C:inactive})"},
 
             -- Energy Production
-            ch_c_lobc_production = {"After each {C:attention}Ante{}, open an {C:attention}Extraction Pack"},
-            ch_c_lobc_production_2 = {"All {C:attention}Boss Blinds{} are replaced with {C:attention}Ordeals{}"},
+            ch_c_lobc_production = {"After each {C:attention}Ante{}, open a {C:attention}Base Extraction Pack (Elite)"},
+            ch_c_lobc_production_2 = {"{C:attention}Base Extraction Pack (Elite){} does not apply {C:attention}Stickers"},
+            ch_c_lobc_production_3 = {"All {C:attention}Boss Blinds{} are replaced with {C:attention}Ordeals{}"},
 
             -- Malkuth
             ch_c_lobc_malkuth = {"After Ante {C:attention}3{}, all {C:attention}Consumables{} are faced down"},
