@@ -424,14 +424,118 @@ return {
             },
 
             ---- Boosters ----
-            p_lobc_extraction_normal = {
-                name = "추출 팩",
+            p_lobc_extraction_base = {
+                name = "Base Extraction Pack",
                 text = {
-                    "최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
-                    "{C:attention}#1#{}장을 선택합니다"
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 선택합니다",},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
                 }
             },
-
+            p_lobc_extraction_risky = {
+                name = "위험한 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 선택합니다",},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_calm = {
+                name = "안정된 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 선택합니다",},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_mega = {
+                name = "메가 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 선택합니다",},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_base_elite = {
+                name = "기본 정예 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 반드시 선택해야 합니다",},
+                    {"모든 {C:joker}환상체{} 카드들은",
+                    "{C:dark_edition}네거티브{}와 {C:attention}스티커{}가 부착됩니다"},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_risky_elite = {
+                name = "위험한 정예 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 반드시 선택해야 합니다",},
+                    {"모든 {C:joker}환상체{} 카드들은",
+                    "{C:dark_edition}네거티브{}와 {C:attention}스티커{}가 부착됩니다"},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_calm_elite = {
+                name = "안정된 정예 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 반드시 선택해야 합니다",},
+                    {"모든 {C:joker}환상체{} 카드들은",
+                    "{C:dark_edition}네거티브{}와 {C:attention}스티커{}가 부착됩니다"},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
+            p_lobc_extraction_mega_elite = {
+                name = "메가 정예 추출 팩",
+                text = {
+                    {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
+                    "{C:attention}#1#{}장을 반드시 선택해야 합니다",},
+                    {"모든 {C:joker}환상체{} 카드들은",
+                    "{C:dark_edition}네거티브{}와 {C:attention}스티커{}가 부착됩니다"},
+                    {"추출 확률:",
+                    "{C:zayin}ZAYIN{}: {V:1}#3#%",
+                    "{C:teth}TETH{}: {V:2}#4#%{}",
+                    "{C:he}HE{}: {V:3}#5#%",
+                    "{C:waw}WAW{}: {V:4}#6#%",
+                    "{C:aleph}ALEPH{}: {V:5}#7#%",}
+                }
+            },
             ---- Observation Levels ----
             lobc_obs = {
                 text = {
@@ -2390,8 +2494,9 @@ return {
             ch_c_lobc_all_whitenight_5 = {"{C:inactive}({C:dark_edition}백야{C:inactive}는 {C:attention}사도{C:inactive}의 효과로 블라인드 크기가 {C:attention}X6.66{C:inactive}배 이하로 감소하지 않습니다)"},
 
             -- Energy Production
-            ch_c_lobc_production = {"매 {C:attention}앤티{} 이후, {C:attention}추출 팩{}을 개봉합니다"},
-            ch_c_lobc_production_2 = {"모든 {C:attention}보스 블라인드{}가 {C:attention}시련{}으로 교체됩니다"},
+            ch_c_lobc_production = {"매 {C:attention}앤티{} 이후, {C:attention}기본 정예 추출 팩{}을 개봉합니다"},
+            ch_c_lobc_production_2 = {"{C:attention}기본 정예 추출 팩{}에는 {C:attention}스티커{}가 적용되지 않습니다"},
+            ch_c_lobc_production_3 = {"모든 {C:attention}보스 블라인드{}가 {C:attention}시련{}으로 교체됩니다"},
 
             -- Malkuth
             ch_c_lobc_malkuth = {"앤티 {C:attention}3{} 이후, 모든 {C:attention}소모품{}이 뒤집힙니다"},
