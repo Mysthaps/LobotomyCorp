@@ -425,7 +425,7 @@ return {
 
             ---- Boosters ----
             p_lobc_extraction_base = {
-                name = "Base Extraction Pack",
+                name = "기본 추출 팩",
                 text = {
                     {"최대 {C:attention}#2#{}장의 {C:joker}환상체{} 카드 중",
                     "{C:attention}#1#{}장을 선택합니다",},
