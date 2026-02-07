@@ -77,26 +77,4 @@ if (SMODS.Mods.MoreJokerPacks or {}).can_load then
     table.insert(chal.restrictions.banned_cards, {id = 'p_mjp_common_buffoon_pack', ids = packs})
 end
 
--- Open a Base Extraction Pack (Elite) after each Ante
-local update_shopref = Game.update_shop
-function Game.update_shop(self, dt)
-    update_shopref(self, dt)
-    if not G.GAME.modifiers.lobc_production then return end
-    if G.GAME.round_resets.ante <= G.GAME.production_last_pack then return end
-    G.GAME.production_last_pack = G.GAME.round_resets.ante
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            if G.STATE_COMPLETE then
-                local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
-                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS["p_lobc_extraction_base_elite"], {bypass_discovery_center = true, bypass_discovery_ui = true})
-                card.cost = 0
-                G.FUNCS.use_card({config = {ref_table = card}})
-                card:start_materialize()
-                return true
-            end
-        end
-    }))
-end
-
 return chal

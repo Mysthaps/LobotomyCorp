@@ -410,13 +410,14 @@ for _, v in ipairs(joker_list) do
         end
     end
 
-    if not joker.in_pool then
+    --if not joker.in_pool then
         joker_obj.in_pool = function(self, args)
-            if not args then return true end
-            if args.source == "lobc_rudolta" then return false end
-            return true
+            --if not args then return true end
+            --if args.source == "lobc_rudolta" then return false end
+            --return true
+            return false
         end
-    end
+   -- end
 
     if joker.risk then
         joker_obj.set_badges = function(self, card, badges)
@@ -1354,6 +1355,33 @@ function current_mod.calculate(self, context)
             return {
                 modify = {to_area = G.deck}
             }
+        end
+    end
+
+    if context.starting_shop then
+        -- Open a Base Extraction Pack (Elite) after each Ante
+        if G.GAME.modifiers.lobc_production then
+            if G.GAME.round_resets.ante <= G.GAME.production_last_pack then return end
+            G.GAME.production_last_pack = G.GAME.round_resets.ante
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    if G.STATE_COMPLETE then
+                        local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                        G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS["p_lobc_extraction_base_elite"], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                        card.cost = 0
+                        G.FUNCS.use_card({config = {ref_table = card}})
+                        card:start_materialize()
+                        return true
+                    end
+                end
+            }))
+        -- Create an Extraction Pack that lasts an Ante
+        else
+            G.GAME.current_round.lobc_extraction = G.GAME.current_round.lobc_extraction or get_pack("pack_extraction", "Abnormality").key
+            if G.GAME.current_round.lobc_extraction ~= "USED" then
+                SMODS.add_booster_to_shop(G.GAME.current_round.lobc_extraction)
+            end
         end
     end
 end

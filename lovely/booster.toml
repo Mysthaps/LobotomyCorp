@@ -1,0 +1,21 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Add an Ante-long Extraction Pack to shop after Boss Blind defeat
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.current_round.voucher = SMODS.get_next_vouchers()"
+position = "after"
+payload = '''G.GAME.current_round.lobc_extraction = get_pack("pack_extraction", "Abnormality").key'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "local res, pool_opts = SMODS.add_to_pool(v)"
+position = "at"
+payload = '''local res, pool_opts = SMODS.add_to_pool(v, {kind = _type})'''
+match_indent = true

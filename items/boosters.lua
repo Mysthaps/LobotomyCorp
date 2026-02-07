@@ -53,6 +53,7 @@ local ExtractionPack = SMODS.Booster:extend({
     kind = "Abnormality",
     atlas = "lobc_LobotomyCorp_Booster",
     create_card = function(self, card)
+        G.GAME.current_round.lobc_extraction = "USED"
         local _card
         -- Taken from poll_edition from overrides.lua @ SMODS
         local edition_poll = pseudorandom(pseudoseed(self.key))
@@ -68,12 +69,14 @@ local ExtractionPack = SMODS.Booster:extend({
             weight_i = weight_i + v * G.GAME.lobc_risk_modifier[k]
             if edition_poll > 1 - (weight_i) / total_weight then
                 _card = SMODS.create_card { set = 'Abnormality', area = G.pack_cards, rarity = ({"ZAYIN", "TETH", "HE", "WAW", "ALEPH"})[k], skip_materialize = true, soulable = true, key_append = 'abn' }
-                if self.config.elite and not G.GAME.modifiers.lobc_production then
+                if self.config.elite then
                     _card:set_edition('e_negative')
-                    for _ = 1, pseudorandom("elite_sticker_count", 1, 3) do
-                        local sticker = pseudorandom_element(SMODS.Stickers, pseudoseed("elite_sticker")).key
-                        if not card.ability[sticker] then
-                            _card:add_sticker(sticker, true)
+                    if not G.GAME.modifiers.lobc_production then
+                        for _ = 1, pseudorandom("elite_sticker_count", 1, 3) do
+                            local sticker = pseudorandom_element(SMODS.Stickers, pseudoseed("elite_sticker")).key
+                            if not card.ability[sticker] then
+                                _card:add_sticker(sticker, true)
+                            end
                         end
                     end
                 end
@@ -116,6 +119,9 @@ local ExtractionPack = SMODS.Booster:extend({
         }
 	end,
     group_key = "k_lobc_extraction_pack",
+    in_pool = function(self, args)
+        return args and args.kind and args.kind == "Abnormality"
+    end
 })
 
 -- Normal Extraction Packs
@@ -154,7 +160,7 @@ ExtractionPack({
 -- Elite Extraction Packs
 ExtractionPack({
     key = 'extraction_base_elite',
-    weight = 0.3,
+    weight = 0.2,
     cost = 6,
     pos = {x = 1, y = 0},
     config = {extra = 3, choose = 1, risk = {15, 20, 30, 20, 15}, elite = true},
@@ -162,7 +168,7 @@ ExtractionPack({
 
 ExtractionPack({
     key = 'extraction_risky_elite',
-    weight = 0.3,
+    weight = 0.2,
     cost = 8,
     pos = {x = 3, y = 0},
     config = {extra = 3, choose = 1, risk = {0, 0, 30, 40, 30}, elite = true},
@@ -170,7 +176,7 @@ ExtractionPack({
 
 ExtractionPack({
     key = 'extraction_calm_elite',
-    weight = 0.3,
+    weight = 0.2,
     cost = 6,
     pos = {x = 1, y = 1},
     config = {extra = 3, choose = 1, risk = {40, 30, 30, 0, 0}, elite = true},
@@ -178,7 +184,7 @@ ExtractionPack({
 
 ExtractionPack({
     key = 'extraction_mega_elite',
-    weight = 0.075,
+    weight = 0.05,
     cost = 10,
     pos = {x = 3, y = 1},
     config = {extra = 5, choose = 2, risk = {10, 15, 30, 25, 20}, elite = true},
