@@ -17,7 +17,7 @@ local function get_abno_pool(_type, _rarity, legendary, key_append)
     for k, v in ipairs(_starting_pool) do
         local add = true
         
-        if G.GAME.used_jokers[v.key] then
+        if G.GAME.used_jokers[v.key] and not SMODS.showman(v.key) then
             add = false
         end
 
