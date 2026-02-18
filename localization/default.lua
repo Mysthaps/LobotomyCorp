@@ -96,6 +96,14 @@ return {
                     "the most beautiful performance begins.",
                 }
             },
+            und_j_lobc_woodsman = {
+                name = "F-05-32",
+                text = {
+                    "This is a forest full of hearts.",
+                    "No matter how many he cuts down,",
+                    "the forest still remains dense."
+                }
+            },
             und_j_lobc_big_bird = {
                 name = "O-02-40",
                 text = {
@@ -912,6 +920,19 @@ return {
                     "{C:attention}#2#{} is shuffled next Blind"},
                     {"When round ends, or when this Abnormality",
                     "is removed, removes all {C:attention}Movements"},
+                }
+            },
+            j_lobc_woodsman = {
+                name = "Warm-hearted Woodsman",
+                text = {
+                    {"Gives {C:money}${} equals to {C:warm_heart}Warm Heart{} for each held",
+                    "Joker, then reduce {C:warm_heart}Warm Heart{} by {C:attention}1",
+                    "{C:inactive}(Currently {C:attention}#1# {C:inactive}Warm Heart, max. 3)"},
+                    {"When a {C:clubs}Clubs{} card is destroyed,",
+                    "{C:attention}+1 {C:warm_heart}Warm Heart{}"},
+                    {"Once this Abnormality gains {C:warm_heart}Warm Heart{}, when",
+                    "{C:warm_heart}Warm Heart{} reaches {C:attention}0{}, destroy a Joker with",
+                    "the highest sell cost for {C:attention}+3 {C:warm_heart}Warm Heart"},
                 }
             },
             j_lobc_big_bird = {
@@ -3015,6 +3036,7 @@ return {
             ach_lobc_bear_paws = "Bear Paws",
             ach_lobc_solitude = "Solitude",
             ach_lobc_mimicry = "Mimicry",
+            ach_lobc_logging = "Logging",
             ach_lobc_lamp = "Lamp",
             ach_lobc_grinder_mk4 = "Grinder Mk4",
             ach_lobc_red_eyes = "Red Eyes",
@@ -3064,6 +3086,7 @@ return {
             ach_lobc_bear_paws = "Upgrade the same hand type using Happy Teddy Bear 10 times in one game without resetting it",
             ach_lobc_solitude = "Reach -20 Mult or lower on Old Lady",
             ach_lobc_mimicry = "Reach Shield equal to X20 Blind Size on Nothing There",
+            ach_lobc_logging = "Restore 15 Warm Hearts with Clubs cards on Warm-hearted Woodsman",
             ach_lobc_lamp = "With Big Bird, score the same Enchanted card 3 times in one round",
             ach_lobc_grinder_mk4 = "Reach X5 Mult or higher on All-Around Helper",
             ach_lobc_red_eyes = "Destroy 10 cards in one game with Spider Bud",
@@ -3115,8 +3138,9 @@ return {
             lobc_a_sp_minus = "-#1# SP",
             lobc_a_deep_tears = "+#1# Deep Tears",
             lobc_a_magic_bullet = "+#1# Magic Bullet",
-            lobc_a_hand_size = "+#1# hand size",
-            lobc_a_hand_size_minus = "-#1# hand size",
+            lobc_a_hand_size = "+#1# Hand Size",
+            lobc_a_hand_size_minus = "-#1# Hand Size",
+            lobc_a_warm_heart = "+#1# Warm Heart",
         }
     },
 }

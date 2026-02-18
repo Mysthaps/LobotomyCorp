@@ -36,6 +36,7 @@ local joker_list = {
     "nothing_there",
     "mhz",
     --"silent_orchestra",
+    "woodsman", -- Warm-hearted Woodsman
     "big_bird",
     "all_around_helper",
     "spider_bud",
@@ -179,6 +180,7 @@ local sound_list = {
     meat_lantern = "Bunny_Start",
     freischutz_create = "Freischutz_Create",
     freischutz_shot = "Freischutz_Shot",
+    woodsman = "WoodMachine_Kill",
 
     evade = "what/evade",
     coin_fail = "what/coin_fail",
@@ -254,6 +256,7 @@ local badge_colors = {
     lobc_lantern = HEX("88CA42"),
     lobc_villain = HEX("CB34B4"),
     lobc_blessing = HEX("1506A5"),
+    lobc_warm_heart = HEX("EF2439"),
     lobc_zayin = HEX("1DF900"),
     lobc_teth = HEX("13A2FF"),
     lobc_he = HEX("FFF900"),
