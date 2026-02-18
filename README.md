@@ -1,13 +1,17 @@
+<h3 align="center">CONTENT WARNING:</h3>
+<div align="center"><i>Unsettling imagery and sounds, References to self-harm, suicide and murder</i></div>
+<br>
+<br>
 <h1 align="center">Lobotomy Corporation</h1>
 <h4 align="center"><i>Face the Fear, Build the Future.</i></h4>
 
-<p align="center"><img src="assets/LobotomyCorporationLogo.png" style="width:30%" /></p>
+<p align="center"><img src="assets/LobotomyCorporationLogo.png" style="width:20%" /></p>
 
-<h5 align="center"><i>
-Greetings, Manager. 
+<div align="center"><i>
+"Greetings, Manager. 
 I see that you've been slacking off while playing a few rounds of cards during our work hours. 
-I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have "fun" while still generating precious energy to meet the daily quota. 
-This may hinder your playing experience, but I am sure you will do just fine.</i></h5>
+I am unfamiliar with playing cards myself, but I am able to modify this little game of yours so that you can still have 'fun' while still generating precious energy to meet the daily quota. 
+This may hinder your playing experience, but I am sure you will do just fine."</i></div>
 
 # Notice
 **Lobotomy Corporation** is about discovery and experiment with different Abnormalities. 
