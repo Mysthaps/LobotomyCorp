@@ -68,9 +68,8 @@ end
 local ease_dollarsref = ease_dollars
 function ease_dollars(mod, instant)
     if G.STATE ~= G.STATES.SHOP and G.STATE ~= G.STATES.PLAY_TAROT then return ease_dollarsref(mod, instant) end
-    local greeds = SMODS.find_card("j_lobc_king_of_greed")
-    if greeds[1] and mod < 0 then
-        for _, v in ipairs(greeds) do
+    if mod < to_big(0) then
+        for _, v in ipairs(SMODS.find_card("j_lobc_king_of_greed") or {}) do
             v.ability.extra.this = v.ability.extra.this - mod
         end
     end
