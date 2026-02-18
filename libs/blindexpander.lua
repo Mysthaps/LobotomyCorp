@@ -9,7 +9,7 @@
 --- If passive description is too long, changing how it is formatted instead of changing UIBox width is preferred
 
 to_big = to_big or function(x) return x end
-local BLINDEXPANDER_VERSION = 101000
+local BLINDEXPANDER_VERSION = 102010
 
 local function startup()
     if blindexpander.started_up then return end
@@ -31,8 +31,22 @@ local function startup()
         if not reset then
             self.passives = blind and lobc_deep_copy(blind.passives)
             if self.passives then
+                self.passives_data = {}
+                for _, key in ipairs(self.passives) do
+                    local obj = blindexpander.Passives[key]
+                    local cfg = {}
+                    if obj then
+                        cfg = copy_table(obj.config)
+                        obj:apply(false)
+                    end
+                    self.passives_data[#self.passives_data + 1] = {
+                        disabled = false,
+                        key = key,
+                        config = cfg
+                    }
+                end
                 self.children.alert = UIBox{
-                    definition = create_UIBox_card_alert(), 
+                    definition = create_UIBox_card_alert(),
                     config = {
                         align = "tri",
                         offset = {
@@ -52,6 +66,7 @@ local function startup()
     function Blind.save(self)
         local blindTable = blind_saveref(self)
         blindTable.passives = self.passives
+        blindTable.passives_data = self.passives_data
         blindTable.original_blind = self.original_blind
         return blindTable
     end
@@ -59,33 +74,238 @@ local function startup()
     local blind_loadref = Blind.load
     function Blind.load(self, blindTable)
         self.passives = blindTable.passives
+        self.passives_data = blindTable.passives_data
         self.original_blind = blindTable.original_blind
         blind_loadref(self, blindTable)
     end
-
-    function info_from_passive(passive)
+    function info_from_passive(passive_data)
         local width = 6
         for _, v in ipairs(SMODS.Mods) do
             if v.passive_ui_size and type(v.passive_ui_size) == "function" then
                 width = math.max(width, v.passive_ui_size())
             end
         end
+        local obj = blindexpander.Passives[passive_data.key]
+        local disabled = G.GAME.blind.disabled or passive_data.disabled
+        local loc_res = {}
+        if obj then
+            loc_res = obj:loc_vars(G.GAME.blind, passive_data) or {}
+        end
+        local no_name = loc_res.no_name
+        local loc_key = loc_res.key or passive_data.key
+        local loc_set = loc_res.set or "Passive"
         local desc_nodes = {}
-        localize{type = 'descriptions', key = passive, set = "Passive", nodes = desc_nodes, vars = {}}
+        localize{type = 'descriptions', key = loc_key, set = loc_set, nodes = desc_nodes, vars = loc_res.vars or {}}
         local desc = {}
         for _, v in ipairs(desc_nodes) do
             desc[#desc+1] = {n=G.UIT.R, config={align = "cl"}, nodes=v}
         end
+        local name_nodes = localize{type = 'name', key = loc_key, set = loc_set, name_nodes = {}, vars = loc_res.vars or {}}
+        if disabled then
+            name_nodes[1].nodes[1].nodes[1].config.strikethrough = G.C.RED
+        end
         return 
         {n=G.UIT.R, config={align = "cl", colour = lighten(G.C.GREY, 0.4), r = 0.1, padding = 0.05}, nodes={
-            {n=G.UIT.R, config={align = "cl", padding = 0.05, r = 0.1}, nodes = localize{type = 'name', key = passive, set = "Passive", name_nodes = {}, vars = {}}},
+            (not no_name) and {n=G.UIT.R, config={align = "cl", padding = 0.05, r = 0.1}, nodes = name_nodes} or nil,
             {n=G.UIT.R, config={align = "cl", minw = width, minh = 0.4, r = 0.1, padding = 0.05, colour = desc_nodes.background_colour or G.C.WHITE}, nodes={{n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=desc}}}
         }}
     end
 
+    function Blind:disable_passive(key)
+        if find_passive(key) then
+            for _, data in ipairs(self.passives_data) do
+                if data.key == key and not data.disabled then
+                    data.disabled = true
+                    local obj = blindexpander.Passives[key]
+                    if obj then
+                        obj:remove(self, data, true)
+                    end
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        func = function()
+                        if self.boss and G.GAME.chips - G.GAME.blind.chips >= 0 then
+                            G.STATE = G.STATES.NEW_ROUND
+                            G.STATE_COMPLETE = false
+                        end
+                        return true
+                    end
+                    }))
+                    for _, v in ipairs(G.playing_cards) do
+                        self:debuff_card(v)
+                    end
+                    for _, v in ipairs(G.jokers.cards) do
+                        self:debuff_card(v)
+                    end
+                    if not self.children.alert then
+                        self.children.alert = UIBox{
+                            definition = create_UIBox_card_alert(),
+                            config = {
+                                align = "tri",
+                                offset = {
+                                    x = 0.1, y = 0
+                                },
+                                parent = self
+                            }
+                        }
+                    end
+                    self:wiggle()
+                    break
+                end
+            end
+        end
+    end
+
+    function Blind:enable_passive(key)
+        if find_passive(key) then
+            for _, data in ipairs(self.passives_data) do
+                if data.key == key and data.disabled then
+                    data.disabled = false
+                    local obj = blindexpander.Passives[key]
+                    if obj then
+                        obj:apply(self, data, true)
+                    end
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        func = function()
+                        if self.boss and G.GAME.chips - G.GAME.blind.chips >= 0 then
+                            G.STATE = G.STATES.NEW_ROUND
+                            G.STATE_COMPLETE = false
+                        end
+                        return true
+                    end
+                    }))
+                    for _, v in ipairs(G.playing_cards) do
+                        self:debuff_card(v)
+                    end
+                    for _, v in ipairs(G.jokers.cards) do
+                        self:debuff_card(v)
+                    end
+                    if not self.children.alert and not self.disabled then
+                       self.children.alert = UIBox{
+                            definition = create_UIBox_card_alert(),
+                            config = {
+                                align = "tri",
+                                offset = {
+                                    x = 0.1, y = 0
+                                },
+                                parent = self
+                            }
+                        }
+                    end
+                    self:wiggle()
+                    break
+                end
+            end
+        end
+    end
+
+    function Blind:add_passive(key)
+        if not find_passive(key) then
+            local obj = blindexpander.Passives[key]
+            local cfg = {}
+            if obj then
+                cfg = copy_table(obj.config)
+            end
+            local data = {
+                disabled = false,
+                key = key,
+                config = cfg
+            }
+            if obj then
+                obj:apply(self, data, false)
+            end
+            self.passives_data = self.passives_data or {}
+            self.passives_data[#self.passives_data + 1] = data
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                if self.boss and G.GAME.chips - G.GAME.blind.chips >= 0 then
+                    G.STATE = G.STATES.NEW_ROUND
+                    G.STATE_COMPLETE = false
+                end
+                return true
+            end
+            }))
+            for _, v in ipairs(G.playing_cards) do
+                self:debuff_card(v)
+            end
+            for _, v in ipairs(G.jokers.cards) do
+                self:debuff_card(v)
+            end
+            if not self.children.alert then
+                self.children.alert = UIBox{
+                    definition = create_UIBox_card_alert(),
+                    config = {
+                        align = "tri",
+                        offset = {
+                            x = 0.1, y = 0
+                        },
+                        parent = self
+                    }
+                }
+            end
+            self:wiggle()
+        end
+    end
+
+    function Blind:remove_passive(key)
+        if find_passive(key) then
+            for i, data in ipairs(self.passives_data) do
+                if data.key == key then
+                    local obj = blindexpander.Passives[key]
+                    if obj then
+                        obj:remove(self, data, false)
+                    end
+                    table.remove(self.passives_data, i)
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        func = function()
+                        if self.boss and G.GAME.chips - G.GAME.blind.chips >= 0 then
+                            G.STATE = G.STATES.NEW_ROUND
+                            G.STATE_COMPLETE = false
+                        end
+                        return true
+                    end
+                    }))
+                    for _, v in ipairs(G.playing_cards) do
+                        self:debuff_card(v)
+                    end
+                    for _, v in ipairs(G.jokers.cards) do
+                        self:debuff_card(v)
+                    end
+                    if #self.passives_data ~= 0 and not self.children.alert then
+                        self.children.alert = UIBox{
+                            definition = create_UIBox_card_alert(),
+                            config = {
+                                align = "tri",
+                                offset = {
+                                    x = 0.1, y = 0
+                                },
+                                parent = self
+                            }
+                        }
+                    end
+                    self:wiggle()
+                    break
+                end
+            end
+        end
+    end
+
+    function get_actual_original_blind(key)
+        local obj = G.P_BLINDS[key]
+        if obj.precedes_original and not obj.summon then
+            print("WARNING: precedes_original was set, but Blind does not have a summon")
+        end
+        if obj.precedes_original and obj.summon then
+            return get_actual_original_blind(obj.summon)
+        end
+        return key
+    end
+    ---@param blind Blind
     function create_UIBox_blind_passive(blind)
         local passive_lines = {}
-        for _, v in ipairs(blind.passives) do
+        for _, v in ipairs(blind.passives_data) do
             passive_lines[#passive_lines+1] = info_from_passive(v)
         end
         return
@@ -100,7 +320,7 @@ local function startup()
     function Blind.hover(self)
         if not G.CONTROLLER.dragging.target or G.CONTROLLER.using_touch then 
             if not self.hovering and self.states.visible and self.children.animatedSprite.states.visible then
-                if self.passives then
+                if self.passives_data and #self.passives_data > 0 then
                     G.blind_passive = UIBox{
                         definition = create_UIBox_blind_passive(self),
                         config = {
@@ -108,7 +328,7 @@ local function startup()
                             parent = nil,
                             offset = {
                                 x = 0.15,
-                                y = 0.2 + 0.38*#self.passives,
+                                y = 0.2 + 0.38*#self.passives_data,
                             },  
                             type = "cr",
                         }
@@ -136,9 +356,9 @@ local function startup()
     end
 
     function find_passive(key)
-        if G.GAME.blind and G.GAME.blind.passives then
-            for _, v in ipairs(G.GAME.blind.passives) do
-                if v == key then return true end
+        if G.GAME.blind and G.GAME.blind.passives_data then
+            for _, v in ipairs(G.GAME.blind.passives_data) do
+                if v.key == key then return true end
             end
         end
         return false
@@ -149,7 +369,7 @@ local function startup()
         if self.buttons then self.buttons:remove(); self.buttons = nil end
         if self.shop then self.shop:remove(); self.shop = nil end
 
-        if not G.STATE_COMPLETE and not G.GAME.blind.disabled and (G.GAME.blind.config.blind.summon or G.GAME.blind.config.blind.phases or G.GAME.blind.original_blind) then
+        if not G.STATE_COMPLETE and (not G.GAME.blind.disabled or (G.GAME.blind.config.blind.summon and G.GAME.blind.config.blind.summon_while_disabled)) and (G.GAME.blind.config.blind.summon or G.GAME.blind.config.blind.phases or G.GAME.blind.original_blind) then
             if G.GAME.blind.original_blind and not G.GAME.blind.config.blind.summon then -- Triggers if blind is not the original blind
                 -- Reset to the original blind's values
                 if G.GAME.blind.original_blind ~= G.GAME.blind.config.blind.key then
@@ -213,7 +433,7 @@ local function startup()
                     if obj.defeat and type(obj.defeat) == 'function' then
                         obj:defeat()
                     end
-                    G.GAME.blind.original_blind = G.GAME.blind.original_blind or G.GAME.blind.config.blind.key
+                    G.GAME.blind.original_blind = G.GAME.blind.original_blind or get_actual_original_blind(G.GAME.blind.config.blind.key)
                     G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.summon])
                     G.GAME.blind.dollars = G.P_BLINDS[G.GAME.blind.original_blind].dollars
                     G.GAME.blind.boss = G.P_BLINDS[G.GAME.blind.original_blind].boss
@@ -235,6 +455,12 @@ local function startup()
 
         if G.STATE ~= G.STATES.DRAW_TO_HAND then
             update_new_roundref(self, dt)
+            for _, v in ipairs(G.playing_cards) do
+                if v.ability.big_bird_enchanted and v.children.lobc_big_bird_particles then
+                    v.children.lobc_big_bird_particles:remove()
+                    v.children.lobc_big_bird_particles = nil
+                end
+            end
         end
     end
 
@@ -255,6 +481,27 @@ local function startup()
         end
         return score
     end
+
+    local blind_calcref = Blind.calculate
+    function Blind:calculate(context)
+        local blind_eff = blind_calcref(self, context)
+        local final_ret = { blind_eff }
+        if self.passives_data and not self.disabled then
+            for _, data in ipairs(self.passives_data) do
+                local obj = blindexpander.Passives[data.key]
+                if obj and not data.disabled then
+                    final_ret[#final_ret+1] = obj:calculate(self, data, context)
+                end
+            end
+        end
+        if #final_ret == 0 then
+            return nil
+        elseif #final_ret == 1 then
+            return final_ret[1]
+        else
+            return SMODS.merge_defaults(unpack(final_ret))
+        end
+    end
 end
 
 blindexpander = blindexpander or {}
@@ -263,6 +510,62 @@ if not blindexpander.ver or blindexpander.ver < BLINDEXPANDER_VERSION then
     blindexpander.startup = startup
 end
 
+function UIElement:draw_pixellated_strikethough(_type, _parallax, _emboss, _progress)
+    if not self.pixellated_rect or
+        #self.pixellated_rect[_type].vertices < 1 or
+        _parallax ~= self.pixellated_rect.parallax or
+        self.pixellated_rect.w ~= self.VT.w or
+        self.pixellated_rect.h ~= self.VT.h or
+        self.pixellated_rect.sw ~= self.shadow_parrallax.x or
+        self.pixellated_rect.sh ~= self.shadow_parrallax.y or
+        self.pixellated_rect.progress ~= (_progress or 1)
+    then
+        self.pixellated_rect = {
+            w = self.VT.w,
+            h = self.VT.h,
+            sw = self.shadow_parrallax.x,
+            sh = self.shadow_parrallax.y,
+            progress = (_progress or 1),
+            fill = {vertices = {}},
+            shadow = {vertices = {}},
+            line = {vertices = {}},
+            emboss = {vertices = {}},
+            line_emboss = {vertices = {}},
+            parallax = _parallax
+        }
+        local ext_up = self.config.ext_up and self.config.ext_up*G.TILESIZE or 0
+        local totw, toth = self.VT.w*G.TILESIZE, (self.VT.h + math.abs(ext_up)/G.TILESIZE)*G.TILESIZE
+
+        local vertices = {
+            totw,toth/2+ext_up,
+            0, toth/2+ext_up,
+            0, toth/2+ext_up+1,
+            totw,toth/2+ext_up+1
+        }
+        for k, v in ipairs(vertices) do
+            if k%2 == 1 and v > totw*self.pixellated_rect.progress then v = totw*self.pixellated_rect.progress end
+            self.pixellated_rect.fill.vertices[k] = v
+            if k > 4 then
+                self.pixellated_rect.line.vertices[k-4] = v
+                if _emboss then
+                    self.pixellated_rect.line_emboss.vertices[k-4] = v + (k%2 == 0 and -_emboss*self.shadow_parrallax.y or -0.7*_emboss*self.shadow_parrallax.x)
+                end
+            end
+            if k%2 == 0 then
+                self.pixellated_rect.shadow.vertices[k] = v -self.shadow_parrallax.y*_parallax
+                if _emboss then
+                    self.pixellated_rect.emboss.vertices[k] = v + _emboss*G.TILESIZE
+                end
+            else
+                self.pixellated_rect.shadow.vertices[k] = v -self.shadow_parrallax.x*_parallax
+                if _emboss then
+                    self.pixellated_rect.emboss.vertices[k] = v
+                end
+            end
+        end
+    end
+    love.graphics.polygon("fill", self.pixellated_rect.fill.vertices)
+end
 
 local injectItemsref = SMODS.injectItems
 function SMODS.injectItems()
