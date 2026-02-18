@@ -153,6 +153,14 @@ return {
                     "you'll never get to see again."
                 }
             },
+            und_j_lobc_bloodbath = {
+                name = "T-05-51",
+                text = {
+                    "Many hands float in the bath.",
+                    "They are the hands of",
+                    "the people I once loved."
+                }
+            },
             und_j_lobc_forsaken_murderer = {
                 name = "T-01-54",
                 text = {
@@ -977,6 +985,19 @@ return {
                     "scoring card by {C:attention}1{} after scoring"},
                     {"Cards that cannot rank down are",
                     "transformed into {C:attention}Worker Bee{} instead"},
+                }
+            },
+            j_lobc_bloodbath = {
+                name = "Bloodbath",
+                text = {
+                    {"All {C:attention}Flushes{} and {C:attention}Straights{} can be",
+                    "made with up to {C:attention}#1#{} less card(s)"},
+                    {"{C:attention}-1{} hand size if played poker hand",
+                    "contains a {C:attention}Flush{} or {C:attention}Straight{},",
+                    "otherwise restore {C:attention}1{} hand size",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} hand size taken)",},
+                    {"Increase omittable cards by {C:attention}1{} per",
+                    "hand size taken by this Abnormality"},
                 }
             },
             j_lobc_forsaken_murderer = {
@@ -2999,6 +3020,7 @@ return {
             ach_lobc_red_eyes = "Red Eyes",
             ach_lobc_bless = "Bless",
             ach_lobc_paradise_lost = "Paradise Lost",
+            ach_lobc_wrist_cutter = "Wrist Cutter",
             ach_lobc_regret = "Regret",
             ach_lobc_our_galaxy = "Our Galaxy",
             ach_lobc_beak = "Beak",
@@ -3047,6 +3069,7 @@ return {
             ach_lobc_red_eyes = "Destroy 10 cards in one game with Spider Bud",
             ach_lobc_bless = "Have not I chosen you twelve, and one of you is a devil?",
             ach_lobc_paradise_lost = "Fully observe WhiteNight",
+            ach_lobc_wrist_cutter = "Lose to Bloodbath",
             ach_lobc_regret = "With Forsaken Murderer, play a High Card",
             ach_lobc_our_galaxy = "Reach X4 or higher on Child of the Galaxy",
             ach_lobc_beak = "Be punished by Punishing Bird",
@@ -3091,7 +3114,9 @@ return {
             lobc_a_sp = "+#1# SP",
             lobc_a_sp_minus = "-#1# SP",
             lobc_a_deep_tears = "+#1# Deep Tears",
-            lobc_a_magic_bullet = "+#1# Magic Bullet"
+            lobc_a_magic_bullet = "+#1# Magic Bullet",
+            lobc_a_hand_size = "+#1# hand size",
+            lobc_a_hand_size_minus = "-#1# hand size",
         }
     },
 }

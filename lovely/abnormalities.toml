@@ -64,3 +64,12 @@ if not (G.GAME.blind.config.blind.key == "bl_lobc_mg_wrath" and G.GAME.blind.dis
     ease_hands_played(-1)
 end"""
 match_indent = true
+
+# Bloodbath
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "if min_length < 2 then min_length = 2 end"
+position = "at"
+payload = "if min_length < 2 and not next(SMODS.find_card('j_lobc_bloodbath')) then min_length = 2 end"
+match_indent = true

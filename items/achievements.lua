@@ -145,6 +145,8 @@ local achievement_list = {
     "bless",
     "paradise_lost",
     --"christmas",
+    --"hornet",
+    "wrist_cutter",
     "regret",
     --"soda",
     "our_galaxy",
