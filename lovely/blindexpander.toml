@@ -1,0 +1,138 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Make sure that global table exists before SMODS loading
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.SPEEDFACTOR = 1"
+position = "before"
+payload = '''
+blindexpander = blindexpander or {}
+'''
+match_indent = true
+
+# Make sure that the Passive class exists before mods load
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "SMODS.Blinds = {}"
+position = "before"
+payload = '''
+blindexpander.Passives = {}
+
+blindexpander.Passive = SMODS.GameObject:extend({
+    set = "Passive",
+    obj_buffer = {},
+    obj_table = blindexpander.Passives,
+    required_params = {
+        "key",
+    },
+    loc_vars = function(self, blind, passive) end,
+    config = {},
+    class_prefix = "psv",
+    calculate = function(self, blind, passive, context) end,
+    inject = function(self, i) end,
+    remove = function(self) end,
+    apply = function(self, from_disable) end,
+    create_fake_card = function(self)
+        return {
+            config = self.config,
+            disabled = false,
+            key = self.key,
+            fake_card = true
+        }
+    end,
+    generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+        if not card then
+            card = self:create_fake_card()
+        end
+        local target = {
+            type = 'descriptions',
+            key = self.key,
+            set = self.set,
+            nodes = desc_nodes,
+            AUT = full_UI_table,
+            vars =
+                specific_vars or {}
+        }
+        local res = {}
+        if self.loc_vars and type(self.loc_vars) == 'function' then
+            res = self:loc_vars(nil, card) or {}
+            target.vars = res.vars or target.vars
+            target.key = res.key or target.key
+            target.set = res.set or target.set
+            target.scale = res.scale
+            target.text_colour = res.text_colour
+        end
+
+        if desc_nodes == full_UI_table.main and not full_UI_table.name then
+            full_UI_table.name = self.set == 'Enhanced' and 'temp_value' or localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
+        elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name and self.set ~= 'Enhanced' then
+            desc_nodes.name = localize{type = 'name_text', key = res.name_key or target.key, set = target.set }
+        end
+        if specific_vars and specific_vars.debuffed and not res.replace_debuff then
+            target = { type = 'other', key = 'debuffed_' ..
+            (specific_vars.playing_card and 'playing_card' or 'default'), nodes = desc_nodes, AUT = full_UI_table, }
+        end
+        if res.main_start then
+            desc_nodes[#desc_nodes + 1] = res.main_start
+        end
+
+        localize(target)
+        if res.main_end then
+            desc_nodes[#desc_nodes + 1] = res.main_end
+        end
+        desc_nodes.background_colour = res.background_colour
+    end
+})
+'''
+
+match_indent = true
+
+# Add strikethrough property for text
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+--Draw the 'chosen triangle'
+'''
+payload = '''
+if self.config.strikethrough and self.config.strikethrough[4] > 0.01 then 
+    prep_draw(self, 1)
+    love.graphics.scale(1/(G.TILESIZE))
+    love.graphics.setLineWidth(1)
+    love.graphics.setColor(self.config.strikethrough)
+    self:draw_pixellated_strikethough('line', parallax_dist)
+    love.graphics.pop()
+end
+'''
+
+# DynaText compat
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+final_line[#final_line].nodes[1] = {n=G.UIT.O, config={
+'''
+payload = '''
+strikethrough = part.control.st and loc_colour(part.control.st),
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+font = SMODS.Fonts[part.control.f] or G.FONTS[tonumber(part.control.f)],
+'''
+payload = '''
+strikethrough = part.control.st and loc_colour(part.control.st),
+'''
