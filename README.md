@@ -66,4 +66,5 @@ Please check the mod's configurations after installation.
 ### **[Limbus Company](https://store.steampowered.com/app/1973530/Limbus_Company/)** 
 
 All music used are listed in the ``music.txt`` file, found [here](https://github.com/Mysthaps/LobotomyCorp/blob/main/music.txt).
+Localization to Chinese was done by **a2639443196** and to Korean was done by **PixelVoxel**.
 Other credits can be found in the **Credits** tab in the mod's menu.
