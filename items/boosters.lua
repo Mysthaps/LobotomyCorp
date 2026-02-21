@@ -160,34 +160,38 @@ ExtractionPack({
 -- Elite Extraction Packs
 ExtractionPack({
     key = 'extraction_base_elite',
-    weight = 0.2,
+    weight = 0, --0.2,
     cost = 6,
     pos = {x = 1, y = 0},
     config = {extra = 3, choose = 1, risk = {15, 20, 30, 20, 15}, elite = true},
+    no_collection = true
 })
 
 ExtractionPack({
     key = 'extraction_risky_elite',
-    weight = 0.2,
+    weight = 0, --0.2,
     cost = 8,
     pos = {x = 3, y = 0},
     config = {extra = 3, choose = 1, risk = {0, 0, 30, 40, 30}, elite = true},
+    no_collection = true
 })
 
 ExtractionPack({
     key = 'extraction_calm_elite',
-    weight = 0.2,
+    weight = 0, --0.2,
     cost = 6,
     pos = {x = 1, y = 1},
     config = {extra = 3, choose = 1, risk = {40, 30, 30, 0, 0}, elite = true},
+    no_collection = true
 })
 
 ExtractionPack({
     key = 'extraction_mega_elite',
-    weight = 0.05,
+    weight = 0, --0.05,
     cost = 10,
     pos = {x = 3, y = 1},
     config = {extra = 5, choose = 2, risk = {10, 15, 30, 25, 20}, elite = true},
+    no_collection = true
 })
 
 local card_openref = Card.open
