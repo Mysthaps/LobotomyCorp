@@ -1382,10 +1382,11 @@ function current_mod.calculate(self, context)
             }))
         -- Create an Extraction Pack that lasts an Ante
         else
-            G.GAME.current_round.lobc_extraction = G.GAME.current_round.lobc_extraction or get_pack("pack_extraction", "Abnormality").key
-            if G.GAME.current_round.lobc_extraction ~= "USED" then
-                SMODS.add_booster_to_shop(G.GAME.current_round.lobc_extraction)
-            end
+            --G.GAME.current_round.lobc_extraction = G.GAME.current_round.lobc_extraction or get_pack("pack_extraction", "Abnormality").key
+            --if G.GAME.current_round.lobc_extraction ~= "USED" then
+            --    SMODS.add_booster_to_shop(G.GAME.current_round.lobc_extraction)
+            --end
+            SMODS.add_booster_to_shop(get_pack("pack_extraction", "Abnormality").key)
         end
     end
 end
