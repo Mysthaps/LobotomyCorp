@@ -1509,6 +1509,13 @@ return {
             bl_lobc_whitenight = {
                 name = "백야",
                 text = {
+                    "나의 종들은 모두 일어나서",
+                    "나를 맞이하라.",
+                }
+            },
+            bl_lobc_whitenight_effect = {
+                name = "백야",
+                text = {
                     "사도 파괴 시 블라인드 크기가",
                     "기본 라운드 점수의 5배만큼 감소합니다"
                 }
@@ -2582,7 +2589,7 @@ return {
             lobc_credits_pm = "Project Moon",
             lobc_credits_twi = "Twilight & Sunset",
             lobc_credits_opp = "OppositeWolf770",
-            lobc_credits_lym = "Lyman (spikeberd)",
+            lobc_credits_lym = "Lyman (spikeberd09)",
             lobc_credits_sil = "SilverSnow",
             lobc_credits_sam = "Samario",
             lobc_credits_a26 = "a2639443196",

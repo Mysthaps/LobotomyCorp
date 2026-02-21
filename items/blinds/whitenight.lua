@@ -17,6 +17,10 @@ local blind = {
     lobc_bg = {new_colour = darken(HEX("FFFFFF"), 0.2), special_colour = darken(HEX("FFFFFF"), 0.4), contrast = 0.7}
 }
 
+blind.lobc_loc_txt = function(self)
+    return {key = "bl_lobc_whitenight_effect"}
+end
+
 blind.set_blind = function(self, reset, silent)
     if next(SMODS.find_card("j_lobc_one_sin", true)) then
         lobc_screen_text({

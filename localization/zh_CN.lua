@@ -1288,6 +1288,13 @@ return {
             bl_lobc_whitenight = {
                 name = "白夜",
                 text = {
+                    "起来，我的仆人。",
+                    "起来，为我服务。",
+                }
+            },
+            bl_lobc_whitenight_effect = {
+                name = "白夜",
+                text = {
                     "使徒被摧毁时，",
                     "盲注需求降低 5 倍基础值",
                 }
@@ -2260,7 +2267,7 @@ return {
             lobc_credits_pm = "Project Moon",
             lobc_credits_twi = "暮光 & 日落",
             lobc_credits_opp = "对立之狼770",
-            lobc_credits_lym = "莱曼 (spikeberd)",
+            lobc_credits_lym = "莱曼 (spikeberd09)",
             lobc_credits_sil = "银雪",
             lobc_credits_sam = "萨马里奥",
 
