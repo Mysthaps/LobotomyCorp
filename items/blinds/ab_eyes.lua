@@ -13,7 +13,6 @@ local blind = {
     boss_colour = HEX('C8831B'),
     passives = {
         "psv_lobc_fixed_encounter",
-        "psv_lobc_the_three_birds",
         "psv_lobc_cracking_eggs",
         "psv_lobc_lamp"
     },

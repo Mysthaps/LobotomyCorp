@@ -20,11 +20,7 @@ local blind = {
     boss_colour = HEX('C8831B'),
     passives = {
         "psv_lobc_fixed_encounter",
-        "psv_lobc_monster_of_the_forest",
-        "psv_lobc_eternal_peace",
-        "psv_lobc_lamp",
-        "psv_lobc_misdeeds",
-        "psv_lobc_judgement",
+        "psv_lobc_the_three_birds",
         "psv_lobc_suppression",
     },
     lobc_bg = {new_colour = darken(HEX("C8831B"), 0.1), special_colour = darken(HEX("C8831B"), 0.3), contrast = 1}
@@ -39,6 +35,14 @@ end
 blind.set_blind = function(self, blind, reset, silent)
     ease_hands_played(math.max(0, G.GAME.round_resets.hands + G.GAME.round_bonus.next_hands) - G.GAME.current_round.hands_left)
     ease_discard(math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards) - G.GAME.current_round.discards_left)
+    G.GAME.blind:remove_passive("psv_lobc_the_three_birds", true, true)
+    G.GAME.blind:remove_passive("psv_lobc_suppression", true, true) -- oops! sorry for the jank <3
+    G.GAME.blind:add_passive("psv_lobc_monster_of_the_forest", true, true)
+    G.GAME.blind:add_passive("psv_lobc_eternal_peace", true, true)
+    G.GAME.blind:add_passive("psv_lobc_lamp", true, true)
+    G.GAME.blind:add_passive("psv_lobc_misdeeds", true, true)
+    G.GAME.blind:add_passive("psv_lobc_judgement", true, true)
+    G.GAME.blind:add_passive("psv_lobc_suppression", true, true)
     G.GAME.blind.prepped = nil
     G.GAME.blind.hands_sub = 1
     G.GAME.blind:set_text()

@@ -136,3 +136,96 @@ font = SMODS.Fonts[part.control.f] or G.FONTS[tonumber(part.control.f)],
 payload = '''
 strikethrough = part.control.st and loc_colour(part.control.st),
 '''
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+card.config.h_popup = create_UIBox_blind_popup(v, card.config.blind.discovered)
+'''
+payload = '''
+if card.config.h_popup.config.ref_table then
+    card.config.h_popup.config.ref_table.card_pos = {x = card.T.x, y = card.T.y}
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+blind_choice.animation:define_draw_steps({
+'''
+payload = '''
+G.GAME.blindexpander_hovered_this_ante = G.GAME.blindexpander_hovered_this_ante or {}
+
+if blind_choice.config.passives then
+    blind_choice.animation.states.collide.can = true
+    blind_choice.animation.states.click.can = false
+    blind_choice.animation.states.drag.can = false
+    blind_choice.animation.states.hover.can = true
+    if not G.GAME.blindexpander_hovered_this_ante[blind_choice.config.key] then
+        blind_choice.animation.children.alert = UIBox{
+            definition = create_UIBox_card_alert(),
+            config = {
+                align = "tri",
+                offset = {
+                    x = 0.1, y = 0
+                },
+                parent = blind_choice.animation
+            }
+        }
+    end
+end
+
+function blind_choice.animation:hover()
+    if blind_choice.config.passives then
+        local fake_data = {}
+        for _, key in ipairs(blind_choice.config.passives) do
+            local obj = blindexpander.Passives[key]
+            local cfg = {}
+            if obj then
+                cfg = copy_table(obj.config)
+                obj:apply(false)
+            end
+            fake_data[#fake_data + 1] = {
+                disabled = false,
+                key = key,
+                config = cfg
+            }
+        end
+        G.blind_passive = UIBox{
+            definition = create_UIBox_blind_passive({ passives_data = fake_data }),
+            config = {
+                major = self,
+                parent = nil,
+                offset = {
+                    x = -0.15,
+                    y = 0,
+                },  
+                type = "cl",
+            }
+        }
+        G.blind_passive.attention_text = true
+        G.blind_passive.states.collide.can = false
+        G.blind_passive.states.drag.can = false
+        G.GAME.blindexpander_hovered_this_ante[blind_choice.config.key] = true
+        if self.children.alert then
+            self.children.alert:remove()
+            self.children.alert = nil
+        end
+    end
+    Sprite.hover(self)
+end
+
+function blind_choice.animation:stop_hover()
+    if G.blind_passive then
+        G.blind_passive:remove()
+        G.blind_passive = nil
+    end
+    Sprite.stop_hover(self)
+end
+'''
