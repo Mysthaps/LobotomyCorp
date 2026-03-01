@@ -95,6 +95,13 @@ return {
                     "{C:red}세상에서 가장 아름다운 연주{}가 시작된다.",
                 }
             },
+            und_j_lobc_woodsman = {
+                name = "F-05-32",
+                text = {
+                    "이 곳엔 수많은 심장이 있는 숲.",
+                    "{C:red}베어도 베어도 여전히 숲은 울창하다.{}"
+                }
+            },
             und_j_lobc_big_bird = {
                 name = "O-02-40",
                 text = {
@@ -146,6 +153,13 @@ return {
                     "목 주위가 가렵다는 기분이 든다면,",
                     "{C:red}할 수 있는 일은 다시 보지 못할{}",
                     "{C:red}푸른 하늘 따위를 보는 것 정도다.{}"
+                }
+            },
+            und_j_lobc_bloodbath = {
+                name = "T-05-51",
+                text = {
+                    "욕조에는 많은 손들이 떠다닌다.",
+                    "{C:red}우리가 사랑했던 사람들의 손{}이다.",
                 }
             },
             und_j_lobc_forsaken_murderer = {
@@ -903,6 +917,19 @@ return {
                     "덱의 모든 {C:attention}악장{}을 제거합니다"},
                 }
             },
+            j_lobc_woodsman = {
+                name = "따뜻한 마음의 나무꾼",
+                text = {
+                    {"보유한 {C:attention}조커{} 하나당 {C:warm_heart}따뜻한 마음{} 수치만큼 {C:money}${}를 획득하고,",
+                    "{C:warm_heart}따뜻한 마음{} 수치를 {C:attention}1{} 감소시킵니다.",
+                    "{C:inactive}(현재 따뜻한 마음 {C:attention}#1#{C:inactive}개, 최대 3개)"},
+                    {"{C:clubs}클럽{} 카드가 파괴될 때,",
+                    "{C:warm_heart}따뜻한 마음{} {C:attention}+1{}"},
+                    {"이 환상체가 {C:warm_heart}따뜻한 마음{}을 얻은 후,",
+                    "{C:warm_heart}따뜻한 마음{} 수치가 {C:attention}0{}에 도달하면 판매 가격이 가장 높은",
+                    "조커를 파괴하고 {C:warm_heart}따뜻한 마음{}을 {C:attention}+3{} 얻습니다."}
+                }
+            },
             j_lobc_big_bird = {
                 name = "큰 새",
                 text = {
@@ -986,6 +1013,19 @@ return {
                     "{C:attention}1{}만큼 감소시킵니다"},
                     {"더 이상 감소할 수 없을 경우",
                     "{C:attention}일벌{}로 변화합니다"},
+                }
+            },
+            j_lobc_bloodbath = {
+                name = "피의 욕조",
+                text = {
+                    {"모든 {C:attention}플러시{}와 {C:attention}스트레이트{}를",
+                    "{C:attention}#1#{}장 더 적은 카드로 만들 수 있습니다"},
+                    {"만약 플레이한 핸드에 {C:attention}플러시{}나",
+                    "{C:attention}스트레이트{} 포함 시 손패 크기 {C:attention}-1{},",
+                    "아닐 경우 손패 크기 {C:attention}+1{}",
+                    "{C:inactive}(현재 손패 크기 토큰 {C:attention}#2#{C:inactive})",},
+                    {"이 환상체의 효과로 생략 가능한 카드를",
+                    "손패 크기 토큰마다 {C:attention}1{}씩 증가시킵니다"},
                 }
             },
             j_lobc_forsaken_murderer = {
@@ -2999,11 +3039,13 @@ return {
             ach_lobc_bear_paws = "곰발바닥",
             ach_lobc_solitude = "외로움",
             ach_lobc_mimicry = "미미크리",
+            ach_lobc_logging = "벌목",
             ach_lobc_lamp = "램프",
             ach_lobc_grinder_mk4 = "연삭기 Mk4",
             ach_lobc_red_eyes = "적안",
             ach_lobc_bless = "축복",
             ach_lobc_paradise_lost = "실낙원",
+            ach_lobc_wrist_cutter = "손목긋개",
             ach_lobc_regret = "후회",
             ach_lobc_our_galaxy = "우리의 은하수",
             ach_lobc_beak = "부리",
@@ -3047,11 +3089,13 @@ return {
             ach_lobc_bear_paws = "한 게임에서 행복한 테디를 사용해 동일한 족보를 초기화하지 않고 10회 업그레이드하기",
             ach_lobc_solitude = "늙은 여인의 -20 배수 도달하기",
             ach_lobc_mimicry = "아무 것도 없는의 보호막이 블라인드 크기의 20배에 도달하기",
+            ach_lobc_logging = "클럽 카드로 얻은 따뜻한 마음의 나무꾼의 따뜻한 마음이 15에 도달하기",
             ach_lobc_lamp = "큰 새를 보유한 상태로 한 라운드에 매혹된 동일한 카드 3번 득점하기",
             ach_lobc_grinder_mk4 = "무엇이든 도와드립니다의 X5 배수 도달하기",
             ach_lobc_red_eyes = "거미봉오리로 한 게임에 열 장의 카드 파괴하기",
             ach_lobc_bless = "내가 너희 열 둘을 택하지 아니하였느냐, 그러나 너희 중의 한 사람은 마귀니라 하시니.",
             ach_lobc_paradise_lost = "\"백야\"를 완전히 관찰하기",
+            ach_lobc_wrist_cutter = "피의 욕조 효과로 패배하기",
             ach_lobc_regret = "버려진 살인마로 하이 카드 플레이하기",
             ach_lobc_our_galaxy = "은하수의 아이로 X4 배수 도달하기",
             ach_lobc_beak = "징벌 새에게 징벌당하기",
@@ -3096,7 +3140,10 @@ return {
             lobc_a_sp = "정신력 +#1#",
             lobc_a_sp_minus = "정신력 -#1#",
             lobc_a_deep_tears = "깊은 눈물 +#1#",
-            lobc_a_magic_bullet = "마탄 +#1#"
+            lobc_a_magic_bullet = "마탄 +#1#",
+            lobc_a_hand_size = "손패 크기 +#1#",
+            lobc_a_hand_size_minus = "손패 크기 -#1#",
+            lobc_a_warm_heart = "따뜻한 마음 +#1#",
         }
     },
 }
