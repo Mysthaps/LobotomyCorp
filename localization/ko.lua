@@ -920,14 +920,16 @@ return {
             j_lobc_woodsman = {
                 name = "따뜻한 마음의 나무꾼",
                 text = {
-                    {"보유한 {C:attention}조커{} 하나당 {C:warm_heart}따뜻한 마음{} 수치만큼 {C:money}${}를 획득하고,",
-                    "{C:warm_heart}따뜻한 마음{} 수치를 {C:attention}1{} 감소시킵니다.",
+                    {"보유한 {C:attention}조커{} 하나당 {C:warm_heart}따뜻한 마음{}만큼",
+                    "{C:money}${}를 획득하고 {C:warm_heart}따뜻한 마음{}을",
+                    "{C:attention}1{} 감소시킵니다",
                     "{C:inactive}(현재 따뜻한 마음 {C:attention}#1#{C:inactive}개, 최대 3개)"},
                     {"{C:clubs}클럽{} 카드가 파괴될 때,",
                     "{C:warm_heart}따뜻한 마음{} {C:attention}+1{}"},
                     {"이 환상체가 {C:warm_heart}따뜻한 마음{}을 얻은 후,",
-                    "{C:warm_heart}따뜻한 마음{} 수치가 {C:attention}0{}에 도달하면 판매 가격이 가장 높은",
-                    "조커를 파괴하고 {C:warm_heart}따뜻한 마음{}을 {C:attention}+3{} 얻습니다."}
+                    "{C:warm_heart}따뜻한 마음{} 수치가 {C:attention}0{}에 도달하면",
+                    "판매 가격이 가장 높은 조커를 파괴하고 ",
+                    "{C:warm_heart}따뜻한 마음{}을 {C:attention}+3{} 얻습니다"}
                 }
             },
             j_lobc_big_bird = {
