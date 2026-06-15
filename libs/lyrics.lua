@@ -1,3 +1,7 @@
+local current_mod = SMODS.current_mod
+local config = SMODS.current_mod.config
+local lobc_conductor = SMODS.load_file("libs/conductor.lua")()
+
 -- Compass
 function lobc_generate_screen_lyric(beat, str, duration, pop_in_rate, colour)
     local rotation = math.random(-50, 50)/100

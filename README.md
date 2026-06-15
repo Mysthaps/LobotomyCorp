@@ -53,6 +53,8 @@ Good luck, Manager. You will need it.
 Requires the latest version of **Steamodded** 1.0.0-ALPHA.  
 Instructions can be found [here](https://github.com/Steamodded/smods/wiki).
 
+Requires [**blindexpander**](https://github.com/Mysthaps/blindexpander). This is bundled in Lobotomy Corporation releases after 1.5.1.
+
 # Installation
 Head to the mod's *[Releases](https://github.com/Mysthaps/LobotomyCorp/releases/latest)* page and download the latest version.  
 You can also *clone* this repository, however, some things may break. 

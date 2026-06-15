@@ -63,8 +63,8 @@ blind.drawn_to_hand = function(self)
         SMODS.recalc_debuff(v)
     end
     if G.GAME.blind.prepped then
-        for k, v in ipairs(G.GAME.blind.passives) do
-            if v == "psv_lobc_lamp" then
+        for k, v in ipairs(G.GAME.blind.passives_data) do
+            if v.key == "psv_lobc_lamp" then
                 if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips*to_big(1/4)) then
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
@@ -76,9 +76,9 @@ blind.drawn_to_hand = function(self)
                     ease_hands_played(1)
                     G.GAME.blind.hands_sub = 2
                     G.GAME.blind:set_text()
-                    table.remove(G.GAME.blind.passives, k)
+                    G.GAME.blind:remove_passive("psv_lobc_lamp", true, true)
                 end
-            elseif v == "psv_lobc_misdeeds" then
+            elseif v.key == "psv_lobc_misdeeds" then
                 if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips*to_big(2/4)) then
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
@@ -90,10 +90,10 @@ blind.drawn_to_hand = function(self)
                     ease_hands_played(1)
                     G.GAME.blind.hands_sub = 3
                     G.GAME.blind:set_text()
-                    table.remove(G.GAME.blind.passives, k)
+                    G.GAME.blind:remove_passive("psv_lobc_misdeeds", true, true)
                     G.GAME.lobc_small_beak = nil
                 end
-            elseif v == "psv_lobc_judgement" then
+            elseif v.key == "psv_lobc_judgement" then
                 if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips*to_big(3/4)) then
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
@@ -105,7 +105,7 @@ blind.drawn_to_hand = function(self)
                     ease_hands_played(1)
                     G.GAME.blind.hands_sub = 4
                     G.GAME.blind:set_text()
-                    table.remove(G.GAME.blind.passives, k)
+                    G.GAME.blind:remove_passive("psv_lobc_judgement", true, true)
                 end
             end
         end
